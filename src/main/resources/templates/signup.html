@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Dogether</title>
+<script th:inline="javascript">
+    function goLogin() {
+        location.href = /*[[@{/login}]]*/ '';
+    }
+</script>
+</head>
+<body>
+    <h1>회원가입 정보를 확인하세요.</h1>
+    <h3 th:text="${user.nickname} + '님 가입을 축하드립니다.'"></h3>
+    <table>
+        <tr>
+            <td id="title">아이디</td>
+            <td th:text="${user.id}"></td>
+        </tr>
+        <tr>
+            <td id="title">비밀번호</td>
+            <td th:text="${user.password}"></td>
+        </tr>
+        <tr>
+            <td id="title">이메일</td>
+            <td th:text="${user.email}"></td>
+        </tr>
+        <tr>
+            <td id="title">이름</td>
+            <td th:text="${user.name}"></td>
+        </tr>
+        <tr>
+            <td id="title">닉네임</td>
+            <td th:text="${user.nickname}"></td>
+        </tr>
+        <tr>
+            <td id="title">생일</td>
+            <td th:text="${#dates.format(user.birthday, 'yyyy-MM-dd')}"></td>
+        </tr>
+        <tr>
+            <td id="title">성별</td>
+            <td th:text="${user.gender}"></td>
+        </tr>
+    </table>
+    <br>
+    <button onclick="goLogin()">확인</button>
+</body>
+</html>
