@@ -28,28 +28,26 @@ public class UserController {
 		if (isResult) {
 			return "redirect:/";
 		} else {
-			return "redirect:/error";
+			return "redirect:/signup?error";
 		}
 	}
-
-	// 로그인
-	@PostMapping("/login")
-	public String login(@ModelAttribute User user, HttpServletRequest request) {
-		User loggedInUser = userService.login(user.getUser_id(), user.getUser_pw());
-		if (loggedInUser != null) {
-			request.getSession().setAttribute("user", loggedInUser); // 로그인한 사용자 정보를 세션에 저장
-			return "redirect:/"; // 로그인 성공 시 홈페이지로 리다이렉트
-		} else {
-			return "redirect:/login"; // 로그인 실패 시 다시 로그인 페이지로 리다이렉트
-		}
+	
+	// 로그인 페이지로 이동
+	@GetMapping("/login")
+	public String loginPage() {
+	    return "user/login";
+	}
+	
+	@GetMapping("/signup")
+	public String showSignUpForm(Model model) {
+	    model.addAttribute("user", new User());
+        return "user/signup";
 	}
 
-	// 로그아웃
-	@GetMapping("/logout")
-	public String logout(HttpServletRequest request) {
-		request.getSession().invalidate(); // 세션 무효화
-		return "redirect:/"; // 홈페이지로 리다이렉트
-	}
+
+
+	// 비밀번호 확인
+	
 
 	// 회원탈퇴
 	@PostMapping("/delete")
@@ -71,7 +69,7 @@ public class UserController {
         User loggedInUser = (User) request.getSession().getAttribute("user");
         User user = userService.getById(loggedInUser.getUser_id());
         model.addAttribute("user", user);
-        return "/user/view/myInfo";
+        return "/user/myInfo";
     }
 
 }

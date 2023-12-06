@@ -3,13 +3,19 @@ package com.dogether.domain;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import lombok.Builder;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 @Getter
 @Setter
+@AllArgsConstructor
 public class User {
-    private String user_id;
+    public User() {
+	}
+    
+	private String user_id;
     private String user_pw;
     private String user_email;
     private String user_name;
@@ -17,6 +23,7 @@ public class User {
     private String user_gender;
     private Timestamp user_regdate;
     private int user_grade;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date user_birthday;
 
 }

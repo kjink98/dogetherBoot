@@ -1,17 +1,28 @@
 package com.dogether.service;
 
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dogether.domain.User;
 import com.dogether.repository.UserRepository;
 
-import lombok.RequiredArgsConstructor;
-
 @Service
-@RequiredArgsConstructor
 public class UserService {
 
 	private final UserRepository userRepository;
+
+	// 생성자를 통해 의존성 주입
+	public UserService(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
+
+	// 이메일에 해당하는 멤버 정보 보내기
+	public Optional<User> findById(String user_id) {
+		System.out.println("찍히니?");
+	    return userRepository.findById(user_id);
+	}
 
 	// 메소드의 반환 값이 0보다 큰 지 확인해 SQL 실행 여부를 판단
 	public boolean insertUser(User user) {

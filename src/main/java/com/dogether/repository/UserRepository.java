@@ -1,5 +1,7 @@
 package com.dogether.repository;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Repository;
 
 import com.dogether.domain.User;
@@ -25,10 +27,17 @@ public class UserRepository {
     	return userMapper.getById(user_id);
     }
     
+    // 이메일을 기준으로 가져오기
+    public Optional<User> findById(String user_id) {
+    	System.out.println("넌 찍힐까?");
+        return userMapper.findById(user_id);
+    }
+    
     // id와 pw 맞는 회원 로그인
     public User login(String user_id, String user_pw) {
     	return userMapper.login(user_id, user_pw);
     }
+    
     
     // 회원 탈퇴
     public int deleteUser(String user_id, String user_pw) {

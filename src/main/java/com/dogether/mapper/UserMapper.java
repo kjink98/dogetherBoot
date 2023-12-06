@@ -1,5 +1,7 @@
 package com.dogether.mapper;
 
+import java.util.Optional;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -22,6 +24,10 @@ public interface UserMapper {
     @Select("select * from tbluser where user_id = #{user_id}")
     User getById(String user_id);
     
+    // 이메일 찾기
+    @Select("SELECT * FROM tbluser WHERE user_id = #{user_id}")
+    Optional<User> findById(String user_id);
+    
     // 로그인
     @Select("select * from tbluser where user_id = #{user_id} and user_pw = #{user_pw}")
     User login(@Param("user_id") String user_id, @Param("user_pw") String user_pw);
@@ -33,4 +39,6 @@ public interface UserMapper {
     // 비밀번호 변경
     @Update("update tbluser set user_pw = #{new_pw} where user_id = #{user_id}")
     void changePassword(@Param("user_id") String user_id, @Param("new_pw") String new_pw);
+    
+    
 }

@@ -30,13 +30,13 @@
 <body>
 	<!-- Navigation Bar -->
 	<nav class="navbar navbar-expand-lg bg-body-tertiary">
-		<a class="navlogo" th:href="@{/}">Dogether</a>
+		<a class="navlogo" th:href="@{/index}">Dogether</a>
 	</nav>
 	<div class="frontbar">
-		<a th:href="@{/login}">
+		<a th:href="@{/user/login}">
 			<div class="loginbar active">로그인 하기</div>
 		</a>
-		<a th:href="@{/signUp}">
+		<a th:href="@{/user/signup}">
 			<div class="signbar">회원가입 하기</div>
 		</a>
 		<a th:href="@{/findIdPw}">
@@ -50,11 +50,13 @@
 			<div class="input">
 				<div class="input-group flex-nowrap">
 					<span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-user"></i></span>
+					
 					<input type="text" name="user_id" class="form-control" placeholder="ID" aria-label="UserID"
 						aria-describedby="addon-wrapping">
 				</div>
 				<div class="input-group flex-nowrap">
 					<span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-key"></i></span>
+					
 					<input type="password" name="user_pw" class="form-control" id="floatingPassword"
 						placeholder="Password">
 				</div>
