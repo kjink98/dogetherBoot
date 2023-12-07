@@ -37,6 +37,7 @@
 
 	<div class="container_2">
 		<h2 class="join">회원가입</h2>
+		<h3 th:text="${msg}"></h3>
 		<br>
 		<form th:action="@{/user/signup}" method="post" name="userInfo" th:object="${user}" onsubmit="return checkValue()">
 			<!-- 아이디 입력 폼 -->

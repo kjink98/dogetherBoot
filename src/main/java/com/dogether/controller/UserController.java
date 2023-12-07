@@ -3,7 +3,6 @@ package com.dogether.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,17 +19,6 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/user")
 public class UserController {
 	private final UserService userService;
-
-	// 회원 가입
-	@PostMapping("/signup")
-	public String insert(@ModelAttribute User user) {
-		boolean isResult = userService.insertUser(user);
-		if (isResult) {
-			return "redirect:/";
-		} else {
-			return "redirect:/signup?error";
-		}
-	}
 	
 	// 로그인 페이지로 이동
 	@GetMapping("/login")
@@ -38,14 +26,17 @@ public class UserController {
 	    return "user/login";
 	}
 	
+	// 회원가입 페이지로 이동
 	@GetMapping("/signup")
 	public String showSignUpForm(Model model) {
 	    model.addAttribute("user", new User());
         return "user/signup";
 	}
-
-
-
+	
+	@GetMapping("/signupSuccess")
+	public String signupSuccess() {
+	    return "user/signupSuccess";
+	}
 	// 비밀번호 확인
 	
 

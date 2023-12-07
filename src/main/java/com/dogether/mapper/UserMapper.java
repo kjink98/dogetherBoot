@@ -27,10 +27,6 @@ public interface UserMapper {
     // 이메일 찾기
     @Select("SELECT * FROM tbluser WHERE user_id = #{user_id}")
     Optional<User> findById(String user_id);
-    
-    // 로그인
-    @Select("select * from tbluser where user_id = #{user_id} and user_pw = #{user_pw}")
-    User login(@Param("user_id") String user_id, @Param("user_pw") String user_pw);
 
     // 회원 탈퇴
     @Delete("Delete from tbluser where user_id = #{user_id} and user_pw = #{user_pw}")

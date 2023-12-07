@@ -18,11 +18,14 @@ public class UserService {
 		this.userRepository = userRepository;
 	}
 
-	// 이메일에 해당하는 멤버 정보 보내기
-	public Optional<User> findById(String user_id) {
-		System.out.println("찍히니?");
-	    return userRepository.findById(user_id);
+	// id에 해당하는 멤버 정보 보내기
+	public Optional<User> findOne(String user_id) {
+		return userRepository.findById(user_id);
 	}
+
+//	public Optional<User> findById(String user_id) {
+//		return userRepository.findById(user_id);
+//	}
 
 	// 메소드의 반환 값이 0보다 큰 지 확인해 SQL 실행 여부를 판단
 	public boolean insertUser(User user) {
@@ -33,11 +36,6 @@ public class UserService {
 	// 아이디 검색
 	public User getById(String user_id) {
 		return userRepository.getById(user_id);
-	}
-
-	// 로그인
-	public User login(String user_id, String user_pw) {
-		return userRepository.login(user_id, user_pw);
 	}
 
 	// 회원 탈퇴
