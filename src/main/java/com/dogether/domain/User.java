@@ -16,6 +16,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+/**
+ * 사용자 정보를 나타내는 도메인 클래스
+ */
 public class User {
     
 	private String user_id;
@@ -28,15 +31,19 @@ public class User {
     private int user_grade;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date user_birthday;
-
+    private Role roles;
     
+    /**
+     * 사용자 정보를 생성하는 정적 팩토리 메소드
+     * 입력된 정보를 가지고 User 객체를 생성하고, 비밀번호는 암호화하여 저장
+     */
     public static User createUser(String user_id, String user_pw, String user_email, String user_name, 
-    		String user_nickname, String user_gender, Timestamp user_regdate, int user_grade, Date user_birthday, PasswordEncoder passwordEncoder) {
+    		String user_nickname, String user_gender, Timestamp user_regdate, int user_grade, Date user_birthday, PasswordEncoder passwordEncoder, Role roles) {
         return User.builder()
                 .user_id(user_id)
                 .user_pw(passwordEncoder.encode(user_pw)) // 비밀번호 암호화
                 .user_email(user_email)
-//                .roles(Role.USER)	//회원가입은 무조건 USER 계정만 만들어짐. 관리자는 따로 권한 부여해야함.
+                .roles(roles)	
                 .user_name(user_name)
                 .user_nickname(user_nickname)
                 .user_gender(user_gender)
@@ -44,6 +51,44 @@ public class User {
                 .user_grade(user_grade)
                 .user_birthday(user_birthday)
                 .build();
-      // Join 메서드를 수정해서 객체로 받을 경우 Dto파일에 메서드를 만들어야 하는데 어떤게 더 효율적인지 모르겠다.
     }
+    
+    /**
+    * Auth2 프로필 정보를 기반으로 하는 사용자 정보를 생성하는 정적 팩토리 메소드
+    * 입력된 정보를 가지고 User 객체를 생성하고, 비밀번호는 "N/A"로 저장
+    */
+    public static User createUser( String user_pw, String user_email, String user_name, 
+    		   PasswordEncoder passwordEncoder, Role roles) {
+        return User.builder()
+                .user_pw("N/A")
+                .user_email(user_email)
+                .roles(roles)	
+//              .roles(Role.USER//회원가입은 무조건 USER 계정만 만들어짐. 관리자는 따로 권한 부여해야함
+                .user_name(user_name)
+                .build();
+    }
+    
+    /**
+     * 사용자의 권한(Role)을 통해 역할의 키를 반환
+     */
+    public String getRoleKey() {
+        return this.roles.getKey();
+    }
+    
+    /**
+     *소셜로그인 사용자의 정보를 업데이트
+     */
+    public User update(String name, String email) {
+        this.user_name = name;
+        this.user_email = email;
+        return this;
+    }
+    
+    /**
+     * 비밀번호를 변경하는 메서드
+     */
+    public void update(String password, PasswordEncoder passwordEncoder){
+        this.user_pw = passwordEncoder.encode(password);
+    }
+    
 }

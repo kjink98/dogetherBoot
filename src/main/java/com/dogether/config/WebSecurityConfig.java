@@ -2,6 +2,7 @@ package com.dogether.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -9,74 +10,92 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.dogether.service.CustomOAuth2UserService;
+
 import jakarta.servlet.DispatcherType;
 
+
+/**
+ * 웹 보안 설정 클래스
+ */
 
 @EnableWebSecurity //  Spring Security 설정을 활성화
 @EnableMethodSecurity(prePostEnabled = true) //메소드 수준에서 보안 설정을 활성화, 메소드 접근 전에 보안 표현식을 평가
 @Configuration
 public class WebSecurityConfig {
+	private final CustomOAuth2UserService customOAuth2UserServicer;
+
+	// RequiredArgs로 생성자를 초기화하면 순환 참조 에러로 실행이 안됨.
+	// Lazy로 실제 실행할때 생성자를 만들도록
+	public WebSecurityConfig(@Lazy CustomOAuth2UserService customOAuth2UserServicer) {
+		this.customOAuth2UserServicer = customOAuth2UserServicer;
+	}
+	
+	/**
+	 *  SecurityFilterChain을 설정
+	 */
+	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		//CSRF 공격 방어를 비활성화
-		// token을 사용하는 방식이기 때문에 csrf disable
 		http
-		.csrf(csrf -> csrf.disable()) 
-				// 모든 사용자의 접근을 허용
-				.authorizeHttpRequests(request -> request.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-						//특정 URL 패턴에 대응하는 HTTP 요청에 대해 모든 사용자의 접근을 허용
+		.csrf(csrf -> csrf.disable()) // CSRF 공격 방어를 비활성화. 토큰을 사용하는 방식이기 때문에 CSRF를 비활성화.
+				.authorizeHttpRequests(request -> request.
+						dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll() // FORWARD 타입의 모든 요청을 허용
 						.requestMatchers("/index","/user/login", "/user/signup", "/user/signupSuccess",
-								"/css/**", "/js/**")
-						// 테스트를 위해 h2-console도 열어두자. 배포할때 지우기!
-						.permitAll() // 인증 필요없이 나올 사이트
-						// 이미지 폴더의 이미지와 회원가입 페이지는 로그인 전에도 접근할 수 있어야 하기 때문이다.
-						.anyRequest().authenticated() // 그 외의 모든 사이트는 어떠한 요청이라도 인증필요
+								"/css/**", "/js/**") // 인증 없이 접근 가능한 URL 패턴을 지정
+						.permitAll() // 위에서 지정한 URL 패턴에 대한 모든 요청을 허용
+						.anyRequest().authenticated() // 그 외의 모든 요청은 인증이 필요
 
 				)
 				
 				/* 폼로그인 처리 */
 				.formLogin(login -> login
 						// 사용자가 인증되지 않은 상태에서 보안된 페이지에 접근하려고 하면 이 URL로 리다이렉트
-						.loginPage("/user/login") // 커스텀 로그인 페이지 지정
-						.loginProcessingUrl("/login-process") // submit 받을 url
-						.usernameParameter("user_id") // submit할 아이디
-						.passwordParameter("user_pw") // submit할 비밀번호
-						.defaultSuccessUrl("/index", true) // 성공 시 이동할 페이지
-						.permitAll())
+						.loginPage("/user/login") // 사용자 정의 로그인 페이지 URL을 지정
+						.loginProcessingUrl("/login-process") // 로그인 폼 데이터를 처리할 URL을 지정
+						.usernameParameter("user_id") // 로그인 폼에서 사용자 ID를 받을 파라미터의 이름을 지정
+						.passwordParameter("user_pw") // 로그인 폼에서 비밀번호를 받을 파라미터의 이름을 지정
+						.defaultSuccessUrl("/index", true)  // 로그인 성공 후 리다이렉트할 URL을 지정
+						.failureForwardUrl("/user/loginView") // 로그인 실패 시 포워드할 URL을 지정
+						.permitAll()) // 로그인 과정에서의 모든 요청을 허용
 
 				/* 폼 로그아웃 처리 */
 				.logout(logout -> logout.
-						logoutSuccessUrl("/user/login") // 로그아웃은 기본설정으로 (/logout으로 인증해제)
-						.permitAll()
-						.invalidateHttpSession(true)) // 로그아웃 후 세션 초기화 설정
-/*
-				OAuth 로그인 처리 
+						logoutSuccessUrl("/index") // 로그아웃 성공 후 리다이렉트할 URL을 지정
+						.permitAll() // 로그아웃 과정에서의 모든 요청을 허용
+						.invalidateHttpSession(true)) // 로그아웃 성공 후 HTTP 세션을 무효화
+
+				/* OAuth 로그인 처리 */
 				.oauth2Login() // OAuth2 로그인 기능에 대한 설정 진입점
-				.userInfoEndpoint() // OAuth2 로그인 성공 이후 사용자 정보를 가져올 때 설정 담당
-				.userService(customOAuth2UserServicer) // 소셜 로그인 성공시 처리를 담당할 서비스
-				.and().loginPage("/view/login") // 커스텀 로그인 페이지 지정
-				.defaultSuccessUrl("/view/dashboard", true) // 성공 시 이동할 url
-				.failureUrl("/view/login?error") // 로그인 실패 시 이동할 페이지, 수정해야함.
+				.userInfoEndpoint() // OAuth 2 로그인 성공 후 사용자 정보를 가져오는 설정을 담당
+				.userService(customOAuth2UserServicer) // 소셜 로그인 성공 시 후속 조치를 진행할 UserService 인터페이스의 구현체를 등록
+				.and().loginPage("/user/login") // 사용자 정의 로그인 페이지 URL을 지정
+				.defaultSuccessUrl("/index", true) // 로그인 성공 후 리다이렉트할 URL을 지정
+				.failureUrl("/user/loginView") // 로그인 실패 시 리다이렉트할 URL을 지정
 				.and()
 
-				OAuth 로그아웃 처리 
-				.logout(logout -> logout.logoutSuccessUrl("/login") // 로그아웃은 기본설정으로 (/logout으로 인증해제)
-						.permitAll())
+				/* OAuth 로그아웃 처리 */
+				.logout(logout -> logout.logoutSuccessUrl("/index") // 로그아웃 성공 후 리다이렉트할 URL을 지정
+						.permitAll() // 로그아웃 과정에서의 모든 요청을 허용
+						.invalidateHttpSession(true)) // 로그아웃 성공 후 HTTP 세션을 무효화
 
 				
-*/
-				.exceptionHandling().accessDeniedPage("/user/login"); // Spring Security의 예외 처리를 설정
+
+				.exceptionHandling().accessDeniedPage("/user/login"); // 접근이 거부된 경우 리다이렉트할 URL을 지정
 		;
 //		http.headers().frameOptions().disable(); // 마찬가지로 h2-console을 사용하기 위해. 배포할때 지우기
 
 		return http.build();
 	}
 	
+	/*
+	 * PasswordEncoder를 빈으로 등록합니다.
+	 */
 	
 	@Bean
 	PasswordEncoder passwordEncoder() {
-		// 단방향 암호화가 아닌 BCrypt암호화 알고리즘을 사용하기 때문에
-		// data.sql에 저장되는 비밀번호를 미리 암호화하여 저장
+		// BCrypt 암호화 알고리즘을 사용하여 비밀번호를 암호화
+        // 이 암호화 방식은 단방향 암호화 방식이 아니므로 data.sql에 비밀번호를 저장할 때 미리 암호화하여 저장
 		return new BCryptPasswordEncoder();
 	}
 }

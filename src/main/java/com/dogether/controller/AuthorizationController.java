@@ -11,6 +11,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.dogether.domain.User;
 import com.dogether.service.RegisterUserService;
 
+/**
+ * 사용자 인증(회원가입)과 관련된 요청을 처리하는 컨트롤러
+ */
 @Controller
 @RequestMapping("/user")
 // 회원가입 로직
@@ -20,7 +23,11 @@ public class AuthorizationController {
 	public AuthorizationController(RegisterUserService registerUserService) {
 		this.registerUserService = registerUserService;
 	}
-
+	/**
+	 * 사용자가 회원가입 요청을 하면 이 메소드가 호출
+	 * 사용자가 입력한 정보를 User 객체로 받아와서 회원가입 서비스를 호출
+	 * 회원가입 성공 시 회원가입 성공 페이지로 이동하고, 실패 시 에러 메시지와 함께 회원가입 페이지로 리다이렉트
+	 */
 	@PostMapping("/signup")
 	public String signup(@ModelAttribute User user, Model model, RedirectAttributes rttr) throws DuplicateMemberException {
 		try {
@@ -33,7 +40,8 @@ public class AuthorizationController {
 	            user.getUser_gender(),
 	            user.getUser_regdate(),
 	            user.getUser_grade(),
-	            user.getUser_birthday());
+	            user.getUser_birthday(), 
+	            user.getRoles());
 	        model.addAttribute("user", user);
 	        return "user/signupSuccess";
 	    } catch (Exception e) {

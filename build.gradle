@@ -36,10 +36,15 @@ dependencies {
     // security
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    testImplementation 'org.springframework.security:spring-security-test'
     
     // test
     testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.2'
     testImplementation 'org.springframework.security:spring-security-test'
+    
+    // OAuth
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 }
 
 tasks.named('bootBuildImage') {
