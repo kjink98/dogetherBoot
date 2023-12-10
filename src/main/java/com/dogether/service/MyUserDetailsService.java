@@ -31,23 +31,13 @@ public class MyUserDetailsService implements UserDetailsService {
 					() -> new UsernameNotFoundException("없는 회원입니다")
 					);		
 			
-			/*
-			 * System.out.println(findOne.isPresent());
-			 * if (!findOne.isPresent()) {
-			    // 여기서 예외 처리 또는 로그를 추가하여 올바르지 않은 ID에 대한 상황을 처리
-			    // 사용자에게 알리거나 로그를 출력하여 이에 대한 조치를 취할 수 있습니다.
-			    // 아니면 따로 에러 페이지 생성
-			    throw new IllegalArgumentException("올바르지 않은 ID입니다.");
-			}
-			 * 
-			 */
 			
         // 사용자정의 User클래스의 빌더를 사용해
 		// username에 아이디, password에 비밀번호, roles에 권한(역할)을 넣어주면 UserDetails가 리턴 된다.
 			return User.builder()
 			        .username(user.getUser_id())
 			        .password(user.getUser_pw())
-//                .roles(user.getRoles().toString())
+			        .roles(user.getRole() != null ? user.getRole().toString() : "DEFAULT_ROLE")
 			        .build();
 		 
     }

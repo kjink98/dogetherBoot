@@ -18,4 +18,13 @@ public enum Role {
 
     private final String key;
     private final String title;
+    
+    public static Role valueOfKey(String key) {
+        for (Role role : Role.values()) {
+            if (role.getKey().equals(key)) {
+                return role;
+            }
+        }
+        return null;
+    }
 }

@@ -31,10 +31,10 @@ public class RegisterUserService {
      */
     
     public String signup(String user_id, String user_pw, String user_email, String user_name, 
-    		String user_nickname, String user_gender, Timestamp user_regdate, int user_grade, 
-    		Date user_birthday, Role roles) {
+    		String user_nickname, String user_gender, Timestamp user_regdate, 
+    		Date user_birthday, Role role) {
         User user = User.createUser(user_id, user_pw, user_email, user_name, user_nickname, user_gender, user_regdate,
-                user_grade, user_birthday, passwordEncoder, roles);
+                user_birthday, passwordEncoder, role);
         try {
 			validateDuplicateMember(user);
 		} catch (DuplicateMemberException e) {

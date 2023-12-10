@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Dogether</title>
-    <!-- include header -->
-</head>
-<body>
-    <!-- include Global Navigation Bar -->
 
-    <!-- Side Bar -->
+<head>
+	<meta charset="UTF-8">
+	<title>Dogether</title>
+	<!-- include header -->
+</head>
+
+<body>
+	<!-- include Global Navigation Bar -->
+
+	<!-- Side Bar -->
 	<div class="mylist">
 		<h2>마이 페이지</h2>
 		<div class="list">
@@ -31,39 +33,40 @@
 	</div>
 
 
-    <h2>내 정보 조회</h2>
-    <table border="1">
-        <tr>
-            <td>닉네임</td>
-            <td th:text="${user_nickname}"></td>
-        </tr>
-        <tr>
-            <td>이메일</td>
-            <td th:text="${user_email}"></td>
-        </tr>
-        <tr>
-            <td>아이디</td>
-            <td th:text="${user_id}"></td>
-        </tr>
-        <tr>
-            <td>이름</td>
-            <td th:text="${user_name}"></td>
-        </tr>
-        <tr>
-            <td>생년월일</td>
-            <td>개발중</td>
-        </tr>
-        <tr>
-            <td>성별</td>
-            <td th:text="${user_gender}"></td>
-        </tr>
-        <tr>
-            <td>회원 종류</td>
-            <td th:text="${user_grade}"></td>
-        </tr>
-    </table>
-    <hr>
-    <input type="button" value="메인으로" onclick="location.href='/Dogether'">
-    <input type="button" value="회원탈퇴" onclick="location.href='/resign'">
+	<h2>내 정보 조회</h2>
+	<table border="1">
+		<tr>
+			<td>닉네임</td>
+			<td th:text="${user_nickname}"></td>
+		</tr>
+		<tr>
+			<td>이메일</td>
+			<td th:text="${user_email}"></td>
+		</tr>
+		<tr>
+			<td>아이디</td>
+			<td th:text="${user_id}"></td>
+		</tr>
+		<tr>
+			<td>이름</td>
+			<td th:text="${user_name}"></td>
+		</tr>
+		<tr>
+			<td>생년월일</td>
+			<td>개발중</td>
+		</tr>
+		<tr>
+			<td>성별</td>
+			<td th:text="${user_gender}"></td>
+		</tr>
+		<tr>
+			<td>회원 종류</td>
+			<td th:text="${user_grade}"></td>
+		</tr>
+	</table>
+	<hr>
+	<input type="button" value="메인으로" th:onclick="'window.location.href=\'' + @{/index} + '\''"> 
+	<input type="button" value="회원탈퇴" th:onclick="'window.location.href=\'' + @{/user/resign} + '\''">
 </body>
+
 </html>

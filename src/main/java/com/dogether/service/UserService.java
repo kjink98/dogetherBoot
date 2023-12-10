@@ -2,6 +2,7 @@ package com.dogether.service;
 
 import java.util.Optional;
 
+import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -45,8 +46,13 @@ public class UserService {
      * 저장이 성공적으로 이루어졌는지 여부를 boolean 값으로 반환
      */
 	public boolean insertUser(User user) {
-		int result = userRepository.insertUser(user);
-		return result > 0;
+		try {
+			int result = userRepository.insertUser(user);
+			return result > 0;
+		}catch(MyBatisSystemException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Error occurred while inserting user.", e);
+		}
 	}
 	
 	/*
@@ -75,6 +81,7 @@ public class UserService {
 	}
 	/**
 	 * 로그인 종류에 따라 Email을 추출하는 메서드
+	 * OAuth2 로그인의 경우 OAuth2User에서, 그 외 로그인의 경우 UserDetails에서 email을 추출
 	 */
 	private String extractUserEmail(Object principal) {
 		try {
@@ -121,7 +128,12 @@ public class UserService {
 	/**
 	 * 주어진 아이디와 비밀번호에 해당하는 사용자 정보를 데이터베이스에서 삭제하는 메소드
 	 */
-	public int deleteUser(String user_id, String user_pw) {
-		return userRepository.deleteUser(user_id, user_pw);
+	public int resignUser(String user_id, String exPassword) {
+	    User user = userRepository.findById(user_id).orElse(null);
+	    if (user == null || !passwordEncoder.matches(exPassword, user.getUser_pw())) {
+	        return 0;
+	    }
+
+	    return userRepository.resignUser(user_id);
 	}
 }

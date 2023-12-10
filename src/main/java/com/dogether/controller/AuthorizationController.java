@@ -39,13 +39,13 @@ public class AuthorizationController {
 	            user.getUser_nickname(),
 	            user.getUser_gender(),
 	            user.getUser_regdate(),
-	            user.getUser_grade(),
 	            user.getUser_birthday(), 
-	            user.getRoles());
+	            user.getRole());
 	        model.addAttribute("user", user);
 	        return "user/signupSuccess";
 	    } catch (Exception e) {
 	        rttr.addFlashAttribute("msg", "회원 가입 중 오류가 발생했습니다. 다시 시도해 주세요.");
+	        System.out.println(e);
 	        return "redirect:/user/signup";
 	    }
 }

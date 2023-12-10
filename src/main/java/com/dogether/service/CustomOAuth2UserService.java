@@ -2,6 +2,7 @@ package com.dogether.service;
 
 import java.util.Collections;
 
+import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -67,19 +68,25 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
      * 없다면 새로운 사용자 정보를 생성하여 데이터베이스에 저장
      */
 	private User saveOrUpdate(OAuthAttributes attributes) {
+		try {
+			
 		
 	    // 이메일을 기반으로 기존 멤버를 조회
-		User user = userMapper.findByEmail(attributes.getEmail())
+		User user = userMapper.findById(attributes.getId())
 				//존재할경우 키,값으로 값을 관리하는 OAuth에 맞춰 업데이트 수행
 				.map(entity -> entity.update(
-							attributes.getEmail(),
+							attributes.getId(),
 							attributes.getName()
 							))
 				//존재하지 않는 신규 로그인일 경우 OAuthAttribute의 toEntity 메서드 활용
 				.orElse(attributes.toEntity());
 		
 		//그렇게 처리한 데이터를 리포지토리 저장
-		userMapper.insertUser(user);
+		userMapper.saveOrUpdate(user);
         return user;
+		} catch(MyBatisSystemException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Error occurred while saving or updating user.", e);
+		}
 	}
 }

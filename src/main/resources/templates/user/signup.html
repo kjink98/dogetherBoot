@@ -39,7 +39,8 @@
 		<h2 class="join">회원가입</h2>
 		<h3 th:text="${msg}"></h3>
 		<br>
-		<form th:action="@{/user/signup}" method="post" name="userInfo" th:object="${user}" onsubmit="return checkValue()">
+		<form th:action="@{/user/signup}" method="post" name="userInfo" th:object="${user}"
+			onsubmit="return checkValue()">
 			<!-- 아이디 입력 폼 -->
 			<div class="input-group mb-3">
 				<span class="input-group-text" id="basic-addon1">아이디</span>
@@ -55,7 +56,7 @@
 				</div>
 				<i class="fa-solid fa-eye"></i>
 			</div>
-<!--
+			<!--
 			<div class="userCheck">
 				<div class="input-group mb-3">
 					<span class="input-group-text" id="basic-addon1">비밀번호 확인</span>
@@ -75,7 +76,7 @@
 				<input type="checkbox" class="btn-check" id="btn-check" autocomplete="off">
 				&nbsp;&nbsp;&nbsp;&nbsp; <label class="btn btn-primary" for="btn-check">인증 요청</label>
 			</div>
-	<!--
+			<!--
 			<div class="userCheck">
 				<div class="input-group mb-3">
 					<span class="input-group-text" id="basic-addon1">인증 코드</span>
@@ -119,19 +120,21 @@
 					<label class="form-check-label" for="inlineRadio2">여성</label>
 				</div>
 			</div>
-<!--
+
 			<div class="userCheck">
 				<span class="input-group-text type" id="basic-addon1">회원 종류</span> &nbsp;&nbsp;&nbsp;&nbsp;
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" th:field="*{user_grade}" id="inlineRadio1" value="1">
+					<input class="form-check-input" type="radio" th:field="*{role}" id="inlineRadio1" value="SELLER"
+						disabled>
 					<label class="form-check-label" for="inlineRadio1">판매자 회원</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" th:field="*{user_grade}" id="inlineRadio2" value="2">
+					<input class="form-check-input" type="radio" th:field="*{role}" id="inlineRadio2" value="USER"
+						checked>
 					<label class="form-check-label" for="inlineRadio2">일반 회원</label>
 				</div>
 			</div>
-	
+			<!--
 			<br> <br> <span class="sss">
 				<h6>회원 약관 동의(필수)</h6> &nbsp;&nbsp;&nbsp;&nbsp; <label class="btn btn-outline-secondary"
 					for="btn-check-2-outlined">보기</label><br> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -149,7 +152,7 @@
 			</span> <br> <span class="icon-botton"> <input type="checkbox" class="btn-check" id="btn-check"
 					autocomplete="off">
 -->
-				<button type="submit" class="btn btn-primary">회원가입</button>
+			<button type="submit" class="btn btn-primary">회원가입</button>
 		</form>
 	</div>
 
