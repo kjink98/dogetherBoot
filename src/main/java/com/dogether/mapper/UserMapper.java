@@ -1,15 +1,76 @@
 package com.dogether.mapper;
 
+import java.util.Optional;
+
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.dogether.domain.User;
 
 @Mapper
+/**
+ * 사용자 정보에 관한 데이터베이스 연산을 정의한 매퍼 인터페이스
+ * MyBatis의 @Mapper 어노테이션이 붙어 있어 MyBatis가 이 인터페이스를 구현하여 SQL 쿼리를 실행
+ */
 public interface UserMapper {
-    @Insert("insert into tbluser (user_id, user_grade, user_name, user_nickname,"
+	
+	/**
+     * 새로운 사용자 정보를 데이터베이스에 삽입하는 메소드
+     * 생일 미완
+     */
+    @Insert("insert into tbluser (user_id, role, user_name, user_nickname,"
             + "user_pw, user_gender, user_email, user_regdate) "
-            + "values(#{user_id}, #{user_grade}, #{user_name}, #{user_nickname},"
+            + "values(#{user_id}, 'USER',  #{user_name}, #{user_nickname},"
             + "#{user_pw}, #{user_gender}, #{user_email}, sysdate)")
     int insertUser(User user);
-}
+    
+    /**
+     * 사용자 정보를 데이터베이스에 저장하거나 업데이트하는 메소드
+     * 이미 사용자 아이디가 데이터베이스에 존재하는 경우, 사용자 정보를 업데이트
+     * 사용자 아이디가 데이터베이스에 존재하지 않는 경우, 새로운 사용자 정보를 삽입
+     */
+    @Insert({
+        "MERGE INTO tbluser u",
+        "USING (SELECT #{user_id} as tmpId FROM dual) tmp",
+        "ON (u.user_id = tmp.tmpId)",
+        "WHEN MATCHED THEN",
+        "    UPDATE SET u.user_name = #{user_name}, u.user_nickname = #{user_nickname},",
+        "        u.user_pw = #{user_pw}, u.user_gender = #{user_gender}, u.user_email = #{user_email}, u.user_regdate = sysdate",
+        "WHEN NOT MATCHED THEN",
+        "    INSERT (u.user_id, u.role, u.user_name, u.user_nickname, u.user_pw, u.user_gender, u.user_email, u.user_regdate)",
+        "    VALUES (#{user_id}, 'USER',  #{user_name}, #{user_nickname}, #{user_pw}, #{user_gender}, #{user_email}, sysdate)"
+    })
+    int saveOrUpdate(User user);
+    
+    /**
+     * 사용자 아이디를 통해 사용자 정보를 찾는 메소드
+     * 해당 아이디의 사용자가 없는 경우에도 안전하게 처리하기 위해 Optional<User>를 반환
+     */
+    @Select("SELECT * FROM tbluser WHERE user_id = #{user_id}")
+    Optional<User> findById(String user_id);
+    
+    /**
+     * 사용자 이메일을 통해 사용자 정보를 찾는 메소드
+     * 해당 이메일의 사용자가 없는 경우에도 안전하게 처리하기 위해 Optional<User>를 반환
+     */
+    @Select("SELECT * FROM tbluser WHERE user_email = #{user_email}")
+    Optional<User> findByEmail(String user_email);
+    
+    /**
+     * 사용자 아이디를 통해 비밀번호를 변경하는 메소드입니다.
+     */
+    @Update("update tbluser set user_pw = #{newPassword} where user_id = #{user_id}")
+    void updateUserPassword(@Param("user_id") String email, @Param("newPassword") String newPassword);
+    
+    /**
+     * 사용자 아이디와 비밀번호를 통해 사용자 정보를 삭제하는 메소드
+     */
+    @Delete("Delete from tbluser where user_id = #{user_id}")
+    int resignUser(@Param("user_id") String user_id);
+	}
+
+
