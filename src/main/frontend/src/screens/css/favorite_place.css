@@ -1,0 +1,80 @@
+.FavoritePlaceTitle p{
+    font-size: 50px;
+    font-weight: 600;
+    width: 500px;
+    margin-left: calc((100% - 250px) / 2);
+    margin-right: calc((100% - 250px) / 2);
+    margin-top: 50px;
+}
+
+.postcount p{ 
+    width: 500px;
+    font-size: 20px;
+}
+
+.postcount p b{
+    color: #CD6A80;
+    font-size: 25px;
+}
+
+.placecards{
+    width: 1500px !important;
+    margin-left: 20%;
+}
+
+.FavoritePlaceCard{
+    margin-right: 70px;
+    margin-bottom: 80px;
+    width: 302px !important;
+    height: 200px;
+    text-decoration: none;
+    float: left;
+}
+
+.FavoritePlaceCard img{
+    width: 300px;
+	height: 150px;
+	object-fit: cover;
+    border-radius: 4px;
+}
+
+.FavoritePlaceCard-body{
+    text-decoration: none;
+    float: left;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.FavoritePlaceCard .FavoritePlaceCard-title{
+    float: left;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.FavoritePlaceCard .FavoritePlaceCard-id{
+    float: left;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+.FavoritePlaceCard .FavoritePlaceCard-star{
+    float: left;
+    font-size: 22px;
+    font-weight: 600;
+    color: #FFA0B5;
+}
+
+.FavoritePlaceCard .fa-heart{
+    font-size: 25px;
+    color: red;
+    margin-top: 5px;
+}
+
+.FavoritePlaceCard button{
+    border: none;
+    background-color: transparent;
+}
+
+.FavoritePlaceCard:hover, .FavoritePlaceCard-title:hover, .FavoritePlaceCard-id:hover{
+    color: black;
+}

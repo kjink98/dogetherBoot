@@ -1,0 +1,80 @@
+.FavoritePostTitle p{
+    font-size: 50px;
+    font-weight: 600;
+    width: 400px;
+    margin-left: calc((100% - 250px) / 2);
+    margin-right: calc((100% - 250px) / 2);
+    margin-top: 50px;
+}
+
+.postcount p{ 
+    width: 500px;
+    margin-left: calc((100% - 250px) / 5 * 4);
+    margin-right: calc((100% - 250px) / 5);
+    font-size: 20px;
+}
+
+.postcount p b{
+    color: #CD6A80;
+    font-size: 25px;
+}
+
+.postcards{
+    width: 1740px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.FavoritePostCard{
+    margin-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1000px;
+    height: 120px;
+    text-decoration: none;
+}
+
+.FavoritePostCard img{
+    width: 200px !important;
+	object-fit: cover;
+    border-radius: 4px;
+}
+
+.FavoritePostCard-body{
+    text-decoration: none;
+    line-height: 20px;
+    padding: 15px;
+}
+
+.FavoritePostCard .FavoritePostCard-title{
+    float: left;
+    font-size: 20px;
+    font-weight: 600;
+    max-width: 700px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.FavoritePostCard .FavoritePostCard-comment{
+    float: left;
+    font-size: 20px;
+}
+
+.FavoritePostCard .FavoritePostCard-text{
+    font-size: 15px;
+    width: 350px;
+	text-align: left;
+    white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.FavoritePostCard .FavoritePostCard-date{
+    font-size: 15px;
+    margin-bottom: -10px;
+}
+
+.FavoritePostCard:hover, .FavoritePostCard-title:hover, .FavoritePostCard-body:hover, .FavoritePostCard-date:hover{
+    color: black;
+}
