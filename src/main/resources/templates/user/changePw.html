@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Dogether</title>
+	<!-- header.jsp와 동등한 Thymeleaf 헤더를 include -->
+	<link rel="stylesheet" href="changePw.css">
+</head>
+
+<body>
+	<!-- Global Navigation Bar -->
+	<!-- globalNavigationBar.jsp와 동등한 Thymeleaf 네비게이션 바를 include -->
+
+	<!-- Side Bar -->
+	<div class="mylist">
+		<h2>마이 페이지</h2>
+		<div class="list">
+			<a th:href="@{/user/myInfo}">
+				<h4>내 정보 수정</h4>
+			</a>
+			<a th:href="@{/user/changePw}">
+				<h4 class="active">비밀번호 변경</h4>
+			</a>
+			<a th:href="@{/user/favorite_place}">
+				<h4>관심 장소 모아보기</h4>
+			</a>
+			<a th:href="@{/user/favorite_post}">
+				<h4>관심 글 모아보기</h4>
+			</a>
+			<a th:href="@{/user/my_history}">
+				<h4>활동 내역</h4>
+			</a>
+		</div>
+	</div>
+	<!-- 메시지 표시 -->
+	<div th:if="${msg}" th:text="${msg}" style="color: red;"></div>
+
+	<h2>비밀번호 변경</h2>
+	<hr>
+	<form th:action="@{/user/changePw}" method="post">
+		현재 비밀번호 :
+		<input type="password" name="exPassword">
+		<br> <br> 변경할 비밀번호 :
+		<input type="password" name="newPassword">
+		<br> <br> 변경할 비밀번호 확인 :
+		<input type="password" name="newPasswordChk">
+		<br> <br>
+		<input type="submit" value="변경">
+	</form>
+	<input type="button" value="취소" th:onclick="'location.href=' + @{/index}">
+</body>
+
+</html>
