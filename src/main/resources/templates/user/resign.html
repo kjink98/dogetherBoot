@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Dogether</title>
+	<link rel="stylesheet" th:href="@{/index.css}" />
+	<script type="text/javascript">
+		function checkValue() {
+			if (!document.resign.user_pw.value) {
+				alert("비밀번호를 입력하지 않았습니다.");
+				return false;
+			}
+			return true;
+		}
+	</script>
+</head>
+
+<body>
+	<!-- Global Navigation Bar 
+  <div th:replace="globalNavigationBar :: globalNavigationBar"></div> -->
+	<!-- 메시지 표시 -->
+	<div th:if="${msg}" th:text="${msg}" style="color: red;"></div>
+	
+	<form name="resign" th:action="@{/user/resign}" method="post" onsubmit="return checkValue()">
+		<table>
+			<tr>
+				<td>비밀번호</td>
+				<td>
+					<input type="password" name="user_pw" maxlength="50">
+				</td>
+			</tr>
+		</table>
+		<br>
+		<input type="button" value="취소" onclick="location.href='/'">
+		<input type="submit" value="탈퇴" />
+	</form>
+</body>
+
+</html>

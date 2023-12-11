@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Dogether</title>
+</head>
+
+<body>
+	<div>
+		<ul>
+			<li><a class="dropdown-item" th:href="@{/user/login}">로그인</a></li>
+			<li><a class="dropdown-item" th:href="@{/user/myInfo}">내정보</a></li>
+			<form method="post" action="/logout">
+				<li>로그아웃</li>
+			</form>
+			<li><a class="dropdown-item" th:href="@{/user/signup}">회원가입</a></li>
+			<li><a class="dropdown-item">ID/PW 찾기</a></li>
+		</ul>
+	</div>
+</body>
+
+<footer>
+	<div class="footer-text">
+		<!-- ... -->
+	</div>
+</footer>
+
+</html>
