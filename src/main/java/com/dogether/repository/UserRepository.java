@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 /**
  * 사용자 정보에 관한 데이터베이스 연산을 수행하는 저장소 클래스
+ * UserMapper 인스턴스를 사용하여 사용자 정보에 대한 CRUD 연산을 수행
  */
 public class UserRepository {
 
@@ -29,7 +30,7 @@ public class UserRepository {
     
     /**
      * 사용자 아이디를 통해 사용자 정보를 데이터베이스에서 찾는 메소드
-     * 찾은 사용자 정보를 Optional<User>로 반환
+     * 해당 아이디의 사용자가 없는 경우에도 안전하게 처리하기 위해 Optional<User>를 반환
      */
     public Optional<User> findById(String user_id) {
         return userMapper.findById(user_id);
@@ -37,7 +38,8 @@ public class UserRepository {
     
     /**
      * 사용자 이메일을 통해 사용자 정보를 데이터베이스에서 찾는 메소드
-     * 찾은 사용자 정보를 Optional<User>로 반환
+     * 해당 이메일의 사용자가 없는 경우에도 안전하게 처리하기 위해 Optional<User>를 반환
+     
      */
     public Optional<User> findByEmail(String user_email) {
         return userMapper.findByEmail(user_email);
@@ -46,6 +48,7 @@ public class UserRepository {
     
     /**
      * 사용자 아이디를 통해 비밀번호를 변경하는 메소드
+     * 새로운 비밀번호는 암호화된 상태로 저장
      */
     public void updateUserPassword(String user_id, String newPassword) {
         userMapper.updateUserPassword(user_id, newPassword);

@@ -13,12 +13,12 @@ import lombok.Getter;
  * OAuth 인증과 관련된 사용자 정보를 관리하는 DTO(Data Transfer Object) 클래스
  */
 public class OAuthAttributes {
-	private Map<String, Object> attributes;
-	private String nameAttributeKey;
-	private String name;
-	private String id;
-	private String email;
-	private String gender;
+    private Map<String, Object> attributes; // OAuth에서 받아온 사용자 정보를 담을 맵
+    private String nameAttributeKey; // 사용자 이름 속성 키
+    private String name; // 사용자 이름
+    private String id; // 사용자 ID
+    private String email; // 사용자 이메일
+    private String gender; // 사용자 성별
 
 	@Builder
 	/**
@@ -27,12 +27,12 @@ public class OAuthAttributes {
 	public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email,
 			String gender, String id) {
 		super();
-		this.attributes = attributes;
-		this.nameAttributeKey = nameAttributeKey;
-		this.name = name;
-		this.email = email;
-		this.gender = gender;
-		this.id = id;
+        this.attributes = attributes; // 받아온 속성들을 DTO에 매핑
+        this.nameAttributeKey = nameAttributeKey; // 이름 속성 키 초기화
+        this.name = name; // 이름 초기화
+        this.email = email; // 이메일 초기화
+        this.gender = gender; // 성별 초기화
+        this.id = id; // ID 초기화
 	}
 
 	// 네이버 카카오 구글마다 지원하는 API Attribute들이 다름. registrationId로 해당하는 API 메서드를 호출하는 방식으로
@@ -48,11 +48,11 @@ public class OAuthAttributes {
 	public static OAuthAttributes of(String registrationId, String userNameAttributeName,
 			Map<String, Object> attributes) {
 		if("naver".equals(registrationId)) {
-            return ofNaver("id", attributes);
+            return ofNaver("id", attributes); // 네이버 속성 매핑
 		}else if ("kakao".equals(registrationId)) {
-            return ofKakao("id", attributes);
+            return ofKakao("id", attributes); // 카카오 속성 매핑
         }
-		return ofGoogle(userNameAttributeName, attributes);
+		return ofGoogle(userNameAttributeName, attributes); // 구글 속성 매핑
 	}
 	
 	/**
@@ -70,7 +70,9 @@ public class OAuthAttributes {
 				.build();
 	}
 	
-	
+	/**
+	 * Naver의 OAuth 사용자 정보를 변환하는 메소드입니다.
+	 */
 	private static OAuthAttributes ofNaver(String userNameAttributeName,
             Map<String, Object> attributes){
 				Map<String, Object> response = (Map<String, Object>) attributes.get("response");
@@ -86,7 +88,9 @@ public class OAuthAttributes {
 					.build();
 			}
 	
-	
+	/**
+	 * Kakao의 OAuth 사용자 정보를 변환하는 메소드입니다.
+	 */
 	private static OAuthAttributes ofKakao(String userNameAttributeName, Map<String, Object> attributes) {
 		System.out.println("야");
         Map<String,Object> properties = (Map<String, Object>) attributes.get("properties");
@@ -105,7 +109,8 @@ public class OAuthAttributes {
     }
 	/**
 	 * User Entity를 생성하는 메소드입니다.
-	 * 처음 가입할 때 호출되며, 기본 권한을 부여합니다.
+	 * 소셜 로그인(Google, 카카오, 네이버)을 통해 가입하는 사용자의 정보를 추출하여 User 객체를 생성합니다.
+	 * 처음 가입할 때 호출되며, 기본적으로 USER 권한을 부여합니다.
 	 */
 	public User toEntity() {
 		System.out.println("toEntity : " + attributes.containsKey("kakao_account"));
@@ -114,12 +119,16 @@ public class OAuthAttributes {
 		String userGender ="";
 		String userEmail = "";
 		String userNickname = "";
-	    if (attributes.containsKey("sub")) {  // Google에서 제공하는 고유 ID를 가져옵니다.
+		
+		// Google에서 제공하는 고유 ID를 가져옵니다.
+	    if (attributes.containsKey("sub")) {
 	        userId = (String) attributes.get("sub");
 	        userEmail = (String) attributes.get("email");
 	        userGender = "?";
 	        userNickname = (String) attributes.get("name");
-	    } else if (attributes.containsKey("kakao_account"))  {  // 카카오에서 제공하는 고유 ID 및 성별 정보를 가져옵니다.
+	    } 
+	    // 카카오에서 제공하는 고유 ID 및 성별 정보를 가져옵니다.
+	    else if (attributes.containsKey("kakao_account"))  {  
 	    	Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
 	    	Map<String,Object> properties = (Map<String, Object>) attributes.get("properties");
 	    	System.out.println(attributes.containsKey("kakao_account"));
@@ -127,12 +136,15 @@ public class OAuthAttributes {
 	        userGender = String.valueOf(kakaoAccount.get("gender")); // 수정된 부분
 	        userEmail = (String) kakaoAccount.get("email");
 	        userNickname = (String) properties.get("nickname");
-	}  else{  // Naver에서 제공하는 고유 ID를 가져옵니다.
+	    }  
+	    // Naver에서 제공하는 고유 ID를 가져옵니다.
+	    else{  
 	    	userId = (String) attributes.get("id");
 	    	userGender = (String) attributes.get("gender"); // Naver에서 제공하는 성별 정보를 가져옵니다.
 	    	userEmail = (String) attributes.get("email");
 	    	userNickname = (String) attributes.get("nickname");
 	    }
+	 // 추출한 정보를 바탕으로 User 객체를 생성합니다. 비밀번호는 "N/A"로 저장되며, 기본 권한은 USER입니다.
     	return User.builder()
     			.user_id(userId)
                 .user_email(userEmail)

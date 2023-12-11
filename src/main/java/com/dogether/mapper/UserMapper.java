@@ -8,13 +8,13 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.mybatis.spring.MyBatisSystemException;
 
 import com.dogether.domain.User;
 
 @Mapper
 /**
  * 사용자 정보에 관한 데이터베이스 연산을 정의한 매퍼 인터페이스
+ * MyBatis의 @Mapper 어노테이션이 붙어 있어 MyBatis가 이 인터페이스를 구현하여 SQL 쿼리를 실행
  */
 public interface UserMapper {
 	
@@ -28,6 +28,11 @@ public interface UserMapper {
             + "#{user_pw}, #{user_gender}, #{user_email}, sysdate)")
     int insertUser(User user);
     
+    /**
+     * 사용자 정보를 데이터베이스에 저장하거나 업데이트하는 메소드
+     * 이미 사용자 아이디가 데이터베이스에 존재하는 경우, 사용자 정보를 업데이트
+     * 사용자 아이디가 데이터베이스에 존재하지 않는 경우, 새로운 사용자 정보를 삽입
+     */
     @Insert({
         "MERGE INTO tbluser u",
         "USING (SELECT #{user_id} as tmpId FROM dual) tmp",
@@ -40,18 +45,18 @@ public interface UserMapper {
         "    VALUES (#{user_id}, 'USER',  #{user_name}, #{user_nickname}, #{user_pw}, #{user_gender}, #{user_email}, sysdate)"
     })
     int saveOrUpdate(User user);
-     /**
-     * 사용자 아이디를 통해 사용자 정보를 찾는 메소드입니다.
-     * 검색된 사용자 정보를 Optional<User>로 반환합니다.
-     * Optional을 사용하는 이유는 해당 아이디의 사용자가 없는 경우에도 안전하게 처리하기 위함입니다.
-     * 아이디에 해당하는 사용자가 없으면 Optional.empty를 반환합니다.
+    
+    /**
+     * 사용자 아이디를 통해 사용자 정보를 찾는 메소드
+     * 해당 아이디의 사용자가 없는 경우에도 안전하게 처리하기 위해 Optional<User>를 반환
      */
     @Select("SELECT * FROM tbluser WHERE user_id = #{user_id}")
     Optional<User> findById(String user_id);
     
     /**
-    * 사용자 이메일을 통해 사용자 정보를 찾는 메소드
-    */
+     * 사용자 이메일을 통해 사용자 정보를 찾는 메소드
+     * 해당 이메일의 사용자가 없는 경우에도 안전하게 처리하기 위해 Optional<User>를 반환
+     */
     @Select("SELECT * FROM tbluser WHERE user_email = #{user_email}")
     Optional<User> findByEmail(String user_email);
     
