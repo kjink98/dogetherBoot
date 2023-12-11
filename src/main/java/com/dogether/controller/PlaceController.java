@@ -28,8 +28,9 @@ public class PlaceController {
 
         // 테스트용 조건문
         if (!places.isEmpty()) {
-            // 인덱스 0의 place_name 출력. 정상
-            System.out.println(places.get(0).getPlace_name());
+            for (Place place : places) {
+                System.out.println(place.getPlace_name());
+            }
         } else {
             System.out.println("place is null");
         }

@@ -1,0 +1,21 @@
+.container{
+    max-width: 1940px !important;
+}
+
+footer.Footer{
+    color: white;
+    background-color: #97B1A6;
+}
+
+.LeftFooter b{
+    font-size: 25px;
+}
+
+.LeftFooter{
+    margin-right:10%;
+}
+
+.RightFooter a{
+    color:white !important;
+    font-weight: 600;
+}

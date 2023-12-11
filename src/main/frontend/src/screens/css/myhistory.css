@@ -1,0 +1,80 @@
+.MyHisotryTitle p{
+    font-size: 50px;
+    font-weight: 600;
+    width: 400px;
+    margin-left: calc((100% - 250px) / 2);
+    margin-right: calc((100% - 250px) / 2);
+    margin-top: 50px;
+}
+
+.postcount p{ 
+    width: 500px;
+    margin-left: calc((100% - 250px) / 5 * 4);
+    margin-right: calc((100% - 250px) / 5);
+    font-size: 20px;
+}
+
+.postcount p b{
+    color: #CD6A80;
+    font-size: 25px;
+}
+
+.historycards{
+    width: 1740px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.MyHistoryCard{
+    margin-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1000px;
+    height: 120px;
+    text-decoration: none;
+}
+
+.MyHistoryCard img{
+    width: 200px !important;
+	object-fit: cover;
+    border-radius: 4px;
+}
+
+.MyHistoryCard-body{
+    text-decoration: none;
+    line-height: 20px;
+    padding: 15px;
+}
+
+.MyHistoryCard .MyHistoryCard-title{
+    float: left;
+    font-size: 20px;
+    font-weight: 600;
+    max-width: 700px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.MyHistoryCard .MyHistoryCard-comment{
+    float: left;
+    font-size: 20px;
+}
+
+.MyHistoryCard .MyHistoryCard-text{
+    font-size: 15px;
+    width: 350px;
+	text-align: left;
+    white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.MyHistoryCard .MyHistoryCard-date{
+    font-size: 15px;
+    margin-bottom: -10px;
+}
+
+.MyHistoryCard:hover, .MyHistoryCard-title:hover, .MyHistoryCard-body:hover, .MyHistoryCard-date:hover{
+    color: black;
+}
