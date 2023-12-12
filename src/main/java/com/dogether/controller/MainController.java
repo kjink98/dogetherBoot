@@ -11,7 +11,7 @@ public class MainController {
      * 사용자가 메인 페이지를 요청하면 이 메소드가 호출
      * 메인 페이지("index")로 이동.
      */
-    @GetMapping("/index")
+    @GetMapping("/")
     public String index() {
         return "index";
     }
