@@ -25,7 +25,7 @@ public interface UserMapper {
     @Insert("insert into tbluser (user_id, role, user_name, user_nickname,"
             + "user_pw, user_gender, user_email, user_regdate) "
             + "values(#{user_id}, 'USER',  #{user_name}, #{user_nickname},"
-            + "#{user_pw}, #{user_gender}, #{user_email}, sysdate)")
+            + "#{user_pw}, #{user_gender}, #{user_email}, now())")
     int insertUser(User user);
     
     /**
@@ -34,15 +34,11 @@ public interface UserMapper {
      * 사용자 아이디가 데이터베이스에 존재하지 않는 경우, 새로운 사용자 정보를 삽입
      */
     @Insert({
-        "MERGE INTO tbluser u",
-        "USING (SELECT #{user_id} as tmpId FROM dual) tmp",
-        "ON (u.user_id = tmp.tmpId)",
-        "WHEN MATCHED THEN",
-        "    UPDATE SET u.user_name = #{user_name}, u.user_nickname = #{user_nickname},",
-        "        u.user_pw = #{user_pw}, u.user_gender = #{user_gender}, u.user_email = #{user_email}, u.user_regdate = sysdate",
-        "WHEN NOT MATCHED THEN",
-        "    INSERT (u.user_id, u.role, u.user_name, u.user_nickname, u.user_pw, u.user_gender, u.user_email, u.user_regdate)",
-        "    VALUES (#{user_id}, 'USER',  #{user_name}, #{user_nickname}, #{user_pw}, #{user_gender}, #{user_email}, sysdate)"
+        "INSERT INTO tbluser (user_id, role, user_name, user_nickname, user_pw, user_gender, user_email, user_regdate)",
+        "VALUES (#{user_id}, 'USER', #{user_name}, #{user_nickname}, #{user_pw}, #{user_gender}, #{user_email}, now())",
+        "ON DUPLICATE KEY UPDATE",
+        "user_name = #{user_name}, user_nickname = #{user_nickname},",
+        "user_pw = #{user_pw}, user_gender = #{user_gender}, user_email = #{user_email}, user_regdate = now()"
     })
     int saveOrUpdate(User user);
     
