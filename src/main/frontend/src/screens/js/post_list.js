@@ -1,17 +1,25 @@
 import React, {useState, useEffect} from 'react';
-import '../css/post_review.css';
-import CommunitySideBar from '../../components/js/CommunitySideBar.js';
 import {Form, Button} from 'react-bootstrap';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
+import {useParams} from 'react-router-dom';
+import moment from 'moment';
 import axios from 'axios';
+import CommunitySideBar from '../../components/js/CommunitySideBar.js';
 
-const Post_review = () => {
+// css 수정해야함
+import '../css/post_review.css';
+import '../css/post_promotion.css';
+
+
+const Post_list = () => {
 	const [postList, setPostList] = useState([]);
-	
+	const postType = ["후기게시판", "홍보게시판", "뉴스/칼럼"];
+	let {board_id} = useParams();
+
 	useEffect(()=>{
 		const getPostList = async () => {
-			const resp = await axios.get('/dog/post/list?board_id=2')
+			const resp = await axios.get(`/dog/post/list?board_id=${board_id}`)
 			setPostList(resp.data);
 		}
 		getPostList();
@@ -19,11 +27,12 @@ const Post_review = () => {
 	
   return (
 	  <div>
-		  <CommunitySideBar></CommunitySideBar>
+		  <CommunitySideBar/>
 		  <div className="PostReviewTitle">
-			  <p>후기게시판</p>
+			  <p>{postType[board_id-2]}</p>
 		  </div>
 
+		{/* 검색 */}
 		  <Form inline className="promotion">
 			  <select name="post" className="post">
 				  <option value="제목만" selected="selected">제목만</option>
@@ -34,21 +43,25 @@ const Post_review = () => {
 			  <Form.Control type="text" placeholder="검색어를 입력해주세요" className="mr-sm-2 PromotionSearch" />
 			  <Button type="submit" className="PromotionGlass">{<FontAwesomeIcon icon={faMagnifyingGlass} />}</Button>
 		  </Form>
+		  
+		{/* Post List */}
 		{postList.map(post => (
 		  <div className="promotioncards">
-			  <a class="card PostPromotionCard" href="https://www.naver.com/">
+			  <a class="card PostPromotionCard" href={'/post/detail/'+post.board_id+'/'+post.post_id}>
 				  <img class="PostPromotionCard-img-top" src={require('../../Img/DogCafe1.jpg')} />
 				  <div class="PostPromotionCard-body">
 					  <p class="PostPromotionCard-title">{post.post_title}</p>
 					  <p class="PostPromotionCard-comment">&nbsp;(35)</p><br />
-					  <p class="PostPromotionCard-id">{post.user_nickname} | 작성일자 : {post.post_create_date} | 조회수 : {post.post_views}</p><br />
+					  <p class="PostPromotionCard-id">{post.user_nickname} | 작성일자 : {moment(post.post_create_date).format('YYYY-MM-DD')} | 조회수 : {post.post_views}</p><br />
 					  <p class="PostPromotionCard-detail">{post.post_content}</p>
 				  </div>
 			  </a>
 		  </div>
 		 ))}
+		 <br/><br/><br/><br/>
+		 <a class="btn" href="/post/post"><button>게시글 작성하기</button></a>
 	  </div>
   )
 }
 
-export default Post_review
+export default Post_list;

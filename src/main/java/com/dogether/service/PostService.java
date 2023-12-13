@@ -19,4 +19,9 @@ public class PostService {
 		List<Post> list = postRepository.getDataAll(board_id);
 		return list;		
 	}
+	
+	public Post getPostDetail(Post post) {
+		Post detail = postRepository.getDataOne(post);
+		return detail;
+	}
 }

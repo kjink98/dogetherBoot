@@ -11,5 +11,8 @@ import com.dogether.domain.Post;
 public interface PostMapper {
 
 	@Select("SELECT * FROM tblpost WHERE board_id=#{board_id} order by post_id desc")
-	List<Post> SelectAll(int board_id);
+	List<Post> selectAll(int board_id);
+	
+	@Select("SELECT * FROM tblpost WHERE board_id=#{board_id} and post_id=#{post_id}")
+	Post selectOne(Post post);
 }

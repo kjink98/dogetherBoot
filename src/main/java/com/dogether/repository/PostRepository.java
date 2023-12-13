@@ -16,7 +16,12 @@ public class PostRepository {
 	private final PostMapper postMapper;
 	
 	public List<Post> getDataAll(int board_id) {
-		List<Post> list = postMapper.SelectAll(board_id);
+		List<Post> list = postMapper.selectAll(board_id);
 		return list;
+	}
+	
+	public Post getDataOne(Post post) {
+		Post detail = postMapper.selectOne(post);
+		return detail;
 	}
 }

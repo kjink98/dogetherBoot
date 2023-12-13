@@ -32,4 +32,10 @@ public class PostController {
 	public String setPost(@ModelAttribute Post post) {
 		return "post_post";
 	}
+	
+	@GetMapping("/detail")
+	public Post getPostDetail(Post post) {
+		Post detail = postService.getPostDetail(post);
+		return detail;
+	}
 }
