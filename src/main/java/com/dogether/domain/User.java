@@ -24,6 +24,7 @@ public class User {
     
 	private String user_id; // 사용자의 아이디
 	private String user_pw; // 사용자의 비밀번호
+	private String user_pwcheck; // 사용자의 비밀번호 체크
 	private String user_email; // 사용자의 이메일
 	private String user_name; // 사용자의 이름
 	private String user_nickname; // 사용자의 닉네임
