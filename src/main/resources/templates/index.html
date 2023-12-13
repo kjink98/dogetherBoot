@@ -17,6 +17,8 @@
 			</form>
 			<li><a class="dropdown-item" th:href="@{/user/signup}">회원가입</a></li>
 			<li><a class="dropdown-item">ID/PW 찾기</a></li>
+			th:if="${user.role} == 'ROLE_ADMIN'"
+			<li><a class="dropdown-item" th:href="@{/user/userManagement}">관리자 페이지</a></li>
 		</ul>
 	</div>
 </body>

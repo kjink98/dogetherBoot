@@ -1,5 +1,6 @@
 package com.dogether.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
@@ -54,6 +55,10 @@ public class UserRepository {
         userMapper.updateUserPassword(user_id, newPassword);
     }
     
+    public void updateRoles(String user_id, String role) {
+        userMapper.updateRoles(user_id, role);
+    }
+    
     /**
      * 주어진 아이디에 해당하는 사용자 정보를 데이터베이스에서 삭제하는 메소드
      * 삭제에 성공한 경우 삭제된 행의 개수를 반환
@@ -61,5 +66,9 @@ public class UserRepository {
     public int resignUser(String user_id) {
         return userMapper.resignUser(user_id);
     }
+
+	public List<User> findAllUsers() {
+		return userMapper.findAllUsers();
+	}
     
 }

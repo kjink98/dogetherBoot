@@ -1,5 +1,6 @@
 package com.dogether.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.mybatis.spring.MyBatisSystemException;
@@ -123,8 +124,19 @@ public class UserService {
         // 새 비밀번호로 업데이트
         userRepository.updateUserPassword(user.getUser_id(), passwordEncoder.encode(requestDto.getNewPassword()));
     }
+	 /**
+     * 모든 사용자 정보를 데이터베이스에서 가져오는 메소드
+     */
+    public List<User> getAllUsers() {
+        return userRepository.findAllUsers();
+    }
 	
-	
+    @Transactional
+    public void updateRoles(String user_id, String role) {
+    	userRepository.updateRoles(user_id, role);
+    }
+    
+    
 	/**
 	 * 주어진 아이디와 비밀번호에 해당하는 사용자 정보를 데이터베이스에서 삭제하는 메소드
 	 */

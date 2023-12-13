@@ -1,11 +1,17 @@
 package com.dogether.controller;
 
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dogether.domain.User;
+import com.dogether.dto.UserRolesRequest;
 import com.dogether.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -82,6 +88,21 @@ public class UserViewController {
         return "user/myInfo";
     }
 	
+	@GetMapping("/userManagement")
+	public String userManagement(Model model) {
+		List<User> users = userService.getAllUsers();
+		model.addAttribute("users", users);
+		return "user/userManagement";
+	}
+	
+	@PostMapping("/userManagement")
+	public ResponseEntity<?> updateRoles(@RequestBody UserRolesRequest request) {
+		System.out.println("여기가 뜨나?");
+	    userService.updateRoles(request.getUser_id(), request.getRole());
+	    System.out.println(request.getUser_id());
+	    System.out.println(request.getRole());
+	    return ResponseEntity.ok().build();
+	}
 	/**
      * 회원 탈퇴 페이지로 이동합니다.
      * URL: /user/resign

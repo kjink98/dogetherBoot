@@ -70,7 +70,7 @@ public class WebSecurityConfig {
 				.userInfoEndpoint() // OAuth 2 로그인 성공 후 사용자 정보를 가져오는 설정을 담당
 				.userService(customOAuth2UserServicer) // 소셜 로그인 성공 시 후속 조치를 진행할 UserService 인터페이스의 구현체를 등록
 				.and().loginPage("/user/login") // 사용자 정의 로그인 페이지 URL을 지정
-				.defaultSuccessUrl("/index", true) // 로그인 성공 후 리다이렉트할 URL을 지정
+				.defaultSuccessUrl("/", true) // 로그인 성공 후 리다이렉트할 URL을 지정
 				.failureUrl("/user/loginView") // 로그인 실패 시 리다이렉트할 URL을 지정
 				.and()
 
