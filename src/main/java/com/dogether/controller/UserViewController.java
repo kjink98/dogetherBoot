@@ -70,7 +70,6 @@ public class UserViewController {
 	public String myInfo(Model model) {
         // 현재 로그인 중인 사용자의 Member 엔티티를 가져옴
         User loggedInUser = userService.getCurrentLoggedInMember();
-
         if (loggedInUser != null) {
             // Member 엔티티에서 필요한 정보 추출하여 Thymeleaf 모델에 추가
             model.addAttribute("user_name", loggedInUser.getUser_name());
@@ -88,6 +87,9 @@ public class UserViewController {
         return "user/myInfo";
     }
 	
+	/**
+	 * 사용자가 사용자 관리 페이지를 요청하면 이 메소드가 호출됩니다.
+	 */
 	@GetMapping("/userManagement")
 	public String userManagement(Model model) {
 		List<User> users = userService.getAllUsers();
@@ -95,12 +97,13 @@ public class UserViewController {
 		return "user/userManagement";
 	}
 	
+	/**
+	 * 사용자가 사용자의 역할을 변경하면 이 메소드가 호출됩니다.
+	 * 이 메소드는 사용자의 역할을 변경하고, 성공적으로 변경되었다는 응답을 반환합니다.
+	 */
 	@PostMapping("/userManagement")
 	public ResponseEntity<?> updateRoles(@RequestBody UserRolesRequest request) {
-		System.out.println("여기가 뜨나?");
 	    userService.updateRoles(request.getUser_id(), request.getRole());
-	    System.out.println(request.getUser_id());
-	    System.out.println(request.getRole());
 	    return ResponseEntity.ok().build();
 	}
 	/**

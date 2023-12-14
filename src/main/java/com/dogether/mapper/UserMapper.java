@@ -35,8 +35,10 @@ public interface UserMapper {
 	@Insert({
 			"INSERT INTO tbluser (user_id, role, user_name, user_nickname, user_pw, user_gender, user_email, user_regdate)",
 			"VALUES (#{user_id}, 'USER', #{user_name}, #{user_nickname}, #{user_pw}, #{user_gender}, #{user_email}, now())",
-			"ON DUPLICATE KEY UPDATE", "user_name = #{user_name}, user_nickname = #{user_nickname},",
-			"user_pw = #{user_pw}, user_gender = #{user_gender}, user_email = #{user_email}, user_regdate = now()" })
+			"ON DUPLICATE KEY UPDATE",  
+			"user_name = VALUES(user_name), user_nickname = VALUES(user_nickname), user_pw = VALUES(user_pw), "
+			+ "user_gender = VALUES(user_gender), user_email = VALUES(user_email), user_regdate = VALUES(user_regdate)"})
+	
 	int saveOrUpdate(User user);
 
 	/**
@@ -58,7 +60,10 @@ public interface UserMapper {
 	 */
 	@Update("update tbluser set user_pw = #{newPassword} where user_id = #{user_id}")
 	void updateUserPassword(@Param("user_id") String email, @Param("newPassword") String newPassword);
-
+	
+	/**
+	 * 사용자 권한 업데이트하는 메소드입니다.
+	 */
 	@Update({
 	    "UPDATE tbluser ",
 	    "SET role = CASE ",

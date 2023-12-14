@@ -13,12 +13,15 @@
 			<li><a class="dropdown-item" th:href="@{/user/login}">로그인</a></li>
 			<li><a class="dropdown-item" th:href="@{/user/myInfo}">내정보</a></li>
 			<form method="post" action="/logout">
-				<li>로그아웃</li>
+				<li><button>로그아웃</button></li>
 			</form>
 			<li><a class="dropdown-item" th:href="@{/user/signup}">회원가입</a></li>
 			<li><a class="dropdown-item">ID/PW 찾기</a></li>
-			th:if="${user.role} == 'ROLE_ADMIN'"
-			<li><a class="dropdown-item" th:href="@{/user/userManagement}">관리자 페이지</a></li>
+
+			<li><a class="dropdown-item" th:href="@{/user/userManagement}" th:if="${role == 'ROLE_ADMIN'}">관리자 페이지</a></li>
+			<!-- 사용자 역할 출력 -->
+			<p>User Role: <span th:text="${role}">User Role will be displayed here</span></p>
+
 		</ul>
 	</div>
 </body>

@@ -111,19 +111,19 @@
 				}),
 			})
 				.then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    $('#roleModal').modal('hide');
-                    return response.json();
-                })
-                .then(data => {
-                    alert('권한이 업데이트되었습니다.');
-                    location.reload();
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+					}
+					$('#roleModal').modal('hide');
+					return response.json();
+				})
+				.then(data => {
+					alert('권한이 업데이트되었습니다.');
+				})
+				.catch((error) => {
+					console.error('Error:', error);
+				});
+			window.location.reload();
 		}
 	</script>
 

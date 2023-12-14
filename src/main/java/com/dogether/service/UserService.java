@@ -1,6 +1,7 @@
 package com.dogether.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.mybatis.spring.MyBatisSystemException;
@@ -8,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,44 +65,55 @@ public class UserService {
 	public User getCurrentLoggedInMember() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		// Spring Security의 SecurityContextHolder를 사용하여 현재 로그인 중인 사용자의 Principal을 가져옴
-
 		if (authentication == null || !authentication.isAuthenticated()) {
 			// 사용자가 로그인하지 않은 경우 또는 인증되지 않은 경우
 			return null;
 		}
 
-		try {
-			// Principal에서 사용자의 이름(email)을 가져옴
-			String userEmail = extractUserEmail(authentication.getPrincipal());
-			// 이메일을 사용하여 Member 엔티티를 찾음
-			return userRepository.findByEmail(userEmail).orElse(null);
+		  try {
+		        if (authentication.getPrincipal() instanceof OAuth2User) {
+		            String userEmail = extractUserEmail(authentication.getPrincipal());
+		            System.out.println("getUserEmail"+userEmail);
+		            return userRepository.findByEmail(userEmail).orElse(null);
+		        } else {
+		            String userId = extractUserEmail(authentication.getPrincipal());
+		            System.out.println(userId);
+		            return userRepository.findById(userId).orElse(null);
+		        }
 		} catch (RuntimeException e) {
 			// 예외가 발생한 경우 처리
 			e.printStackTrace(); // 예외 처리 추가하기
+			System.out.println("오류"+e.getMessage());
 			return null;
 		}
 	}
 	/**
 	 * 로그인 종류에 따라 Email을 추출하는 메서드
-	 * OAuth2 로그인의 경우 OAuth2User에서, 그 외 로그인의 경우 UserDetails에서 email을 추출
+	 * OAuth2 로그인의 경우 OAuth2User에서, 그 외 로그인의 경우 UserDetails에서 id을 추출
 	 */
 	private String extractUserEmail(Object principal) {
-		try {
-			if (principal instanceof OAuth2User) {
-				// OAuth Login을 할 시 OAuth2User 타입을 받게 됨
-				return ((OAuth2User) principal).getAttribute("email");
-			} else if (principal instanceof UserDetails) {
-				// 다른 형태의 사용자 로그인을 처리하는 경우 UserDetails 타입을 받게 됨
-				return ((UserDetails) principal).getUsername();
-			} else {
-				// 기타
-				return null;
-			}
-		} catch (RuntimeException e) {
-			// 예외가 발생한 경우 처리
-			e.printStackTrace(); // 예외 처리 추가하기
-			return null;
-		}
+	    try {
+	        if (principal instanceof OAuth2User) {
+	            OAuth2User oauth2User = (OAuth2User) principal;
+	            OAuth2AuthenticationToken authenticationToken = (OAuth2AuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+	            String registrationId = authenticationToken.getAuthorizedClientRegistrationId();
+	            if ("google".equals(registrationId)) {
+	                return oauth2User.getAttribute("email");
+	            }  else if ("kakao".equals(registrationId)) {
+	                Map<String, Object> kakaoAccount = (Map<String, Object>) oauth2User.getAttribute("kakao_account");
+	                return (String) kakaoAccount.get("email");
+	            }else {
+	                return ((OAuth2User) principal).getAttribute("email");
+	            }
+	        } else if (principal instanceof UserDetails) {
+	            // 다른 형태의 사용자 로그인을 처리하는 경우 UserDetails 타입을 받게 됨
+	            return ((UserDetails) principal).getUsername();
+	        }
+	    } catch (RuntimeException e) {
+	        // 예외가 발생한 경우 처리
+	        e.printStackTrace(); // 예외 처리 추가하기
+	    }
+	    return null;
 	}
 
 	/**

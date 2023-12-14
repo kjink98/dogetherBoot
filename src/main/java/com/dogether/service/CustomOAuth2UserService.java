@@ -76,7 +76,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 				//존재할경우 키,값으로 값을 관리하는 OAuth에 맞춰 업데이트 수행
 				.map(entity -> entity.update(
 							attributes.getId(),
-							attributes.getName()
+							attributes.getName(),
+							attributes.getEmail()
 							))
 				//존재하지 않는 신규 로그인일 경우 OAuthAttribute의 toEntity 메서드 활용
 				.orElse(attributes.toEntity());
