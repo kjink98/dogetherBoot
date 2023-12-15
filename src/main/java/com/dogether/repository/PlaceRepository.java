@@ -24,4 +24,7 @@ public class PlaceRepository {
         return placeMapper.selectOne(place_id);
     }
 
+    public List<Place> selectFavorite(String user_id) {
+        return placeMapper.selectFavorite(user_id);
+    }
 }
