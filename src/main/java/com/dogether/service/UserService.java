@@ -161,4 +161,10 @@ public class UserService {
 
 	    return userRepository.resignUser(user_id);
 	}
+	
+	public int resignUser(String user_id) {
+	    User user = userRepository.findById(user_id).orElse(null);
+
+	    return userRepository.resignUser(user_id);
+	}
 }

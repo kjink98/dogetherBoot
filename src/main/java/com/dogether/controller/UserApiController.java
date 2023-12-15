@@ -61,5 +61,19 @@ public class UserApiController {
 		}
 	}
 
-
+	
+	/*
+	 * 관리자가 회원 탈퇴를 처리하는 API
+	 */
+	@PostMapping("/deleteUser")
+	public ResponseEntity<String> deleteUser(@RequestParam String user_id, HttpServletRequest request) {
+		// 현재 인증된 사용자를 가져옴
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		 int check = userService.resignUser(user_id);
+		    if (check != 1) {
+		        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("사용자를 탈퇴시키지 못했습니다.");
+		    }
+		request.getSession().invalidate();
+	    return ResponseEntity.ok("탈퇴 완료");
+	}
 }

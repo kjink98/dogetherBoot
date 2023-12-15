@@ -41,7 +41,10 @@
 						<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#roleModal"
 							th:data-user-id="${user.user_id}"
 							onclick="openModal(this.getAttribute('data-user-id'))">수정</a>
-						<a th:href="@{/user/delete/{id}(id=${user.user_id})}" class="btn btn-danger">탈퇴</a>
+						<form th:action="@{/user/deleteUser}" method="post" style="display: inline;">
+							<input type="hidden" name="user_id" th:value="${user.user_id}">
+							<input type="submit" value="탈퇴" class="btn btn-danger">
+						</form>
 					</td>
 				</tr>
 			</tbody>
