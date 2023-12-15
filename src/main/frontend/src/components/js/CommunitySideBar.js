@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import "../css/CommunitySideBar.css";
-import { useLocation , useParams} from 'react-router-dom';
-import {NavLink} from 'react-router-dom';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBullhorn, faComments, faCartShopping, faNewspaper}from "@fortawesome/free-solid-svg-icons";
 
 function Sidebar() {
     return (
         <div className="container">
-            {window.location.pathname}
+            {/*window.location.pathname*/}
            <div className="sidebar">
                <h2>커뮤니티</h2>
                <a className={"CommunitySidebarMenu" + (window.location.pathname == '/post_notice' ? " active" : "")} href="/post_notice"><FontAwesomeIcon icon={faBullhorn}/>공지사항</a>

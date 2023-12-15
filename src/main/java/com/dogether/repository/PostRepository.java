@@ -24,4 +24,8 @@ public class PostRepository {
 		Post detail = postMapper.selectOne(post);
 		return detail;
 	}
+	
+	public void setData(Post post) {
+		postMapper.insertOne(post);
+	}
 }

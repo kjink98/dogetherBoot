@@ -24,4 +24,10 @@ public class PostService {
 		Post detail = postRepository.getDataOne(post);
 		return detail;
 	}
+	
+	public void setPost (Post post) {
+		post.setUser_id("yooram2");
+		post.setUser_nickname("푸들조아");
+		postRepository.setData(post);
+	}
 }
