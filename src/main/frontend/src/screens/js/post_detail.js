@@ -13,14 +13,18 @@ import '../css/post_promotion.css';
 
 const Post_detail = () => {
 	const [postDetail, setPostDetail] = useState({});
+	const [postFiles, setPostFiles] = useState({});
 	const postType = ["후기게시판", "홍보게시판", "뉴스/칼럼"];
 	let {board_id} = useParams();
 	let {post_id} = useParams();
 
+
+
 	useEffect(()=>{
 		const getPostDetail = async () => {
 			const resp = await axios.get(`/dog/post/detail?board_id=${board_id}&post_id=${post_id}`)
-			setPostDetail(resp.data);
+			setPostDetail(resp.data.detail);
+			setPostFiles(resp.data.files);
 		}
 		getPostDetail();
 	}, []);
@@ -50,6 +54,8 @@ const Post_detail = () => {
 			닉네임: {postDetail.user_nickname}<br/>
 			글제목: {postDetail.post_title}<br/>
 			글내용: {postDetail.post_content}<br/>
+			
+			
 		</div>
 		
 		{/* 댓글 */}

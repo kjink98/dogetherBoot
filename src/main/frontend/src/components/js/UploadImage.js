@@ -3,24 +3,28 @@ import '../css/UploadImage.css'
 
 const UploadImage = (props) => {
 	const [selectedImages, setSelectedImages] = useState([]);
+	const [sendImages, setSendImages] = useState([]);
 	
 	useEffect(()=>{
-		const setImages = (selectedImages) => {
-			props.setImages(selectedImages);
+		const setImages = (sendImages) => {
+			props.setImages(sendImages);
 		}
-		setImages(selectedImages);
-	}, [selectedImages]);
+		setImages(sendImages);
+	}, [sendImages]);
 	
-console.log(selectedImages)
+
+
 	const onSelectFile = (event) => {
-		console.log(event.target.files);
 		const selectedFiles = event.target.files;
 		const selectedFilesArray = Array.from(selectedFiles);
-
+		
+		setSendImages(sendImages.concat(selectedFilesArray));
+		
 		const imagesArray = selectedFilesArray.map((file) => {
 			return URL.createObjectURL(file);
 		});
-
+		
+		
 		setSelectedImages((previousImages) => previousImages.concat(imagesArray));
 		event.target.value = "";
 	};

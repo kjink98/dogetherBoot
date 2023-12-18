@@ -1,16 +1,17 @@
 package com.dogether.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.dogether.domain.ImageFile;
 import com.dogether.domain.Post;
 import com.dogether.service.PostService;
 
@@ -24,23 +25,24 @@ public class PostController {
 	private final PostService postService;
 	
 	@GetMapping("/list")
-	public List<Post> getPostList(int board_id, Model model) {
+	public List<Post> getPostList(int board_id) {
 		List<Post> list = postService.getPostList(board_id);
-		model.addAttribute("list", list);
 		return list;
 	}
 	
 	@GetMapping("/detail")
-	public Post getPostDetail(Post post) {
+	public Map<String, Object> getPostDetail(Post post) {
 		Post detail = postService.getPostDetail(post);
-		return detail;
+		List<ImageFile> fileList = postService.getFile(post.getPost_id());
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("detail", detail);
+		map.put("files", fileList);
+		return map;
 	}
 	
-	@PostMapping("/post")
-	public String setPost(@RequestParam("post") Post post, @RequestParam("file") MultipartFile[] postFiles) {
-		System.out.println(post.getBoard_id());
-		System.out.println(postFiles[0]);
-		//postService.setPost(post);
+	@PostMapping(path="/post", consumes= {"multipart/form-data"})
+	public String setPost(@RequestPart Post post, @RequestPart(value="files", required=false) MultipartFile[] files) {
+		postService.setPost(post, files);
 		return "post_post";
 	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.dogether.domain.ImageFile;
 import com.dogether.domain.Post;
 import com.dogether.mapper.PostMapper;
 
@@ -16,16 +17,22 @@ public class PostRepository {
 	private final PostMapper postMapper;
 	
 	public List<Post> getDataAll(int board_id) {
-		List<Post> list = postMapper.selectAll(board_id);
-		return list;
+		return postMapper.selectAll(board_id);
 	}
 	
 	public Post getDataOne(Post post) {
-		Post detail = postMapper.selectOne(post);
-		return detail;
+		return postMapper.selectOne(post);
+	}
+	
+	public List<ImageFile> getFile(int post_id) {
+		return postMapper.selectFile(post_id);
 	}
 	
 	public void setData(Post post) {
 		postMapper.insertOne(post);
+	}
+	
+	public void insertFile(ImageFile imageFile) {
+		postMapper.insertFile(imageFile);
 	}
 }

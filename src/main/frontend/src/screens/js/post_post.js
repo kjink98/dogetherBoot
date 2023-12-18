@@ -19,9 +19,10 @@ const Post_Post = () => {
 		post_content:'',	
 	})
 	
-	const [selectedImages, setSelectedImages] = useState([]);
+	const [files, setFiles] = useState([]);
+	
 	const setImages = (files) => {
-		setSelectedImages(files);
+		setFiles(files);
 	}
 
 	const onClickCancel = () => {
@@ -46,15 +47,17 @@ const Post_Post = () => {
 		setPost({...post, [name]: value});
 	}
 	
-	const setPostProc = async () => {
+	const setPostProc = async (event) => {
 		const formData = new FormData();
-		formData.append("file", selectedImages[0]);
-		formData.append("post", JSON.stringify(post))
+		for (let i = 0; i < files.length; i++){
+			formData.append("files", files[i]);
+		}
+		formData.append("post", new Blob([JSON.stringify(post)], {type: "application/json"}));
 		console.log(formData)
 
-		await axios.post('/dog/post/post', formData, {headers: {"Content-Type": "multipart/form-data"}}).then((res) => {
+		await axios.post('/dog/post/post', formData).then((res) => {
 			alert('등록되었습니다');
-			//navigate('/post/list/'+board_id);
+			navigate('/post/list/'+board_id);
 		});
 
 	} 
