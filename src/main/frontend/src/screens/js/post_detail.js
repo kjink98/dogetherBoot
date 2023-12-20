@@ -1,67 +1,123 @@
 import React, {useState, useEffect} from 'react';
-import {Form, Button} from 'react-bootstrap';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
-import {useParams} from 'react-router-dom';
-import axios from 'axios';
+import '../css/post_detail.css';
+import { Form, Button, Card, ListGroup } from 'react-bootstrap';
+import { useNavigate, useParams } from "react-router-dom";
 import CommunitySideBar from '../../components/js/CommunitySideBar.js';
-
-// css 수정해야함
-import '../css/post_review.css';
-import '../css/post_promotion.css';
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import axios from 'axios';
+import moment from 'moment';
 
 const Post_detail = () => {
 	const [postDetail, setPostDetail] = useState({});
-	const [postFiles, setPostFiles] = useState({});
+	const [postFiles, setPostFiles] = useState([]);
 	const postType = ["후기게시판", "홍보게시판", "뉴스/칼럼"];
 	let {board_id} = useParams();
 	let {post_id} = useParams();
+	const navigate = useNavigate();
 
-
-
+	// 게시글 내용 불러오기
 	useEffect(()=>{
 		const getPostDetail = async () => {
 			const resp = await axios.get(`/dog/post/detail?board_id=${board_id}&post_id=${post_id}`)
 			setPostDetail(resp.data.detail);
-			setPostFiles(resp.data.files);
+			
+			const fileData = resp.data.files;
+			let pushFileData = [];
+			for(let i in fileData){
+				if(fileData[i].file_link !== ''){
+					pushFileData.push({
+						"file_link": fileData[i].file_link
+					})
+				}
+			}
+			setPostFiles(pushFileData);
 		}
 		getPostDetail();
 	}, []);
 	
-  return (
-	  <div>
-		  <CommunitySideBar/>
-		  <div className="PostReviewTitle">
-			  <p>{postType[board_id-2]}</p>
-		  </div>
+	
+   const onClickDelete = () => {
+      let pw = '12345';
+      var password = prompt('정말로 삭제하시겠습니까?\n삭제를 원하시면 비밀번호를 입력해주세요.');
+      console.log(password);
 
-		{/* 검색 */}
-		  <Form inline className="promotion">
-			  <select name="post" className="post">
-				  <option value="제목만" selected="selected">제목만</option>
-				  <option value="내용만">내용만</option>
-				  <option value="제목+내용">제목+내용</option>
-				  <option value="닉네임">닉네임</option>
-			  </select>
-			  <Form.Control type="text" placeholder="검색어를 입력해주세요" className="mr-sm-2 PromotionSearch" />
-			  <Button type="submit" className="PromotionGlass">{<FontAwesomeIcon icon={faMagnifyingGlass} />}</Button>
-		  </Form>
-		  
-		{/* Post Detail */}
-		<div>
-			아이디: {postDetail.user_id}<br/>
-			닉네임: {postDetail.user_nickname}<br/>
-			글제목: {postDetail.post_title}<br/>
-			글내용: {postDetail.post_content}<br/>
-			
-			
-		</div>
-		
-		{/* 댓글 */}
-				
-	  </div>
-  )
+      if(pw == password){
+         alert('삭제가 완료되었습니다.');
+         navigate('/post_news_list');
+      }
+      
+      else{
+         alert('비밀번호가 일치하지 않습니다.');
+      }
+   }
+
+   const onClickModify = () => {
+      let pw = '12345';
+      var password = prompt('수정을 원하시면 비밀번호를 입력해주세요.');
+      console.log(password);
+
+      if(pw == password){
+         navigate('/post_news_update')
+      }
+      
+      else{
+         alert('비밀번호가 일치하지 않습니다.');
+      }
+   }
+
+   const onClickHeart = () => {
+      alert('관심글 목록에 추가되었습니다.');
+   }
+
+   return (
+      <div className="PostNews">
+         <CommunitySideBar></CommunitySideBar>
+
+         <div className="PostNewsDetail">
+            <div className="PostNewsTitle">
+               <p>{postType[board_id-2]}</p>
+            </div>
+
+			{/* Post Detail */}
+            <div className="NewsDetails">
+               <Card className="NewsDetailCard">
+                  <ListGroup className="NewsDetailGroup">
+                     <ListGroup.Item className="NewsDetailTitle">
+                        <p className="title">{postDetail.post_title}</p>
+                        <p className="subtitle">{postDetail.user_nickname} | {moment(postDetail.post_create_date).format('YYYY-MM-DD')} | 조회수 : {postDetail.post_views}</p>
+                     </ListGroup.Item>
+                     <ListGroup.Item className="NewsDetailBody">{postDetail.post_content}<br /><br />
+                     	<div className="image">
+                  	{postFiles && postFiles.map((file)=>
+						<img src={`${process.env.PUBLIC_URL}/img/${file.file_link}`}/>
+				  	)}
+				  </div>
+                     </ListGroup.Item>
+                  </ListGroup>
+                  
+               </Card>
+
+				{/* 수정/삭제 */}
+               <div className="NewsDetailButtons">
+                  <Button variant="primary" onClick={onClickModify}>수정하기</Button>
+                  <Button variant="danger" onClick={onClickDelete}>삭제하기</Button>
+                  <Button variant="secondary" onClick={onClickHeart}><FontAwesomeIcon icon={faHeart} />&nbsp;게시글 좋아요하기</Button>
+                  <Button variant="secondary" onClick={() => navigate('/post_news_list')}>목록</Button>
+               </div>
+
+               <div className="NewsDetailComments">
+                  <div className="NewsDetailCount">
+                     <p>댓글 3개</p>
+                  </div>
+
+                  <Button variant="dark">댓글 달기</Button>
+
+               </div>
+            </div>
+         </div>
+      </div>
+   )
 }
 
 export default Post_detail;

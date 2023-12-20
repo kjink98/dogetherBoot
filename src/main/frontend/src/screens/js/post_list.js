@@ -45,19 +45,19 @@ const Post_list = () => {
 		  </Form>
 		  
 		{/* Post List */}
-		{postList.map(post => (
-		  <div className="promotioncards">
-			  <a class="card PostPromotionCard" href={'/post/detail/'+post.board_id+'/'+post.post_id}>
-				  <img class="PostPromotionCard-img-top" src={require('../../Img/DogCafe1.jpg')} />
-				  <div class="PostPromotionCard-body">
-					  <p class="PostPromotionCard-title">{post.post_title}</p>
-					  <p class="PostPromotionCard-comment">&nbsp;(35)</p><br />
-					  <p class="PostPromotionCard-id">{post.user_nickname} | 작성일자 : {moment(post.post_create_date).format('YYYY-MM-DD')} | 조회수 : {post.post_views}</p><br />
-					  <p class="PostPromotionCard-detail">{post.post_content}</p>
-				  </div>
-			  </a>
-		  </div>
-		 ))}
+		<div className="promotioncards">
+			{postList.map(post => (
+				  <a class="card PostPromotionCard" href={'/post/detail/'+post.board_id+'/'+post.post_id}>
+					  <img class="PostPromotionCard-img-top" src={require('../../Img/DogCafe1.jpg')} />
+					  <div class="PostPromotionCard-body">
+						  <p class="PostPromotionCard-title">{post.post_title}</p>
+						  <p class="PostPromotionCard-comment">&nbsp;(35)</p><br />
+						  <p class="PostPromotionCard-id">{post.user_nickname} | 작성일자 : {moment(post.post_create_date).format('YYYY-MM-DD')} | 조회수 : {post.post_views}</p><br />
+						  <p class="PostPromotionCard-detail">{post.post_content}</p>
+					  </div>
+				  </a>
+			 ))}
+		 </div>
 		 <br/><br/><br/><br/>
 		 <a class="btn" href={'/post/post/'+board_id}><button>게시글 작성하기</button></a>
 	  </div>

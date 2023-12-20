@@ -1,0 +1,92 @@
+.PostNewsDetail{
+    width: 1740px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.PostNewsTitle p{
+    font-size: 50px;
+    font-weight: 600;
+    width: 400px;
+    margin-left: calc((100% - 250px) / 2);
+    margin-right: calc((100% - 250px) / 2);
+    padding-top: 30px;
+}
+
+.NewsDetails{
+    width: 1550px !important;
+    margin-left: 15%;
+}
+
+.NewsDetailCard{
+    margin-left: 5%;
+    width: 1300px;
+    margin-bottom: 20px;
+}
+
+.NewsDetailGroup{
+    width: 1300px;
+    border: 1px solid black;
+}
+
+.NewsDetailGroup .NewsDetailTitle{
+    background-color: #F5C7BD;
+    border-top: 1px solid black;
+    border-bottom: 3px solid #ABABAB;
+}
+
+.NewsDetailGroup .NewsDetailTitle .title{
+    text-align: center;
+    font-size: 33px;
+    font-weight: 600;
+}
+
+.NewsDetailGroup .NewsDetailTitle .subtitle{
+    float: right;
+    font-size: 15px;
+    margin-top: -15px;
+}
+
+.NewsDetailGroup .NewsDetailBody{
+    min-height: 500px;
+    border-bottom: 1px solid black;
+    padding: 20px;
+}
+
+.NewsDetails .NewsDetailButtons{
+    float: right;
+    margin-right: 5%;
+}
+
+.NewsDetails .NewsDetailButtons Button{
+    margin-right: 13px;
+    font-weight: 600;
+}
+
+.NewsDetails .fa-heart{
+    color: red;
+}
+
+.NewsDetails .NewsDetailComments .NewsDetailCount p{
+    float: left;
+    font-size: 25px;
+    font-weight: 600;
+    color: black !important;
+}
+
+.NewsDetails .NewsDetailComments Button{
+    margin-left: 10px;
+    margin-bottom: 30px;
+}
+
+.NewsDetailBody .image{
+	position: absolute;
+	bottom: 0;
+	margin-bottom: 20px;
+}
+
+.NewsDetailBody .image img{
+	height: 200px;
+	width: 200px;
+	margin: 10px;
+}

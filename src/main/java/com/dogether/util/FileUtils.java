@@ -29,8 +29,7 @@ public class FileUtils {
 				}
 				
 				// 이미지 저장 경로
-				String rootFolder = "C:/uploadFiles/";
-				
+				String rootFolder = new File("").getAbsolutePath() +"/src/main/frontend/public/img/";
 				// 날짜별 폴더 생성
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 				String today = sdf.format(new Date());
