@@ -37,14 +37,16 @@ const Post_detail = () => {
 	}, []);
 	
 	
-   const onClickDelete = () => {
+   const onClickDelete = async() => {
       let pw = '12345';
       var password = prompt('정말로 삭제하시겠습니까?\n삭제를 원하시면 비밀번호를 입력해주세요.');
       console.log(password);
 
       if(pw == password){
-         alert('삭제가 완료되었습니다.');
-         navigate('/post_news_list');
+		  await axios.get(`/dog/post/delete?post_id=${post_id}`).then((res)=> {
+		  	alert('삭제가 완료되었습니다.');
+		  	navigate(`/post/list/${board_id}`);
+		  })
       }
       
       else{
@@ -103,7 +105,7 @@ const Post_detail = () => {
                   <Button variant="primary" onClick={onClickModify}>수정하기</Button>
                   <Button variant="danger" onClick={onClickDelete}>삭제하기</Button>
                   <Button variant="secondary" onClick={onClickHeart}><FontAwesomeIcon icon={faHeart} />&nbsp;게시글 좋아요하기</Button>
-                  <Button variant="secondary" onClick={() => navigate('/post_news_list')}>목록</Button>
+                  <Button variant="secondary" onClick={() => navigate(`/post/list/${board_id}`)}>목록</Button>
                </div>
 
                <div className="NewsDetailComments">

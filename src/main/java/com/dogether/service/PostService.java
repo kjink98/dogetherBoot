@@ -43,6 +43,13 @@ public class PostService {
 		}
 	}
 	
+	public void deletePost(int post_id) {
+		// DB 저장 내용 삭제
+		postRepository.deletePost(post_id);
+		// 실제 파일 삭제
+		fileUtils.deleteFile(getFile(post_id));
+	}
+	
 	
 	
 	

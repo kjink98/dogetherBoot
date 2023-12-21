@@ -2,6 +2,7 @@ package com.dogether.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -29,4 +30,11 @@ public interface PostMapper {
 	
 	@Insert("INSERT INTO tblfile(file_id, post_id, file_oriname, file_link, file_create_date) VALUES(nextval(file_id_seq), lastval(post_id_seq), #{file_oriname}, #{file_link}, now())")
 	void insertFile(ImageFile imageFile);
+	
+	@Delete("DELETE FROM tblpost WHERE post_id=#{post_id}")
+	void deletePost(int post_id);
+	
+	@Delete("DELETE FROM tblFile WHERE post_id=#{post_id}")
+	void deleteFile(int post_id);
+	
 }

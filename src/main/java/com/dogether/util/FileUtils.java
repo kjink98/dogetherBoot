@@ -16,6 +16,7 @@ import com.dogether.domain.Post;
 @Component("fileUtils")
 public class FileUtils {
 
+	/* 파일 저장 */
 	public List<ImageFile> insertFileInfo(Post post, MultipartFile[] files) {
 		
 		List<ImageFile> imageFileList = new ArrayList<>();
@@ -59,10 +60,23 @@ public class FileUtils {
 				imagefile.setFile_link(saveFileName);
 				
 				imageFileList.add(imagefile);
-				
 			}
 		}
-		
 		return imageFileList;
+	}
+	
+	/* 파일 삭제 */
+	public void deleteFile(List<ImageFile> fileList) {
+		
+		String rootFolder = new File("").getAbsolutePath() +"/src/main/frontend/public/img/";
+		
+		try {
+			for(int i=0; i<fileList.size(); i++) {
+				File file = new File(rootFolder + fileList.get(i).getFile_link());
+				file.delete();
+			}
+		} catch(Exception e) {
+			System.out.println("deleteFile: " + e);
+		}
 	}
 }

@@ -35,4 +35,9 @@ public class PostRepository {
 	public void insertFile(ImageFile imageFile) {
 		postMapper.insertFile(imageFile);
 	}
+	
+	public void deletePost(int post_id) {
+		postMapper.deletePost(post_id);
+		postMapper.deleteFile(post_id);
+	}
 }

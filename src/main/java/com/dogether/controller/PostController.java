@@ -46,4 +46,10 @@ public class PostController {
 		postService.setPost(post, files);
 		return "post_post";
 	}
+	
+	@GetMapping("/delete")
+	public String deletePost(int post_id) {
+		postService.deletePost(post_id);
+		return "delete";
+	}
 }
