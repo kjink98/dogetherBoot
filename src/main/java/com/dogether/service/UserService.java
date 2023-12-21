@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dogether.domain.User;
+import com.dogether.dto.ChangeInfoRequestDto;
 import com.dogether.dto.ChangePasswordRequestDto;
 import com.dogether.repository.UserRepository;
 
@@ -137,6 +138,17 @@ public class UserService {
         // 새 비밀번호로 업데이트
         userRepository.updateUserPassword(user.getUser_id(), passwordEncoder.encode(requestDto.getNewPassword()));
     }
+	
+	/**
+	 * 마이페이지에서 내 정보를 수정하는 메서드입니다.
+	 */
+	public void changeInfo(ChangeInfoRequestDto requestDto) {
+		// 로그인중인지 확인
+		User user = getCurrentLoggedInMember();
+		
+		userRepository.updateInfo(user.getUser_id(), requestDto.getNewNickname());
+
+	}
 	 /**
      * 모든 사용자 정보를 데이터베이스에서 가져오는 메소드
      */

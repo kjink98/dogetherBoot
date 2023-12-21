@@ -96,4 +96,5 @@ public class User {
         this.user_pw = passwordEncoder.encode(password);
     }
     
+   
 }

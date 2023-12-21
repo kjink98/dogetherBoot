@@ -62,6 +62,12 @@ public interface UserMapper {
 	void updateUserPassword(@Param("user_id") String email, @Param("newPassword") String newPassword);
 	
 	/**
+	 * 사용자 아이디를 통해 내정보를 변경하는 메소드입니다.
+	 */
+	@Update("update tbluser set user_nickname = #{newNickname} where user_id = #{user_id}")
+	void updateInfo(@Param("user_id") String email, @Param("newNickname") String newNickname);
+	
+	/**
 	 * 사용자 권한 업데이트하는 메소드입니다.
 	 */
 	@Update({

@@ -55,6 +55,13 @@ public class UserRepository {
         userMapper.updateUserPassword(user_id, newPassword);
     }
     
+    /**
+     * 사용자 아이디를 통해 내 정보를 변경하는 메소드
+     */
+    public void updateInfo(String user_id, String newNickname) {
+        userMapper.updateInfo(user_id, newNickname);
+    }
+    
     public void updateRoles(String user_id, String role) {
         userMapper.updateRoles(user_id, role);
     }

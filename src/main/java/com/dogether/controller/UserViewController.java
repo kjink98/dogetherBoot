@@ -61,7 +61,24 @@ public class UserViewController {
 	    return "user/changePw";
 	}
 	
-
+	/**
+     * 내 정보 수정 페이지로 이동합니다.
+     * URL: /user/changeInfo
+     */
+	@GetMapping("/changeInfo")
+	public String changeInfo(Model model) {
+		// 현재 로그인 중인 사용자의 Member 엔티티를 가져옴
+        User loggedInUser = userService.getCurrentLoggedInMember();
+        if (loggedInUser != null) {
+            // Member 엔티티에서 필요한 정보 추출하여 Thymeleaf 모델에 추가
+            model.addAttribute("user_nickname", loggedInUser.getUser_nickname());
+        } else {
+            // 로그인 안됐을때 로그인 페이지로 이동시키기
+        	return "user/login";
+        }
+	    return "user/changeInfo";
+	}
+	
 	/**
      * 로그인된 사용자의 정보를 조회하고, 정보를 조회 페이지에 보여줍니다.
      * URL: /user/myInfo
@@ -79,7 +96,6 @@ public class UserViewController {
             model.addAttribute("user_id", loggedInUser.getUser_id());
             model.addAttribute("user_gender", loggedInUser.getUser_gender());
             model.addAttribute("role", loggedInUser.getRole());
-            System.out.println(loggedInUser.getUser_birthday()); 
         } else {
             // 로그인 안됐을때 로그인 페이지로 이동시키기
         	return "user/login";

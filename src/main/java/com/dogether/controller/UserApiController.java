@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dogether.dto.ChangeInfoRequestDto;
 import com.dogether.dto.ChangePasswordRequestDto;
 import com.dogether.service.UserService;
 
@@ -36,7 +37,21 @@ public class UserApiController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 	}
+	
+	/*
+	 * 내 정보 수정
+	 */
+	@PostMapping("/changeInfo")
+	public ResponseEntity<String> changeInfo(ChangeInfoRequestDto requestDto) {
+		try {
+			userService.changeInfo(requestDto);
+			return ResponseEntity.ok("내 정보 변경이 완료되었습니다.");
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+	}
 
+	
 	/*
 	 * 회원 탈퇴 요청을 처리하는 API
 	 */
