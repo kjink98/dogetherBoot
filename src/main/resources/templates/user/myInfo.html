@@ -53,7 +53,7 @@
 		</tr>
 		<tr>
 			<td>생년월일</td>
-			<td>개발중</td>
+			<td th:text="${#dates.format(user_birthday, 'yyyy-MM-dd')}"></td>
 		</tr>
 		<tr>
 			<td>성별</td>

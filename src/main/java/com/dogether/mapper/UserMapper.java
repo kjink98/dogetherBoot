@@ -23,9 +23,9 @@ public interface UserMapper {
 	 * 새로운 사용자 정보를 데이터베이스에 삽입하는 메소드 생일 미완
 	 */
 	@Insert("insert into tbluser (user_id, role, user_name, user_nickname,"
-			+ "user_pw, user_gender, user_email, user_regdate) "
+			+ "user_pw, user_gender, user_email, user_birthday, user_regdate) "
 			+ "values(#{user_id}, 'USER',  #{user_name}, #{user_nickname},"
-			+ "#{user_pw}, #{user_gender}, #{user_email}, now())")
+			+ "#{user_pw}, #{user_gender}, #{user_email}, #{user_birthday}, now())")
 	int insertUser(User user);
 
 	/**

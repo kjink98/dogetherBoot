@@ -74,11 +74,12 @@ public class UserViewController {
             // Member 엔티티에서 필요한 정보 추출하여 Thymeleaf 모델에 추가
             model.addAttribute("user_name", loggedInUser.getUser_name());
             model.addAttribute("user_email", loggedInUser.getUser_email());
-//            model.addAttribute("user_birth_day", loggedInUser.getBirth_day() != null ? loggedInMember.getBirth_day() : "생년월일 없음");
+            model.addAttribute("user_birthday", loggedInUser.getUser_birthday());
             model.addAttribute("user_nickname", loggedInUser.getUser_nickname());
             model.addAttribute("user_id", loggedInUser.getUser_id());
             model.addAttribute("user_gender", loggedInUser.getUser_gender());
             model.addAttribute("role", loggedInUser.getRole());
+            System.out.println(loggedInUser.getUser_birthday()); 
         } else {
             // 로그인 안됐을때 로그인 페이지로 이동시키기
         	return "user/login";

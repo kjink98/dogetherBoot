@@ -121,7 +121,7 @@ public class OAuthAttributes {
 	    if (attributes.containsKey("sub")) {
 	        userId = (String) attributes.get("sub");
 	        userEmail = (String) attributes.get("email");
-	        userGender = "?";
+	        userGender = "비공개";
 	        userNickname = (String) attributes.get("name");
 	    } 
 	    // 카카오에서 제공하는 고유 ID 및 성별 정보를 가져옵니다.
