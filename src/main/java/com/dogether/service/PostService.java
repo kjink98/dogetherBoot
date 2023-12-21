@@ -1,12 +1,16 @@
 package com.dogether.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dogether.domain.ImageFile;
 import com.dogether.domain.Post;
+import com.dogether.dto.PostListDto;
 import com.dogether.repository.PostRepository;
 import com.dogether.util.FileUtils;
 
@@ -20,8 +24,25 @@ public class PostService {
 	
 	private final FileUtils fileUtils;
 	
-	public List<Post> getPostList(int board_id) {
-		return postRepository.getDataAll(board_id);	
+	public List<PostListDto> getPostList(int board_id) {
+		List<PostListDto> list = new ArrayList<>();
+		
+		// 게시글 내용, 썸네일 담기
+		 List<Post> postList = postRepository.getDataAll(board_id);	
+
+		 for(int i=0; i<postList.size(); i++) {
+			 PostListDto listDto = new PostListDto(postList.get(i));
+			 List<ImageFile> fileList = getFile(postList.get(i).getPost_id());
+			 for(int j=0; j<fileList.size(); j++) {
+				 if(fileList.get(j).getPost_id() == postList.get(i).getPost_id()) {
+					 listDto.setFile_id(fileList.get(j).getFile_id());
+					 listDto.setFile_link(fileList.get(j).getFile_link());
+					 break;
+				 }	 
+			 }
+			 list.add(listDto);
+		 }
+		 return list;
 	}
 	
 	public Post getPostDetail(Post post) {

@@ -16,7 +16,9 @@ const Post_list = () => {
 	const postType = ["후기게시판", "홍보게시판", "뉴스/칼럼"];
 	let {board_id} = useParams();
 	const [postList, setPostList] = useState([]);
-	
+	const [postFileList, setPostFileList] = useState([]);
+console.log(postList)
+console.log(postFileList)
 	useEffect(()=>{
 		const getPostList = async () => {
 			const resp = await axios.get(`/dog/post/list?board_id=${board_id}`)
@@ -48,7 +50,7 @@ const Post_list = () => {
 		<div className="promotioncards">
 			{postList.map(post => (
 				  <a class="card PostPromotionCard" href={'/post/detail/'+post.board_id+'/'+post.post_id}>
-					  <img class="PostPromotionCard-img-top" src={require('../../Img/DogCafe1.jpg')} />
+					  <img class="PostPromotionCard-img-top" src={`${process.env.PUBLIC_URL}/img/${post.file_link}`} />
 					  <div class="PostPromotionCard-body">
 						  <p class="PostPromotionCard-title">{post.post_title}</p>
 						  <p class="PostPromotionCard-comment">&nbsp;(35)</p><br />

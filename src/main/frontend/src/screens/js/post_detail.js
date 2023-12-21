@@ -71,6 +71,27 @@ const Post_detail = () => {
    const onClickHeart = () => {
       alert('관심글 목록에 추가되었습니다.');
    }
+   
+   // 댓글 등록
+   
+   const [comment, setComment] = useState({
+		board_id: board_id,
+		post_id: post_id,
+		user_nickname: '',
+		comment_content:''
+	})
+	
+   const onChange = (event) => {
+	   const {name, value} = event.target;
+	   setComment({...comment, [name]:value});
+   }
+   
+   const setCommentProc = async() => {
+	  /* await axios.post('/dog/post/comment', formData).then((res) => {
+		   alert('등록되었습니다');
+		   navigate(`/post/list/${board_id}`); // 이게 작동이 안됨..
+	});*/
+   }
 
    return (
       <div className="PostNews">
@@ -112,8 +133,10 @@ const Post_detail = () => {
                   <div className="NewsDetailCount">
                      <p>댓글 3개</p>
                   </div>
-
-                  <Button variant="dark">댓글 달기</Button>
+                  <br/>
+					<input type="text" name="user_nickname" onChange={onChange}/><br/>
+					<textarea name="comment_content" onChange={onChange}/>
+                  <Button variant="dark" onClick={setCommentProc}>댓글 달기</Button>
 
                </div>
             </div>

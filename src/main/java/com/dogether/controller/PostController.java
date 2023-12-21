@@ -1,6 +1,5 @@
 package com.dogether.controller;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.dogether.domain.ImageFile;
 import com.dogether.domain.Post;
+import com.dogether.dto.PostListDto;
 import com.dogether.service.PostService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,9 +26,8 @@ public class PostController {
 	private final PostService postService;
 	
 	@GetMapping("/list")
-	public List<Post> getPostList(int board_id) {
-		List<Post> list = postService.getPostList(board_id);
-		return list;
+	public List<PostListDto> getPostList(int board_id) {
+		return postService.getPostList(board_id);
 	}
 	
 	@GetMapping("/detail")
