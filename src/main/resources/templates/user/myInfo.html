@@ -14,7 +14,7 @@
 	<div class="mylist">
 		<h2>마이 페이지</h2>
 		<div class="list">
-			<a th:href="@{/Dogether/user/view/myInfo}">
+			<a th:href="@{/user/changeInfo}">
 				<h4 class="active">내 정보 수정</h4>
 			</a>
 			<a th:href="@{/user/changePw}">
@@ -53,7 +53,7 @@
 		</tr>
 		<tr>
 			<td>생년월일</td>
-			<td>개발중</td>
+			<td th:text="${#dates.format(user_birthday, 'yyyy-MM-dd')}"></td>
 		</tr>
 		<tr>
 			<td>성별</td>
@@ -61,11 +61,11 @@
 		</tr>
 		<tr>
 			<td>회원 종류</td>
-			<td th:text="${user_grade}"></td>
+			<td th:text="${role}"></td>
 		</tr>
 	</table>
 	<hr>
-	<input type="button" value="메인으로" th:onclick="'window.location.href=\'' + @{/index} + '\''"> 
+	<input type="button" value="메인으로" th:onclick="'window.location.href=\'' + @{/} + '\''"> 
 	<input type="button" value="회원탈퇴" th:onclick="'window.location.href=\'' + @{/user/resign} + '\''">
 </body>
 

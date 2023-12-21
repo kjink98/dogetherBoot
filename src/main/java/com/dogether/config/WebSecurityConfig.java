@@ -41,6 +41,7 @@ public class WebSecurityConfig {
 		.csrf(csrf -> csrf.disable()) // CSRF 공격 방어를 비활성화. 토큰을 사용하는 방식이기 때문에 CSRF를 비활성화.
 				.authorizeHttpRequests(request -> request.
 						dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll() // FORWARD 타입의 모든 요청을 허용
+						.requestMatchers("/user/userManagement").hasAuthority("ROLE_ADMIN") // '/admin/**'으로 시작하는 URL은 'ROLE_ADMIN' 권한을 가진 사용자만 접근 가능
 						.requestMatchers("/", "/index.html", "/index","/user/login", "/user/signup", "/user/signupSuccess", "/post/**", "/dog/**",
 								"/css/**", "/js/**") // 인증 없이 접근 가능한 URL 패턴을 지정
 						.permitAll() // 위에서 지정한 URL 패턴에 대한 모든 요청을 허용
@@ -55,13 +56,13 @@ public class WebSecurityConfig {
 						.loginProcessingUrl("/login-process") // 로그인 폼 데이터를 처리할 URL을 지정
 						.usernameParameter("user_id") // 로그인 폼에서 사용자 ID를 받을 파라미터의 이름을 지정
 						.passwordParameter("user_pw") // 로그인 폼에서 비밀번호를 받을 파라미터의 이름을 지정
-						.defaultSuccessUrl("/index", true)  // 로그인 성공 후 리다이렉트할 URL을 지정
+						.defaultSuccessUrl("/", true)  // 로그인 성공 후 리다이렉트할 URL을 지정
 						.failureForwardUrl("/user/loginView") // 로그인 실패 시 포워드할 URL을 지정
 						.permitAll()) // 로그인 과정에서의 모든 요청을 허용
 
 				/* 폼 로그아웃 처리 */
 				.logout(logout -> logout.
-						logoutSuccessUrl("/index") // 로그아웃 성공 후 리다이렉트할 URL을 지정
+						logoutSuccessUrl("/") // 로그아웃 성공 후 리다이렉트할 URL을 지정
 						.permitAll() // 로그아웃 과정에서의 모든 요청을 허용
 						.invalidateHttpSession(true)) // 로그아웃 성공 후 HTTP 세션을 무효화
 
@@ -70,12 +71,12 @@ public class WebSecurityConfig {
 				.userInfoEndpoint() // OAuth 2 로그인 성공 후 사용자 정보를 가져오는 설정을 담당
 				.userService(customOAuth2UserServicer) // 소셜 로그인 성공 시 후속 조치를 진행할 UserService 인터페이스의 구현체를 등록
 				.and().loginPage("/user/login") // 사용자 정의 로그인 페이지 URL을 지정
-				.defaultSuccessUrl("/index", true) // 로그인 성공 후 리다이렉트할 URL을 지정
+				.defaultSuccessUrl("/", true) // 로그인 성공 후 리다이렉트할 URL을 지정
 				.failureUrl("/user/loginView") // 로그인 실패 시 리다이렉트할 URL을 지정
 				.and()
 
 				/* OAuth 로그아웃 처리 */
-				.logout(logout -> logout.logoutSuccessUrl("/index") // 로그아웃 성공 후 리다이렉트할 URL을 지정
+				.logout(logout -> logout.logoutSuccessUrl("/") // 로그아웃 성공 후 리다이렉트할 URL을 지정
 						.permitAll() // 로그아웃 과정에서의 모든 요청을 허용
 						.invalidateHttpSession(true)) // 로그아웃 성공 후 HTTP 세션을 무효화
 
