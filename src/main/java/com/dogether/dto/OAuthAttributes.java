@@ -92,7 +92,6 @@ public class OAuthAttributes {
 	 * Kakao의 OAuth 사용자 정보를 변환하는 메소드입니다.
 	 */
 	private static OAuthAttributes ofKakao(String userNameAttributeName, Map<String, Object> attributes) {
-		System.out.println("야");
         Map<String,Object> properties = (Map<String, Object>) attributes.get("properties");
         Map<String, Object> kakaoAccount  = (Map<String, Object>) attributes.get("kakao_account");
         System.out.println(properties);
@@ -113,8 +112,6 @@ public class OAuthAttributes {
 	 * 처음 가입할 때 호출되며, 기본적으로 USER 권한을 부여합니다.
 	 */
 	public User toEntity() {
-		System.out.println("toEntity : " + attributes.containsKey("kakao_account"));
-		
 		String userId = "";
 		String userGender ="";
 		String userEmail = "";
@@ -124,14 +121,13 @@ public class OAuthAttributes {
 	    if (attributes.containsKey("sub")) {
 	        userId = (String) attributes.get("sub");
 	        userEmail = (String) attributes.get("email");
-	        userGender = "?";
+	        userGender = "비공개";
 	        userNickname = (String) attributes.get("name");
 	    } 
 	    // 카카오에서 제공하는 고유 ID 및 성별 정보를 가져옵니다.
 	    else if (attributes.containsKey("kakao_account"))  {  
 	    	Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
 	    	Map<String,Object> properties = (Map<String, Object>) attributes.get("properties");
-	    	System.out.println(attributes.containsKey("kakao_account"));
 	        userId = String.valueOf(attributes.get("id"));
 	        userGender = String.valueOf(kakaoAccount.get("gender")); // 수정된 부분
 	        userEmail = (String) kakaoAccount.get("email");
@@ -145,15 +141,14 @@ public class OAuthAttributes {
 	    	userNickname = (String) attributes.get("nickname");
 	    }
 	 // 추출한 정보를 바탕으로 User 객체를 생성합니다. 비밀번호는 "N/A"로 저장되며, 기본 권한은 USER입니다.
-    	return User.builder()
-    			.user_id(userId)
-                .user_email(userEmail)
-    			.user_name(name)
-    			.user_nickname(userNickname)
-    			.user_gender(userGender)
-    			.user_pw("N/A")
-                .role(Role.USER)
-                .build();
+	    return User.builder()
+	    	    .user_id(userId)
+	    	    .user_email(userEmail)
+	    	    .user_name(name)
+	    	    .user_nickname(userNickname)
+	    	    .user_gender(userGender)
+	    	    .user_pw("N/A")
+	    	    .role(Role.USER)
+	    	    .build();
 	}
-
 }

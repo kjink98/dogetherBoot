@@ -1,0 +1,48 @@
+.PostNewsPost{
+	width: 1740px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.PostNewsTitle p{
+	font-size: 50px;
+	font-weight: 600;
+	width: 400px;
+	margin-left: calc((100% - 250px) / 2);
+	margin-right: calc((100% - 250px) / 2);
+	padding-top: 30px;
+}
+
+.NewsPost{
+	width: 1550px !important;
+	margin-left: 15%;
+}
+
+.NewsPost .NewsPostTitle{
+	width: 600px;
+	margin-bottom: 30px;
+}
+
+.NewsPost .NewsPostBody{
+	width: 1500px;
+	margin-bottom: 50px;
+}
+
+.NewsPost .NewsPostContents{
+	resize: none;
+	height: 400px;
+}
+
+.NewsPost .NewsPostImage{
+	width: 800px;
+}
+
+.NewsPost .NewsPostButtons{
+	float: right;
+	margin-right: 5%;
+}
+
+.NewsPost .NewsPostButtons Button{
+	margin-right: 13px;
+	font-weight: 600;
+}

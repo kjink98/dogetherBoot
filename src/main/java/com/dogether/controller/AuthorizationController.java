@@ -21,6 +21,9 @@ public class AuthorizationController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@ModelAttribute User user) {
+    	if (!user.getUser_pw().equals(user.getUser_pwcheck())) {
+            return new ResponseEntity<>("비밀번호가 일치하지 않습니다.", HttpStatus.BAD_REQUEST);
+        }
         try {
             registerUserService.signup(
                 user.getUser_id(),
