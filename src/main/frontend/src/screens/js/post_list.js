@@ -16,9 +16,7 @@ const Post_list = () => {
 	const postType = ["후기게시판", "홍보게시판", "뉴스/칼럼"];
 	let {board_id} = useParams();
 	const [postList, setPostList] = useState([]);
-	const [postFileList, setPostFileList] = useState([]);
-console.log(postList)
-console.log(postFileList)
+
 	useEffect(()=>{
 		const getPostList = async () => {
 			const resp = await axios.get(`/dog/post/list?board_id=${board_id}`)

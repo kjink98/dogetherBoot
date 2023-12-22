@@ -36,14 +36,14 @@ const Post_detail = () => {
 		getPostDetail();
 	}, []);
 	
-	
+	// 게시글 삭제
    const onClickDelete = async() => {
       let pw = '12345';
       var password = prompt('정말로 삭제하시겠습니까?\n삭제를 원하시면 비밀번호를 입력해주세요.');
       console.log(password);
 
       if(pw == password){
-		  await axios.get(`/dog/post/delete?post_id=${post_id}`).then((res)=> {
+		  await axios.delete(`/dog/post/delete?post_id=${post_id}`).then((res)=> {
 		  	alert('삭제가 완료되었습니다.');
 		  	navigate(`/post/list/${board_id}`);
 		  })
@@ -73,7 +73,6 @@ const Post_detail = () => {
    }
    
    // 댓글 등록
-   
    const [comment, setComment] = useState({
 		board_id: board_id,
 		post_id: post_id,
@@ -87,11 +86,32 @@ const Post_detail = () => {
    }
    
    const setCommentProc = async() => {
-	  /* await axios.post('/dog/post/comment', formData).then((res) => {
+	   await axios.post('/dog/post/comment', comment).then((res) => {
 		   alert('등록되었습니다');
-		   navigate(`/post/list/${board_id}`); // 이게 작동이 안됨..
-	});*/
+		   setComment([]); // 안됨..
+		   navigate(`/post/detail/${board_id}/${post_id}`); // 안됨..
+		   //getCommentList();
+	});
    }
+   
+   // 댓글 불러오기
+   const [commentList, setCommentList] = useState([]);
+	
+   useEffect(()=>{
+	   const getCommentList = async () => {
+			//const resp = await axios.get(`/dog/post/cmtList?post_id=${post_id}`).then((res)=>{
+			//setCommentList(resp.data);
+			//})
+		}
+		getCommentList();
+	}, []);
+	
+	// 댓글 삭제
+	const deleteComment = async (comment_id) => {
+		await axios.delete(`/dog/post/cmtDelete?comment_id=${comment_id}`).then((res)=>{
+			alert("삭제되었습니다.")  
+		})
+	}
 
    return (
       <div className="PostNews">
@@ -129,15 +149,25 @@ const Post_detail = () => {
                   <Button variant="secondary" onClick={() => navigate(`/post/list/${board_id}`)}>목록</Button>
                </div>
 
+				{/* 댓글 */}
                <div className="NewsDetailComments">
                   <div className="NewsDetailCount">
-                     <p>댓글 3개</p>
+                     <p>댓글 {commentList.length} 개</p>
                   </div>
                   <br/>
 					<input type="text" name="user_nickname" onChange={onChange}/><br/>
 					<textarea name="comment_content" onChange={onChange}/>
-                  <Button variant="dark" onClick={setCommentProc}>댓글 달기</Button>
-
+                  <Button variant="dark" onClick={setCommentProc}>댓글 달기</Button><br/>
+                  {commentList && commentList.map((comment)=>(
+					  <div>
+					  	<p>{comment.user_nickname}</p>
+					  	<p>{comment.comment_content}</p>
+					  	<button>수정</button>
+					  	<button onClick={deleteComment(comment.comment_id)}>삭제</button>
+					  	<hr/>
+					  </div>
+				  ))}
+	
                </div>
             </div>
          </div>

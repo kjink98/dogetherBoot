@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
 
+import com.dogether.domain.Comment;
 import com.dogether.domain.ImageFile;
 import com.dogether.domain.Post;
 
@@ -37,4 +38,10 @@ public interface PostMapper {
 	@Delete("DELETE FROM tblFile WHERE post_id=#{post_id}")
 	void deleteFile(int post_id);
 	
+	@Insert("INSERT INTO tblcomment(comment_id, user_id, user_nickname, board_id, post_id, comment_content, comment_create_date) "
+			+ "VALUES(nextval(comment_id_seq), #{user_id}, #{user_nickname}, #{board_id}, #{post_id}, #{comment_content}, now())")
+	void insertComment(Comment comment);
+	
+	@Select("SELECT * FROM tblcomment WHERE post_id=#{post_id}")
+	List<Comment> selectComment(int post_id);
 }

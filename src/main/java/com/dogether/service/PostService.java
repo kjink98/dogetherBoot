@@ -1,13 +1,12 @@
 package com.dogether.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.dogether.domain.Comment;
 import com.dogether.domain.ImageFile;
 import com.dogether.domain.Post;
 import com.dogether.dto.PostListDto;
@@ -24,6 +23,7 @@ public class PostService {
 	
 	private final FileUtils fileUtils;
 	
+	// 전체 게시글 목록 가져오기
 	public List<PostListDto> getPostList(int board_id) {
 		List<PostListDto> list = new ArrayList<>();
 		
@@ -45,17 +45,20 @@ public class PostService {
 		 return list;
 	}
 	
+	// 1개 게시글 내용 가져오기
 	public Post getPostDetail(Post post) {
 		return postRepository.getDataOne(post);
 	}
 	
+	// 1개 게시글 이미지 목록 가져오기
 	public List<ImageFile> getFile(int post_id) {
 		return postRepository.getFile(post_id);
 	}
 	
+	// 게시글 등록
 	public void setPost (Post post, MultipartFile[] files) {
-		post.setUser_id("yooram2");
-		post.setUser_nickname("푸들조아");
+		post.setUser_id("yooram2"); // 임시 저장
+		post.setUser_nickname("푸들조아"); // 임시 저장
 		postRepository.setData(post);
 		
 		List<ImageFile> list = fileUtils.insertFileInfo(post, files);
@@ -64,6 +67,7 @@ public class PostService {
 		}
 	}
 	
+	// 게시글 삭제
 	public void deletePost(int post_id) {
 		// DB 저장 내용 삭제
 		postRepository.deletePost(post_id);
@@ -71,7 +75,16 @@ public class PostService {
 		fileUtils.deleteFile(getFile(post_id));
 	}
 	
+	// 댓글 등록
+	public void setComment(Comment comment) {
+		comment.setUser_id("yooram2"); // 임시 저장
+		postRepository.setComment(comment);
+	}
 	
+	// 댓글 리스트
+	public List<Comment> getComment(int post_id){
+		return postRepository.getComment(post_id);
+	}
 	
 	
 }

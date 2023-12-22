@@ -4,13 +4,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.dogether.domain.Comment;
 import com.dogether.domain.ImageFile;
 import com.dogether.domain.Post;
 import com.dogether.dto.PostListDto;
@@ -46,9 +49,21 @@ public class PostController {
 		return "post_post";
 	}
 	
-	@GetMapping("/delete")
+	@DeleteMapping("/delete") // Delete로 바꿔야함
 	public String deletePost(int post_id) {
+		System.out.println(post_id);
 		postService.deletePost(post_id);
 		return "delete";
+	}
+	
+	@PostMapping("/comment")
+	public String setComment(@RequestBody Comment comment) {
+		postService.setComment(comment);
+		return "comment";
+	}
+	
+	@GetMapping("/cmtList")
+	public List<Comment> getComment(int post_id) {
+		return postService.getComment(post_id);
 	}
 }
