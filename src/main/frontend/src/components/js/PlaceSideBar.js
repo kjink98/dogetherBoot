@@ -5,60 +5,60 @@ import Badge from 'react-bootstrap/Badge';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUtensils, faHospital, faMugSaucer, faBowlFood, faBed, faSchoolFlag, faBone, faBasketShopping, faTree } from "@fortawesome/free-solid-svg-icons";
 
-const Sidebar = ({ children }) => {
+const PlaceSidebar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const menuItem = [
     {
-      path: "/place_restaurant_list",
+      path: "/place/restaurant",
       name: "식당",
       number: 18,
       icon: <FontAwesomeIcon icon={faUtensils} />
     },
     {
-      path: "/place_hospital_list",
+      path: "/place/hospital",
       name: "병원",
       number: 18,
       icon: <FontAwesomeIcon icon={faHospital} />
     },
     {
-      path: "/place_cafe_list",
+      path: "/place/cafe",
       name: "카페",
       number: 18,
       icon: <FontAwesomeIcon icon={faMugSaucer} />
     },
     {
-      path: "/place_dogcafe_list",
+      path: "/place/dogcafe",
       name: "애견카페",
       number: 18,
       icon: <FontAwesomeIcon icon={faBowlFood} />
     },
     {
-      path: "/place_hotel_list",
+      path: "/place/hotel",
       name: "숙소",
       number: 18,
       icon: <FontAwesomeIcon icon={faBed} />
     },
     {
-      path: "/place_school_list",
+      path: "/place/school",
       name: "애견유치원",
       number: 18,
       icon: <FontAwesomeIcon icon={faSchoolFlag} />
     },
     {
-      path: "/place_training_list",
+      path: "/place/training",
       name: "훈련소",
       number: 18,
       icon: <FontAwesomeIcon icon={faBone} />
     },
     {
-      path: "/place_dogshop_list",
+      path: "/place/dogshop",
       name: "애견용품점",
       number: 18,
       icon: <FontAwesomeIcon icon={faBasketShopping} />
     },
     {
-      path: "/place_playground_list",
+      path: "/place/playground",
       name: "애견운동장 / 산책",
       number: 18,
       icon: <FontAwesomeIcon icon={faTree} />
@@ -84,4 +84,4 @@ const Sidebar = ({ children }) => {
   );
 };
 
-export default Sidebar;
+export default PlaceSidebar;

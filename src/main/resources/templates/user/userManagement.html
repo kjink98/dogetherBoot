@@ -39,8 +39,7 @@
 					<td th:text="${user.role}"></td>
 					<td>
 						<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#roleModal"
-							th:data-user-id="${user.user_id}"
-							onclick="openModal(this.getAttribute('data-user-id'))">수정</a>
+							th:data-user-id="${user.user_id}" onclick="openModal(this.getAttribute('data-user-id'))">수정</a>
 						<form th:action="@{/user/deleteUser}" method="post" style="display: inline;">
 							<input type="hidden" name="user_id" th:value="${user.user_id}">
 							<input type="submit" value="탈퇴" class="btn btn-danger">
@@ -64,8 +63,7 @@
 				<div class="modal-body">
 					<!-- 여기에 사용자의 권한 라디오를 추가합니다 -->
 					<div class="form-check">
-						<input class="form-check-input" type="radio" name="role" value="ROLE_USER" id="roleUser"
-							checked>
+						<input class="form-check-input" type="radio" name="role" value="ROLE_USER" id="roleUser" checked>
 						<label class="form-check-label" for="roleUser">
 							사용자
 						</label>

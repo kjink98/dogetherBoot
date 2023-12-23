@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>Dogether</title>
-<script th:inline="javascript">
-    function goLogin() {
-        location.href = /*[[@{/login}]]*/ '';
-    }
-</script>
+    <meta charset="UTF-8">
+    <title>Dogether</title>
+    <script th:inline="javascript">
+        function goLogin() {
+            location.href = /*[[@{/login}]]*/ '';
+        }
+    </script>
 </head>
+
 <body>
     <h1>회원가입 정보를 확인하세요.</h1>
     <h3 th:text="${user.user_nickname} + '님 가입을 축하드립니다.'"></h3>
@@ -41,4 +43,5 @@
     <br>
     <button onclick="goLogin()">확인</button>
 </body>
+
 </html>

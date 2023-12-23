@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dogether.domain.FavoritePlace;
@@ -13,8 +14,6 @@ import com.dogether.service.PlaceService;
 import com.dogether.service.ReviewService;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,9 +25,8 @@ public class PlaceController {
 
     // 완성
     @GetMapping("/list")
-    public List<Place> getPlaceList(String place_category, Model model) {
+    public List<Place> getPlaceList(String place_category) {
         List<Place> places = placeService.list(place_category);
-        // model.addAttribute("places", places);
 
         // 테스트용 조건문
         if (!places.isEmpty()) {

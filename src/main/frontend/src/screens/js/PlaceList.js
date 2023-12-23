@@ -9,7 +9,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 
-const Place_Restaurant_List = () => {
+const PlaceList = () => {
   const [placeList, setPlaceList] = useState([]);
   let { place_category } = useParams();
   useEffect(() => {
@@ -42,4 +42,4 @@ const Place_Restaurant_List = () => {
   )
 }
 
-export default Place_Restaurant_List
+export default PlaceList;

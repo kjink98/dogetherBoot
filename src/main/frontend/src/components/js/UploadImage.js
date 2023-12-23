@@ -4,27 +4,27 @@ import '../css/UploadImage.css'
 const UploadImage = (props) => {
 	const [selectedImages, setSelectedImages] = useState([]);
 	const [sendImages, setSendImages] = useState([]);
-	
-	useEffect(()=>{
+
+	useEffect(() => {
 		const setImages = (sendImages) => {
 			props.setImages(sendImages);
 		}
 		setImages(sendImages);
 	}, [sendImages]);
-	
+
 
 
 	const onSelectFile = (event) => {
 		const selectedFiles = event.target.files;
 		const selectedFilesArray = Array.from(selectedFiles);
-		
+
 		setSendImages(sendImages.concat(selectedFilesArray));
-		
+
 		const imagesArray = selectedFilesArray.map((file) => {
 			return URL.createObjectURL(file);
 		});
-		
-		
+
+
 		setSelectedImages((previousImages) => previousImages.concat(imagesArray));
 		event.target.value = "";
 	};
@@ -39,7 +39,7 @@ const UploadImage = (props) => {
 			<label className="ImageLabel">
 				<p>+ 사진 추가</p>
 				<span className="ImageSpan">사진 추가는 최대 20장까지 가능합니다.</span>
-				<input type="file" name="images" onChange={onSelectFile} multipleaccept="image/*" multiple="multiple"/>
+				<input type="file" name="images" onChange={onSelectFile} multipleaccept="image/*" multiple="multiple" />
 			</label>
 			<br />
 

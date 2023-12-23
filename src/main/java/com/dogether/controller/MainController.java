@@ -17,7 +17,7 @@ public class MainController {
 	 * 'index' 페이지를 반환하여 사용자에게 보여줍니다. 이렇게 하면 Thymeleaf 템플릿에서는 ${role}을 통해 사용자의 역할을
 	 * 가져올 수 있습니다.
 	 */
-	@GetMapping("/")
+	@GetMapping(value = {"/", "/index"})
 	public String index(Model model) {
 		// 현재 로그인한 사용자의 인증 정보를 가져옵니다.
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();

@@ -8,19 +8,19 @@ import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
-const Post_Post = () => {
+const PostPost = () => {
 	const postType = ["후기게시판", "홍보게시판", "뉴스/칼럼"];
-	let {board_id} = useParams();
+	let { board_id } = useParams();
 	const navigate = useNavigate();
-	
+
 	const [post, setPost] = useState({
 		board_id: board_id,
-		post_title:'',
-		post_content:'',	
+		post_title: '',
+		post_content: '',
 	})
-	
+
 	const [files, setFiles] = useState([]);
-	
+
 	const setImages = (files) => {
 		setFiles(files);
 	}
@@ -41,18 +41,18 @@ const Post_Post = () => {
 		console.log(password);
 	}
 	*/
-	
+
 	const onChange = (event) => {
-		const {name, value} = event.target;
-		setPost({...post, [name]: value});
+		const { name, value } = event.target;
+		setPost({ ...post, [name]: value });
 	}
-	
+
 	const setPostProc = async (event) => {
 		const formData = new FormData();
-		for (let i = 0; i < files.length; i++){
+		for (let i = 0; i < files.length; i++) {
 			formData.append("files", files[i]);
 		}
-		formData.append("post", new Blob([JSON.stringify(post)], {type: "application/json"}));
+		formData.append("post", new Blob([JSON.stringify(post)], { type: "application/json" }));
 		console.log(formData)
 
 		await axios.post('/dog/post/post', formData).then((res) => {
@@ -60,7 +60,7 @@ const Post_Post = () => {
 			navigate(`/post/list/${board_id}`); // 이게 작동이 안됨..
 		});
 
-	} 
+	}
 
 	return (
 		<div className="PostNews">
@@ -68,17 +68,17 @@ const Post_Post = () => {
 
 			<div className="PostNewsPost">
 				<div className="PostNewsTitle">
-					<p>{postType[board_id-2]}</p>
+					<p>{postType[board_id - 2]}</p>
 				</div>
 
 				<div className="NewsPost">
 					<Form>
 						<Form.Group className="NewsPostTitle" controlId="ControlNewsInput">
-							<Form.Control type="text" name="post_title" placeholder="제목을 입력해주세요." onChange={onChange}/>
+							<Form.Control type="text" name="post_title" placeholder="제목을 입력해주세요." onChange={onChange} />
 						</Form.Group>
 
 						<Form.Group className="NewsPostBody" controlId="ControlNewsTextarea">
-							<Form.Control className="NewsPostContents" as="textarea" name="post_content" placeholder="내용을 입력해주세요." onChange={onChange}/>
+							<Form.Control className="NewsPostContents" as="textarea" name="post_content" placeholder="내용을 입력해주세요." onChange={onChange} />
 						</Form.Group>
 
 						<div className="NewsPostButtons">
@@ -94,4 +94,4 @@ const Post_Post = () => {
 	)
 }
 
-export default Post_Post
+export default PostPost;
