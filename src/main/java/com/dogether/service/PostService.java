@@ -24,11 +24,11 @@ public class PostService {
 	private final FileUtils fileUtils;
 	
 	// 전체 게시글 목록 가져오기
-	public List<PostListDto> getPostList(int board_id) {
+	public List<PostListDto> getPostList(String board_category) {
 		List<PostListDto> list = new ArrayList<>();
 		
 		// 게시글 내용, 썸네일 담기
-		 List<Post> postList = postRepository.getDataAll(board_id);	
+		 List<Post> postList = postRepository.getDataAll(board_category);	
 
 		 for(int i=0; i<postList.size(); i++) {
 			 PostListDto listDto = new PostListDto(postList.get(i));
@@ -82,9 +82,13 @@ public class PostService {
 	}
 	
 	// 댓글 리스트
-	public List<Comment> getComment(int post_id){
+	public List<Comment> getComment(int post_id) {
 		return postRepository.getComment(post_id);
 	}
 	
+	// 댓글 삭제
+	public void deleteComment(int comment_id) {
+		postRepository.deleteComment(comment_id);
+	}
 	
 }

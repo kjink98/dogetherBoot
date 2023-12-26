@@ -12,14 +12,14 @@ const Post_detail = () => {
 	const [postDetail, setPostDetail] = useState({});
 	const [postFiles, setPostFiles] = useState([]);
 	const postType = ["후기게시판", "홍보게시판", "뉴스/칼럼"];
-	let {board_id} = useParams();
+	let {board_category} = useParams();
 	let {post_id} = useParams();
 	const navigate = useNavigate();
 
 	// 게시글 내용 불러오기
 	useEffect(()=>{
 		const getPostDetail = async () => {
-			const resp = await axios.get(`/dog/post/detail?board_id=${board_id}&post_id=${post_id}`)
+			const resp = await axios.get(`/dog/post/detail/${board_category}/${post_id}`)
 			setPostDetail(resp.data.detail);
 			
 			const fileData = resp.data.files;
@@ -45,7 +45,7 @@ const Post_detail = () => {
       if(pw == password){
 		  await axios.delete(`/dog/post/delete?post_id=${post_id}`).then((res)=> {
 		  	alert('삭제가 완료되었습니다.');
-		  	navigate(`/post/list/${board_id}`);
+		  	navigate(`/post/list/${board_category}`);
 		  })
       }
       
@@ -74,7 +74,7 @@ const Post_detail = () => {
    
    // 댓글 등록
    const [comment, setComment] = useState({
-		board_id: board_id,
+		board_category: board_category,
 		post_id: post_id,
 		user_nickname: '',
 		comment_content:''
@@ -89,8 +89,12 @@ const Post_detail = () => {
 	   await axios.post('/dog/post/comment', comment).then((res) => {
 		   alert('등록되었습니다');
 		   setComment([]); // 안됨..
-		   navigate(`/post/detail/${board_id}/${post_id}`); // 안됨..
-		   //getCommentList();
+		   navigate(`/post/detail/${board_category}/${post_id}`); // 안됨..
+		   const getCommentList = async () => {
+            const resp = await axios.get(`/dog/post/commentList/${post_id}`)
+                setCommentList(resp.data); 
+            }
+            getCommentList();
 	});
    }
    
@@ -99,19 +103,32 @@ const Post_detail = () => {
 	
    useEffect(()=>{
 	   const getCommentList = async () => {
-			//const resp = await axios.get(`/dog/post/cmtList?post_id=${post_id}`).then((res)=>{
-			//setCommentList(resp.data);
-			//})
+			const resp = await axios.get(`/dog/post/commentList/${post_id}`)
+			setCommentList(resp.data);
 		}
 		getCommentList();
 	}, []);
 	
 	// 댓글 삭제
 	const deleteComment = async (comment_id) => {
-		await axios.delete(`/dog/post/cmtDelete?comment_id=${comment_id}`).then((res)=>{
-			alert("삭제되었습니다.")  
+        console.log(comment_id)
+		await axios.delete(`/dog/post/commentDelete/${comment_id}`).then((res)=> {
+            const getCommentList = async () => {
+            const resp = await axios.get(`/dog/post/commentList/${post_id}`)
+                setCommentList(resp.data); 
+            }
+            getCommentList();
 		})
 	}
+	
+	// 댓글 수정
+	const [isEditing, setIsEditing] = useState(false);
+	const isEdit = () => {
+        setIsEditing(!isEditing)
+    }
+    const editInput = (
+        <input type="text"/>
+    )
 
    return (
       <div className="PostNews">
@@ -119,7 +136,7 @@ const Post_detail = () => {
 
          <div className="PostNewsDetail">
             <div className="PostNewsTitle">
-               <p>{postType[board_id-2]}</p>
+               <p>{postType[board_category-2]}</p>
             </div>
 
 			{/* Post Detail */}
@@ -146,7 +163,7 @@ const Post_detail = () => {
                   <Button variant="primary" onClick={onClickModify}>수정하기</Button>
                   <Button variant="danger" onClick={onClickDelete}>삭제하기</Button>
                   <Button variant="secondary" onClick={onClickHeart}><FontAwesomeIcon icon={faHeart} />&nbsp;게시글 좋아요하기</Button>
-                  <Button variant="secondary" onClick={() => navigate(`/post/list/${board_id}`)}>목록</Button>
+                  <Button variant="secondary" onClick={() => navigate(`/post/list/${board_category}`)}>목록</Button>
                </div>
 
 				{/* 댓글 */}
@@ -160,10 +177,12 @@ const Post_detail = () => {
                   <Button variant="dark" onClick={setCommentProc}>댓글 달기</Button><br/>
                   {commentList && commentList.map((comment)=>(
 					  <div>
+					     {isEditing ? editInput : <span></span>}
 					  	<p>{comment.user_nickname}</p>
 					  	<p>{comment.comment_content}</p>
-					  	<button>수정</button>
-					  	<button onClick={deleteComment(comment.comment_id)}>삭제</button>
+					  	
+					  	<button onClick={isEdit}>수정</button>
+					  	<button onClick={()=>deleteComment(comment.comment_id)}>삭제</button>
 					  	<hr/>
 					  </div>
 				  ))}

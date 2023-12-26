@@ -18,8 +18,8 @@ public class PostRepository {
 	private final PostMapper postMapper;
 	
 	// 전체 게시글 내용 목록 가져오기
-	public List<Post> getDataAll(int board_id) {
-		return postMapper.selectAll(board_id);
+	public List<Post> getDataAll(String board_category) {
+		return postMapper.selectAll(board_category);
 	}
 	
 	// 1개 게시글 내용 가져오기
@@ -54,7 +54,12 @@ public class PostRepository {
 	}
 	
 	// 댓글 리스트
-	public List<Comment> getComment(int post_id){
+	public List<Comment> getComment(int post_id) {
 		return postMapper.selectComment(post_id);
+	}
+	
+	// 댓글 삭제
+	public void deleteComment(int comment_id) {
+		postMapper.deleteComment(comment_id);
 	}
 }

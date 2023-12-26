@@ -22,9 +22,9 @@ function App() {
         <Route path="/favorite_post" element = { <Favorite_post/> }></Route>
         <Route path="/myhistory" element = { <Myhistory/> }></Route>
         <Route path="/post_notice" element = { <Post_notice/> }></Route>
-        <Route path="/post/list/:board_id" element = { <Post_list/> }></Route>
-        <Route path="/post/detail/:board_id/:post_id" element = { <Post_detail/> }></Route> 
-        <Route path="/post/post/:board_id" element = { <Post_post/> }></Route>
+        <Route path="/post/list/:board_category" element = { <Post_list/> }></Route>
+        <Route path="/post/detail/:board_category/:post_id" element = { <Post_detail/> }></Route> 
+        <Route path="/post/post/:board_category" element = { <Post_post/> }></Route>
       </Routes>
     </Router>
   );

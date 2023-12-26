@@ -10,7 +10,7 @@ public class Comment {
 	private int comment_id;
 	private String user_id;
 	private String user_nickname;
-	private int board_id;
+	private String board_category;
 	private int post_id;
 	private String comment_content;
 	private Date comment_create_date;
