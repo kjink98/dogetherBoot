@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.Update;
 
 import com.dogether.domain.Comment;
 import com.dogether.domain.ImageFile;
@@ -47,4 +48,7 @@ public interface PostMapper {
 	
 	@Delete("DELETE FROM tblcomment WHERE comment_id=#{comment_id}")
 	void deleteComment(int comment_id);
+	
+	@Update("UPDATE tblcomment SET comment_content=#{comment_content} WHERE comment_id=#{comment_id}")
+	void editComment(Comment comment);
 }

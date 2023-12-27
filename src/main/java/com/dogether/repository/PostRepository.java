@@ -62,4 +62,9 @@ public class PostRepository {
 	public void deleteComment(int comment_id) {
 		postMapper.deleteComment(comment_id);
 	}
+	
+	// 댓글 수정
+	public void editComment(Comment comment) {
+		postMapper.editComment(comment);
+	}
 }

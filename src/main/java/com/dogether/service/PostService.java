@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.dogether.domain.Comment;
 import com.dogether.domain.ImageFile;
 import com.dogether.domain.Post;
+import com.dogether.dto.CommentEditDto;
 import com.dogether.dto.PostListDto;
 import com.dogether.repository.PostRepository;
 import com.dogether.util.FileUtils;
@@ -89,6 +90,13 @@ public class PostService {
 	// 댓글 삭제
 	public void deleteComment(int comment_id) {
 		postRepository.deleteComment(comment_id);
+	}
+	
+	// 댓글 수정
+	public void editComment(CommentEditDto commentEditDto) {
+		Comment comment = new Comment(commentEditDto);
+		postRepository.editComment(comment);
+		
 	}
 	
 }

@@ -7,11 +7,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import axios from 'axios';
 import moment from 'moment';
+import Comment from '../../components/js/Comment';
 
 const Post_detail = () => {
 	const [postDetail, setPostDetail] = useState({});
 	const [postFiles, setPostFiles] = useState([]);
-	const postType = ["후기게시판", "홍보게시판", "뉴스/칼럼"];
+	const postpost = ["review", "promotion", "news"];
+    const postType = ["후기게시판", "홍보게시판", "뉴스/칼럼"];
 	let {board_category} = useParams();
 	let {post_id} = useParams();
 	const navigate = useNavigate();
@@ -60,7 +62,7 @@ const Post_detail = () => {
       console.log(password);
 
       if(pw == password){
-         navigate('/post_news_update')
+         navigate("/post/update/"+board_category+"/"+post_id)
       }
       
       else{
@@ -71,64 +73,7 @@ const Post_detail = () => {
    const onClickHeart = () => {
       alert('관심글 목록에 추가되었습니다.');
    }
-   
-   // 댓글 등록
-   const [comment, setComment] = useState({
-		board_category: board_category,
-		post_id: post_id,
-		user_nickname: '',
-		comment_content:''
-	})
 	
-   const onChange = (event) => {
-	   const {name, value} = event.target;
-	   setComment({...comment, [name]:value});
-   }
-   
-   const setCommentProc = async() => {
-	   await axios.post('/dog/post/comment', comment).then((res) => {
-		   alert('등록되었습니다');
-		   setComment([]); // 안됨..
-		   navigate(`/post/detail/${board_category}/${post_id}`); // 안됨..
-		   const getCommentList = async () => {
-            const resp = await axios.get(`/dog/post/commentList/${post_id}`)
-                setCommentList(resp.data); 
-            }
-            getCommentList();
-	});
-   }
-   
-   // 댓글 불러오기
-   const [commentList, setCommentList] = useState([]);
-	
-   useEffect(()=>{
-	   const getCommentList = async () => {
-			const resp = await axios.get(`/dog/post/commentList/${post_id}`)
-			setCommentList(resp.data);
-		}
-		getCommentList();
-	}, []);
-	
-	// 댓글 삭제
-	const deleteComment = async (comment_id) => {
-        console.log(comment_id)
-		await axios.delete(`/dog/post/commentDelete/${comment_id}`).then((res)=> {
-            const getCommentList = async () => {
-            const resp = await axios.get(`/dog/post/commentList/${post_id}`)
-                setCommentList(resp.data); 
-            }
-            getCommentList();
-		})
-	}
-	
-	// 댓글 수정
-	const [isEditing, setIsEditing] = useState(false);
-	const isEdit = () => {
-        setIsEditing(!isEditing)
-    }
-    const editInput = (
-        <input type="text"/>
-    )
 
    return (
       <div className="PostNews">
@@ -136,7 +81,7 @@ const Post_detail = () => {
 
          <div className="PostNewsDetail">
             <div className="PostNewsTitle">
-               <p>{postType[board_category-2]}</p>
+               <p>{postType[postpost.indexOf(board_category)]}</p>
             </div>
 
 			{/* Post Detail */}
@@ -167,27 +112,7 @@ const Post_detail = () => {
                </div>
 
 				{/* 댓글 */}
-               <div className="NewsDetailComments">
-                  <div className="NewsDetailCount">
-                     <p>댓글 {commentList.length} 개</p>
-                  </div>
-                  <br/>
-					<input type="text" name="user_nickname" onChange={onChange}/><br/>
-					<textarea name="comment_content" onChange={onChange}/>
-                  <Button variant="dark" onClick={setCommentProc}>댓글 달기</Button><br/>
-                  {commentList && commentList.map((comment)=>(
-					  <div>
-					     {isEditing ? editInput : <span></span>}
-					  	<p>{comment.user_nickname}</p>
-					  	<p>{comment.comment_content}</p>
-					  	
-					  	<button onClick={isEdit}>수정</button>
-					  	<button onClick={()=>deleteComment(comment.comment_id)}>삭제</button>
-					  	<hr/>
-					  </div>
-				  ))}
-	
-               </div>
+				<Comment board_category={board_category} post_id={post_id}/>
             </div>
          </div>
       </div>

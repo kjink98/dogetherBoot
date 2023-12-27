@@ -1,21 +1,34 @@
-import { React, useState } from 'react';
-import NoticeData from './post_notice.json';
+import { React, useState, useEffect } from 'react';
 import '../css/post_notice.css';
 import { Form, Button } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import CommunitySideBar from '../../components/js/CommunitySideBar.js';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faAngleLeft, faAngleRight, faAnglesLeft, faAnglesRight } from "@fortawesome/free-solid-svg-icons";
+import moment from 'moment';
+import axios from 'axios';
 
 const Post_notice = () => {
     const navigate = useNavigate();
-
+    const board_category = "notice";
+    
+    /* 공지 리스트 */
+    const [postList, setPostList] = useState([]);
+    useEffect(()=>{
+        const getPostList = async () => {
+            const resp = await axios.get(`/dog/post/list/${board_category}`)
+            setPostList(resp.data);
+        }
+        getPostList();
+    }, []);
+    
+    /* 페이징 */
     const [currentPage, setCurrentPage] = useState(1)
     const recordsPerPage = 15;
     const lastIndex = currentPage * recordsPerPage;
     const firstIndex = lastIndex - recordsPerPage;
-    const records = NoticeData.slice(firstIndex, lastIndex);
-    const npage = Math.ceil(NoticeData.length / recordsPerPage);
+    const records = postList.slice(firstIndex, lastIndex);
+    const npage = Math.ceil(postList.length / recordsPerPage);
     const numbers = [...Array(npage + 1).keys()].slice(1)
 
 	return (
@@ -25,7 +38,8 @@ const Post_notice = () => {
 				<div className="PostNoticeTitle">
 					<p>공지사항</p>
 				</div>
-
+				
+                {/* 검색 */}
 				<Form inline className="Notice">
 					<select name="post" className="post">
 						<option value="제목만" selected="selected">제목만</option>
@@ -37,6 +51,7 @@ const Post_notice = () => {
 					<Button type="submit" className="NoticeGlass">{<FontAwesomeIcon icon={faMagnifyingGlass} />}</Button>
 				</Form>
 
+                {/* Notice List */}
 				<div className="NoticeTitle">
 					<table border="1" className="NoticeTable">
 						<thead>
@@ -48,20 +63,20 @@ const Post_notice = () => {
 						</thead>
 						
 						<tbody>
-							{records.map((d,i) => (
+							{records && records.map((post,i) => (
 								<tr key={i} onClick={() => navigate('/post_notice_' + Number((currentPage-1)*15 + i))}>
 									<td class='center'>{Number((currentPage-1)*15 + i)}</td>
-									<td>{d.Title}</td>
-									<td class='center'>{d.Name}</td>
-									<td class='center'>{d.Date}</td>
-									<td class='center'>{d.View}</td>
+									<td>{post.post_title}</td>
+									<td class='center'>{post.user_nickname}</td>
+									<td class='center'>{moment(post.post_create_date).format('YYYY-MM-DD')}</td>
+									<td class='center'>{post.post_views}</td>
 								</tr>
 							))}
 						</tbody>
 					</table>
 				</div>
 
-				<Button className="PostNoticeButton" onClick={() => navigate('/post_notice_post')}>게시글 작성하기</Button>
+				<Button className="PostNoticeButton" onClick={() => navigate('/post/post/'+board_category)}>게시글 작성하기</Button>
 
 				<nav>
 					<ul className='pagination'>
