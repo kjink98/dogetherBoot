@@ -26,7 +26,6 @@ import jakarta.servlet.DispatcherType;
 @Configuration
 public class WebSecurityConfig {
 	private final CustomOAuth2UserService customOAuth2UserServicer;
-	private AuthenticationSuccessHandler authSuccessHandler;
 
 	// RequiredArgs로 생성자를 초기화하면 순환 참조 에러로 실행이 안됨.
 	// Lazy로 실제 실행할때 생성자를 만들도록

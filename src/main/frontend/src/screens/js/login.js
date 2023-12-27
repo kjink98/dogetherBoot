@@ -15,7 +15,7 @@ function LoginForm() {
         }
 
         try {
-            const response = await axios.post('http://localhost:8080/user/login-process', { user_id: userId, user_pw: userPw });
+            const response = await axios.post('http://localhost:8080/login-process', { user_id: userId, user_pw: userPw });
             if (response.data.success) {
                 alert('로그인 성공');
                 navigate('/');
