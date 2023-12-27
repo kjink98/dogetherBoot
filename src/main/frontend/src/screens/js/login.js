@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 
 function LoginForm() {
@@ -15,8 +16,16 @@ function LoginForm() {
         }
 
         try {
-            const response = await axios.post('http://localhost:8080/login-process', { user_id: userId, user_pw: userPw });
-            if (response.data.success) {
+            const response = await axios({
+                method: 'post',
+                url: 'http://localhost:8080/login-process',
+                data: qs.stringify({ user_id: userId, user_pw: userPw }),
+                headers: {
+                    'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+                },
+                maxRedirects: 0
+            });
+            if (response.status === 302) {
                 alert('로그인 성공');
                 navigate('/');
             } else {

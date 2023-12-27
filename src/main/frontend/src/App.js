@@ -25,7 +25,7 @@ function App() {
         <Route path="/post_review" element = { <Post_review/> }></Route>
         <Route path="/post_promotion" element = { <Post_promotion/> }></Route>
         <Route path="/post_news" element = { <Post_news/> }></Route>
-        <Route path="/user/login" element = { <Login/> }></Route>
+        <Route path="/login" element = { <Login/> }></Route>
       </Routes>
     </Router>
   );
