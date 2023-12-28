@@ -1,8 +1,124 @@
-.PostNoticeTitle p{
-    font-size: 50px;
-    font-weight: 600;
-    width: 400px;
-    margin-left: calc((100% - 250px) / 2);
-    margin-right: calc((100% - 250px) / 2);
-    margin-top: 50px;
+.PostNoticeList {
+	width: 1740px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.PostNoticeTitle p {
+	font-size: 50px;
+	font-weight: 600;
+	width: 400px;
+	margin-left: calc((100% - 250px) / 2);
+	margin-right: calc((100% - 250px) / 2);
+	padding-top: 30px;
+}
+
+form.Notice {
+	display: flex;
+	align-items: center;
+	margin-bottom: 50px;
+	margin-left: 70%;
+}
+
+form.Notice select.post {
+	margin-right: 20px;
+	height: 30px;
+	border-radius: 5px;
+}
+
+form.Notice .NoticeSearch {
+	width: calc(100vw*0.15);
+	max-width: 400px;
+	margin-top: 5px;
+}
+
+form.Notice .NoticeSearch:focus {
+	box-shadow: 2px 2px 2px 2px #00CEAA !important;
+	border: 1px solid #B2AB99;
+}
+
+form.Notice .NoticeGlass {
+	width: auto;
+	margin-left: 5%;
+	background-color: #FFC368 !important;
+	border: 2px solid white !important;
+}
+
+form.Notice .NoticeGlass:focus {
+	box-shadow: 2px 2px 2px 2px #00CEAA !important;
+}
+
+.NoticeTitle {
+	width: 1550px !important;
+	margin-left: 15%;
+}
+
+.NoticeTable {
+	width: 1450px;
+	margin-bottom: 50px;
+}
+
+.NoticeTable th {
+	text-align: center;
+	vertical-align: middle;
+	border: 1px solid black !important;
+	background-color: #FFC08B;
+	font-size: 22px;
+	height: 60px;
+}
+
+.NoticeTable td.center {
+	text-align: center;
+	padding-right: 15px;
+}
+
+.NoticeTable .tableNumber {
+	width: 100px;
+}
+
+.NoticeTable .tableName, .NoticeTable .tableDate, .NoticeTable .tableView {
+	width: 180px;
+}
+
+.NoticeTable tr {
+	height: 50px;
+	cursor: pointer;
+}
+
+.NoticeTable td {
+	padding-left: 20px;
+	border: 1px solid black;
+	border-collapse: collapse;
+	font-size: 18px;
+}
+
+.PostNoticeList .PostNoticeButton{
+	background-color: #00CEAA !important;
+	border: 3px solid white !important;
+	border-radius: 10px;
+	margin-top: -20px;
+	margin-bottom: 50px;
+	font-weight: 600;
+	float: right;
+}
+
+.PostNoticeList .pagination{
+	margin-left: auto;
+	padding-left: 800px;
+	margin-right: auto;
+	align-items: center;
+}
+
+.PostNoticeList .pagination .page-link{
+	color: #00CEAA !important;
+	background-color: white !important;
+	font-weight: 600;
+	font-size: 17px;
+	cursor: pointer;
+}
+
+.PostNoticeList .pagination .active .page-link{
+	color: white !important;
+	background-color: #00CEAA !important;
+	border: 1px solid white;
 }

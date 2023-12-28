@@ -7,12 +7,14 @@ import FavoritePlace from './screens/js/FavoritePlace';
 import FavoritePost from './screens/js/FavoritePost';
 import MyHistory from './screens/js/MyHistory';
 import PostNotice from './screens/js/PostNotice';
+import Login from './screens/js/login';
 import PlaceList from './screens/js/PlaceList';
 import PlaceDetail from './screens/js/PlaceDetail';
 import PostList from './screens/js/PostList';
 import PostDetail from './screens/js/PostDetail';
 import PostPost from './screens/js/PostPost';
 import KakaoMap from './components/js/KakaoMap';
+import Post_Update from './screens/js/post_update';
 
 function App() {
   return (
@@ -20,15 +22,21 @@ function App() {
       <NavBar></NavBar>
       <Routes>
         <Route path="/" element={<Index />}></Route>
+        <Route path="/place/:place_category" element={<PlaceList />}></Route>
+        <Route path="/place/detail/:place_id" element={<PlaceDetail />}></Route>
+
+        <Route path="/post/list/notice" element={<PostNotice />}></Route>
+        <Route path="/post/list/:board_category" element={<PostList />}></Route>
+        <Route path="/post/detail/:board_category/:post_id" element={<PostDetail />}></Route>
+        <Route path="/post/post/:board_category" element={<PostPost />}></Route>
+        <Route path="/post/update/:board_category/:post_id" element={<PostUpdate />}></Route>
+
         <Route path="/favorite-place/:user_id" element={<FavoritePlace />}></Route>
         <Route path="/favorite-post/:user_id" element={<FavoritePost />}></Route>
         <Route path="/my-history/:user_id" element={<MyHistory />}></Route>
-        <Route path="/post-notice" element={<PostNotice />}></Route>
-        <Route path="/post/list/:board_id" element={<PostList />}></Route>
-        <Route path="/post/detail/:board_id/:post_id" element={<PostDetail />}></Route>
-        <Route path="/post/post/:board_id" element={<PostPost />}></Route>
-        <Route path="/place/:place_category" element={<PlaceList />}></Route>
-        <Route path="/place/detail/:place_id" element={<PlaceDetail />}></Route>
+
+        <Route path="/login" element={<Login />}></Route>
+
         <Route path="/maptest" element={<KakaoMap />}></Route>
       </Routes>
     </Router>

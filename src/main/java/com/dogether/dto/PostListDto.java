@@ -18,7 +18,7 @@ import lombok.Setter;
 public class PostListDto {
 
 	private int post_id;
-	private int board_id;
+	private String board_category;
 	private String user_id;
 	private String user_nickname;
 	private String post_title;
@@ -31,7 +31,7 @@ public class PostListDto {
 	@Builder
 	public PostListDto(Post post) {
 		this.post_id = post.getPost_id();
-		this.board_id = post.getBoard_id();
+		this.board_category = post.getBoard_category();
 		this.user_id = post.getUser_id();
 		this.user_nickname = post.getUser_nickname();
 		this.post_title = post.getPost_title();

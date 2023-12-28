@@ -6,6 +6,7 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * 메인 페이지와 관련된 요청을 처리하는 컨트롤러입니다. 사용자가 메인 페이지를 요청하면 이 컨트롤러의 메소드가 호출됩니다.
@@ -37,4 +38,11 @@ public class MainController {
 		// 'index' 페이지를 반환합니다.
 		return "index";
 	}
+		
+		@RequestMapping(value = "/{path:[^\\.]*}")
+	    public String redirect() {
+	        return "forward:/";
+	    
+	}
+		
 }

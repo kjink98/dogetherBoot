@@ -3,12 +3,14 @@ package com.dogether.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.dogether.service.CustomOAuth2UserService;
 
@@ -38,6 +40,7 @@ public class WebSecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
+		
 		.csrf(csrf -> csrf.disable()) // CSRF 공격 방어를 비활성화. 토큰을 사용하는 방식이기 때문에 CSRF를 비활성화.
 				.authorizeHttpRequests(request -> request.
 						dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll() // FORWARD 타입의 모든 요청을 허용
@@ -52,7 +55,7 @@ public class WebSecurityConfig {
 				/* 폼로그인 처리 */
 				.formLogin(login -> login
 						// 사용자가 인증되지 않은 상태에서 보안된 페이지에 접근하려고 하면 이 URL로 리다이렉트
-						.loginPage("/user/login") // 사용자 정의 로그인 페이지 URL을 지정
+						.loginPage("/login") // 사용자 정의 로그인 페이지 URL을 지정
 						.loginProcessingUrl("/login-process") // 로그인 폼 데이터를 처리할 URL을 지정
 						.usernameParameter("user_id") // 로그인 폼에서 사용자 ID를 받을 파라미터의 이름을 지정
 						.passwordParameter("user_pw") // 로그인 폼에서 비밀번호를 받을 파라미터의 이름을 지정
@@ -81,7 +84,7 @@ public class WebSecurityConfig {
 						.invalidateHttpSession(true)) // 로그아웃 성공 후 HTTP 세션을 무효화
 
 				
-
+				.cors(cors -> cors.disable())
 				.exceptionHandling().accessDeniedPage("/user/login"); // 접근이 거부된 경우 리다이렉트할 URL을 지정
 		;
 //		http.headers().frameOptions().disable(); // 마찬가지로 h2-console을 사용하기 위해. 배포할때 지우기

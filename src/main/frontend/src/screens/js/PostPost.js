@@ -8,15 +8,16 @@ import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
-const PostPost = () => {
-	const postType = ["후기게시판", "홍보게시판", "뉴스/칼럼"];
-	let { board_id } = useParams();
+const Post_Post = () => {
+    const postpost = ["review", "promotion", "news"];
+    const postType = ["후기게시판", "홍보게시판", "뉴스/칼럼"];
+	let {board_category} = useParams();
 	const navigate = useNavigate();
 
 	const [post, setPost] = useState({
-		board_id: board_id,
-		post_title: '',
-		post_content: '',
+		board_category: board_category,
+		post_title:'',
+		post_content:'',	
 	})
 
 	const [files, setFiles] = useState([]);
@@ -28,7 +29,7 @@ const PostPost = () => {
 	const onClickCancel = () => {
 		if (window.confirm("등록을 취소하시겠습니까?") == true) {
 			alert('게시글 등록이 취소되었습니다.');
-			navigate(`/post/list/${board_id}`);
+			navigate(`/post/list/${board_category}`);
 		}
 		else {
 			return;
@@ -57,7 +58,7 @@ const PostPost = () => {
 
 		await axios.post('/dog/post/post', formData).then((res) => {
 			alert('등록되었습니다');
-			navigate(`/post/list/${board_id}`); // 이게 작동이 안됨..
+			navigate(`/post/list/${board_category}`); // 이게 작동이 안됨..
 		});
 
 	}
@@ -68,7 +69,7 @@ const PostPost = () => {
 
 			<div className="PostNewsPost">
 				<div className="PostNewsTitle">
-					<p>{postType[board_id - 2]}</p>
+					<p>{postType[postpost.indexOf(board_category)]}</p>
 				</div>
 
 				<div className="NewsPost">
