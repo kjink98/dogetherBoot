@@ -23,4 +23,8 @@ public class PlaceService {
     public Place detail(int place_id) {
         return placeRepository.selectOne(place_id);
     }
+
+    public List<Place> favoriteList(String user_id) {
+        return placeRepository.selectFavorite(user_id);
+    }
 }

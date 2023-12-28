@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css'
 import NavBar from './components/js/NavBar';
 import Footer from './components/js/Footer';
@@ -7,11 +7,13 @@ import Favorite_place from './screens/js/favorite_place';
 import Favorite_post from './screens/js/favorite_post';
 import Myhistory from './screens/js/myhistory';
 import Post_notice from './screens/js/post_notice';
+import Login from './screens/js/login';
+import Place from './screens/js/place_restaurant_list';
+import PlaceDetail from './screens/js/place_detail';
 import Post_list from './screens/js/post_list';
 import Post_detail from './screens/js/post_detail';
 import Post_post from './screens/js/post_post';
 import Post_Update from './screens/js/post_update';
-
 
 function App() {
   return (
@@ -27,6 +29,9 @@ function App() {
         <Route path="/post/detail/:board_category/:post_id" element = { <Post_detail/> }></Route> 
         <Route path="/post/post/:board_category" element = { <Post_post/> }></Route>
         <Route path="/post/update/:board_category/:post_id" element = { <Post_Update/> }></Route>
+        <Route path="/login" element = { <Login/> }></Route>
+        <Route path="/place/:place_category" element={<Place />}></Route>
+        <Route path="/place/detail/:place_id" element={<PlaceDetail />}></Route>
       </Routes>
     </Router>
   );

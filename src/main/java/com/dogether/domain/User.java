@@ -24,6 +24,7 @@ public class User {
     
 	private String user_id; // 사용자의 아이디
 	private String user_pw; // 사용자의 비밀번호
+	private String user_pwcheck; // 사용자의 비밀번호 체크
 	private String user_email; // 사용자의 이메일
 	private String user_name; // 사용자의 이름
 	private String user_nickname; // 사용자의 닉네임
@@ -53,16 +54,19 @@ public class User {
     }
     
     /**
-    * Auth2 프로필 정보를 기반으로 하는 사용자 정보를 생성하는 정적 팩토리 메소드
+    * OAuth2 프로필 정보를 기반으로 하는 사용자 정보를 생성하는 정적 팩토리 메소드
     * 입력된 정보를 가지고 User 객체를 생성하고, 비밀번호는 "N/A"로 저장
     */
-    public static User createUser( String user_pw, String user_email, String user_name, 
-    		   PasswordEncoder passwordEncoder, Role role) {
+    public static User createUser(String userId, String userEmail, String userName, 
+    		String userNickname, String userGender, Role role) {
         return User.builder()
-                .user_pw("N/A")
-                .user_email(user_email)
-                .user_name(user_name)
-                .role(Role.USER)//회원가입은 무조건 USER 계정만 만들어짐. 관리자는 따로 권한 부여해야함
+                .user_id(userId)
+                .user_email(userEmail)
+                .user_name(userName)
+                .user_nickname(userNickname)
+                .user_gender(userGender)
+                .user_pw("N/A") // 비밀번호는 "N/A"로 저장
+                .role(Role.USER) // 기본 권한은 USER
                 .build();
     }
     
@@ -77,7 +81,8 @@ public class User {
     /**
      *소셜로그인 사용자의 정보를 업데이트
      */
-    public User update(String name, String email) {
+    public User update(String id, String name, String email) {
+    	this.user_id = id;
         this.user_name = name;
         this.user_email = email;
         return this;
@@ -91,4 +96,5 @@ public class User {
         this.user_pw = passwordEncoder.encode(password);
     }
     
+   
 }

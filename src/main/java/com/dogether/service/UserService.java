@@ -1,5 +1,7 @@
 package com.dogether.service;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.mybatis.spring.MyBatisSystemException;
@@ -7,11 +9,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.dogether.domain.User;
+import com.dogether.dto.ChangeInfoRequestDto;
 import com.dogether.dto.ChangePasswordRequestDto;
 import com.dogether.repository.UserRepository;
 
@@ -62,44 +67,55 @@ public class UserService {
 	public User getCurrentLoggedInMember() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		// Spring Security의 SecurityContextHolder를 사용하여 현재 로그인 중인 사용자의 Principal을 가져옴
-
 		if (authentication == null || !authentication.isAuthenticated()) {
 			// 사용자가 로그인하지 않은 경우 또는 인증되지 않은 경우
 			return null;
 		}
 
-		try {
-			// Principal에서 사용자의 이름(email)을 가져옴
-			String userEmail = extractUserEmail(authentication.getPrincipal());
-			// 이메일을 사용하여 Member 엔티티를 찾음
-			return userRepository.findByEmail(userEmail).orElse(null);
+		  try {
+		        if (authentication.getPrincipal() instanceof OAuth2User) {
+		            String userEmail = extractUserEmail(authentication.getPrincipal());
+		            System.out.println("getUserEmail"+userEmail);
+		            return userRepository.findByEmail(userEmail).orElse(null);
+		        } else {
+		            String userId = extractUserEmail(authentication.getPrincipal());
+		            System.out.println(userId);
+		            return userRepository.findById(userId).orElse(null);
+		        }
 		} catch (RuntimeException e) {
 			// 예외가 발생한 경우 처리
 			e.printStackTrace(); // 예외 처리 추가하기
+			System.out.println("오류"+e.getMessage());
 			return null;
 		}
 	}
 	/**
 	 * 로그인 종류에 따라 Email을 추출하는 메서드
-	 * OAuth2 로그인의 경우 OAuth2User에서, 그 외 로그인의 경우 UserDetails에서 email을 추출
+	 * OAuth2 로그인의 경우 OAuth2User에서, 그 외 로그인의 경우 UserDetails에서 id을 추출
 	 */
 	private String extractUserEmail(Object principal) {
-		try {
-			if (principal instanceof OAuth2User) {
-				// OAuth Login을 할 시 OAuth2User 타입을 받게 됨
-				return ((OAuth2User) principal).getAttribute("email");
-			} else if (principal instanceof UserDetails) {
-				// 다른 형태의 사용자 로그인을 처리하는 경우 UserDetails 타입을 받게 됨
-				return ((UserDetails) principal).getUsername();
-			} else {
-				// 기타
-				return null;
-			}
-		} catch (RuntimeException e) {
-			// 예외가 발생한 경우 처리
-			e.printStackTrace(); // 예외 처리 추가하기
-			return null;
-		}
+	    try {
+	        if (principal instanceof OAuth2User) {
+	            OAuth2User oauth2User = (OAuth2User) principal;
+	            OAuth2AuthenticationToken authenticationToken = (OAuth2AuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+	            String registrationId = authenticationToken.getAuthorizedClientRegistrationId();
+	            if ("google".equals(registrationId)) {
+	                return oauth2User.getAttribute("email");
+	            }  else if ("kakao".equals(registrationId)) {
+	                Map<String, Object> kakaoAccount = (Map<String, Object>) oauth2User.getAttribute("kakao_account");
+	                return (String) kakaoAccount.get("email");
+	            }else {
+	                return ((OAuth2User) principal).getAttribute("email");
+	            }
+	        } else if (principal instanceof UserDetails) {
+	            // 다른 형태의 사용자 로그인을 처리하는 경우 UserDetails 타입을 받게 됨
+	            return ((UserDetails) principal).getUsername();
+	        }
+	    } catch (RuntimeException e) {
+	        // 예외가 발생한 경우 처리
+	        e.printStackTrace(); // 예외 처리 추가하기
+	    }
+	    return null;
 	}
 
 	/**
@@ -108,13 +124,17 @@ public class UserService {
 	@Transactional
     public void changePassword(ChangePasswordRequestDto requestDto) {
         // 로그인중인지 확인
-        //String db_email = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = getCurrentLoggedInMember();
 
         if (user == null || !passwordEncoder.matches(requestDto.getExPassword(), user.getUser_pw())) {
             throw new IllegalArgumentException("현재 비밀번호가 일치하지 않습니다.");
         }
-
+        
+        // 비밀번호 null 이거나 빈 문자열 여부 확인
+        if (!StringUtils.hasText(requestDto.getExPassword()) || !StringUtils.hasText(requestDto.getNewPassword()) || !StringUtils.hasText(requestDto.getNewPasswordChk())) {
+        	throw new IllegalArgumentException("비밀번호는 null이거나 빈 문자열일 수 없습니다.");
+        }
+        
         // 새 비밀번호와 확인 비밀번호 일치 여부 확인
         if (!requestDto.getNewPassword().equals(requestDto.getNewPasswordChk())) {
             throw new IllegalArgumentException("새 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
@@ -124,7 +144,29 @@ public class UserService {
         userRepository.updateUserPassword(user.getUser_id(), passwordEncoder.encode(requestDto.getNewPassword()));
     }
 	
+	/**
+	 * 마이페이지에서 내 정보를 수정하는 메서드입니다.
+	 */
+	public void changeInfo(ChangeInfoRequestDto requestDto) {
+		// 로그인중인지 확인
+		User user = getCurrentLoggedInMember();
+		
+		userRepository.updateInfo(user.getUser_id(), requestDto.getNewNickname());
+
+	}
+	 /**
+     * 모든 사용자 정보를 데이터베이스에서 가져오는 메소드
+     */
+    public List<User> getAllUsers() {
+        return userRepository.findAllUsers();
+    }
 	
+    @Transactional
+    public void updateRoles(String user_id, String role) {
+    	userRepository.updateRoles(user_id, role);
+    }
+    
+    
 	/**
 	 * 주어진 아이디와 비밀번호에 해당하는 사용자 정보를 데이터베이스에서 삭제하는 메소드
 	 */
@@ -133,6 +175,12 @@ public class UserService {
 	    if (user == null || !passwordEncoder.matches(exPassword, user.getUser_pw())) {
 	        return 0;
 	    }
+
+	    return userRepository.resignUser(user_id);
+	}
+	
+	public int resignUser(String user_id) {
+	    User user = userRepository.findById(user_id).orElse(null);
 
 	    return userRepository.resignUser(user_id);
 	}
