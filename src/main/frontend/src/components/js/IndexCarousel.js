@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Carousel } from 'react-bootstrap';
-import '../css/HeroSlider.css';
+import '../css/IndexCarousel.css';
 import Cafe1 from '../../Img/Cafe1.jpg';
 import Cafe2 from '../../Img/Cafe2.jpg';
 import Cafe3 from '../../Img/Cafe3.jpg';
 import Cafe4 from '../../Img/Cafe4.jpg';
 import Cafe5 from '../../Img/Cafe5.jpg';
 
-const HeroSlider = () => {
+const IndexCarousel = () => {
   return (
     <>
       <Carousel>
@@ -71,4 +71,4 @@ const HeroSlider = () => {
   )
 }
 
-export default HeroSlider;
+export default IndexCarousel;

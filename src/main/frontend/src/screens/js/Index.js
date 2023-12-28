@@ -1,6 +1,6 @@
 import React from 'react';
-import '../css/index.css'
-import Carousel from '../../components/js/HeroSlider.js';
+import '../css/Index.css'
+import IndexCarousel from '../../components/js/IndexCarousel.js';
 import Badge from 'react-bootstrap/Badge';
 import Toast from 'react-bootstrap/Toast';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,7 +9,7 @@ import { faCompass, faUtensils, faHospital, faMugSaucer, faBowlFood, faBed, faSc
 function Index() {
   return (
     <div>
-      <Carousel></Carousel>
+      <IndexCarousel></IndexCarousel>
 
       <div className="compass">
         <h2><FontAwesomeIcon icon={faQuoteLeft} />&nbsp;<b>내 근처 Dogether 찾기</b>&nbsp;<FontAwesomeIcon icon={faQuoteRight} /></h2>

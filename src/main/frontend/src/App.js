@@ -7,14 +7,14 @@ import FavoritePlace from './screens/js/FavoritePlace';
 import FavoritePost from './screens/js/FavoritePost';
 import MyHistory from './screens/js/MyHistory';
 import PostNotice from './screens/js/PostNotice';
-import Login from './screens/js/login';
+import LoginForm from './screens/js/LoginForm';
 import PlaceList from './screens/js/PlaceList';
 import PlaceDetail from './screens/js/PlaceDetail';
 import PostList from './screens/js/PostList';
 import PostDetail from './screens/js/PostDetail';
 import PostPost from './screens/js/PostPost';
 import KakaoMap from './components/js/KakaoMap';
-import Post_Update from './screens/js/post_update';
+import PostUpdate from './screens/js/PostUpdate';
 
 function App() {
   return (
@@ -35,7 +35,7 @@ function App() {
         <Route path="/favorite-post/:user_id" element={<FavoritePost />}></Route>
         <Route path="/my-history/:user_id" element={<MyHistory />}></Route>
 
-        <Route path="/login" element={<Login />}></Route>
+        <Route path="/login" element={<LoginForm />}></Route>
 
         <Route path="/maptest" element={<KakaoMap />}></Route>
       </Routes>

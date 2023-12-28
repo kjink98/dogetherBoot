@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../css/my_history.css';
+import '../css/MyHistory.css';
 import MySideBar from '../../components/js/MySideBar.js';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -16,6 +16,7 @@ const MyHistory = () => {
     }
     getMyPostList();
   }, []);
+
   return (
     <div>
       <MySideBar></MySideBar>
@@ -30,15 +31,15 @@ const MyHistory = () => {
         </div>
 
         {myPostList.map(myPost => (
-        <a class="card flex-row MyHistoryCard" href={'/post/detail/' + myPost.board_id + '/' + myPost.post_id}>
-          <img class="MyHistoryCard-img-left" src={require('../../Img/Dog1.jpg')} />
-          <div class="MyHistoryCard-body">
-            <p class="MyHistoryCard-title"><b>{myPost.post_title}</b></p>
-            <p class="MyHistoryCard-comment"><b>(35)</b></p><br />
-            <p class="MyHistoryCard-text">리뷰게시판</p>
-            <p class="MyHistoryCard-date">{myPost.post_create_date} &nbsp;|&nbsp; {myPost.post_views}</p>
-          </div>
-        </a>
+          <a class="card flex-row MyHistoryCard" href={'/post/detail/' + myPost.board_id + '/' + myPost.post_id}>
+            <img class="MyHistoryCard-img-left" src={require('../../Img/Dog1.jpg')} />
+            <div class="MyHistoryCard-body">
+              <p class="MyHistoryCard-title"><b>{myPost.post_title}</b></p>
+              <p class="MyHistoryCard-comment"><b>(35)</b></p><br />
+              <p class="MyHistoryCard-text">리뷰게시판</p>
+              <p class="MyHistoryCard-date">{myPost.post_create_date} &nbsp;|&nbsp; {myPost.post_views}</p>
+            </div>
+          </a>
         ))}
 
       </div>

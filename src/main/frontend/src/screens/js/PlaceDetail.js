@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../css/place_detail.css';
+import '../css/PlaceDetail.css';
 import { Button, ProgressBar } from 'react-bootstrap';
 import PlaceSideBar from '../../components/js/PlaceSideBar.js';
 import PlaceCarousel from '../../components/js/PlaceCarousel.js';

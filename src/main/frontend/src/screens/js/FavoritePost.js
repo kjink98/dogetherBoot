@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../css/favorite_post.css';
+import '../css/FavoritePost.css';
 import MySideBar from '../../components/js/MySideBar.js';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -16,6 +16,7 @@ const FavoritePost = () => {
     }
     getFavoritePostList();
   }, []);
+  
   return (
     <div>
       <MySideBar></MySideBar>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../css/favorite_place.css';
+import '../css/FavoritePlace.css';
 import MySideBar from '../../components/js/MySideBar.js';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -18,6 +18,7 @@ const FavoritePlace = () => {
     }
     getFavoritePlaceList();
   }, []);
+
   return (
     <div>
       <MySideBar></MySideBar>

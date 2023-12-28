@@ -11,8 +11,8 @@ import org.apache.ibatis.type.TypeHandler;
 
 import com.dogether.domain.Role;
 
-public class RoleTypeHandler implements TypeHandler<Role>{
-	@Override
+public class RoleTypeHandler implements TypeHandler<Role> {
+    @Override
     public void setParameter(PreparedStatement ps, int i, Role parameter, JdbcType jdbcType) throws SQLException {
         if (parameter != null) {
             ps.setString(i, parameter.getKey());

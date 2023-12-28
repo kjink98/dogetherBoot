@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../css/place_list.css';
+import '../css/PlaceList.css';
 import { Form, Button, Card, ListGroup } from 'react-bootstrap';
 import PlaceSideBar from '../../components/js/PlaceSideBar.js';
 import PlaceCheckBox from '../../components/js/PlaceCheckBox.js';
