@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class Post {
 	private int post_id;
-	private int board_id;
+	private String board_category;
 	private String user_id;
 	private String user_nickname;
 	private String post_title;

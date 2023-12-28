@@ -27,10 +27,10 @@ const NavBarElements = () => {
             </NavDropdown>
 
             <NavDropdown title="커뮤니티" id="collasible-nav-dropdown" className="DropdownMenu">
-              <NavDropdown.Item href="/post_notice">공지사항</NavDropdown.Item>
-              <NavDropdown.Item href="/post/list/2">후기게시판</NavDropdown.Item>
-              <NavDropdown.Item href="/post/list/3">홍보게시판</NavDropdown.Item>
-              <NavDropdown.Item href="/post/list/4">뉴스/칼럼</NavDropdown.Item>
+              <NavDropdown.Item href="/post/list/notice">공지사항</NavDropdown.Item>
+              <NavDropdown.Item href="/post/list/review">후기게시판</NavDropdown.Item>
+              <NavDropdown.Item href="/post/list/promotion">홍보게시판</NavDropdown.Item>
+              <NavDropdown.Item href="/post/list/news">뉴스/칼럼</NavDropdown.Item>
             </NavDropdown>
 
             <NavDropdown title="마이페이지" id="collasible-nav-dropdown" className="DropdownMenu">

@@ -13,6 +13,7 @@ import PlaceDetail from './screens/js/place_detail';
 import Post_list from './screens/js/post_list';
 import Post_detail from './screens/js/post_detail';
 import Post_post from './screens/js/post_post';
+import Post_Update from './screens/js/post_update';
 
 function App() {
   return (
@@ -23,11 +24,12 @@ function App() {
         <Route path="/favorite_place" element = { <Favorite_place/> }></Route>
         <Route path="/favorite_post" element = { <Favorite_post/> }></Route>
         <Route path="/myhistory" element = { <Myhistory/> }></Route>
-        <Route path="/post_notice" element = { <Post_notice/> }></Route>
+        <Route path="/post/list/notice" element = { <Post_notice/> }></Route>
+        <Route path="/post/list/:board_category" element = { <Post_list/> }></Route>
+        <Route path="/post/detail/:board_category/:post_id" element = { <Post_detail/> }></Route> 
+        <Route path="/post/post/:board_category" element = { <Post_post/> }></Route>
+        <Route path="/post/update/:board_category/:post_id" element = { <Post_Update/> }></Route>
         <Route path="/login" element = { <Login/> }></Route>
-        <Route path="/post/list/:board_id" element = { <Post_list/> }></Route>
-        <Route path="/post/detail/:board_id/:post_id" element = { <Post_detail/> }></Route> 
-        <Route path="/post/post/:board_id" element = { <Post_post/> }></Route>
         <Route path="/place/:place_category" element={<Place />}></Route>
         <Route path="/place/detail/:place_id" element={<PlaceDetail />}></Route>
       </Routes>
