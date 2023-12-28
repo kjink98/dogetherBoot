@@ -64,7 +64,7 @@ const PostNotice = () => {
 
             <tbody>
               {records && records.map((post, i) => (
-                <tr key={i} onClick={() => navigate('/post_notice_' + Number((currentPage - 1) * 15 + i))}>
+                <tr key={i} onClick={() => navigate('/post/detail/' + post.board_category + '/' + post.post_id)}>
                   <td class='center'>{Number((currentPage - 1) * 15 + i)}</td>
                   <td>{post.post_title}</td>
                   <td class='center'>{post.user_nickname}</td>
