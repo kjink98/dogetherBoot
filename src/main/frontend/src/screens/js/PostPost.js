@@ -9,8 +9,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const PostPost = () => {
-  const postpost = ["review", "promotion", "news"];
-  const postType = ["후기게시판", "홍보게시판", "뉴스/칼럼"];
+  const postpost = ["notice", "review", "promotion", "news"];
+  const postType = ["공지사항", "후기게시판", "홍보게시판", "뉴스/칼럼"];
   let { board_category } = useParams();
   const navigate = useNavigate();
 
@@ -54,11 +54,10 @@ const PostPost = () => {
       formData.append("files", files[i]);
     }
     formData.append("post", new Blob([JSON.stringify(post)], { type: "application/json" }));
-    console.log(formData)
 
     await axios.post('/dog/post/post', formData).then((res) => {
       alert('등록되었습니다');
-      navigate(`/post/list/${board_category}`); // 이게 작동이 안됨..
+      navigate("/post/list/"+board_category); // 이게 작동이 안됨..
     });
 
   }

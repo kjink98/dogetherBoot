@@ -17,7 +17,7 @@ import com.dogether.domain.Post;
 public class FileUtils {
 
 	/* 파일 저장 */
-	public List<ImageFile> insertFileInfo(Post post, MultipartFile[] files) {
+	public List<ImageFile> insertFileInfo(MultipartFile[] files) {
 
 		List<ImageFile> imageFileList = new ArrayList<>();
 

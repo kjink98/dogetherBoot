@@ -45,7 +45,7 @@ const PostDetail = () => {
     console.log(password);
 
     if (pw == password) {
-      await axios.delete(`/dog/post/delete?post_id=${post_id}`).then((res) => {
+      await axios.delete(`/dog/post/delete/${post_id}`).then((res) => {
         alert('삭제가 완료되었습니다.');
         navigate(`/post/list/${board_category}`);
       })
@@ -55,14 +55,15 @@ const PostDetail = () => {
       alert('비밀번호가 일치하지 않습니다.');
     }
   }
-
+  
+  // 게시글 수정
   const onClickModify = () => {
     let pw = '12345';
     var password = prompt('수정을 원하시면 비밀번호를 입력해주세요.');
     console.log(password);
 
     if (pw == password) {
-      navigate("/post/update/" + board_category + "/" + post_id)
+      navigate("/post/update/"+board_category+"/"+post_id)
     }
 
     else {

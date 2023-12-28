@@ -16,15 +16,14 @@ const UploadImage = (props) => {
 
 	const onSelectFile = (event) => {
 		const selectedFiles = event.target.files;
-		const selectedFilesArray = Array.from(selectedFiles);
+		const selectedFilesArray = Array.from(selectedFiles); //object 형태로 만들어줌
 
 		setSendImages(sendImages.concat(selectedFilesArray));
 
 		const imagesArray = selectedFilesArray.map((file) => {
 			return URL.createObjectURL(file);
-		});
-
-
+		}); // image 보여주기용 url blob
+        
 		setSelectedImages((previousImages) => previousImages.concat(imagesArray));
 		event.target.value = "";
 	};

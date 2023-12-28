@@ -39,6 +39,12 @@ public interface PostMapper {
 	@Delete("DELETE FROM tblFile WHERE post_id=#{post_id}")
 	void deleteFile(int post_id);
 	
+	@Update("UPDATE tblpost SET post_title=#{post_title}, post_content=#{post_content} WHERE post_id=#{post_id}")
+	void updatePost(Post post);
+	
+	@Insert("INSERT INTO tblfile(file_id, post_id, file_oriname, file_link, file_create_date) VALUES(nextval(file_id_seq), #{post_id}, #{file_oriname}, #{file_link}, now())")
+	void updateFile(ImageFile imageFile);
+	
 	@Insert("INSERT INTO tblcomment(comment_id, user_id, user_nickname, board_category, post_id, comment_content, comment_create_date) "
 			+ "VALUES(nextval(comment_id_seq), #{user_id}, #{user_nickname}, #{board_category}, #{post_id}, #{comment_content}, now())")
 	void insertComment(Comment comment);

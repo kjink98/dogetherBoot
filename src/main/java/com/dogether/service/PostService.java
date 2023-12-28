@@ -62,7 +62,7 @@ public class PostService {
 		post.setUser_nickname("푸들조아"); // 임시 저장
 		postRepository.setData(post);
 
-		List<ImageFile> list = fileUtils.insertFileInfo(post, files);
+		List<ImageFile> list = fileUtils.insertFileInfo(files);
 		for (int i = 0; i < list.size(); i++) {
 			postRepository.insertFile(list.get(i));
 		}
@@ -70,10 +70,28 @@ public class PostService {
 	
 	// 게시글 삭제
 	public void deletePost(int post_id) {
-		// DB 저장 내용 삭제
+		// 게시글 DB 삭제
 		postRepository.deletePost(post_id);
-		// 실제 파일 삭제
+		// 이미지 DB 삭제
+		postRepository.deleteFile(post_id);
+		// 이미지 실제 파일 삭제
 		fileUtils.deleteFile(getFile(post_id));
+	}
+	
+	// 게시글 수정
+	public void updatePost(Post post, MultipartFile[] files) {
+		// 게시글 DB 수정
+		postRepository.updatePost(post);
+		// 기존 이미지 DB, 실제 파일 삭제
+		postRepository.deleteFile(post.getPost_id());
+		fileUtils.deleteFile(getFile(post.getPost_id()));
+		// 새 이미지 등록
+		List<ImageFile> list = fileUtils.insertFileInfo(files);
+		for (int i = 0; i < list.size(); i++) {
+			ImageFile fileList = list.get(i);
+			fileList.setPost_id(post.getPost_id());
+			postRepository.updateFile(fileList);
+		}
 	}
 	
 	// 댓글 등록
