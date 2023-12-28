@@ -9,7 +9,7 @@ import CommunitySideBar from '../../components/js/CommunitySideBar.js';
 
 // css 수정해야함
 import '../css/post_review.css';
-import '../css/post_promotion.css';
+import '../css/post_list.css';
 
 
 const PostList = () => {

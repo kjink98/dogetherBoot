@@ -14,30 +14,38 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PostRepository {
 
-	private final PostMapper postMapper;
-	
-	public List<Post> getDataAll(int board_id) {
-		return postMapper.selectAll(board_id);
-	}
-	
-	public Post getDataOne(Post post) {
-		return postMapper.selectOne(post);
-	}
-	
-	public List<ImageFile> getFile(int post_id) {
-		return postMapper.selectFile(post_id);
-	}
-	
-	public void setData(Post post) {
-		postMapper.insertOne(post);
-	}
-	
-	public void insertFile(ImageFile imageFile) {
-		postMapper.insertFile(imageFile);
-	}
-	
-	public void deletePost(int post_id) {
-		postMapper.deletePost(post_id);
-		postMapper.deleteFile(post_id);
-	}
+    private final PostMapper postMapper;
+
+    public List<Post> getDataAll(int board_id) {
+        return postMapper.selectAll(board_id);
+    }
+
+    public Post getDataOne(Post post) {
+        return postMapper.selectOne(post);
+    }
+
+    public List<ImageFile> getFile(int post_id) {
+        return postMapper.selectFile(post_id);
+    }
+
+    public void setData(Post post) {
+        postMapper.insertOne(post);
+    }
+
+    public void insertFile(ImageFile imageFile) {
+        postMapper.insertFile(imageFile);
+    }
+
+    public void deletePost(int post_id) {
+        postMapper.deletePost(post_id);
+        postMapper.deleteFile(post_id);
+    }
+
+    public List<Post> selectFavorite(String user_id) {
+        return postMapper.selectFavorite(user_id);
+    }
+    
+    public List<Post> selectMyHistory(String user_id) {
+        return postMapper.selectMyHistory(user_id);
+    }
 }

@@ -37,4 +37,9 @@ public interface PostMapper {
 	@Delete("DELETE FROM tblFile WHERE post_id=#{post_id}")
 	void deleteFile(int post_id);
 	
+	@Select("select * from tblfavoritepost a join tblpost b on a.post_id = b.post_id where a.user_id=#{user_id} order by b.post_id desc")
+    List<Post> selectFavorite(String user_id);
+
+	@Select("SELECT * FROM tblpost WHERE user_id=#{user_id} ORDER BY post_id desc")
+    List<Post> selectMyHistory(String user_id);
 }

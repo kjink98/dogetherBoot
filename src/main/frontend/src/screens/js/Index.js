@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/Index.css'
+import '../css/index.css'
 import Carousel from '../../components/js/HeroSlider.js';
 import Badge from 'react-bootstrap/Badge';
 import Toast from 'react-bootstrap/Toast';

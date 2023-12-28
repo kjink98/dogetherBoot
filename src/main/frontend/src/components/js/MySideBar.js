@@ -9,27 +9,27 @@ const MySideBar = ({ children }) => {
   const toggle = () => setIsOpen(!isOpen);
   const menuItem = [
     {
-      path: "/myinfo",
+      path: "/my-info",
       name: "내정보 수정",
       icon: <FontAwesomeIcon icon={faUser} />
     },
     {
-      path: "/pwchange",
+      path: "/pw-change",
       name: "비밀번호 변경",
       icon: <FontAwesomeIcon icon={faKey} />
     },
     {
-      path: "/favorite_place",
+      path: "/favorite-place/123",
       name: "관심장소 모아보기",
       icon: <FontAwesomeIcon icon={faLocationDot} />
     },
     {
-      path: "/favorite_post",
+      path: "/favorite-post/123",
       name: "관심글 모아보기",
       icon: <FontAwesomeIcon icon={faBookBookmark} />
     },
     {
-      path: "/myhistory",
+      path: "/my-history/123",
       name: "활동내역",
       icon: <FontAwesomeIcon icon={faPenNib} />
     }
