@@ -4,48 +4,45 @@
 
 .sidebar{
     float: left;
-    height: 100%;
+    height: calc(100vh - 80px);
     min-height: 650px;
     width: 250px;
     transition: all 0.5s;
     border-right: 1px solid black;
-    position: fixed;
-    margin-top: -80px;
 }
 
 .sidebar h2{
     text-align: center;
     font-weight: 600;
     margin-top: 50px;
-    margin-left: auto;
-    margin-right: auto;
     margin-bottom: 50px;
 }
 
-.link{
+.CommunitySidebarMenu{
     text-align: center;
     display: flex;
-    padding-left: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding : 10px;
+    font-size: 20px;
     margin-bottom: 50px;
     transition: all 0.5s;
     text-decoration: none;
     color: black;
 }
 
-.link:hover{
-    background: #F4C84B;
+.CommunitySidebarMenu:hover{
+    background: #F9D367;
     color: white;
     transition: all 0.5s;
 }
 
 .active{
-    background: #F4C84B;
+    background: #F9D367;
     color: white;
     font-weight: 600;
 }
 
-.icon, .link_text{
-    font-size: 20px;
+.CommunitySidebarMenu .svg-inline--fa{
+    margin-right: 10px;
+    font-size: 25px;
+    margin-top: 5px;
 }

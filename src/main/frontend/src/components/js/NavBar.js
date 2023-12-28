@@ -1,8 +1,8 @@
 import React from 'react';
 import "../css/NavBar.css";
-import {Container, Nav, Navbar, NavDropdown, Form, Button, Row, Col} from 'react-bootstrap';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCircleUser, faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
+import { Container, Nav, Navbar, NavDropdown, Form, Button, Row, Col } from 'react-bootstrap';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleUser, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const NavBarElements = () => {
   return (
@@ -13,24 +13,24 @@ const NavBarElements = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            
+
             <NavDropdown title="장소 추천" id="collasible-nav-dropdown" className="DropdownMenu">
-              <NavDropdown.Item href="/restaurant">식당</NavDropdown.Item>
-              <NavDropdown.Item href="/hospital">병원</NavDropdown.Item>
-              <NavDropdown.Item href="/cafe">카페</NavDropdown.Item>
-              <NavDropdown.Item href="/dogCafe">애견카페</NavDropdown.Item>
-              <NavDropdown.Item href="/hotel">숙소</NavDropdown.Item>
-              <NavDropdown.Item href="/school">애견유치원</NavDropdown.Item>
-              <NavDropdown.Item href="/training">훈련소</NavDropdown.Item>
-              <NavDropdown.Item href="/dogShop">애견용품점</NavDropdown.Item>
-              <NavDropdown.Item href="/playground">애견운동장/산책</NavDropdown.Item>
+              <NavDropdown.Item href="/place/restaurant">식당</NavDropdown.Item>
+              <NavDropdown.Item href="/place/hospital">병원</NavDropdown.Item>
+              <NavDropdown.Item href="/place/cafe">카페</NavDropdown.Item>
+              <NavDropdown.Item href="/place/dogCafe">애견카페</NavDropdown.Item>
+              <NavDropdown.Item href="/place/hotel">숙소</NavDropdown.Item>
+              <NavDropdown.Item href="/place/school">애견유치원</NavDropdown.Item>
+              <NavDropdown.Item href="/place/training">훈련소</NavDropdown.Item>
+              <NavDropdown.Item href="/place/dogShop">애견용품점</NavDropdown.Item>
+              <NavDropdown.Item href="/place/playground">애견운동장/산책</NavDropdown.Item>
             </NavDropdown>
 
             <NavDropdown title="커뮤니티" id="collasible-nav-dropdown" className="DropdownMenu">
               <NavDropdown.Item href="/post_notice">공지사항</NavDropdown.Item>
-              <NavDropdown.Item href="/post_review">후기게시판</NavDropdown.Item>
-              <NavDropdown.Item href="/post_promotion">홍보게시판</NavDropdown.Item>
-              <NavDropdown.Item href="/post_news">뉴스/칼럼</NavDropdown.Item>
+              <NavDropdown.Item href="/post/list/2">후기게시판</NavDropdown.Item>
+              <NavDropdown.Item href="/post/list/3">홍보게시판</NavDropdown.Item>
+              <NavDropdown.Item href="/post/list/4">뉴스/칼럼</NavDropdown.Item>
             </NavDropdown>
 
             <NavDropdown title="마이페이지" id="collasible-nav-dropdown" className="DropdownMenu">
@@ -42,15 +42,15 @@ const NavBarElements = () => {
             </NavDropdown>
 
             <Container className="UserMenu">
-              <NavDropdown title={<FontAwesomeIcon icon={faCircleUser}/>} id="collasible-nav-dropdown" className="User">
+              <NavDropdown title={<FontAwesomeIcon icon={faCircleUser} />} id="collasible-nav-dropdown" className="User">
                 <NavDropdown.Item href="/login">로그인</NavDropdown.Item>
                 <NavDropdown.Item href="/signup">회원가입</NavDropdown.Item>
                 <NavDropdown.Item href="/id_search">ID/PW 찾기</NavDropdown.Item>
               </NavDropdown>
-              
+
               <Form inline className="user">
-                  <Form.Control type="text" placeholder="Search" className="mr-sm-2 UserSearch"/>
-                  <Button type="submit" className="UserGlass">{<FontAwesomeIcon icon={faMagnifyingGlass}/>}</Button>
+                <Form.Control type="text" placeholder="Search" className="mr-sm-2 UserSearch" />
+                <Button type="submit" className="UserGlass">{<FontAwesomeIcon icon={faMagnifyingGlass} />}</Button>
               </Form>
             </Container>
 
