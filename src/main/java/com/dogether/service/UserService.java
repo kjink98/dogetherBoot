@@ -13,6 +13,7 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.dogether.domain.User;
 import com.dogether.dto.ChangeInfoRequestDto;
@@ -123,13 +124,17 @@ public class UserService {
 	@Transactional
     public void changePassword(ChangePasswordRequestDto requestDto) {
         // 로그인중인지 확인
-        //String db_email = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = getCurrentLoggedInMember();
 
         if (user == null || !passwordEncoder.matches(requestDto.getExPassword(), user.getUser_pw())) {
             throw new IllegalArgumentException("현재 비밀번호가 일치하지 않습니다.");
         }
-
+        
+        // 비밀번호 null 이거나 빈 문자열 여부 확인
+        if (!StringUtils.hasText(requestDto.getExPassword()) || !StringUtils.hasText(requestDto.getNewPassword()) || !StringUtils.hasText(requestDto.getNewPasswordChk())) {
+        	throw new IllegalArgumentException("비밀번호는 null이거나 빈 문자열일 수 없습니다.");
+        }
+        
         // 새 비밀번호와 확인 비밀번호 일치 여부 확인
         if (!requestDto.getNewPassword().equals(requestDto.getNewPasswordChk())) {
             throw new IllegalArgumentException("새 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
