@@ -1,53 +1,53 @@
-.container{
-    padding-left: 0 !important;
-    margin-left: 0 !important;
+.container {
+	padding-left: 0 !important;
 }
 
-.sidebar{
-    float: left;
-    height: calc(100vh - 80px);
-    min-height: 650px;
-    width: 250px;
-    transition: all 0.5s;
-    border-right: 1px solid black;
+.sidebar {
+	float: left;
+	height: calc(100vh - 80px);
+	min-height: 650px;
+	width: 250px;
+	transition: all 0.5s;
+	border-right: 1px solid black;
 }
 
-.sidebar h2{
-    text-align: center;
-    font-weight: 600;
-    margin-top: 50px;
-    margin-bottom: 50px;
+.sidebar h2 {
+	text-align: center;
+	font-weight: 600;
+	margin-top: 50px;
+	margin-bottom: 50px;
 }
 
-.link{
-    text-align: center;
-    display: flex;
-    padding-left: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin-bottom: 30px;
-    transition: all 0.5s;
-    text-decoration: none;
-    color: black;
+.PlaceSidebarMenu {
+	text-align: center;
+	display: flex;
+	padding: 10px;
+	font-size: 18px;
+	margin-bottom: 30px;
+	transition: all 0.5s;
+	text-decoration: none;
+	color: black;
 }
 
-.link:hover{
-    background:#F4C84B;
-    color: white;
-    transition: all 0.5s;
+.PlaceSidebarMenu:hover {
+	background: #F9D367;
+	color: white;
+	transition: all 0.5s;
 }
 
-.active{
-    background: #F4C84B;
-    color: white;
-    font-weight: 600;
+.PlaceSidebarMenu span.badge{
+	padding-top: 8px;
 }
 
-.icon, .link_text{
-    font-size: 20px;
+
+.active {
+	background: #F9D367;
+	color: white;
+	font-weight: 600;
 }
 
-.link_number{
-    margin-left: 10px;
-    font-size: 18px;
+.PlaceSidebarMenu .svg-inline--fa {
+	margin-right: 10px;
+	font-size: 25px;
+	margin-top: 5px;
 }

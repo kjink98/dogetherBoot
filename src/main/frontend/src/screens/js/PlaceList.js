@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../css/place_restaurant_list.css';
+import '../css/place_list.css';
 import { Form, Button, Card, ListGroup } from 'react-bootstrap';
 import PlaceSideBar from '../../components/js/PlaceSideBar.js';
 import PlaceCheckBox from '../../components/js/PlaceCheckBox.js';
@@ -9,7 +9,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 
-const Place_Restaurant_List = () => {
+const PlaceList = () => {
   const [placeList, setPlaceList] = useState([]);
   let { place_category } = useParams();
   useEffect(() => {
@@ -42,4 +42,4 @@ const Place_Restaurant_List = () => {
   )
 }
 
-export default Place_Restaurant_List
+export default PlaceList;

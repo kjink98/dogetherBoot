@@ -18,64 +18,64 @@ public class FileUtils {
 
 	/* 파일 저장 */
 	public List<ImageFile> insertFileInfo(Post post, MultipartFile[] files) {
-		
+
 		List<ImageFile> imageFileList = new ArrayList<>();
-		
-		if(files != null) {
-			for(MultipartFile file : files) {
-				
+
+		if (files != null) {
+			for (MultipartFile file : files) {
+
 				// 이미지가 존재하지 않을 때
-				if(file.isEmpty()) {
+				if (file.isEmpty()) {
 					continue;
 				}
-				
+
 				// 이미지 저장 경로
-				String rootFolder = new File("").getAbsolutePath() +"/src/main/frontend/public/img/";
+				String rootFolder = new File("").getAbsolutePath() + "/src/main/frontend/public/img/";
 				// 날짜별 폴더 생성
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 				String today = sdf.format(new Date());
 				File targetFolder = new File(rootFolder + today);
-				
-				if(!targetFolder.exists())
+
+				if (!targetFolder.exists())
 					targetFolder.mkdirs();
-				
+
 				// 저장 파일명 만들기(중복방지)
 				String fileName = UUID.randomUUID().toString();
 				fileName += "_" + System.currentTimeMillis();
 				String originalFileName = file.getOriginalFilename();
 				String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
 				String saveFileName = rootFolder + today + "/" + fileName + ext;
-				
+
 				// 파일 저장
 				try {
 					file.transferTo(new File(saveFileName));
 				} catch (Exception e) {
 					System.out.println("insertFileInfo: " + e);
 				}
-				
+
 				// 파일 정보 DB 저장
 				saveFileName = today + "/" + fileName + ext;
 				ImageFile imagefile = new ImageFile();
 				imagefile.setFile_oriname(originalFileName);
 				imagefile.setFile_link(saveFileName);
-				
+
 				imageFileList.add(imagefile);
 			}
 		}
 		return imageFileList;
 	}
-	
+
 	/* 파일 삭제 */
 	public void deleteFile(List<ImageFile> fileList) {
-		
-		String rootFolder = new File("").getAbsolutePath() +"/src/main/frontend/public/img/";
-		
+
+		String rootFolder = new File("").getAbsolutePath() + "/src/main/frontend/public/img/";
+
 		try {
-			for(int i=0; i<fileList.size(); i++) {
+			for (int i = 0; i < fileList.size(); i++) {
 				File file = new File(rootFolder + fileList.get(i).getFile_link());
 				file.delete();
 			}
-		} catch(Exception e) {
+		} catch (Exception e) {
 			System.out.println("deleteFile: " + e);
 		}
 	}

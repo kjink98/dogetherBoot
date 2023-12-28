@@ -4,7 +4,7 @@ import { Container, Nav, Navbar, NavDropdown, Form, Button, Row, Col } from 'rea
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
-const NavBarElements = () => {
+const NavBar = () => {
   return (
     <Navbar sticky="top" collapseOnSelect expand="xxl" className="bg-body-tertiary">
       <Container className="Menu">
@@ -34,18 +34,18 @@ const NavBarElements = () => {
             </NavDropdown>
 
             <NavDropdown title="마이페이지" id="collasible-nav-dropdown" className="DropdownMenu">
-              <NavDropdown.Item href="/myinfo">내정보 수정</NavDropdown.Item>
-              <NavDropdown.Item href="/pwchange">비밀번호 변경</NavDropdown.Item>
-              <NavDropdown.Item href="/favorite_place">관심장소 모아보기</NavDropdown.Item>
-              <NavDropdown.Item href="/favorite_post">관심글 모아보기</NavDropdown.Item>
-              <NavDropdown.Item href="/myhistory">활동내역</NavDropdown.Item>
+              <NavDropdown.Item href="/my-info">내정보 수정</NavDropdown.Item>
+              <NavDropdown.Item href="/pw-change">비밀번호 변경</NavDropdown.Item>
+              <NavDropdown.Item href="/favorite-place/123">관심장소 모아보기</NavDropdown.Item>
+              <NavDropdown.Item href="/favorite-post/123">관심글 모아보기</NavDropdown.Item>
+              <NavDropdown.Item href="/my-history/123">활동내역</NavDropdown.Item>
             </NavDropdown>
 
             <Container className="UserMenu">
               <NavDropdown title={<FontAwesomeIcon icon={faCircleUser} />} id="collasible-nav-dropdown" className="User">
                 <NavDropdown.Item href="/login">로그인</NavDropdown.Item>
                 <NavDropdown.Item href="/signup">회원가입</NavDropdown.Item>
-                <NavDropdown.Item href="/id_search">ID/PW 찾기</NavDropdown.Item>
+                <NavDropdown.Item href="/id-search">ID/PW 찾기</NavDropdown.Item>
               </NavDropdown>
 
               <Form inline className="user">
@@ -61,4 +61,4 @@ const NavBarElements = () => {
   )
 }
 
-export default NavBarElements
+export default NavBar;

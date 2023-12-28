@@ -45,9 +45,9 @@ public class PostController {
 		map.put("files", fileList);
 		return map;
 	}
-	
-	@PostMapping(path="/post", consumes= {"multipart/form-data"})
-	public String setPost(@RequestPart Post post, @RequestPart(value="files", required=false) MultipartFile[] files) {
+
+	@PostMapping(path = "/post", consumes = { "multipart/form-data" })
+	public String setPost(@RequestPart Post post, @RequestPart(value = "files", required = false) MultipartFile[] files) {
 		postService.setPost(post, files);
 		return "post_post";
 	}
@@ -80,4 +80,31 @@ public class PostController {
 		postService.editComment(commentEditDto);
 		return "edit";
 	}
+
+	@GetMapping("/favorite/{user_id}")
+	public List<Post> getFavoritePostList(@PathVariable String user_id) {
+		List<Post> favoritePosts = postService.favoriteList(user_id);
+		/*
+		 * Test
+		 * System.out.println(user_id);
+		 * for (Post post : favoritePosts) {
+		 * System.out.println("post_id : " + post.getPost_id());
+		 * }
+		 */
+		return favoritePosts;
+	}
+
+	@GetMapping("/myhistory/{user_id}")
+	public List<Post> getMyPostList(@PathVariable String user_id) {
+		List<Post> myPosts = postService.myList(user_id);
+		/*
+		 * Test
+		 * System.out.println(user_id);
+		 * for (Post post : favoritePosts) {
+		 * System.out.println("post_id : " + post.getPost_id());
+		 * }
+		 */
+		return myPosts;
+	}
+
 }

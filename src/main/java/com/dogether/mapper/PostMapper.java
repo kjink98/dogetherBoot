@@ -51,4 +51,10 @@ public interface PostMapper {
 	
 	@Update("UPDATE tblcomment SET comment_content=#{comment_content} WHERE comment_id=#{comment_id}")
 	void editComment(Comment comment);
+	
+	@Select("select * from tblfavoritepost a join tblpost b on a.post_id = b.post_id where a.user_id=#{user_id} order by b.post_id desc")
+    List<Post> selectFavorite(String user_id);
+
+	@Select("SELECT * FROM tblpost WHERE user_id=#{user_id} ORDER BY post_id desc")
+    List<Post> selectMyHistory(String user_id);
 }

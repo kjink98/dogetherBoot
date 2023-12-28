@@ -27,4 +27,5 @@ public class PlaceService {
     public List<Place> favoriteList(String user_id) {
         return placeRepository.selectFavorite(user_id);
     }
+
 }

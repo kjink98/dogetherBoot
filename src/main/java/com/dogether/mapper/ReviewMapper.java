@@ -22,7 +22,7 @@ public interface ReviewMapper {
             + "#{place_id}, #{review_title}, #{review_content}, #{review_starRating})")
     int insertReview(Review review);
 
-    @Select("update user_nickname, review_title, review_content, user_id,"
+    @Select("select user_nickname, review_title, review_content, user_id,"
             + "place_id, review_starRating FROM tblreview where review_id=#{review_id}")
     Review selectReview(int review_id);
 

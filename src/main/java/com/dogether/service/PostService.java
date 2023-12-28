@@ -19,31 +19,31 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class PostService {
-	
+
 	private final PostRepository postRepository;
-	
+
 	private final FileUtils fileUtils;
 	
 	// 전체 게시글 목록 가져오기
 	public List<PostListDto> getPostList(String board_category) {
 		List<PostListDto> list = new ArrayList<>();
-		
+
 		// 게시글 내용, 썸네일 담기
 		 List<Post> postList = postRepository.getDataAll(board_category);	
 
-		 for(int i=0; i<postList.size(); i++) {
-			 PostListDto listDto = new PostListDto(postList.get(i));
-			 List<ImageFile> fileList = getFile(postList.get(i).getPost_id());
-			 for(int j=0; j<fileList.size(); j++) {
-				 if(fileList.get(j).getPost_id() == postList.get(i).getPost_id()) {
-					 listDto.setFile_id(fileList.get(j).getFile_id());
-					 listDto.setFile_link(fileList.get(j).getFile_link());
-					 break;
-				 }	 
-			 }
-			 list.add(listDto);
-		 }
-		 return list;
+		for (int i = 0; i < postList.size(); i++) {
+			PostListDto listDto = new PostListDto(postList.get(i));
+			List<ImageFile> fileList = getFile(postList.get(i).getPost_id());
+			for (int j = 0; j < fileList.size(); j++) {
+				if (fileList.get(j).getPost_id() == postList.get(i).getPost_id()) {
+					listDto.setFile_id(fileList.get(j).getFile_id());
+					listDto.setFile_link(fileList.get(j).getFile_link());
+					break;
+				}
+			}
+			list.add(listDto);
+		}
+		return list;
 	}
 	
 	// 1개 게시글 내용 가져오기
@@ -61,9 +61,9 @@ public class PostService {
 		post.setUser_id("yooram2"); // 임시 저장
 		post.setUser_nickname("푸들조아"); // 임시 저장
 		postRepository.setData(post);
-		
+
 		List<ImageFile> list = fileUtils.insertFileInfo(post, files);
-		for (int i=0; i<list.size(); i++) {
+		for (int i = 0; i < list.size(); i++) {
 			postRepository.insertFile(list.get(i));
 		}
 	}
@@ -98,5 +98,12 @@ public class PostService {
 		postRepository.editComment(comment);
 		
 	}
-	
+
+	public List<Post> favoriteList(String user_id) {
+		return postRepository.selectFavorite(user_id);
+	}
+
+	public List<Post> myList(String user_id) {
+		return postRepository.selectMyHistory(user_id);
+	}
 }
