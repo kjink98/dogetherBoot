@@ -131,7 +131,6 @@ const PlaceDetail = () => {
   const [index, setIndex] = useState(0);
 
   return (
-    // 프론트 페이지 나오면 수정
     <div>
       <PlaceSideBar></PlaceSideBar>
       <PlaceCarousel></PlaceCarousel>

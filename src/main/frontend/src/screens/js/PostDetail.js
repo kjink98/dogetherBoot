@@ -7,19 +7,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import axios from 'axios';
 import moment from 'moment';
+import Comment from '../../components/js/Comment';
 
 const PostDetail = () => {
   const [postDetail, setPostDetail] = useState({});
   const [postFiles, setPostFiles] = useState([]);
+  const postpost = ["review", "promotion", "news"];
   const postType = ["후기게시판", "홍보게시판", "뉴스/칼럼"];
-  let { board_id } = useParams();
+  let { board_category } = useParams();
   let { post_id } = useParams();
   const navigate = useNavigate();
 
   // 게시글 내용 불러오기
   useEffect(() => {
     const getPostDetail = async () => {
-      const resp = await axios.get(`/dog/post/detail?board_id=${board_id}&post_id=${post_id}`)
+      const resp = await axios.get(`/dog/post/detail/${board_category}/${post_id}`)
       setPostDetail(resp.data.detail);
 
       const fileData = resp.data.files;
@@ -36,16 +38,16 @@ const PostDetail = () => {
     getPostDetail();
   }, []);
 
-
+  // 게시글 삭제
   const onClickDelete = async () => {
     let pw = '12345';
     var password = prompt('정말로 삭제하시겠습니까?\n삭제를 원하시면 비밀번호를 입력해주세요.');
     console.log(password);
 
     if (pw == password) {
-      await axios.get(`/dog/post/delete?post_id=${post_id}`).then((res) => {
+      await axios.delete(`/dog/post/delete?post_id=${post_id}`).then((res) => {
         alert('삭제가 완료되었습니다.');
-        navigate(`/post/list/${board_id}`);
+        navigate(`/post/list/${board_category}`);
       })
     }
 
@@ -60,7 +62,7 @@ const PostDetail = () => {
     console.log(password);
 
     if (pw == password) {
-      navigate('/post_news_update')
+      navigate("/post/update/" + board_category + "/" + post_id)
     }
 
     else {
@@ -72,26 +74,6 @@ const PostDetail = () => {
     alert('관심글 목록에 추가되었습니다.');
   }
 
-  // 댓글 등록
-
-  const [comment, setComment] = useState({
-    board_id: board_id,
-    post_id: post_id,
-    user_nickname: '',
-    comment_content: ''
-  })
-
-  const onChange = (event) => {
-    const { name, value } = event.target;
-    setComment({ ...comment, [name]: value });
-  }
-
-  const setCommentProc = async () => {
-    /* await axios.post('/dog/post/comment', formData).then((res) => {
-        alert('등록되었습니다');
-        navigate(`/post/list/${board_id}`); // 이게 작동이 안됨..
-  });*/
-  }
 
   return (
     <div className="PostNews">
@@ -99,7 +81,7 @@ const PostDetail = () => {
 
       <div className="PostNewsDetail">
         <div className="PostNewsTitle">
-          <p>{postType[board_id - 2]}</p>
+          <p>{postType[postpost.indexOf(board_category)]}</p>
         </div>
 
         {/* Post Detail */}
@@ -126,19 +108,11 @@ const PostDetail = () => {
             <Button variant="primary" onClick={onClickModify}>수정하기</Button>
             <Button variant="danger" onClick={onClickDelete}>삭제하기</Button>
             <Button variant="secondary" onClick={onClickHeart}><FontAwesomeIcon icon={faHeart} />&nbsp;게시글 좋아요하기</Button>
-            <Button variant="secondary" onClick={() => navigate(`/post/list/${board_id}`)}>목록</Button>
+            <Button variant="secondary" onClick={() => navigate(`/post/list/${board_category}`)}>목록</Button>
           </div>
 
-          <div className="NewsDetailComments">
-            <div className="NewsDetailCount">
-              <p>댓글 3개</p>
-            </div>
-            <br />
-            <input type="text" name="user_nickname" onChange={onChange} /><br />
-            <textarea name="comment_content" onChange={onChange} />
-            <Button variant="dark" onClick={setCommentProc}>댓글 달기</Button>
-
-          </div>
+          {/* 댓글 */}
+          <Comment board_category={board_category} post_id={post_id} />
         </div>
       </div>
     </div>
