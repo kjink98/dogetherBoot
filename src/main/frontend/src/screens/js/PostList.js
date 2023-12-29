@@ -74,7 +74,7 @@ const PostList = () => {
                 setPostList(searched);
             })
       }
-  
+  }
 
   return (
     <div>
