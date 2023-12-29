@@ -1,160 +1,160 @@
-.compass{
-    width: 1200px;
-    height: 350px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 100px;
-    margin-bottom: 100px;
+.compass {
+	width: 1200px;
+	height: 350px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 100px;
+	margin-bottom: 100px;
 }
 
-.compass h2{
-    text-align: right;
-    margin-bottom: 50px;
+.compass h2 {
+	text-align: right;
+	margin-bottom: 50px;
 }
 
-.compass .fa-compass{
-    float: left;
-    font-size: 200px;
-    margin-right: 12%;
-    margin-top: 30px;
-}
-
-.compass .fa-compass:hover{
-    color: #249D8C;
-    cursor: pointer;
-}
-
-.compass .toast{
-    float: left;
-    width: 800px;
-}
-
-.compass .toast .toast-header .btn-close{
-    display: none;
-}
-
-.compass .toast a{
-    text-decoration: none;
-    color: black;
-    line-height: 35px;
-}
-
-.compass .toast a:hover{
-    color: #249D8C;
-    font-weight: 600;
-}
-
-.compass .toast .findgps{
-    font-size: 18px;
-}
-
-.compass .toast .gps{
-    font-size: 15px;
-    margin-top: 20px;
-    margin-right: 5px;
-}
-
-.compass .toast .rounded-pill{
-    background-color: #249D8C !important;
-}
-
-.compass .toast .toast-body{
-    font-size: 18px;
-}
-
-.compass .toast .toast-body .svg-inline--fa{
-    margin-left: 50px;
-    color: #36454F;
-}
-
-.calumn{
-    max-width: 1940px;
-    margin-top: 20px;
-    margin-bottom: 200px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.news{
-    width: 600px;
+.compass .fa-compass {
 	float: left;
-    margin-left: 200px;
+	font-size: 200px;
+	margin-right: 12%;
+	margin-top: 30px;
 }
 
-.news .NewsTitle{
-    font-size: 35px;
-    font-weight: 600;
+.compass .fa-compass:hover {
+	color: #249D8C;
+	cursor: pointer;
 }
 
-.pro{
-    width: 600px;
+.compass .toast {
 	float: left;
-    margin-left: 300px;
+	width: 800px;
 }
 
-.pro .ProTitle{
-    font-size: 35px;
-    font-weight: 600;
+.compass .toast .toast-header .btn-close {
+	display: none;
 }
 
-.news .NewsDetail, .pro .ProDetail{
-    float: right;
-    font-size: 22px;
-    text-decoration: none;
-    color: black;
-    margin-bottom: 50px;
+.compass .toast a {
+	text-decoration: none;
+	color: black;
+	line-height: 35px;
 }
 
-.NewsDetail:hover, .ProDetail:hover{
-    color: #0089BA;
+.compass .toast a:hover {
+	color: #249D8C;
+	font-weight: 600;
 }
 
-.calumn .MainCalumnCard{
-    margin-bottom: 50px;
-    width: 600px;
-    text-decoration: none;
+.compass .toast .findgps {
+	font-size: 18px;
 }
 
-.calumn .MainCalumnCard img{
-    width: 200px;
+.compass .toast .gps {
+	font-size: 15px;
+	margin-top: 20px;
+	margin-right: 5px;
+}
+
+.compass .toast .rounded-pill {
+	background-color: #249D8C !important;
+}
+
+.compass .toast .toast-body {
+	font-size: 18px;
+}
+
+.compass .toast .toast-body .svg-inline--fa {
+	margin-left: 50px;
+	color: #36454F;
+}
+
+.calumn {
+	max-width: 1940px;
+	margin-top: 20px;
+	margin-bottom: 200px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.news {
+	width: 600px;
+	float: left;
+	margin-left: 200px;
+}
+
+.news .NewsTitle {
+	font-size: 35px;
+	font-weight: 600;
+}
+
+.pro {
+	width: 600px;
+	float: left;
+	margin-left: 300px;
+}
+
+.pro .ProTitle {
+	font-size: 35px;
+	font-weight: 600;
+}
+
+.news .NewsDetail, .pro .ProDetail {
+	float: right;
+	font-size: 22px;
+	text-decoration: none;
+	color: black;
+	margin-bottom: 50px;
+}
+
+.NewsDetail:hover, .ProDetail:hover {
+	color: #0089BA;
+}
+
+.calumn .MainCalumnCard {
+	margin-bottom: 50px;
+	width: 600px;
+	text-decoration: none;
+}
+
+.calumn .MainCalumnCard img {
+	width: 200px;
 	height: 200px;
 	object-fit: cover;
-    border-radius: 4px;
+	border-radius: 4px;
 }
 
-.calumn .MainCalumnCard-body{
-    text-decoration: none;
-    padding: 15px;
+.calumn .MainCalumnCard-body {
+	text-decoration: none;
+	padding: 15px;
 }
 
-.calumn .MainCalumnCard .MainCalumnCard-title{
-    font-size: 25px;
-    font-weight: 600;
-    width: 350px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+.calumn .MainCalumnCard .MainCalumnCard-title {
+	font-size: 25px;
+	font-weight: 600;
+	width: 350px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
-.calumn .MainCalumnCard .MainCalumnCard-text{
-    font-size: 18px;
-    width: 350px;
-    word-wrap: break-word;
+.calumn .MainCalumnCard .MainCalumnCard-text {
+	font-size: 18px;
+	width: 350px;
+	word-wrap: break-word;
 	text-align: left;
 	-webkit-line-clamp: 3;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 	text-overflow: ellipsis;
-    display: block;
-    word-wrap: break-word;
-    display: -webkit-box;
+	display: block;
+	word-wrap: break-word;
+	display: -webkit-box;
 }
 
-.calumn .MainCalumnCard .MainCalumnCard-date{
-    font-size: 15px;
-    margin-bottom: -10px;
+.calumn .MainCalumnCard .MainCalumnCard-date {
+	font-size: 15px;
+	margin-bottom: -10px;
 }
 
-.MainCalumnCard:hover, .MainCalumnCard-title:hover, .MainCalumnCard-body:hover, .MainCalumnCard-date:hover{
-    color: black;
+.MainCalumnCard:hover, .MainCalumnCard-title:hover, .MainCalumnCard-body:hover, .MainCalumnCard-date:hover {
+	color: black;
 }

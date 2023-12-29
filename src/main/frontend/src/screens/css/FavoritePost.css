@@ -1,80 +1,107 @@
-.FavoritePostTitle p{
-    font-size: 50px;
-    font-weight: 600;
-    width: 400px;
-    margin-left: calc((100% - 250px) / 2);
-    margin-right: calc((100% - 250px) / 2);
-    margin-top: 50px;
+.FavoritePost {
+	width: 1900px;
+	margin-bottom: 100px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
-.postcount p{ 
-    width: 500px;
-    margin-left: calc((100% - 250px) / 5 * 4);
-    margin-right: calc((100% - 250px) / 5);
-    font-size: 20px;
+.FavoritePostTitle p {
+	font-size: 50px;
+	font-weight: 600;
+	width: 400px;
+	margin-left: calc((100% - 250px) / 2);
+	margin-right: calc((100% - 250px) / 2);
+	padding-top: 30px;
 }
 
-.postcount p b{
-    color: #CD6A80;
-    font-size: 25px;
+.FavoritePostCount p {
+	width: 500px;
+	margin-left: calc((100% - 250px) / 5 * 4);
+	margin-right: calc((100% - 250px) / 5);
+	font-size: 20px;
 }
 
-.postcards{
-    width: 1740px;
-    margin-left: auto;
-    margin-right: auto;
+.FavoritePostCount p b {
+	color: #CD6A80;
+	font-size: 25px;
 }
 
-.FavoritePostCard{
-    margin-bottom: 50px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 1000px;
-    height: 120px;
-    text-decoration: none;
+.FavoritePostCards {
+	width: 1740px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
-.FavoritePostCard img{
-    width: 200px !important;
+.FavoritePostCard {
+	margin-bottom: 50px;
+	margin-left: calc((100% - 250px) / 4);
+	margin-right: calc((100% - 250px) / 2);
+	width: 1200px;
+	height: 120px;
+	text-decoration: none;
+}
+
+.FavoritePostCard img {
+	width: 200px !important;
 	object-fit: cover;
-    border-radius: 4px;
+	border-radius: 4px;
 }
 
-.FavoritePostCard-body{
-    text-decoration: none;
-    line-height: 20px;
-    padding: 15px;
+.FavoritePostCard-body {
+	text-decoration: none;
+	line-height: 20px;
+	padding: 15px;
 }
 
-.FavoritePostCard .FavoritePostCard-title{
-    float: left;
-    font-size: 20px;
-    font-weight: 600;
-    max-width: 700px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+.FavoritePostCard .FavoritePostCard-title {
+	float: left;
+	font-size: 20px;
+	font-weight: 600;
+	max-width: 900px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
-.FavoritePostCard .FavoritePostCard-comment{
-    float: left;
-    font-size: 20px;
+.FavoritePostCard .FavoritePostCard-comment {
+	float: left;
+	font-size: 20px;
 }
 
-.FavoritePostCard .FavoritePostCard-text{
-    font-size: 15px;
-    width: 350px;
+.FavoritePostCard .FavoritePostCard-text {
+	font-size: 15px;
+	width: 350px;
 	text-align: left;
-    white-space: nowrap;
+	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
 
-.FavoritePostCard .FavoritePostCard-date{
-    font-size: 15px;
-    margin-bottom: -10px;
+.FavoritePostCard .FavoritePostCard-date {
+	font-size: 15px;
+	margin-bottom: -10px;
 }
 
-.FavoritePostCard:hover, .FavoritePostCard-title:hover, .FavoritePostCard-body:hover, .FavoritePostCard-date:hover{
-    color: black;
+.FavoritePostCard:hover, .FavoritePostCard-title:hover, .FavoritePostCard-body:hover, .FavoritePostCard-date:hover {
+	color: black;
+}
+
+.FavoritePost .pagination{
+	margin-left: auto;
+	padding-left: 800px;
+	margin-right: auto;
+	align-items: center;
+}
+
+.FavoritePost .pagination .page-link{
+	color: #CD6A80 !important;
+	background-color: white !important;
+	font-weight: 600;
+	font-size: 17px;
+}
+
+.FavoritePost .pagination .active .page-link{
+	color: white !important;
+	background-color: #CD6A80 !important;
+	border: 1px solid white;
 }

@@ -14,15 +14,13 @@ const PlaceDetail = () => {
   const ReviewCounts = '50';
   const ReviewScoreFive = '10';
   const ReviewScoreFour = '25';
-  const onClickHeart = () => {
-    alert('관심장소에 추가되었습니다.');
-  }
 
   const [place, setPlace] = useState([]);
   const [review, setReview] = useState([]);
   let { place_id } = useParams();
   const [address, setAddress] = useState('');
   const [pname, setPname] = useState('');
+
   useEffect(() => {
     const getPlace = async () => {
       const resp = await axios.get(`/dog/place/detail?place_id=${place_id}`)
@@ -69,8 +67,20 @@ const PlaceDetail = () => {
           setReview(resp.data);
         }
         getReview();
+        document.getElementById('content').value = '';
       })
   };
+
+  const [favoritePlace, setFavoritePlace] = useState({
+    user_id: '123',
+    place_id: place_id
+  });
+
+  const onClickHeart = async () => {
+    await axios.post(`/dog/place/favorite`, favoritePlace).then((res) => {
+      alert('관심장소에 추가되었습니다.');
+    })
+  }
 
   const data = [
     {

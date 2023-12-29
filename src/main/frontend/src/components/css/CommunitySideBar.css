@@ -1,48 +1,49 @@
-.container{
-    padding-left: 0 !important;
+.container {
+	padding-left: 0 !important;
 }
 
-.sidebar{
-    float: left;
-    height: calc(100vh - 80px);
-    min-height: 650px;
-    width: 250px;
-    transition: all 0.5s;
-    border-right: 1px solid black;
+.CommunitySidebar {
+	float: left;
+	height: 100vh;
+	min-height: 650px;
+	width: 250px;
+	transition: all 0.5s;
+	border-right: 1px solid black;
+	position: fixed;
 }
 
-.sidebar h2{
-    text-align: center;
-    font-weight: 600;
-    margin-top: 50px;
-    margin-bottom: 50px;
+.CommunitySidebar h2 {
+	text-align: center;
+	font-weight: 600;
+	margin-top: 50px;
+	margin-bottom: 50px;
 }
 
-.CommunitySidebarMenu{
-    text-align: center;
-    display: flex;
-    padding : 10px;
-    font-size: 20px;
-    margin-bottom: 50px;
-    transition: all 0.5s;
-    text-decoration: none;
-    color: black;
+.CommunitySidebarMenu {
+	text-align: center;
+	display: flex;
+	padding: 10px;
+	font-size: 20px;
+	margin-bottom: 50px;
+	transition: all 0.5s;
+	text-decoration: none;
+	color: black;
 }
 
-.CommunitySidebarMenu:hover{
-    background: #F9D367;
-    color: white;
-    transition: all 0.5s;
+.CommunitySidebarMenu:hover {
+	background: #F9D367;
+	color: white;
+	transition: all 0.5s;
 }
 
-.active{
-    background: #F9D367;
-    color: white;
-    font-weight: 600;
+.active {
+	background: #F9D367;
+	color: white;
+	font-weight: 600;
 }
 
-.CommunitySidebarMenu .svg-inline--fa{
-    margin-right: 10px;
-    font-size: 25px;
-    margin-top: 5px;
+.CommunitySidebarMenu .svg-inline--fa {
+	margin-right: 10px;
+	font-size: 25px;
+	margin-top: 5px;
 }

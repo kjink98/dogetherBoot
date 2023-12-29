@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import '../css/PostPost.css';
 import { Form, Button } from 'react-bootstrap';
+import { useBeforeunload } from "react-beforeunload";
 import { useNavigate, useParams } from "react-router-dom";
 import CommunitySideBar from '../../components/js/CommunitySideBar.js';
 import UploadImage from '../../components/js/UploadImage.js';
 import axios from 'axios';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const PostPost = () => {
+  useBeforeunload((event) => event.preventDefault());
+
   const postpost = ["notice", "review", "promotion", "news"];
   const postType = ["공지사항", "후기게시판", "홍보게시판", "뉴스/칼럼"];
   let { board_category } = useParams();
@@ -21,11 +22,13 @@ const PostPost = () => {
   })
 
   const [files, setFiles] = useState([]);
+  const [message, setMessage] = useState('');
 
   const setImages = (files) => {
     setFiles(files);
   }
 
+  /*
   const onClickCancel = () => {
     if (window.confirm("등록을 취소하시겠습니까?") == true) {
       alert('게시글 등록이 취소되었습니다.');
@@ -35,6 +38,7 @@ const PostPost = () => {
       return;
     }
   }
+  */
 
   /*
   const onClickRegister = () => {
@@ -81,8 +85,13 @@ const PostPost = () => {
               <Form.Control className="NewsPostContents" as="textarea" name="post_content" placeholder="내용을 입력해주세요." onChange={onChange} />
             </Form.Group>
 
+            <Form.Group className="NewsPostPassword" controlId="ControlNewsInput">
+							<Form.Label>게시글 등록을 원하시면 비밀번호를 입력해주세요.</Form.Label>
+							<Form.Control type="text" placeholder="비밀번호를 입력해주세요." value={message} onChange={(e) => {setMessage(e.target.value)}}/>
+						</Form.Group>
+
             <div className="NewsPostButtons">
-              <Button variant="secondary" type="submit" onClick={onClickCancel}>작성취소</Button>
+              {/*<Button variant="secondary" type="submit" onClick={onClickCancel}>작성취소</Button>*/}
               <Button variant="primary" type="submit" onClick={setPostProc}>등록하기</Button>
             </div>
           </Form>

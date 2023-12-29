@@ -1,23 +1,54 @@
-.checkbox{
-    width: calc(100% - 250px);
-    margin-left: 250px;
-    border-bottom: 1px solid black;
-    padding: 20px 0;
-    font-size: 18px;
+.checkbox {
+	width: calc(100% - 250px);
+	margin-left: 250px;
+	border-bottom: 1px solid black;
+	padding: 20px 0;
+	font-size: 18px;
 }
 
-.checkbox p{
-    float: left;
-    margin-left: 50px;
-    font-weight: 600;
-    font-size: 22px;
+.checkbox .CheckboxButton p {
+	float: left;
+	padding-top: 7px;
+	font-weight: 600;
 }
 
-.checkbox input{
-    margin-left: 50px;
-    margin-right: 10px;
+.checkbox .CheckboxButton p, .checkbox .CheckboxButton button {
+	float: left;
 }
 
-.checkbox input text{
-    font-size: 100px;
+.checkbox p.checkboxoption {
+	float: left;
+	margin-left: 50px;
+	font-weight: 600;
+	font-size: 22px;
+}
+
+.checkbox input {
+	margin-left: 50px;
+	margin-right: 10px;
+	transform: scale(1.25);
+}
+
+.checkbox input text {
+	font-size: 100px;
+}
+
+.CheckboxButton {
+	float: right;
+	padding-right: 50px;
+}
+
+.CheckboxButton button {
+	background-color: transparent;
+	border: none;
+	font-size: 18px;
+}
+
+.CheckboxButton button:hover {
+	color: #FF85A7;
+}
+
+.CheckboxButton .active {
+	color: #FF85A7 !important;
+	font-weight: 600;
 }

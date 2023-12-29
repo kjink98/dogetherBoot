@@ -2,19 +2,22 @@
 	padding-left: 0 !important;
 }
 
-.sidebar {
+.PlaceSidebar {
 	float: left;
-	height: calc(100vh - 80px);
+	height: 100vh;
 	min-height: 650px;
 	width: 250px;
 	transition: all 0.5s;
 	border-right: 1px solid black;
+	position: fixed;
 }
 
-.sidebar h2 {
+.PlaceSidebar h2 {
 	text-align: center;
 	font-weight: 600;
 	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
 	margin-bottom: 50px;
 }
 
@@ -38,7 +41,6 @@
 .PlaceSidebarMenu span.badge{
 	padding-top: 8px;
 }
-
 
 .active {
 	background: #F9D367;
