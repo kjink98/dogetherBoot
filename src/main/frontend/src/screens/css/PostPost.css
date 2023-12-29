@@ -42,10 +42,10 @@
 	margin-bottom: 30px;
 }
 
-.NewsPost .NewsPostButton{
+.NewsPost .NewsPostButtons{
 	float: right;
-	margin-right: 5%;
 	margin-top: -100px;
+	margin-right: 5%;
 }
 
 .NewsPost .NewsPostButtons Button{

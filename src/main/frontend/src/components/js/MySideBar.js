@@ -1,56 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import "../css/MySideBar.css";
-import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faKey, faLocationDot, faBookBookmark, faPenNib } from "@fortawesome/free-solid-svg-icons";
 
-const MySideBar = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
-  const menuItem = [
-    {
-      path: "/my-info",
-      name: "내정보 수정",
-      icon: <FontAwesomeIcon icon={faUser} />
-    },
-    {
-      path: "/pw-change",
-      name: "비밀번호 변경",
-      icon: <FontAwesomeIcon icon={faKey} />
-    },
-    {
-      path: "/favorite-place/123",
-      name: "관심장소 모아보기",
-      icon: <FontAwesomeIcon icon={faLocationDot} />
-    },
-    {
-      path: "/favorite-post/123",
-      name: "관심글 모아보기",
-      icon: <FontAwesomeIcon icon={faBookBookmark} />
-    },
-    {
-      path: "/my-history/123",
-      name: "활동내역",
-      icon: <FontAwesomeIcon icon={faPenNib} />
-    }
-  ]
+function MySidebar () {
 
-  return (
-    <div className="container">
-      <div className="sidebar">
-        <h2>마이 페이지</h2>
-        {
-          menuItem.map((item, index) => (
-            <NavLink to={item.path} key={index} className="link" activeclassName="active">
-              <div className="icon">{item.icon}</div>&nbsp;
-              <div className="link_text">{item.name}</div>
-            </NavLink>
-          ))
-        }
-      </div>
-      <main>{children}</main>
-    </div>
-  );
+	return (
+		<div className="container">
+			<div className="MySidebar">
+				<h2>마이페이지</h2>
+				<a className={"MySidebarMenu" + (window.location.pathname.includes('myifo') ? " active" : "")} href="/myinfo"><FontAwesomeIcon icon={faUser} />내정보 수정</a>
+				<a className={"MySidebarMenu" + (window.location.pathname.includes('pwchange') ? " active" : "")} href="/pwchange"><FontAwesomeIcon icon={faKey} />비밀번호 변경</a>
+				<a className={"MySidebarMenu" + (window.location.pathname.includes('favorite_place') ? " active" : "")} href="/favorite_place"><FontAwesomeIcon icon={faLocationDot} />관심장소 모아보기</a>
+				<a className={"MySidebarMenu" + (window.location.pathname.includes('favorite_post') ? " active" : "")} href="/favorite_post"><FontAwesomeIcon icon={faBookBookmark} />관심글 모아보기</a>
+				<a className={"MySidebarMenu" + (window.location.pathname.includes('myhistory') ? " active" : "")} href="/myhistory"><FontAwesomeIcon icon={faPenNib} />활동내역</a>
+			</div>
+		</div>
+	);
 };
 
-export default MySideBar;
+export default MySidebar;
