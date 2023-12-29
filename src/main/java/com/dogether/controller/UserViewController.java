@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("/dog/user")
 public class UserViewController {
 	private final UserService userService;
 	

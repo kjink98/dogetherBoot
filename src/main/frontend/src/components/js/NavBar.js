@@ -43,7 +43,7 @@ const NavBar = () => {
 
             <Container className="UserMenu">
               <NavDropdown title={<FontAwesomeIcon icon={faCircleUser} />} id="collasible-nav-dropdown" className="User">
-                <NavDropdown.Item href="/login">로그인</NavDropdown.Item>
+                <NavDropdown.Item href="/user/login">로그인</NavDropdown.Item>
                 <NavDropdown.Item href="/signup">회원가입</NavDropdown.Item>
                 <NavDropdown.Item href="/id-search">ID/PW 찾기</NavDropdown.Item>
               </NavDropdown>

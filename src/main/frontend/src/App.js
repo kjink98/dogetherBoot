@@ -34,7 +34,7 @@ function App() {
         <Route path="/favorite-post/:user_id" element={<FavoritePost />}></Route>
         <Route path="/my-history/:user_id" element={<MyHistory />}></Route>
 
-        <Route path="/login" element={<LoginForm />}></Route>
+        <Route path="/user/login" element={<LoginForm />}></Route>
 
         <Route path="/maptest" element={<KakaoMap />}></Route>
       </Routes>
