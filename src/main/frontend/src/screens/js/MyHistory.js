@@ -35,7 +35,7 @@ const MyHistory = () => {
             <img class="MyHistoryCard-img-left" src={require('../../Img/Dog1.jpg')} />
             <div class="MyHistoryCard-body">
               <p class="MyHistoryCard-title"><b>{myPost.post_title}</b></p>
-              <p class="MyHistoryCard-comment"><b>(35)</b></p><br />
+              <p class="MyHistoryCard-comment"><b>(33)</b></p><br />
               <p class="MyHistoryCard-text">리뷰게시판</p>
               <p class="MyHistoryCard-date">{myPost.post_create_date} &nbsp;|&nbsp; {myPost.post_views}</p>
             </div>
