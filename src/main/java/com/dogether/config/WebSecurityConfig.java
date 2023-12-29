@@ -55,7 +55,7 @@ public class WebSecurityConfig {
 				/* 폼로그인 처리 */
 				.formLogin(login -> login
 						// 사용자가 인증되지 않은 상태에서 보안된 페이지에 접근하려고 하면 이 URL로 리다이렉트
-						.loginPage("/login") // 사용자 정의 로그인 페이지 URL을 지정
+						.loginPage("/user/login") // 사용자 정의 로그인 페이지 URL을 지정
 						.loginProcessingUrl("/login-process") // 로그인 폼 데이터를 처리할 URL을 지정
 						.usernameParameter("user_id") // 로그인 폼에서 사용자 ID를 받을 파라미터의 이름을 지정
 						.passwordParameter("user_pw") // 로그인 폼에서 비밀번호를 받을 파라미터의 이름을 지정
