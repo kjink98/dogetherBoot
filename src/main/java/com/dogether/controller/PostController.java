@@ -52,10 +52,16 @@ public class PostController {
 		return "post_post";
 	}
 	
-	@DeleteMapping("/delete")
-	public String deletePost(int post_id) {		
+	@DeleteMapping("/delete/{post_id}")
+	public String deletePost(@PathVariable int post_id) {		
 		postService.deletePost(post_id);
 		return "delete";
+	}
+	
+	@PutMapping(path = "/update", consumes = { "multipart/form-data" })
+	public String updatePost(@RequestPart Post post, @RequestPart(value = "files", required = false) MultipartFile[] files) {
+		postService.updatePost(post, files);
+		return "update";
 	}
 	
 	@PostMapping("/comment")

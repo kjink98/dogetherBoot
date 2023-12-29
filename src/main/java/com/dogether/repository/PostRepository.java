@@ -42,12 +42,26 @@ public class PostRepository {
         postMapper.insertFile(imageFile);
     }
 
-	// 게시글, 이미지 삭제
+	// 게시글 삭제
     public void deletePost(int post_id) {
         postMapper.deletePost(post_id);
-        postMapper.deleteFile(post_id);
+    }
+    
+    // 이미지 삭제
+    public void deleteFile(int post_id) {
+    	postMapper.deleteFile(post_id);
     }
 	
+    // 게시글 수정
+    public void updatePost(Post post) {
+    	postMapper.updatePost(post);
+    }
+    
+    // 이미지 재등록(수정 시)
+    public void updateFile(ImageFile imageFile) {
+    	postMapper.updateFile(imageFile);
+    }
+    
 	// 댓글 등록
 	public void setComment(Comment comment) {
 		postMapper.insertComment(comment);

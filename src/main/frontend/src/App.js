@@ -30,7 +30,6 @@ function App() {
         <Route path="/post/detail/:board_category/:post_id" element={<PostDetail />}></Route>
         <Route path="/post/post/:board_category" element={<PostPost />}></Route>
         <Route path="/post/update/:board_category/:post_id" element={<PostUpdate />}></Route>
-
         <Route path="/favorite-place/:user_id" element={<FavoritePlace />}></Route>
         <Route path="/favorite-post/:user_id" element={<FavoritePost />}></Route>
         <Route path="/my-history/:user_id" element={<MyHistory />}></Route>
