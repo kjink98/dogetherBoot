@@ -51,9 +51,9 @@ const PostList = () => {
         </div>
 
         {/* 검색 */}
-        <Form inline className="News">
-          <select name="post" className="post">
-            <option value="제목만" selected="selected">제목만</option>
+        <Form className="News" inline={true}>
+          <select name="post" className="post" defaultValue="제목만">
+            <option value="제목만">제목만</option>
             <option value="내용만">내용만</option>
             <option value="제목+내용">제목+내용</option>
             <option value="닉네임">닉네임</option>
