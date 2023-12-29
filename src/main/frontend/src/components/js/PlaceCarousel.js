@@ -11,36 +11,36 @@ import Cafe5 from '../../Img/Cafe5.jpg';
 const PlaceCarousel = () => {
 	return (
 		<>
-			<Carousel>
-				<Carousel.Item>
+			<Carousel className="PlaceCarousel">
+				<Carousel.Item className="PlaceCarousel-item">
 					<img className="d-block" src={Cafe1} alt="First slide" />
 					<Carousel.Caption>
 						<Link to="https://www.naver.com/"></Link>
 					</Carousel.Caption>
 				</Carousel.Item>
 
-				<Carousel.Item>
+				<Carousel.Item className="PlaceCarousel-item">
 					<img className="d-block" src={Cafe2} alt="Second slide" />
 					<Carousel.Caption>
 						<Link to="https://www.naver.com/"></Link>
 					</Carousel.Caption>
 				</Carousel.Item>
 
-				<Carousel.Item>
+				<Carousel.Item className="PlaceCarousel-item">
 					<img className="d-block" src={Cafe3} alt="Third slide" />
 					<Carousel.Caption>
 						<Link to="https://www.naver.com/"></Link>
 					</Carousel.Caption>
 				</Carousel.Item>
 
-				<Carousel.Item>
+				<Carousel.Item className="PlaceCarousel-item">
 					<img className="d-block" src={Cafe4} alt="Fourth slide" />
 					<Carousel.Caption>
 						<Link to="https://www.naver.com/"></Link>
 					</Carousel.Caption>
 				</Carousel.Item>
 
-				<Carousel.Item>
+				<Carousel.Item className="PlaceCarousel-item">
 					<img className="d-block" src={Cafe5} alt="Fifth slide" />
 					<Carousel.Caption>
 						<Link to="https://www.naver.com/"></Link>

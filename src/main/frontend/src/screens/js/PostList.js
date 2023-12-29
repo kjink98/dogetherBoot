@@ -32,7 +32,15 @@ const PostList = () => {
   const firstIndex = lastIndex - recordsPerPage;
   const records = postList.slice(firstIndex, lastIndex);
   const npage = Math.ceil(postList.length / recordsPerPage);
-  const numbers = [...Array(npage + 1).keys()].slice(1)
+  let numbers = 0;
+
+  if (currentPage % 10 != 0) {
+    numbers = [...Array(npage + 1).keys()].slice(Math.floor(currentPage / 10) * 10 + 1, Math.floor(currentPage / 10) * 10 + 11);
+  }
+
+  else if (currentPage % 10 == 0) {
+    numbers = [...Array(npage + 1).keys()].slice(Math.floor((currentPage - 1) / 10) * 10 + 1, Math.floor((currentPage - 1) / 10) * 10 + 11);
+  }
 
   return (
     <div>

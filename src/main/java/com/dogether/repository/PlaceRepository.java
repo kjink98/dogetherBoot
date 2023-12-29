@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.dogether.domain.FavoritePlace;
 import com.dogether.domain.Place;
+import com.dogether.mapper.FavoritePlaceMapper;
 import com.dogether.mapper.PlaceMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class PlaceRepository {
 
     private final PlaceMapper placeMapper;
+    private final FavoritePlaceMapper favoritePlaceMapper;
 
     public List<Place> getDataAll(String place_category) {
         List<Place> list = placeMapper.SelectAll(place_category);
@@ -28,4 +31,8 @@ public class PlaceRepository {
         return placeMapper.selectFavorite(user_id);
     }
 
+    public int insertFavorite(FavoritePlace favoritePlace) {
+        favoritePlaceMapper.insertFavorite(favoritePlace);
+        return 1;
+    }
 }

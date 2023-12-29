@@ -4,7 +4,6 @@ import React, { useEffect } from 'react';
 const KakaoMap = ({ address, pname }) => {
   const addr = address;
   const pnam = pname;
-  console.log(pnam);
   const initMap = () => {
     kakao.maps.load(() => {
       var container = document.getElementById('map');
