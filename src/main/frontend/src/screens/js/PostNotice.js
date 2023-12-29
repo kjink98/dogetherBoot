@@ -31,6 +31,40 @@ const PostNotice = () => {
   const npage = Math.ceil(postList.length / recordsPerPage);
   const numbers = [...Array(npage + 1).keys()].slice(1)
 
+  // 검색
+  const [searchInput, setSearchInput] = useState({
+      option: "제목만",
+      userInput: ""
+  });
+  
+  const getSearch = (event) => {
+      const { name, value } = event.target;
+    setSearchInput({ ...searchInput, [name]: value });
+  }
+  const onSearch = () => {
+      if(searchInput.userInput == "" || searchInput.userInput == null) {
+          axios.get(`/dog/post/list/${board_category}`).then((res) => {
+            setPostList(res.data);
+        })
+      } else {
+          axios.get(`/dog/post/list/${board_category}`)
+            .then((res) => {
+                const searched = res.data.filter((post)=> {
+                  if (searchInput.option == "제목만") {
+                    return post.post_title.includes(searchInput.userInput);
+                  } else if (searchInput.option == "내용만") {
+                    return post.post_content.includes(searchInput.userInput);
+                  } else if (searchInput.option == "제목+내용") {
+                    return (post.post_title.includes(searchInput.userInput) || post.post_content.includes(searchInput.userInput));
+                  } else if (searchInput.option == "닉네임") {
+                    return post.user_nickname.includes(searchInput.userInput);
+                  } 
+                })
+                setPostList(searched);
+            })
+      }
+  }
+  
   return (
     <div>
       <CommunitySideBar></CommunitySideBar>
@@ -40,15 +74,15 @@ const PostNotice = () => {
         </div>
 
         {/* 검색 */}
-        <Form inline className="Notice">
-          <select name="post" className="post">
+        <Form inline className="News">
+          <select name="option" className="post" onChange={getSearch}>
             <option value="제목만" selected="selected">제목만</option>
             <option value="내용만">내용만</option>
             <option value="제목+내용">제목+내용</option>
             <option value="닉네임">닉네임</option>
           </select>
-          <Form.Control type="text" placeholder="검색어를 입력해주세요" className="mr-sm-2 NoticeSearch" />
-          <Button type="submit" className="NoticeGlass">{<FontAwesomeIcon icon={faMagnifyingGlass} />}</Button>
+          <Form.Control type="text" placeholder="검색어를 입력해주세요" className="mr-sm-2 NewsSearch" name="userInput" onChange={getSearch}/>
+          <Button className="NewsGlass" onClick={onSearch}>{<FontAwesomeIcon icon={faMagnifyingGlass} />}</Button>
         </Form>
 
         {/* Notice List */}
