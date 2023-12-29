@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import '../css/Comment.css';
 import { Button } from 'react-bootstrap';
 import axios from 'axios';
 import CommentEdit from "./CommentEdit";
@@ -45,17 +46,20 @@ const Comment = (props) => {
   }
 
   return (
-    <div>
-      <div className="NewsDetailCount">
+    <div className="postcomment">
+      <div className="comment_detail_count">
         <p>댓글 {commentList.length} 개</p>
       </div>
       <br />
-      <input type="text" name="user_nickname" onChange={onChange} /><br />
-      <textarea name="comment_content" onChange={onChange} />
-      <Button variant="dark" onClick={setCommentProc}>댓글 달기</Button><br />
-      {commentList && commentList.map((comment) => (
-        <CommentEdit comment={comment} redirect={redirect} />
-      ))}
+
+      <div className="comment_box">
+        <input type="text" name="user_nickname" onChange={onChange} /><br />
+        <textarea name="comment_content" className="comment_content" onChange={onChange} placeholder="댓글을 남겨보세요"/>
+        <Button variant="dark" className="comment_button" onClick={setCommentProc}>댓글 달기</Button><br />
+        {commentList && commentList.map((comment) => (
+          <CommentEdit comment={comment} redirect={redirect} />
+        ))}
+      </div>
     </div>
   );
 }

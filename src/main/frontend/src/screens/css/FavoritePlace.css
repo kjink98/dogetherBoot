@@ -14,14 +14,14 @@
 	padding-top: 30px;
 }
 
-.FavoritePlaceCount p {
+.placecount p {
 	width: 500px;
 	margin-left: calc((100% - 250px) / 5 * 4);
 	margin-right: calc((100% - 250px) / 5);
 	font-size: 20px;
 }
 
-.FavoritePlaceCount p b {
+.placecount p b {
 	color: #CD6A80;
 	font-size: 25px;
 }

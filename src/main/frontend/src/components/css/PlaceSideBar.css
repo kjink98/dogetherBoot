@@ -4,6 +4,7 @@
 
 .PlaceSidebar {
 	float: left;
+	left: 0;
 	height: 100vh;
 	min-height: 650px;
 	width: 250px;
