@@ -9,7 +9,7 @@ const PlaceSidebar = ({ children }) => {
 
   return (
     <div className="container">
-      <div className="sidebar">
+      <div className="PlaceSidebar">
         <h2>장소 추천</h2>
         <a className={"PlaceSidebarMenu" + (window.location.pathname.includes('/restaurant') ? " active" : "")} href="/place/restaurant"><FontAwesomeIcon icon={faUtensils} />식당&nbsp;<Badge bg="warning">{number}</Badge></a>
         <a className={"PlaceSidebarMenu" + (window.location.pathname.includes('/hospital') ? " active" : "")} href="/place/hospital"><FontAwesomeIcon icon={faHospital} />병원&nbsp;<Badge bg="warning">{number}</Badge></a>

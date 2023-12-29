@@ -38,7 +38,7 @@ function PlaceCheckBox() {
       </div>
 
 
-      <br /><div className="checkboxs ize">
+      <br /><div className="checkboxs size">
         <p>반려견 사이즈</p>
         <input type="checkbox" value="소형견" onChange={handleChange} />소형견
         <input type="checkbox" value="중형견" onChange={handleChange} />중형견

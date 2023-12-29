@@ -33,13 +33,19 @@
 	height: 400px;
 }
 
-.NewsPost .NewsPostImage{
-	width: 800px;
+.NewsPost .ImageSection{
+	margin-right: 50px;
 }
 
-.NewsPost .NewsPostButtons{
+.NewsPost .NewsPostPassword{
+	width: 400px;
+	margin-bottom: 30px;
+}
+
+.NewsPost .NewsPostButton{
 	float: right;
 	margin-right: 5%;
+	margin-top: -100px;
 }
 
 .NewsPost .NewsPostButtons Button{

@@ -1,76 +1,95 @@
-.PlaceCheckBox{
-    width: calc(100% - 250px);
-    margin-left:250px;
-    height: 300px;
-    background-color: red;
-    border-bottom: 1px solid black;
+.PlaceCheckBox {
+	width: 1750px;
+	margin-left: 300px;
+	height: 300px;
+	border-bottom: 1px solid black;
 }
 
-.RestaurantList{
-    margin-top: 20px;
-    margin-bottom: 200px;
-    margin-left: auto;
-    margin-right: auto;
+.RestaurantList {
+	width: 1900px;
+	margin-bottom: 100px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
-.PlaceListCards{
-    width: calc(100% - 350px);
-    margin-left: 350px;
-    margin-top: 50px;
-    overflow-x: hidden;
+.PlaceListCards {
+	width: calc(100% - 350px);
+	margin-left: 350px;
+	margin-top: 50px;
+	overflow-x: hidden;
 }
 
-.RestaurantList .PlaceListCard{
-    float: left;
-    margin-bottom: 50px;
-    margin-right: 60px;
-    width: 700px;
-    height: 202px;
-    text-decoration: none;
+.RestaurantList .PlaceListCard {
+	float: left;
+	margin-bottom: 50px;
+	margin-right: 60px;
+	width: 700px;
+	height: 202px;
+	text-decoration: none;
 }
 
-.RestaurantList .PlaceListCard img{
-    width: 200px;
+.RestaurantList .PlaceListCard img {
+	width: 200px;
 	height: 200px;
 	object-fit: cover;
-    border-radius: 4px;
+	border-radius: 4px;
 }
 
-.RestaurantList .PlaceListCard-body{
-    text-decoration: none;
-    padding: 10px;
+.RestaurantList .PlaceListCard-body {
+	text-decoration: none;
+	padding: 10px;
 }
 
-.RestaurantList .PlaceListCard .PlaceListCard-title{
-    float: left;
-    font-size: 25px;
-    font-weight: 600;
-    max-width: 400px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+.RestaurantList .PlaceListCard .PlaceListCard-title {
+	float: left;
+	font-size: 25px;
+	font-weight: 600;
+	max-width: 400px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
-.RestaurantList .PlaceListCard .PlaceListCard-score{
-    float: left;
-    margin-left: 15px;
-    color: #249D8C;
-    font-size: 25px;
-    font-weight: 600;
+.RestaurantList .PlaceListCard .PlaceListCard-score {
+	float: left;
+	margin-left: 15px;
+	color: #249D8C;
+	font-size: 25px;
+	font-weight: 600;
 }
 
-.RestaurantList .PlaceListCard .PlaceListCard-location{
-    float: left;
-    font-size: 15px;
-    width: 450px;
+.RestaurantList .PlaceListCard .PlaceListCard-location {
+	float: left;
+	font-size: 15px;
+	width: 450px;
 }
 
-.RestaurantList .PlaceListCard .PlaceListCard-info{
-    float: left;
-    font-size: 15px;
-    width: 450px;
+.RestaurantList .PlaceListCard .PlaceListCard-info {
+	float: left;
+	font-size: 15px;
+	width: 450px;
 }
 
-.PlaceListCard:hover, .PlaceListCard-title:hover, .PlaceListCard-body:hover, .PlaceListCard-date:hover{
-    color: black;
+.PlaceListCard:hover, .PlaceListCard-title:hover, .PlaceListCard-body:hover, .PlaceListCard-date:hover {
+	color: black;
+}
+
+.RestaurantList .pagination{
+	margin-left: auto;
+	padding-left: 800px;
+	margin-right: auto;
+	align-items: center;
+}
+
+.RestaurantList .pagination .page-link{
+	color: #249D8C !important;
+	background-color: white !important;
+	font-weight: 600;
+	font-size: 17px;
+}
+
+.RestaurantList .pagination .active .page-link{
+	color: white !important;
+	background-color: #249D8C !important;
+	border: 1px solid white;
 }

@@ -1,90 +1,89 @@
 .navbar {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    align-items: center;
-    background-color: #E77D67 !important;
-    height: 80px;
-    border-bottom: 4px solid white;
- }
- 
- .navbar-light .navbar-brand {
-    color: white !important;
- }
- 
- .navbar-light .navbar-nav .nav-link {
-    color: white !important;
- }
- 
- .navbar-light .navbar-nav .nav-link::after {
-    display: none;
- }
- 
- .Menu {
-    max-width: 1940px !important;
- }
- 
- .navbar-brand {
-    font-size: 35px !important;
-    margin-right: 10% !important;
-    margin-left: 5%;
- }
- 
- .DropdownMenu {
-    font-size: 20px;
-    margin-right: 15%;
-    margin-top: 5px;
-    text-decoration: none;
- }
- 
- .dropdown-item:hover {
-    background-color: #FFBCCC !important;
-    color: white !important;
-    font-weight: 700 !important;
- }
- 
- .UserMenu {
-    float: right;
-    display: flex;
-    margin-left: 0%;
- }
- 
- .UserDropDown {
-    float: right;
- }
- 
- .fa-circle-user {
-    float: right;
-    font-size: 45px;
-    margin-right: 15px;
-    margin-bottom: 5px;
- }
- 
- form.user {
-    float: right;
-    display: flex;
-    align-items: center;
- }
- 
- form.user .UserSearch {
-    width: calc(100vw*0.2);
-    max-width: 400px;
-    margin-top: 5px;
- }
- 
- form.user .UserSearch:focus {
-    box-shadow: 2px 2px 2px 2px #EF5D8D !important;
-    border: 1px solid #B2AB99;
- }
- 
- form.user .UserGlass {
-    width: auto;
-    margin-left: 5%;
-    margin-top: 5px;
-    background-color: #FFBCCC !important;
-    border: 2px solid white !important;
- }
- 
- form.user .UserGlass:focus {
-    box-shadow: 2px 2px 2px 2px #EF5D8D !important;
- }
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	align-items: center;
+	background-color: #E77D67 !important;
+	height: 80px;
+}
+
+.navbar-light .navbar-brand {
+	color: white !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+	color: white !important;
+}
+
+.navbar-light .navbar-nav .nav-link::after {
+	display: none;
+}
+
+.Menu {
+	max-width: 1940px !important;
+}
+
+.navbar-brand {
+	font-size: 35px !important;
+	margin-right: 10% !important;
+	margin-left: 5%;
+}
+
+.DropdownMenu {
+	font-size: 20px;
+	margin-right: 15%;
+	margin-top: 5px;
+	text-decoration: none;
+}
+
+.dropdown-item:hover {
+	background-color: #FFBCCC !important;
+	color: white !important;
+	font-weight: 700 !important;
+}
+
+.UserMenu {
+	float: right;
+	display: flex;
+	margin-left: 0%;
+}
+
+.UserDropDown {
+	float: right;
+}
+
+.fa-circle-user {
+	float: right;
+	font-size: 45px;
+	margin-right: 15px;
+	margin-bottom: 5px;
+}
+
+form.user {
+	float: right;
+	display: flex;
+	align-items: center;
+}
+
+form.user .UserSearch {
+	width: calc(100vw*0.2);
+	max-width: 400px;
+	margin-top: 5px;
+}
+
+form.user .UserSearch:focus {
+	box-shadow: 2px 2px 2px 2px #EF5D8D !important;
+	border: 1px solid #B2AB99;
+}
+
+form.user .UserGlass {
+	width: auto;
+	margin-left: 5%;
+	margin-top: 5px;
+	background-color: #FFBCCC !important;
+	border: 2px solid white !important;
+}
+
+form.user .UserGlass:focus {
+	box-shadow: 2px 2px 2px 2px #EF5D8D !important;
+}

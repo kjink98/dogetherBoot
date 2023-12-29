@@ -53,10 +53,21 @@
     padding: 20px;
 }
 
+.NewsDetailBody .image{
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 50px;
+}
+
+.NewsDetailGroup .NewsDetailBody img{
+    width: 300px;
+    height: 300px;
+    margin-left: 30px;
+}
+
 .NewsDetails .NewsDetailButtons{
     float: right;
     margin-right: 5%;
-    width: 800px;
 }
 
 .NewsDetails .NewsDetailButtons Button{
@@ -78,16 +89,4 @@
 .NewsDetails .NewsDetailComments Button{
     margin-left: 10px;
     margin-bottom: 30px;
-}
-
-.NewsDetailBody .image{
-	position: absolute;
-	bottom: 0;
-	margin-bottom: 20px;
-}
-
-.NewsDetailBody .image img{
-	height: 200px;
-	width: 200px;
-	margin: 10px;
 }
