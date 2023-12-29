@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dogether.domain.FavoritePlace;
 import com.dogether.domain.Place;
 import com.dogether.service.PlaceService;
-import com.dogether.service.ReviewService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -61,6 +63,12 @@ public class PlaceController {
             System.out.println("place_id : " + place.getPlace_id());
         } */
         return favoritePlaces;
+    }
+    
+    @PostMapping("/favorite")
+    public String postFavoritePlace(@RequestBody FavoritePlace favoritePlace) {
+        placeService.setFavoritePlace(favoritePlace);
+        return "favorite";
     }
     
 }

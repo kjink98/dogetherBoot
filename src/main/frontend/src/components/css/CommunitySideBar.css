@@ -4,7 +4,7 @@
 
 .sidebar{
     float: left;
-    height: calc(100vh - 80px);
+    height: calc(100vh);
     min-height: 650px;
     width: 250px;
     transition: all 0.5s;

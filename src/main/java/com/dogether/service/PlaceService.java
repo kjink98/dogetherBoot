@@ -2,8 +2,10 @@ package com.dogether.service;
 
 import java.util.List;
 
+import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.stereotype.Service;
 
+import com.dogether.domain.FavoritePlace;
 import com.dogether.domain.Place;
 import com.dogether.repository.PlaceRepository;
 
@@ -26,6 +28,11 @@ public class PlaceService {
 
     public List<Place> favoriteList(String user_id) {
         return placeRepository.selectFavorite(user_id);
+    }
+
+    public boolean setFavoritePlace(FavoritePlace favoritePlace) {
+        int result = placeRepository.insertFavorite(favoritePlace);
+        return true;
     }
 
 }
