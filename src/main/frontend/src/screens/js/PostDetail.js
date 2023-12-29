@@ -12,8 +12,8 @@ import Comment from '../../components/js/Comment';
 const PostDetail = () => {
   const [postDetail, setPostDetail] = useState({});
   const [postFiles, setPostFiles] = useState([]);
-  const postpost = ["review", "promotion", "news"];
-  const postType = ["후기게시판", "홍보게시판", "뉴스/칼럼"];
+  const postpost = ["notice", "review", "promotion", "news"];
+  const postType = ["공지사항", "후기게시판", "홍보게시판", "뉴스/칼럼"];
   let { board_category } = useParams();
   let { post_id } = useParams();
   const navigate = useNavigate();
