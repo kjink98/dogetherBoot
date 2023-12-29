@@ -65,7 +65,7 @@ const PostNotice = () => {
             <tbody>
               {records && records.map((post, i) => (
                 <tr key={i} onClick={() => navigate('/post/detail/' + post.board_category + '/' + post.post_id)}>
-                  <td class='center'>{Number((currentPage - 1) * 15 + i + 1)}</td
+                  <td class='center'>{Number((currentPage - 1) * 15 + i + 1)}</td>
                   <td>{post.post_title}</td>
                   <td class='center'>{post.user_nickname}</td>
                   <td class='center'>{moment(post.post_create_date).format('YYYY-MM-DD')}</td>
