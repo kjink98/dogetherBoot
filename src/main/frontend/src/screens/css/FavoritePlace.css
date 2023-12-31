@@ -87,25 +87,27 @@ a.FavoritePlaceCard {
 	background-color: transparent;
 }
 
-.FavoritePlaceCard:hover, .FavoritePlaceCard-title:hover, .FavoritePlaceCard-id:hover {
+.FavoritePlaceCard:hover,
+.FavoritePlaceCard-title:hover,
+.FavoritePlaceCard-id:hover {
 	color: black;
 }
 
-.FavoritePlace .pagination{
+.FavoritePlace .pagination {
 	margin-left: auto;
 	padding-left: 800px;
 	margin-right: auto;
 	align-items: center;
 }
 
-.FavoritePlace .pagination .page-link{
+.FavoritePlace .pagination .page-link {
 	color: #CD6A80 !important;
 	background-color: white !important;
 	font-weight: 600;
 	font-size: 17px;
 }
 
-.FavoritePlace .pagination .active .page-link{
+.FavoritePlace .pagination .active .page-link {
 	color: white !important;
 	background-color: #CD6A80 !important;
 	border: 1px solid white;

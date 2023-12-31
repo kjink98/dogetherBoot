@@ -61,7 +61,7 @@ const PostPost = () => {
 
     await axios.post('/dog/post/post', formData).then((res) => {
       alert('등록되었습니다');
-      navigate("/post/list/"+board_category); // 이게 작동이 안됨..
+      navigate("/post/list/" + board_category); // 이게 작동이 안됨..
     });
 
   }
@@ -86,9 +86,9 @@ const PostPost = () => {
             </Form.Group>
 
             <Form.Group className="NewsPostPassword" controlId="ControlNewsInput">
-							<Form.Label>게시글 등록을 원하시면 비밀번호를 입력해주세요.</Form.Label>
-							<Form.Control type="text" placeholder="비밀번호를 입력해주세요." value={message} onChange={(e) => {setMessage(e.target.value)}}/>
-						</Form.Group>
+              <Form.Label>게시글 등록을 원하시면 비밀번호를 입력해주세요.</Form.Label>
+              <Form.Control type="text" placeholder="비밀번호를 입력해주세요." value={message} onChange={(e) => { setMessage(e.target.value) }} />
+            </Form.Group>
 
             <div className="NewsPostButtons">
               {/*<Button variant="secondary" type="submit" onClick={onClickCancel}>작성취소</Button>*/}

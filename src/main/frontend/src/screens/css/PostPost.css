@@ -1,10 +1,10 @@
-.PostNewsPost{
+.PostNewsPost {
 	width: 1740px;
 	margin-left: auto;
 	margin-right: auto;
 }
 
-.PostNewsTitle p{
+.PostNewsTitle p {
 	font-size: 50px;
 	font-weight: 600;
 	width: 400px;
@@ -13,42 +13,42 @@
 	padding-top: 30px;
 }
 
-.NewsPost{
+.NewsPost {
 	width: 1550px !important;
 	margin-left: 15%;
 }
 
-.NewsPost .NewsPostTitle{
+.NewsPost .NewsPostTitle {
 	width: 600px;
 	margin-bottom: 30px;
 }
 
-.NewsPost .NewsPostBody{
+.NewsPost .NewsPostBody {
 	width: 1500px;
 	margin-bottom: 50px;
 }
 
-.NewsPost .NewsPostContents{
+.NewsPost .NewsPostContents {
 	resize: none;
 	height: 400px;
 }
 
-.NewsPost .ImageSection{
+.NewsPost .ImageSection {
 	margin-right: 50px;
 }
 
-.NewsPost .NewsPostPassword{
+.NewsPost .NewsPostPassword {
 	width: 400px;
 	margin-bottom: 30px;
 }
 
-.NewsPost .NewsPostButtons{
+.NewsPost .NewsPostButtons {
 	float: right;
 	margin-top: -100px;
 	margin-right: 5%;
 }
 
-.NewsPost .NewsPostButtons Button{
+.NewsPost .NewsPostButtons Button {
 	margin-right: 13px;
 	font-weight: 600;
 }

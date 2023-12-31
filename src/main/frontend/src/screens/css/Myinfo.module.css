@@ -1,0 +1,13 @@
+/* .custom-button {
+    margin-left: 48vw;
+} */
+
+.eye-icon {
+	cursor: pointer;
+}
+
+.eye-icon {
+	margin-top: 6px;
+	/* 아이콘의 높이를 조절합니다. */
+	/* 다른 스타일 속성도 필요한 경우 여기에 추가합니다. */
+}

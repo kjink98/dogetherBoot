@@ -76,7 +76,9 @@ form.Notice .NoticeGlass:focus {
 	width: 100px;
 }
 
-.NoticeTable .tableName, .NoticeTable .tableDate, .NoticeTable .tableView {
+.NoticeTable .tableName,
+.NoticeTable .tableDate,
+.NoticeTable .tableView {
 	width: 180px;
 }
 
@@ -92,7 +94,7 @@ form.Notice .NoticeGlass:focus {
 	font-size: 18px;
 }
 
-.PostNoticeList .PostNoticeButton{
+.PostNoticeList .PostNoticeButton {
 	background-color: #00CEAA !important;
 	border: 3px solid white !important;
 	border-radius: 10px;
@@ -102,14 +104,14 @@ form.Notice .NoticeGlass:focus {
 	float: right;
 }
 
-.PostNoticeList .pagination{
+.PostNoticeList .pagination {
 	margin-left: auto;
 	padding-left: 800px;
 	margin-right: auto;
 	align-items: center;
 }
 
-.PostNoticeList .pagination .page-link{
+.PostNoticeList .pagination .page-link {
 	color: #00CEAA !important;
 	background-color: white !important;
 	font-weight: 600;
@@ -117,7 +119,7 @@ form.Notice .NoticeGlass:focus {
 	cursor: pointer;
 }
 
-.PostNoticeList .pagination .active .page-link{
+.PostNoticeList .pagination .active .page-link {
 	color: white !important;
 	background-color: #00CEAA !important;
 	border: 1px solid white;

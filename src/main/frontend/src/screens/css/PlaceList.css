@@ -70,25 +70,28 @@
 	width: 450px;
 }
 
-.PlaceListCard:hover, .PlaceListCard-title:hover, .PlaceListCard-body:hover, .PlaceListCard-date:hover {
+.PlaceListCard:hover,
+.PlaceListCard-title:hover,
+.PlaceListCard-body:hover,
+.PlaceListCard-date:hover {
 	color: black;
 }
 
-.RestaurantList .pagination{
+.RestaurantList .pagination {
 	margin-left: auto;
 	padding-left: 800px;
 	margin-right: auto;
 	align-items: center;
 }
 
-.RestaurantList .pagination .page-link{
+.RestaurantList .pagination .page-link {
 	color: #249D8C !important;
 	background-color: white !important;
 	font-weight: 600;
 	font-size: 17px;
 }
 
-.RestaurantList .pagination .active .page-link{
+.RestaurantList .pagination .active .page-link {
 	color: white !important;
 	background-color: #249D8C !important;
 	border: 1px solid white;

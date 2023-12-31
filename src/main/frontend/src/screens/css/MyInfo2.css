@@ -1,0 +1,33 @@
+div.myinfo2 {
+	/* white-space: pre-wrap; */
+	width: 40%;
+	/* background-color: royalblue; */
+	text-align: center;
+	margin: 0 35vw auto;
+	position: relative;
+}
+
+div.mb-3.input-group_1 {
+	margin-top: 50px;
+	display: flex;
+}
+
+.withdrawal {
+	width: 40%;
+	margin-left: 35.2%;
+	margin-top: 30px;
+}
+
+.input-group {
+	display: flex;
+}
+
+.btn_1 {
+	height: 38px;
+}
+
+.p_1 {
+	font-size: 50px;
+	font-weight: 600;
+	padding-right: 100px;
+}

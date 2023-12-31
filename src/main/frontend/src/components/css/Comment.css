@@ -1,10 +1,10 @@
 .postcomment .comment_detail_count {
-  font-size: 25px;
-  font-weight: 600;
+	font-size: 25px;
+	font-weight: 600;
 	margin-left: 100px;
 }
 
-.postcomment .comment_box{
+.postcomment .comment_box {
 	margin-left: 200px;
 	margin-bottom: 50px;
 }
@@ -14,7 +14,7 @@
 	padding: 10px;
 	width: 1000px;
 	height: 80px;
-  resize: none !important;
+	resize: none !important;
 }
 
 .postcomment .comment_box .comment_button {

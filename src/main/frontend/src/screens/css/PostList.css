@@ -116,7 +116,7 @@ form.News .NewsGlass:focus {
 	display: -webkit-box;
 }
 
-.PostNewsList .PostNewsButton{
+.PostNewsList .PostNewsButton {
 	background-color: #00CEAA !important;
 	border: 3px solid white !important;
 	border-radius: 10px;
@@ -126,18 +126,21 @@ form.News .NewsGlass:focus {
 	float: right;
 }
 
-.PostNewsCard:hover, .PostNewsCard-title:hover, .PostNewsCard-id:hover, .PostNewsCard-detail:hover {
+.PostNewsCard:hover,
+.PostNewsCard-title:hover,
+.PostNewsCard-id:hover,
+.PostNewsCard-detail:hover {
 	color: black;
 }
 
-.PostNewsList .pagination{
+.PostNewsList .pagination {
 	margin-left: auto;
 	padding-left: 750px;
 	margin-right: auto;
 	align-items: center;
 }
 
-.PostNewsList .pagination .page-link{
+.PostNewsList .pagination .page-link {
 	color: #00CEAA !important;
 	background-color: white !important;
 	font-weight: 600;
@@ -145,7 +148,7 @@ form.News .NewsGlass:focus {
 	cursor: pointer;
 }
 
-.PostNewsList .pagination .active .page-link{
+.PostNewsList .pagination .active .page-link {
 	color: white !important;
 	background-color: #00CEAA !important;
 	border: 1px solid white;

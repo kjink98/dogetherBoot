@@ -50,22 +50,22 @@ const PostUpdate = () => {
     const { name, value } = event.target;
     setPost({ ...post, [name]: value });
   }
-  
+
   const [files, setFiles] = useState([]);
   const setImages = (files) => {
     setFiles(files);
   }
- console.log(files)
-  const onClickUpdate = async() => {
+  console.log(files)
+  const onClickUpdate = async () => {
     if (message == '12345') {
       const formData = new FormData();
-      
+
       for (let i = 0; i < files.length; i++) {
         formData.append("files", files[i]);
       }
       formData.append("post", new Blob([JSON.stringify(post)], { type: "application/json" }));
-      
-      await axios.put(`/dog/post/update`, formData).then((res)=>{
+
+      await axios.put(`/dog/post/update`, formData).then((res) => {
         alert('수정이 완료되었습니다.');
         navigate('/post_news_list');
       })
@@ -76,7 +76,7 @@ const PostUpdate = () => {
     else
       alert('비밀번호가 일치하지 않습니다.');
   }
-  
+
 
   return (
     <div className="UpdateNews">
@@ -90,20 +90,20 @@ const PostUpdate = () => {
         <div className="NewsUpdate">
           <Form>
             <Form.Group className="NewsUpdateTitle" controlId="ControlNewsInput">
-              <Form.Control type="text" defaultValue={postDetail.post_title} name="post_title" onChange={onChange}/>
+              <Form.Control type="text" defaultValue={postDetail.post_title} name="post_title" onChange={onChange} />
             </Form.Group>
 
             <Form.Group className="NewsUpdateBody" controlId="ControlNewsTextarea">
-              <Form.Control className="NewsUpdateContents" as="textarea" defaultValue={postDetail.post_content} name="post_content" onChange={onChange}/>
+              <Form.Control className="NewsUpdateContents" as="textarea" defaultValue={postDetail.post_content} name="post_content" onChange={onChange} />
             </Form.Group>
-            
+
             <Form.Group className="NewsUpdatePassword" controlId="ControlNewsInput">
               <Form.Label>수정을 완료하시려면 비밀번호를 입력해주세요.</Form.Label>
               <Form.Control type="text" placeholder="비밀번호를 입력해주세요." value={message} onChange={(e) => { setMessage(e.target.value) }} />
             </Form.Group>
-            
+
             <div className="NewsUpdateButton">
-              <Button variant="primary" type="submit" onClick={() => {setMessage(''); onClickUpdate();}}>수정하기</Button>
+              <Button variant="primary" type="submit" onClick={() => { setMessage(''); onClickUpdate(); }}>수정하기</Button>
             </div>
             <h4>*기존 이미지 파일은 삭제됩니다.*</h4>
             <UploadImage setImages={setImages}></UploadImage>

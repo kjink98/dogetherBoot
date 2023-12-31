@@ -82,25 +82,28 @@
 	margin-bottom: -10px;
 }
 
-.FavoritePostCard:hover, .FavoritePostCard-title:hover, .FavoritePostCard-body:hover, .FavoritePostCard-date:hover {
+.FavoritePostCard:hover,
+.FavoritePostCard-title:hover,
+.FavoritePostCard-body:hover,
+.FavoritePostCard-date:hover {
 	color: black;
 }
 
-.FavoritePost .pagination{
+.FavoritePost .pagination {
 	margin-left: auto;
 	padding-left: 800px;
 	margin-right: auto;
 	align-items: center;
 }
 
-.FavoritePost .pagination .page-link{
+.FavoritePost .pagination .page-link {
 	color: #CD6A80 !important;
 	background-color: white !important;
 	font-weight: 600;
 	font-size: 17px;
 }
 
-.FavoritePost .pagination .active .page-link{
+.FavoritePost .pagination .active .page-link {
 	color: white !important;
 	background-color: #CD6A80 !important;
 	border: 1px solid white;

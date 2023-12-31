@@ -16,7 +16,7 @@ const FavoritePost = () => {
     }
     getFavoritePostList();
   }, []);
-  
+
   return (
     <div>
       <MySideBar></MySideBar>

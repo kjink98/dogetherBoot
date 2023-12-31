@@ -82,25 +82,28 @@
 	margin-bottom: -10px;
 }
 
-.MyHistoryCard:hover, .MyHistoryCard-title:hover, .MyHistoryCard-body:hover, .MyHistoryCard-date:hover {
+.MyHistoryCard:hover,
+.MyHistoryCard-title:hover,
+.MyHistoryCard-body:hover,
+.MyHistoryCard-date:hover {
 	color: black;
 }
 
-.MyHistory .pagination{
+.MyHistory .pagination {
 	margin-left: auto;
 	padding-left: 800px;
 	margin-right: auto;
 	align-items: center;
 }
 
-.MyHistory .pagination .page-link{
+.MyHistory .pagination .page-link {
 	color: #CD6A80 !important;
 	background-color: white !important;
 	font-weight: 600;
 	font-size: 17px;
 }
 
-.MyHistory .pagination .active .page-link{
+.MyHistory .pagination .active .page-link {
 	color: white !important;
 	background-color: #CD6A80 !important;
 	border: 1px solid white;

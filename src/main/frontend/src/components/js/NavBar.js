@@ -34,7 +34,7 @@ const NavBar = () => {
             </NavDropdown>
 
             <NavDropdown title="마이페이지" id="collasible-nav-dropdown" className="DropdownMenu">
-              <NavDropdown.Item href="/my-info">내정보 수정</NavDropdown.Item>
+              <NavDropdown.Item href="/my-info1">내정보 수정</NavDropdown.Item>
               <NavDropdown.Item href="/pw-change">비밀번호 변경</NavDropdown.Item>
               <NavDropdown.Item href="/favorite-place/123">관심장소 모아보기</NavDropdown.Item>
               <NavDropdown.Item href="/favorite-post/123">관심글 모아보기</NavDropdown.Item>
@@ -44,8 +44,9 @@ const NavBar = () => {
             <Container className="UserMenu">
               <NavDropdown title={<FontAwesomeIcon icon={faCircleUser} />} id="collasible-nav-dropdown" className="User">
                 <NavDropdown.Item href="/user/login">로그인</NavDropdown.Item>
-                <NavDropdown.Item href="/signup">회원가입</NavDropdown.Item>
-                <NavDropdown.Item href="/id-search">ID/PW 찾기</NavDropdown.Item>
+                <NavDropdown.Item href="/login">로그인sw</NavDropdown.Item>
+                <NavDropdown.Item href="/sign-up1">회원가입</NavDropdown.Item>
+                <NavDropdown.Item href="/find">ID/PW 찾기</NavDropdown.Item>
               </NavDropdown>
 
               <Form inline className="user">
