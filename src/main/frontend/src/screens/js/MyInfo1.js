@@ -45,7 +45,7 @@ const MyInfo = () => {
       <MySidebar />
       <div className='myinfo'>
         <div className="info">
-          <p>내 정보 수정</p>
+          <p className="ppp">내 정보 수정</p>
         </div>
         <br /><br /><br />
         <div><h5>비밀번호를 입력해 주세요.</h5></div>

@@ -43,7 +43,7 @@ const PwChange = () => {
     <>
       <MySideBar />
       <div className="PwChange">
-        <p>비밀번호 변경</p>
+        <p className='pppp'>비밀번호 변경</p>
         <br></br>
         <h4 className='pwc_3'>현제 비밀번호를 입력해 주세요</h4>
 

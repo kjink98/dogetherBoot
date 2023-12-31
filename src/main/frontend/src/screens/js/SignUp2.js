@@ -12,7 +12,7 @@ const SignUp_2 = () => {
     <>
       <div className='myinfo'>
         <div className="info">
-          <p>회원가입</p>
+          <p className='ppppp'>회원가입</p>
         </div>
         <br></br>
         <InputGroup className="mb-3">
