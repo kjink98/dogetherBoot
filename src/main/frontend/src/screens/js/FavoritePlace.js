@@ -28,7 +28,7 @@ const FavoritePlace = () => {
 
       <div className="placecards">
 
-        <div className="postcount">
+        <div className="placecount">
           <p>내가 지금까지 관심 표시한 장소 총 <b>{favoritePlaceCount}개</b></p>
         </div>
 

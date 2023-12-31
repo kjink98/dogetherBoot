@@ -45,3 +45,8 @@
 	color: white;
 	font-weight: 600;
 }
+
+.MySidebarMenu .svg-inline--fa {
+	margin-right: 10px;
+	margin-top: 3px;
+}

@@ -26,7 +26,7 @@ const MyHistory = () => {
 
       <div className="historycards">
 
-        <div className="postcount">
+        <div className="historycount">
           <p>내가 지금까지 작성한 게시글 총 <b>{myPostCount}개</b></p>
         </div>
 
