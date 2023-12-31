@@ -12,7 +12,7 @@
 	font-weight: 600;
 }
 
-.checkbox .CheckboxButton p, .checkbox .CheckboxButton button {
+.checkbox .CheckboxButton p .checkbox .CheckboxButton button {
 	float: left;
 }
 

@@ -1,0 +1,23 @@
+.PwChange {
+	/* background-color: cornflowerblue; */
+	/* width: 70vw; */
+	margin: 30px 35vw auto;
+}
+
+.buttons_1 {
+	margin-left: 100px;
+}
+
+.pwc_2 {
+	display: flex;
+}
+
+.pwc_3 {
+	width: 550px;
+}
+
+.pppp {
+	font-size: 50px;
+	font-weight: 600;
+	text-align: center;
+}

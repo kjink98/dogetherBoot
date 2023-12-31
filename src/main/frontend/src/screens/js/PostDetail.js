@@ -55,7 +55,7 @@ const PostDetail = () => {
       alert('비밀번호가 일치하지 않습니다.');
     }
   }
-  
+
   // 게시글 수정
   const onClickModify = () => {
     let pw = '12345';
@@ -63,7 +63,7 @@ const PostDetail = () => {
     console.log(password);
 
     if (pw == password) {
-      navigate("/post/update/"+board_category+"/"+post_id)
+      navigate("/post/update/" + board_category + "/" + post_id)
     }
 
     else {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import "../css/CommunitySideBar.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBullhorn, faComments, faCartShopping, faNewspaper } from "@fortawesome/free-solid-svg-icons";
+import '../css/CommunitySideBar.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBullhorn, faComments, faCartShopping, faNewspaper } from '@fortawesome/free-solid-svg-icons';
 
 function CommunitySideBar() {
   return (

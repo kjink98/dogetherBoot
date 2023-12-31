@@ -1,10 +1,10 @@
-.PostNewsUpdate{
+.PostNewsUpdate {
 	width: 1740px;
 	margin-left: auto;
 	margin-right: auto;
 }
 
-.PostNewsTitle p{
+.PostNewsTitle p {
 	font-size: 50px;
 	font-weight: 600;
 	width: 400px;
@@ -13,42 +13,42 @@
 	padding-top: 30px;
 }
 
-.NewsUpdate{
+.NewsUpdate {
 	width: 1550px !important;
 	margin-left: 15%;
 }
 
-.NewsUpdate .NewsUpdateTitle{
+.NewsUpdate .NewsUpdateTitle {
 	width: 600px;
 	margin-bottom: 30px;
 }
 
-.NewsUpdate .NewsUpdateBody{
+.NewsUpdate .NewsUpdateBody {
 	width: 1500px;
 	margin-bottom: 50px;
 }
 
-.NewsUpdate .NewsUpdateContents{
+.NewsUpdate .NewsUpdateContents {
 	resize: none;
 	height: 400px;
 }
 
-.NewsUpdate .ImageSection{
+.NewsUpdate .ImageSection {
 	margin-right: 50px;
 }
 
-.NewsUpdate .NewsUpdatePassword{
+.NewsUpdate .NewsUpdatePassword {
 	width: 400px;
 	margin-bottom: 30px;
 }
 
-.NewsUpdate .NewsUpdateButton{
+.NewsUpdate .NewsUpdateButton {
 	float: right;
 	margin-right: 5%;
 	margin-top: -100px;
 }
 
-.NewsUpdate .NewsUpdateButtons Button{
+.NewsUpdate .NewsUpdateButtons Button {
 	margin-right: 13px;
 	font-weight: 600;
 }

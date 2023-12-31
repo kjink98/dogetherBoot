@@ -41,39 +41,39 @@ const PostList = () => {
   else if (currentPage % 10 == 0) {
     numbers = [...Array(npage + 1).keys()].slice(Math.floor((currentPage - 1) / 10) * 10 + 1, Math.floor((currentPage - 1) / 10) * 10 + 11);
   }
-  
+
   // 검색
   const [searchInput, setSearchInput] = useState({
-      option: "제목만",
-      userInput: ""
+    option: "제목만",
+    userInput: ""
   });
-  
+
   const getSearch = (event) => {
-      const { name, value } = event.target;
+    const { name, value } = event.target;
     setSearchInput({ ...searchInput, [name]: value });
   }
   const onSearch = () => {
-      if(searchInput.userInput == "" || searchInput.userInput == null) {
-          axios.get(`/dog/post/list/${board_category}`).then((res) => {
-            setPostList(res.data);
+    if (searchInput.userInput == "" || searchInput.userInput == null) {
+      axios.get(`/dog/post/list/${board_category}`).then((res) => {
+        setPostList(res.data);
+      })
+    } else {
+      axios.get(`/dog/post/list/${board_category}`)
+        .then((res) => {
+          const searched = res.data.filter((post) => {
+            if (searchInput.option == "제목만") {
+              return post.post_title.includes(searchInput.userInput);
+            } else if (searchInput.option == "내용만") {
+              return post.post_content.includes(searchInput.userInput);
+            } else if (searchInput.option == "제목+내용") {
+              return (post.post_title.includes(searchInput.userInput) || post.post_content.includes(searchInput.userInput));
+            } else if (searchInput.option == "닉네임") {
+              return post.user_nickname.includes(searchInput.userInput);
+            }
+          })
+          setPostList(searched);
         })
-      } else {
-          axios.get(`/dog/post/list/${board_category}`)
-            .then((res) => {
-                const searched = res.data.filter((post)=> {
-                  if (searchInput.option == "제목만") {
-                    return post.post_title.includes(searchInput.userInput);
-                  } else if (searchInput.option == "내용만") {
-                    return post.post_content.includes(searchInput.userInput);
-                  } else if (searchInput.option == "제목+내용") {
-                    return (post.post_title.includes(searchInput.userInput) || post.post_content.includes(searchInput.userInput));
-                  } else if (searchInput.option == "닉네임") {
-                    return post.user_nickname.includes(searchInput.userInput);
-                  } 
-                })
-                setPostList(searched);
-            })
-      }
+    }
   }
 
   return (
@@ -92,11 +92,11 @@ const PostList = () => {
             <option value="제목+내용">제목+내용</option>
             <option value="닉네임">닉네임</option>
           </select>
-          <Form.Control type="text" placeholder="검색어를 입력해주세요" className="mr-sm-2 NewsSearch" name="userInput" onChange={getSearch}/>
+          <Form.Control type="text" placeholder="검색어를 입력해주세요" className="mr-sm-2 NewsSearch" name="userInput" onChange={getSearch} />
           <Button className="NewsGlass" onClick={onSearch}>{<FontAwesomeIcon icon={faMagnifyingGlass} />}</Button>
         </Form>
-        
-        
+
+
         {/* Post List */}
         <div className="Newscards">
           {records && records.map((post, i) => (

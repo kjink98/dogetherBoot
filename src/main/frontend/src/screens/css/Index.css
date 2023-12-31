@@ -97,7 +97,8 @@
 	font-weight: 600;
 }
 
-.news .NewsDetail, .pro .ProDetail {
+.news .NewsDetail,
+.pro .ProDetail {
 	float: right;
 	font-size: 22px;
 	text-decoration: none;
@@ -105,7 +106,8 @@
 	margin-bottom: 50px;
 }
 
-.NewsDetail:hover, .ProDetail:hover {
+.NewsDetail:hover,
+.ProDetail:hover {
 	color: #0089BA;
 }
 
@@ -155,6 +157,9 @@
 	margin-bottom: -10px;
 }
 
-.MainCalumnCard:hover, .MainCalumnCard-title:hover, .MainCalumnCard-body:hover, .MainCalumnCard-date:hover {
+.MainCalumnCard:hover,
+.MainCalumnCard-title:hover,
+.MainCalumnCard-body:hover,
+.MainCalumnCard-date:hover {
 	color: black;
 }

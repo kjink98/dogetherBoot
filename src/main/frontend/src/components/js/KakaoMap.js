@@ -1,4 +1,4 @@
-/*global kakao*/
+/* global kakao */
 import React, { useEffect } from 'react';
 
 const KakaoMap = ({ address, pname }) => {
