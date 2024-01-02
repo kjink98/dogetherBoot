@@ -17,7 +17,7 @@ import com.dogether.domain.Post;
 public class FileUtils {
 
 	/* 파일 저장 */
-	public List<ImageFile> insertFileInfo(MultipartFile[] files) {
+	public List<ImageFile> insertFileInfo(String board_category, MultipartFile[] files) {
 
 		List<ImageFile> imageFileList = new ArrayList<>();
 
@@ -56,6 +56,7 @@ public class FileUtils {
 				// 파일 정보 DB 저장
 				saveFileName = today + "/" + fileName + ext;
 				ImageFile imagefile = new ImageFile();
+				imagefile.setBoard_category(board_category);
 				imagefile.setFile_oriname(originalFileName);
 				imagefile.setFile_link(saveFileName);
 

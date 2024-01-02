@@ -2,6 +2,7 @@ package com.dogether.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,6 +15,9 @@ import com.dogether.dto.PostListDto;
 import com.dogether.repository.PostRepository;
 import com.dogether.util.FileUtils;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -24,26 +28,47 @@ public class PostService {
 
 	private final FileUtils fileUtils;
 	
+	// 메인페이지 게시글 목록 가져오기
+	public List<PostListDto> getMainList(String board_category) {
+	  List<PostListDto> list = new ArrayList<>();
+	  List<Post> postList = postRepository.getMainData(board_category);
+	  
+		for (int i = 0; i < postList.size(); i++) {
+		  PostListDto listDto = new PostListDto(postList.get(i));
+		  List<ImageFile> fileList = getFile(listDto.getPost_id());
+		  
+		  if(fileList.size() != 0) {
+		    listDto.setFile_id(fileList.get(0).getFile_id());
+	 	    listDto.setFile_link(fileList.get(0).getFile_link());
+		  }
+		  list.add(listDto);
+		}
+		return list;
+	}
+	
 	// 전체 게시글 목록 가져오기
 	public List<PostListDto> getPostList(String board_category) {
 		List<PostListDto> list = new ArrayList<>();
 
-		// 게시글 내용, 썸네일 담기
-		 List<Post> postList = postRepository.getDataAll(board_category);	
-
+		List<Post> postList = postRepository.getDataAll(board_category);	
+		List<ImageFile> fileList = getFileList(board_category);
+		
 		for (int i = 0; i < postList.size(); i++) {
 			PostListDto listDto = new PostListDto(postList.get(i));
-			List<ImageFile> fileList = getFile(postList.get(i).getPost_id());
-			for (int j = 0; j < fileList.size(); j++) {
-				if (fileList.get(j).getPost_id() == postList.get(i).getPost_id()) {
-					listDto.setFile_id(fileList.get(j).getFile_id());
-					listDto.setFile_link(fileList.get(j).getFile_link());
-					break;
-				}
+			// 이미지 하나만 가져오기
+			Optional<ImageFile> result = fileList.stream().filter(x -> x.getPost_id() == listDto.getPost_id()).findFirst();
+			if (result.isPresent()) {
+				listDto.setFile_id(result.get().getFile_id());
+				listDto.setFile_link(result.get().getFile_link());
 			}
 			list.add(listDto);
 		}
 		return list;
+	}
+	
+	// 게시판 전체 이미지 목록 가져오기
+	public List<ImageFile> getFileList(String board_category) {
+		return postRepository.getFileList(board_category);
 	}
 	
 	// 1개 게시글 내용 가져오기
@@ -56,13 +81,37 @@ public class PostService {
 		return postRepository.getFile(post_id);
 	}
 	
+	// 조회수 업데이트
+	public void setViews(int post_id, HttpServletRequest request, HttpServletResponse response) {
+		Cookie[] cookies = request.getCookies();
+		Cookie newCookie = null;
+		
+		if(cookies != null) {
+			for(int i = 0; i<cookies.length; i++) {
+				if(cookies[i].getName().equals("|" + post_id + "|")) {
+					newCookie = cookies[i];
+				}
+			}
+		} else {
+			newCookie = null;
+		}
+		
+		if(newCookie == null || !newCookie.getName().equals("|" + post_id + "|")) {
+			postRepository.updateViews(post_id);
+			
+			Cookie cookie = new Cookie("|" + post_id + "|", "views");
+			response.addCookie(cookie);
+		}
+		
+	}
+	
 	// 게시글 등록
 	public void setPost (Post post, MultipartFile[] files) {
 		post.setUser_id("yooram2"); // 임시 저장
 		post.setUser_nickname("푸들조아"); // 임시 저장
 		postRepository.setData(post);
 
-		List<ImageFile> list = fileUtils.insertFileInfo(files);
+		List<ImageFile> list = fileUtils.insertFileInfo(post.getBoard_category(), files);
 		for (int i = 0; i < list.size(); i++) {
 			postRepository.insertFile(list.get(i));
 		}
@@ -86,7 +135,7 @@ public class PostService {
 		postRepository.deleteFile(post.getPost_id());
 		fileUtils.deleteFile(getFile(post.getPost_id()));
 		// 새 이미지 등록
-		List<ImageFile> list = fileUtils.insertFileInfo(files);
+		List<ImageFile> list = fileUtils.insertFileInfo(post.getBoard_category(), files);
 		for (int i = 0; i < list.size(); i++) {
 			ImageFile fileList = list.get(i);
 			fileList.setPost_id(post.getPost_id());
