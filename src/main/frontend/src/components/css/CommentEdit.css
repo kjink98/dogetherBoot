@@ -1,0 +1,26 @@
+.comment_edit_box{
+  width: 1000px;
+  padding-top: 10px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #6C757D;
+}
+
+.comment_edit_box p{
+  width: 1000px;
+  word-break:break-all;
+}
+
+.editbutton{
+  border: 0;
+  border-radius: 5px;
+  background-color: #0D6FED;
+  color: white;
+}
+
+.deletebutton{
+  border: 0;
+  border-radius: 5px;
+  background-color: #DC3545;
+  color: white;
+  margin-left: 15px;
+}

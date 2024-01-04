@@ -96,7 +96,7 @@ const PostDetail = () => {
               <ListGroup.Item className="NewsDetailBody">{postDetail.post_content}<br /><br />
                 <div className="image">
                   {postFiles && postFiles.map((file) =>
-                    <img src={`${process.env.PUBLIC_URL}/img/${file.file_link}`} />
+                    <img src={`${process.env.PUBLIC_URL}/img/${file.file_link}`} style={{top:500, left:400}}/>
                   )}
                 </div>
               </ListGroup.Item>

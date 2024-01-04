@@ -6,9 +6,10 @@ import Toast from 'react-bootstrap/Toast';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCompass, faUtensils, faHospital, faMugSaucer, faBowlFood, faBed, faSchoolFlag, faBone, faBasketShopping, faTree, faPaw, faQuoteLeft, faQuoteRight } from "@fortawesome/free-solid-svg-icons";
 import axios from 'axios';
+import moment from 'moment';
 
 function Index() {
-  
+   
   const [newsList, setNewsList] = useState([]);
   const [promotionList, setPromotionList] = useState([]);
   useEffect(() => {
@@ -19,7 +20,7 @@ function Index() {
 	  }
 	  getPostList();
   }, []);
-  console.log(promotionList)
+
   return (
     <div>
       <IndexCarousel></IndexCarousel>
@@ -54,14 +55,14 @@ function Index() {
       <div className="calumn">
         <div className="news">
           <p className="NewsTitle">칼럼 / 뉴스</p>
-          <a className="NewsDetail" href="/">자세히 보기</a>
+          <a className="NewsDetail" href="/post/list/news">자세히 보기</a>
 		  {newsList && newsList.map((news) => (
-          <a class="card flex-row MainCalumnCard" href="https://www.naver.com/">
+          <a class="card flex-row MainCalumnCard" href={'/post/detail/news/' + news.post_id}>
             <img class="MainCalumnCard-img-left" src={`${process.env.PUBLIC_URL}/img/${news.file_link}`} />
             <div class="MainCalumnCard-body">
               <p class="MainCalumnCard-title">{news.post_title}</p>
               <p class="MainCalumnCard-text">{news.post_content}</p>
-              <p class="MainCalumnCard-date">{news.post_create_date}</p>
+              <p class="MainCalumnCard-date">{moment(news.post_create_date).format('YYYY-MM-DD')}</p>
             </div>
           </a>
           ))}
@@ -71,14 +72,14 @@ function Index() {
 
         <div className="pro">
           <p className="ProTitle">홍보 게시판</p>
-          <a className="ProDetail" href="/">자세히 보기</a>
+          <a className="ProDetail" href="/post/list/promotion">자세히 보기</a>
 		  {promotionList && promotionList.map((promotion) => (
-          <a class="card flex-row MainCalumnCard" href="https://www.naver.com/">
+          <a class="card flex-row MainCalumnCard" href={'/post/detail/promotion/' + promotion.post_id}>
             <img class="MainCalumnCard-img-left" src={`${process.env.PUBLIC_URL}/img/${promotion.file_link}`}/>
             <div class="MainCalumnCard-body">
               <p class="MainCalumnCard-title">{promotion.post_title}</p>
               <p class="MainCalumnCard-text">{promotion.post_content}</p>
-              <p class="MainCalumnCard-date">{promotion.post_create_date}</p>
+              <p class="MainCalumnCard-date">{moment(promotion.post_create_date).format('YYYY-MM-DD')}</p>
             </div>
           </a>
 		  ))}
