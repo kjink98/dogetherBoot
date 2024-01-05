@@ -31,7 +31,7 @@ const MyHistory = () => {
         </div>
 
         {myPostList.map(myPost => (
-          <a class="card flex-row MyHistoryCard" href={'/post/detail/' + myPost.board_id + '/' + myPost.post_id}>
+          <a class="card flex-row MyHistoryCard" href={'/post/detail/' + myPost.board_category + '/' + myPost.post_id}>
             <img class="MyHistoryCard-img-left" src={require('../../Img/Dog1.jpg')} />
             <div class="MyHistoryCard-body">
               <p class="MyHistoryCard-title"><b>{myPost.post_title}</b></p>

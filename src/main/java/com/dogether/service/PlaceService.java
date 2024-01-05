@@ -2,7 +2,6 @@ package com.dogether.service;
 
 import java.util.List;
 
-import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.stereotype.Service;
 
 import com.dogether.domain.FavoritePlace;
@@ -38,7 +37,12 @@ public class PlaceService {
     }
 
     public boolean setFavoritePlace(FavoritePlace favoritePlace) {
-        int result = placeRepository.insertFavorite(favoritePlace);
+        try {
+            int result = placeRepository.insertFavorite(favoritePlace);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 
@@ -59,7 +63,7 @@ public class PlaceService {
                     item.setKorean_category("병원");
                     break;
                 case "hotel":
-                    item.setKorean_category("호텔");
+                    item.setKorean_category("숙소");
                     break;
                 case "playground":
                     item.setKorean_category("애견운동장");

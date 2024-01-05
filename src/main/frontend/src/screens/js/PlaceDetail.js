@@ -25,6 +25,8 @@ const PlaceDetail = () => {
     const getPlace = async () => {
       const resp = await axios.get(`/dog/place/detail?place_id=${place_id}`)
       setPlace(resp.data);
+      setAddress(place.place_address);
+      setPname(place.place_name);
     }
     getPlace();
 
@@ -34,11 +36,6 @@ const PlaceDetail = () => {
     }
     getReview();
   }, []);
-
-  useEffect(() => {
-    setAddress(place.place_address);
-    setPname(place.place_name);
-  }, [place.place_address, place.place_name]);
 
   const countingLength = (e) => {
     if (e.target.value.length > 300) {
@@ -77,8 +74,12 @@ const PlaceDetail = () => {
   });
 
   const onClickHeart = async () => {
-    await axios.post(`/dog/place/favorite`, favoritePlace).then((res) => {
-      alert('관심장소에 추가되었습니다.');
+    const resp = await axios.post(`/dog/place/favorite`, favoritePlace).then((res) => {
+      if (res === "success") {
+        alert('관심장소에 추가되었습니다.');
+      } else {
+        alert('이미 관심장소로 등록된 장소입니다.')
+      }
     })
   }
 
@@ -168,9 +169,9 @@ const PlaceDetail = () => {
         </section>
         <div class="cm_write">
           <fieldset>
-            <legend class="skipinfo">댓글 입력</legend>
+            <legend class="skipinfo">리뷰 작성</legend>
             <div class="cm_input">
-              <p><textarea id="content" name="content" onKeyUp={(e) => countingLength(e)} cols="90" rows="4" placeholder="댓글을 입력해 주세요."></textarea></p>
+              <p><textarea id="content" name="content" onKeyUp={(e) => countingLength(e)} cols="90" rows="4" placeholder="리뷰를 입력해 주세요."></textarea></p>
               <span><button type="button" class="btns" onClick={saveComment}>등 록</button> <i id="counter">0/300자</i></span>
             </div>
           </fieldset>

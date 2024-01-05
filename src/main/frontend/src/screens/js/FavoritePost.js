@@ -31,7 +31,7 @@ const FavoritePost = () => {
         </div>
 
         {favoritePostList.map(favoritePost => (
-          <a class="card flex-row FavoritePostCard" href={'/post/detail/' + favoritePost.board_id + '/' + favoritePost.post_id}>
+          <a class="card flex-row FavoritePostCard" href={'/post/detail/' + favoritePost.board_category + '/' + favoritePost.post_id}>
             <img class="FavoritePostCard-img-left" src={require('../../Img/Dog1.jpg')} />
             <div class="FavoritePostCard-body">
               <p class="FavoritePostCard-title"><b>{favoritePost.post_title}</b></p>

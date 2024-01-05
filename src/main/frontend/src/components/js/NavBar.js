@@ -23,7 +23,7 @@ const NavBar = () => {
               <NavDropdown.Item href="/place/school">애견유치원</NavDropdown.Item>
               <NavDropdown.Item href="/place/training">훈련소</NavDropdown.Item>
               <NavDropdown.Item href="/place/dogshop">애견용품점</NavDropdown.Item>
-              <NavDropdown.Item href="/place/playground">애견운동장/산책</NavDropdown.Item>
+              <NavDropdown.Item href="/place/playground">애견운동장</NavDropdown.Item>
             </NavDropdown>
 
             <NavDropdown title="커뮤니티" id="collasible-nav-dropdown" className="DropdownMenu">
@@ -43,15 +43,8 @@ const NavBar = () => {
 
             <NavDropdown title={<FontAwesomeIcon icon={faCircleUser} />} id="collasible-nav-dropdown" className="User">
               <NavDropdown.Item href="/user/login">로그인</NavDropdown.Item>
-              <NavDropdown.Item href="/login">로그인sw</NavDropdown.Item>
-              <NavDropdown.Item href="/sign-up">회원가입</NavDropdown.Item>
-              <NavDropdown.Item href="/find">ID/PW 찾기</NavDropdown.Item>
-            </NavDropdown>
-
-            <NavDropdown title={<FontAwesomeIcon icon={faCircleUser} />} id="collasible-nav-dropdown" className="User">
-              <NavDropdown.Item href="/user/login">로그인</NavDropdown.Item>
               <NavDropdown.Item href="/login">소셜 로그인</NavDropdown.Item>
-              <NavDropdown.Item href="/sign-up1">회원가입</NavDropdown.Item>
+              <NavDropdown.Item href="/sign-up">회원가입</NavDropdown.Item>
               <NavDropdown.Item href="/find">ID/PW 찾기</NavDropdown.Item>
             </NavDropdown>
 

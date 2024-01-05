@@ -20,7 +20,7 @@ public interface PlaceMapper {
     @Select("select * from tblplace where place_id=#{place_id}")
     Place selectOne(int place_id);
 
-    @Select("select * from tblfavoriteplace a join tblplace b on a.place_id = b.place_id where a.user_id=#{user_id} order by b.place_id desc")
+    @Select("select * from tblfavoriteplace a join tblplace b on a.place_id = b.place_id where a.user_id=#{user_id} order by a.favoriteplace_id*1 desc")
     List<Place> selectFavorite(String user_id);
 
     @Select("select a.po_category as place_category, count(b.place_id) as count from placeorder a inner join tblplace b on a.po_category = b.place_category group by a.po_category order by a.po_id;")

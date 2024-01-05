@@ -50,8 +50,12 @@ public class PlaceController {
     
     @PostMapping("/favorite")
     public String postFavoritePlace(@RequestBody FavoritePlace favoritePlace) {
-        placeService.setFavoritePlace(favoritePlace);
-        return "favorite";
+        boolean success = placeService.setFavoritePlace(favoritePlace);
+        if (success) {
+            return "success";
+        } else {
+            return "fail";
+        }
     }
     
     @GetMapping("/count")

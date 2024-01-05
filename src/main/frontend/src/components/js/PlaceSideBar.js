@@ -22,7 +22,7 @@ const PlaceSidebar = ({ children }) => {
       <div className="PlaceSidebar">
         <h2>장소 추천</h2>
         {placeCount.map((pc, index) => (
-          <a className={"PlaceSidebarMenu" + (window.location.pathname.indexOf(pc.place_category) != -1 ? " active" : "")} href={"/place/" + pc.place_category}><FontAwesomeIcon icon={icons[index]} />{pc.korean_category}&nbsp;<Badge bg="warning">{pc.count}</Badge></a>
+          <a className={"PlaceSidebarMenu" + (window.location.pathname.indexOf("/" + pc.place_category) != -1 ? " active" : "")} href={"/place/" + pc.place_category}><FontAwesomeIcon icon={icons[index]} />{pc.korean_category}&nbsp;<Badge bg="warning">{pc.count}</Badge></a>
         ))}
       </div>
     </div>

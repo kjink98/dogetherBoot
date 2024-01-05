@@ -53,7 +53,7 @@ function Index() {
 
       <div className="calumn">
         <div className="news">
-          <p className="NewsTitle">칼럼 / 뉴스</p>
+          <p className="NewsTitle">뉴스 / 칼럼</p>
           <a className="NewsDetail" href="/post/list/news">자세히 보기</a>
 		  {newsList && newsList.map((news) => (
           <a class="card flex-row MainCalumnCard" href={'/post/detail/news/' + news.post_id}>
