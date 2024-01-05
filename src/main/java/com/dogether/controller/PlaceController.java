@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dogether.domain.FavoritePlace;
 import com.dogether.domain.Place;
+import com.dogether.dto.PlaceCount;
 import com.dogether.service.PlaceService;
 
 import lombok.RequiredArgsConstructor;
@@ -23,45 +24,27 @@ public class PlaceController {
 
     private final PlaceService placeService;
 
-    @GetMapping("/list")
-    public List<Place> getPlaceList(String place_category) {
+    @GetMapping("/list/{place_category}")
+    public List<Place> getPlaceList(@PathVariable String place_category) {
         List<Place> places = placeService.list(place_category);
+        return places;
+    }
 
-        // 테스트용 조건문
-        /* if (!places.isEmpty()) {
-            for (Place place : places) {
-                System.out.println(place.getPlace_name());
-            }
-        } else {
-            System.out.println("place is null");
-        } */
+    @PostMapping("/list")
+    public List<Place> getCheckedPlaceList(@RequestBody Place place) {
+        List<Place> places = placeService.list(place);
         return places;
     }
 
     @GetMapping("/detail")
     public Place getPlaceDetail(int place_id, Model model) {
         Place place = placeService.detail(place_id);
-
-        // 테스트용 출력 : place id : place_name 출력. 정상
-        /* System.out.println(place.getPlace_id() + " : " + place.getPlace_name());
-        if (!reviews.isEmpty()) {
-            for (Review review : reviews) {
-                System.out.println(review.getReview_title());
-            }
-        } else {
-            System.out.println("review is null");
-        } */
         return place;
     }
 
     @GetMapping("/favorite/{user_id}")
     public List<Place> getFavoritePlaceList(@PathVariable String user_id) {
         List<Place> favoritePlaces = placeService.favoriteList(user_id);
-        /* Test
-        System.out.println(user_id);
-        for (Place place : favoritePlaces) {
-            System.out.println("place_id : " + place.getPlace_id());
-        } */
         return favoritePlaces;
     }
     
@@ -69,6 +52,12 @@ public class PlaceController {
     public String postFavoritePlace(@RequestBody FavoritePlace favoritePlace) {
         placeService.setFavoritePlace(favoritePlace);
         return "favorite";
+    }
+    
+    @GetMapping("/count")
+    public List<PlaceCount> getPlaceCount() {
+        System.out.println(placeService.placeCount().get(0).getCount());
+        return placeService.placeCount();
     }
     
 }
