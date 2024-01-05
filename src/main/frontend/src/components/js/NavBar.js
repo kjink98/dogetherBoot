@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, useEffect } from 'react';
 import "../css/NavBar.css";
 import { Container, Nav, Navbar, NavDropdown, Form, Button, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,7 +14,7 @@ const NavBar = () => {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
 
-            <NavDropdown title="장소 추천" id="collasible-nav-dropdown" className="DropdownMenu">
+            <NavDropdown title="장소추천" id="collasible-nav-dropdown" className="DropdownMenu">
               <NavDropdown.Item href="/place/restaurant">식당</NavDropdown.Item>
               <NavDropdown.Item href="/place/hospital">병원</NavDropdown.Item>
               <NavDropdown.Item href="/place/cafe">카페</NavDropdown.Item>
@@ -41,19 +41,24 @@ const NavBar = () => {
               <NavDropdown.Item href="/my-history/123">활동내역</NavDropdown.Item>
             </NavDropdown>
 
-            <Container className="UserMenu">
-              <NavDropdown title={<FontAwesomeIcon icon={faCircleUser} />} id="collasible-nav-dropdown" className="User">
-                <NavDropdown.Item href="/user/login">로그인</NavDropdown.Item>
-                <NavDropdown.Item href="/login">로그인sw</NavDropdown.Item>
-                <NavDropdown.Item href="/sign-up">회원가입</NavDropdown.Item>
-                <NavDropdown.Item href="/find">ID/PW 찾기</NavDropdown.Item>
-              </NavDropdown>
+            <NavDropdown title={<FontAwesomeIcon icon={faCircleUser} />} id="collasible-nav-dropdown" className="User">
+              <NavDropdown.Item href="/user/login">로그인</NavDropdown.Item>
+              <NavDropdown.Item href="/login">로그인sw</NavDropdown.Item>
+              <NavDropdown.Item href="/sign-up">회원가입</NavDropdown.Item>
+              <NavDropdown.Item href="/find">ID/PW 찾기</NavDropdown.Item>
+            </NavDropdown>
 
-              <Form inline className="user">
-                <Form.Control type="text" placeholder="Search" className="mr-sm-2 UserSearch" />
-                <Button type="submit" className="UserGlass">{<FontAwesomeIcon icon={faMagnifyingGlass} />}</Button>
-              </Form>
-            </Container>
+            <NavDropdown title={<FontAwesomeIcon icon={faCircleUser} />} id="collasible-nav-dropdown" className="User">
+              <NavDropdown.Item href="/user/login">로그인</NavDropdown.Item>
+              <NavDropdown.Item href="/login">소셜 로그인</NavDropdown.Item>
+              <NavDropdown.Item href="/sign-up1">회원가입</NavDropdown.Item>
+              <NavDropdown.Item href="/find">ID/PW 찾기</NavDropdown.Item>
+            </NavDropdown>
+
+            <Form inline className="user">
+              <Form.Control type="text" placeholder="Search" className="mr-sm-2 UserSearch" />
+              <Button type="submit" className="UserGlass">{<FontAwesomeIcon icon={faMagnifyingGlass} />}</Button>
+            </Form>
 
           </Nav>
         </Navbar.Collapse>

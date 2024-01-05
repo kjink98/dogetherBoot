@@ -1,10 +1,10 @@
-.placeCarousel {
+.place_carousel {
 	float: right;
 	width: calc(100% - 250px);
 	margin-bottom: 20px;
 }
 
-.placeCarousel-item img {
+.place_carousel .place_carousel_item img {
 	float: right;
 	height: 300px;
 }

@@ -1,0 +1,21 @@
+.post_carousel {
+	width: 500px;
+	height: 450px;
+}
+
+.post_carousel .post_carousel_item {
+	width: 500px;
+	height: 450px;
+	background-color: black !important;
+}
+
+.post_carousel .post_carousel_itemm img {
+	max-width: 100%;
+	max-height: 100%;
+	margin: auto;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}

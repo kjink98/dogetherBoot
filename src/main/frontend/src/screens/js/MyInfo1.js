@@ -43,16 +43,16 @@ const MyInfo = () => {
   return (
     <>
       <MySidebar />
-      <div className='myinfo'>
+      <div className="myinfo">
         <div className="info">
           <p className="ppp">내 정보 수정</p>
         </div>
-        <br /><br /><br />
+
         <div><h5>비밀번호를 입력해 주세요.</h5></div>
         <br />
 
         <div className='pwc_1'>
-          <InputGroup className="mb-3">
+          <InputGroup className="mb-3 checkpass">
             <InputGroup.Text id="basic-addon1">
               <FontAwesomeIcon icon={faKey} />
             </InputGroup.Text>
@@ -71,14 +71,14 @@ const MyInfo = () => {
           />
         </div>
 
+        <Button
+          className={Myinfomodule['custom-button']}
+          as="input"
+          type="button"
+          value="확인"
+          onClick={handleConfirmClick} // 버튼 클릭 시 handleConfirmClick 함수 호출
+        />{' '}
       </div>
-      <Button
-        className={Myinfomodule['custom-button']}
-        as="input"
-        type="button"
-        value="확인"
-        onClick={handleConfirmClick} // 버튼 클릭 시 handleConfirmClick 함수 호출
-      />{' '}
     </>
   )
 };
