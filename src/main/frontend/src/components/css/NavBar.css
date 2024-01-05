@@ -44,10 +44,14 @@
 }
 
 .DropdownMenu {
-	font-size: 20px;
-	margin-right: 15%;
-	margin-top: 5px;
-	text-decoration: none;
+   font-size: 20px;
+   padding-top: 5px;
+   padding-right: 15%;
+   width: 300px;
+   opacity: 50%;
+   float: left;
+   text-decoration: none;
+   background-color: #E77D67;
 }
 
 .dropdown-item:hover {

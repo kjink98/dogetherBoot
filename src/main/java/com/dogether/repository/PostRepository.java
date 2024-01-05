@@ -16,10 +16,20 @@ import lombok.RequiredArgsConstructor;
 public class PostRepository {
 
     private final PostMapper postMapper;
+    
+    // 게시글 5개만 가져오기
+    public List<Post> getMainData(String board_category) {
+    	return postMapper.selectMainData(board_category);
+    }
 
 	// 전체 게시글 내용 목록 가져오기
     public List<Post> getDataAll(String board_category) {
         return postMapper.selectAll(board_category);
+    }
+    
+    // 게시글 전체 이미지 목록 가져오기
+    public List<ImageFile> getFileList(String board_category) {
+    	return postMapper.selectFileList(board_category);
     }
 
 	// 1개 게시글 내용 가져오기
@@ -30,6 +40,11 @@ public class PostRepository {
 	// 1개 게시글 이미지 목록 가져오기
     public List<ImageFile> getFile(int post_id) {
         return postMapper.selectFile(post_id);
+    }
+    
+    // 조회수 업데이트
+    public void updateViews(int post_id) {
+    	postMapper.updateViews(post_id);
     }
 
 	// 게시글 등록

@@ -43,6 +43,13 @@ const NavBar = () => {
 
             <NavDropdown title={<FontAwesomeIcon icon={faCircleUser} />} id="collasible-nav-dropdown" className="User">
               <NavDropdown.Item href="/user/login">로그인</NavDropdown.Item>
+              <NavDropdown.Item href="/login">로그인sw</NavDropdown.Item>
+              <NavDropdown.Item href="/sign-up">회원가입</NavDropdown.Item>
+              <NavDropdown.Item href="/find">ID/PW 찾기</NavDropdown.Item>
+            </NavDropdown>
+
+            <NavDropdown title={<FontAwesomeIcon icon={faCircleUser} />} id="collasible-nav-dropdown" className="User">
+              <NavDropdown.Item href="/user/login">로그인</NavDropdown.Item>
               <NavDropdown.Item href="/login">소셜 로그인</NavDropdown.Item>
               <NavDropdown.Item href="/sign-up1">회원가입</NavDropdown.Item>
               <NavDropdown.Item href="/find">ID/PW 찾기</NavDropdown.Item>

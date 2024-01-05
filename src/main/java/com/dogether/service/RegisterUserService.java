@@ -53,5 +53,13 @@ public class RegisterUserService {
             throw new DuplicateMemberException("이미 존재하는 회원입니다.");
         }
     }
+    
+    public boolean idCheck(String user_id) {
+    	return userMapper.idCheck(user_id);
+    }
+    
+    public boolean nicknameCheck(String user_nickname) {
+    	return userMapper.nicknameCheck(user_nickname);
+    }
 
 }

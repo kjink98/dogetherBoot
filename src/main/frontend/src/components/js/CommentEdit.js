@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import '../css/CommentEdit.css';
 import axios from 'axios';
 
 const CommentEdit = (props) => {

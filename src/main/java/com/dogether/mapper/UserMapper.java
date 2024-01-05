@@ -90,4 +90,16 @@ public interface UserMapper {
 
 	@Select("SELECT * FROM tbluser")
 	List<User> findAllUsers();
+	
+	/*
+	 * 회원가입 시 아이디 중복확인
+	 */
+	@Select("SELECT COUNT(*) FROM tbluser WHERE user_id=#{user_id}")
+	boolean idCheck(String user_id);
+	
+	/*
+	 * 회원가입 시 닉네임 중복확인
+	 */
+	@Select("SELECT COUNT(*) FROM tbluser WHERE user_nickname=#{user_nickname}")
+	boolean nicknameCheck(String user_nickname);
 }
