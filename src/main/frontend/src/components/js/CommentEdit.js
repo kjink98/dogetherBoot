@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import '../css/CommentEdit.css';
 import axios from 'axios';
 
 const CommentEdit = (props) => {
@@ -43,21 +44,20 @@ const CommentEdit = (props) => {
   }
 
   return (
-    <div>
+    <div className="comment_edit_box">
       <p>{props.comment.user_nickname}</p>
       {isEditing ?
         <span>
           <input type="text" defaultValue={props.comment.comment_content} name="comment_content" onChange={(event) => onChangeEdit(event, props.comment.comment_id)} />
-          <button onClick={setComment}>수정</button>
+          <button onClick={setComment} className="editbutton">수정</button>
         </span>
         :
         <span>
           <p>{props.comment.comment_content}</p>
-          <button onClick={isEdit}>수정</button>
+          <button onClick={isEdit} className="editbutton">수정</button>
         </span>
       }
-      <button onClick={() => deleteComment(props.comment.comment_id)}>삭제</button>
-      <hr />
+      <button onClick={() => deleteComment(props.comment.comment_id)} className="deletebutton">삭제</button>
     </div>
   );
 };

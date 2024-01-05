@@ -113,8 +113,11 @@ const PostList = () => {
             </div>
           ))}
         </div>
-
-        <Button className="PostNewsButton" onClick={() => navigate('/post/post/' + board_category)}>게시글 작성하기</Button>
+        
+		{board_category === "news" ?
+			<Button className="PostNewsButton" onClick={() => navigate('/post/post2/' + board_category)}>게시글 작성하기</Button> :
+			<Button className="PostNewsButton" onClick={() => navigate('/post/post/' + board_category)}>게시글 작성하기</Button>
+		}
 
         <nav>
           <ul className='pagination'>

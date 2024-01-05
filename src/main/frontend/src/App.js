@@ -12,6 +12,7 @@ import PostNotice from './screens/js/PostNotice';
 import PostList from './screens/js/PostList';
 import PostDetail from './screens/js/PostDetail';
 import PostPost from './screens/js/PostPost';
+import PostPost2 from './screens/js/PostPost2';
 import PostUpdate from './screens/js/PostUpdate';
 // 마이페이지
 import MyInfo1 from './screens/js/MyInfo1';
@@ -23,8 +24,7 @@ import MyHistory from './screens/js/MyHistory';
 // 유저
 import LoginForm from './screens/js/LoginForm';
 import Login from './screens/js/Login';
-import SignUp1 from './screens/js/SignUp1';
-import SignUp2 from './screens/js/SignUp2';
+import SignUp from './screens/js/SignUp';
 import Find from './screens/js/Find';
 // Footer
 import Footer from './components/js/Footer';
@@ -48,6 +48,7 @@ function App() {
         <Route path="/post/list/:board_category" element={<PostList />}></Route>
         <Route path="/post/detail/:board_category/:post_id" element={<PostDetail />}></Route>
         <Route path="/post/post/:board_category" element={<PostPost />}></Route>
+        <Route path="/post/post2/:board_category" element={<PostPost2 />}></Route>
         <Route path="/post/update/:board_category/:post_id" element={<PostUpdate />}></Route>
 
         {/* 마이페이지 */}
@@ -61,8 +62,7 @@ function App() {
         {/* 유저 */}
         <Route path="/user/login" element={<LoginForm />}></Route>
         <Route path="/login" element={<Login />}></Route>
-        <Route path="/sign-up1" element={<SignUp1 />}></Route>
-        <Route path="/sign-up2" element={<SignUp2 />}></Route>
+        <Route path="/sign-up" element={<SignUp />}></Route>
         <Route path="/find" element={<Find />}></Route>
 
       </Routes>

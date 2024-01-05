@@ -6,10 +6,19 @@ import Toast from 'react-bootstrap/Toast';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCompass, faUtensils, faHospital, faMugSaucer, faBowlFood, faBed, faSchoolFlag, faBone, faBasketShopping, faTree, faPaw, faQuoteLeft, faQuoteRight } from "@fortawesome/free-solid-svg-icons";
 import axios from 'axios';
+import moment from 'moment';
 
 function Index() {
   const [placeCount, setPlaceCount] = useState([]);
+  const [newsList, setNewsList] = useState([]);
+  const [promotionList, setPromotionList] = useState([]);
   useEffect(() => {
+	  const getPostList = async() => {
+		  const resp = await axios.get("/dog/post/mainList/news/promotion")
+		  setNewsList(resp.data.newsList);
+		  setPromotionList(resp.data.promotionList);
+	  }
+	  getPostList();
     const getPlaceCount = async () => {
       const resp = await axios.get(`/dog/place/count`);
       setPlaceCount(prev => resp.data);
@@ -45,103 +54,34 @@ function Index() {
       <div className="calumn">
         <div className="news">
           <p className="NewsTitle">칼럼 / 뉴스</p>
-          <a className="NewsDetail" href="/">자세히 보기</a>
-
-          <a class="card flex-row MainCalumnCard" href="https://www.naver.com/">
-            <img class="MainCalumnCard-img-left" src={require('../../Img/News1.jpg')} />
+          <a className="NewsDetail" href="/post/list/news">자세히 보기</a>
+		  {newsList && newsList.map((news) => (
+          <a class="card flex-row MainCalumnCard" href={'/post/detail/news/' + news.post_id}>
+            <img class="MainCalumnCard-img-left" src={`${process.env.PUBLIC_URL}/img/${news.file_link}`} />
             <div class="MainCalumnCard-body">
-              <p class="MainCalumnCard-title">바이든 대통령 반려견, 백악관 경호원 또 물었다</p>
-              <p class="MainCalumnCard-text">조 바이든 미국 대통령의 반려견 커맨더가 백악관 경호원을 또 물었습니다. 현지시간 26일 미국 정치매체 더힐에 따르면 백악관 비밀경호국은 이날 성명을 통해 전날 저녁 8시쯤 비밀경호국 소속 연방 경찰관이 커맨더에 물려 치료를 받았다고 밝혔습니다.</p>
-              <p class="MainCalumnCard-date">Last updated 3 hours ago</p>
+              <p class="MainCalumnCard-title">{news.post_title}</p>
+              <p class="MainCalumnCard-text">{news.post_content}</p>
+              <p class="MainCalumnCard-date">{moment(news.post_create_date).format('YYYY-MM-DD')}</p>
             </div>
           </a>
+          ))}
 
-          <a class="card flex-row MainCalumnCard" href="https://www.naver.com/">
-            <img class="MainCalumnCard-img-left" src={require('../../Img/News1.jpg')} />
-            <div class="MainCalumnCard-body">
-              <p class="MainCalumnCard-title">바이든 대통령 반려견, 백악관 경호원 또 물었다</p>
-              <p class="MainCalumnCard-text">조 바이든 미국 대통령의 반려견 커맨더가 백악관 경호원을 또 물었습니다. 현지시간 26일 미국 정치매체 더힐에 따르면 백악관 비밀경호국은 이날 성명을 통해 전날 저녁 8시쯤 비밀경호국 소속 연방 경찰관이 커맨더에 물려 치료를 받았다고 밝혔습니다.</p>
-              <p class="MainCalumnCard-date">Last updated 3 hours ago</p>
-            </div>
-          </a>
-
-          <a class="card flex-row MainCalumnCard" href="https://www.naver.com/">
-            <img class="MainCalumnCard-img-left" src={require('../../Img/News1.jpg')} />
-            <div class="MainCalumnCard-body">
-              <p class="MainCalumnCard-title">바이든 대통령 반려견, 백악관 경호원 또 물었다</p>
-              <p class="MainCalumnCard-text">조 바이든 미국 대통령의 반려견 커맨더가 백악관 경호원을 또 물었습니다. 현지시간 26일 미국 정치매체 더힐에 따르면 백악관 비밀경호국은 이날 성명을 통해 전날 저녁 8시쯤 비밀경호국 소속 연방 경찰관이 커맨더에 물려 치료를 받았다고 밝혔습니다.</p>
-              <p class="MainCalumnCard-date">Last updated 3 hours ago</p>
-            </div>
-          </a>
-
-          <a class="card flex-row MainCalumnCard" href="https://www.naver.com/">
-            <img class="MainCalumnCard-img-left" src={require('../../Img/News1.jpg')} />
-            <div class="MainCalumnCard-body">
-              <p class="MainCalumnCard-title">바이든 대통령 반려견, 백악관 경호원 또 물었다</p>
-              <p class="MainCalumnCard-text">조 바이든 미국 대통령의 반려견 커맨더가 백악관 경호원을 또 물었습니다. 현지시간 26일 미국 정치매체 더힐에 따르면 백악관 비밀경호국은 이날 성명을 통해 전날 저녁 8시쯤 비밀경호국 소속 연방 경찰관이 커맨더에 물려 치료를 받았다고 밝혔습니다.</p>
-              <p class="MainCalumnCard-date">Last updated 3 hours ago</p>
-            </div>
-          </a>
-
-          <a class="card flex-row MainCalumnCard" href="https://www.naver.com/">
-            <img class="MainCalumnCard-img-left" src={require('../../Img/News1.jpg')} />
-            <div class="MainCalumnCard-body">
-              <p class="MainCalumnCard-title">바이든 대통령 반려견, 백악관 경호원 또 물었다</p>
-              <p class="MainCalumnCard-text">조 바이든 미국 대통령의 반려견 커맨더가 백악관 경호원을 또 물었습니다. 현지시간 26일 미국 정치매체 더힐에 따르면 백악관 비밀경호국은 이날 성명을 통해 전날 저녁 8시쯤 비밀경호국 소속 연방 경찰관이 커맨더에 물려 치료를 받았다고 밝혔습니다.</p>
-              <p class="MainCalumnCard-date">Last updated 3 hours ago</p>
-            </div>
-          </a>
 
         </div>
 
         <div className="pro">
           <p className="ProTitle">홍보 게시판</p>
-          <a className="ProDetail" href="/">자세히 보기</a>
-
-          <a class="card flex-row MainCalumnCard" href="https://www.naver.com/">
-            <img class="MainCalumnCard-img-left" src={require('../../Img/Promotion2.jpg')} />
+          <a className="ProDetail" href="/post/list/promotion">자세히 보기</a>
+		  {promotionList && promotionList.map((promotion) => (
+          <a class="card flex-row MainCalumnCard" href={'/post/detail/promotion/' + promotion.post_id}>
+            <img class="MainCalumnCard-img-left" src={`${process.env.PUBLIC_URL}/img/${promotion.file_link}`}/>
             <div class="MainCalumnCard-body">
-              <p class="MainCalumnCard-title">[새상품] 생활공작소 펫미스트/ 강아지 보습제 에센스</p>
-              <p class="MainCalumnCard-text">피모보습과 정전기를 방지해주는 펫 미스트 입니다^^ ✔강아지 피모& 모발 보습 효과 ✔털 엉킴 방지 ✔EVE비건인증</p>
-              <p class="MainCalumnCard-date">Last updated 1 hour ago</p>
+              <p class="MainCalumnCard-title">{promotion.post_title}</p>
+              <p class="MainCalumnCard-text">{promotion.post_content}</p>
+              <p class="MainCalumnCard-date">{moment(promotion.post_create_date).format('YYYY-MM-DD')}</p>
             </div>
           </a>
-
-          <a class="card flex-row MainCalumnCard" href="https://www.naver.com/">
-            <img class="MainCalumnCard-img-left" src={require('../../Img/Promotion2.jpg')} />
-            <div class="MainCalumnCard-body">
-              <p class="MainCalumnCard-title">[새상품] 생활공작소 펫미스트/ 강아지 보습제 에센스</p>
-              <p class="MainCalumnCard-text">피모보습과 정전기를 방지해주는 펫 미스트 입니다^^ ✔강아지 피모& 모발 보습 효과 ✔털 엉킴 방지 ✔EVE비건인증</p>
-              <p class="MainCalumnCard-date">Last updated 1 hour ago</p>
-            </div>
-          </a>
-
-          <a class="card flex-row MainCalumnCard" href="https://www.naver.com/">
-            <img class="MainCalumnCard-img-left" src={require('../../Img/Promotion2.jpg')} />
-            <div class="MainCalumnCard-body">
-              <p class="MainCalumnCard-title">[새상품] 생활공작소 펫미스트/ 강아지 보습제 에센스</p>
-              <p class="MainCalumnCard-text">피모보습과 정전기를 방지해주는 펫 미스트 입니다^^ ✔강아지 피모& 모발 보습 효과 ✔털 엉킴 방지 ✔EVE비건인증</p>
-              <p class="MainCalumnCard-date">Last updated 1 hour ago</p>
-            </div>
-          </a>
-
-          <a class="card flex-row MainCalumnCard" href="https://www.naver.com/">
-            <img class="MainCalumnCard-img-left" src={require('../../Img/Promotion2.jpg')} />
-            <div class="MainCalumnCard-body">
-              <p class="MainCalumnCard-title">[새상품] 생활공작소 펫미스트/ 강아지 보습제 에센스</p>
-              <p class="MainCalumnCard-text">피모보습과 정전기를 방지해주는 펫 미스트 입니다^^ ✔강아지 피모& 모발 보습 효과 ✔털 엉킴 방지 ✔EVE비건인증</p>
-              <p class="MainCalumnCard-date">Last updated 1 hour ago</p>
-            </div>
-          </a>
-
-          <a class="card flex-row MainCalumnCard" href="https://www.naver.com/">
-            <img class="MainCalumnCard-img-left" src={require('../../Img/Promotion2.jpg')} />
-            <div class="MainCalumnCard-body">
-              <p class="MainCalumnCard-title">[새상품] 생활공작소 펫미스트/ 강아지 보습제 에센스</p>
-              <p class="MainCalumnCard-text">피모보습과 정전기를 방지해주는 펫 미스트 입니다^^ ✔강아지 피모& 모발 보습 효과 ✔털 엉킴 방지 ✔EVE비건인증</p>
-              <p class="MainCalumnCard-date">Last updated 1 hour ago</p>
-            </div>
-          </a>
+		  ))}
         </div>
 
       </div>

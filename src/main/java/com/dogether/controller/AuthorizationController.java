@@ -2,8 +2,11 @@ package com.dogether.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,7 +14,7 @@ import com.dogether.domain.User;
 import com.dogether.service.RegisterUserService;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/dog/user")
 public class AuthorizationController {
     private final RegisterUserService registerUserService;
 
@@ -20,10 +23,7 @@ public class AuthorizationController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@ModelAttribute User user) {
-    	if (!user.getUser_pw().equals(user.getUser_pwcheck())) {
-            return new ResponseEntity<>("비밀번호가 일치하지 않습니다.", HttpStatus.BAD_REQUEST);
-        }
+    public int signup(@RequestBody User user) {
         try {
             registerUserService.signup(
                 user.getUser_id(),
@@ -33,12 +33,30 @@ public class AuthorizationController {
                 user.getUser_nickname(),
                 user.getUser_gender(),
                 user.getUser_regdate(),
-                user.getUser_birthday(), 
+                user.getUser_birthday(),
                 user.getRole()
             );
-            return new ResponseEntity<>(user, HttpStatus.OK);
+            return 1;
         } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return 0;
         }
+    }
+    
+    @GetMapping("/idCheck/{user_id}")
+    public boolean idCheck(@PathVariable String user_id) {
+    	return registerUserService.idCheck(user_id);
+    	
+    }
+    
+    @GetMapping("/nicknameCheck/{user_nickname}")
+    public int nicknameCheck(@PathVariable String user_nickname) {
+    	boolean result = registerUserService.nicknameCheck(user_nickname);
+    	if (result) {
+    		// 닉네임이 있음
+    		return 0;
+    	} else {
+    		// 닉네임이 없음
+    		return 1;
+    	}
     }
 }

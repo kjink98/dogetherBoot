@@ -51,12 +51,13 @@
 	min-height: 500px;
 	border-bottom: 1px solid black;
 	padding: 20px;
+	white-space: pre-line;
 }
 
 .NewsDetailBody .image {
 	position: absolute;
-	bottom: 0;
-	margin-bottom: 50px;
+	/*bottom: 0;
+	margin-bottom: 50px;*/
 }
 
 .NewsDetailGroup .NewsDetailBody img {

@@ -19,9 +19,12 @@ import com.dogether.domain.Comment;
 import com.dogether.domain.ImageFile;
 import com.dogether.domain.Post;
 import com.dogether.dto.CommentEditDto;
+import com.dogether.dto.Post2ProcDto;
 import com.dogether.dto.PostListDto;
 import com.dogether.service.PostService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -31,15 +34,26 @@ public class PostController {
 
 	private final PostService postService;
 	
+	@GetMapping("/mainList/{news}/{promotion}")
+	public Map<String, Object> getMainList(@PathVariable String news, @PathVariable String promotion) {
+		List<PostListDto> newsList = postService.getMainList(news);
+		List<PostListDto> promotionList = postService.getMainList(promotion);
+		Map<String, Object> map = new HashMap<>();
+		map.put("newsList", newsList);
+		map.put("promotionList", promotionList);
+		return map;
+	}
+	
 	@GetMapping("/list/{board_category}")
 	public List<PostListDto> getPostList(@PathVariable String board_category) {
 		return postService.getPostList(board_category);
 	}
 	
 	@GetMapping("/detail/{board_category}/{post_id}")
-	public Map<String, Object> getPostDetail(Post post) {
+	public Map<String, Object> getPostDetail(Post post, HttpServletRequest request, HttpServletResponse response) {
 		Post detail = postService.getPostDetail(post);
 		List<ImageFile> fileList = postService.getFile(post.getPost_id());
+		postService.setViews(post.getPost_id(), request, response);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("detail", detail);
 		map.put("files", fileList);
@@ -50,6 +64,20 @@ public class PostController {
 	public String setPost(@RequestPart Post post, @RequestPart(value = "files", required = false) MultipartFile[] files) {
 		postService.setPost(post, files);
 		return "post_post";
+	}
+	
+	// 글쓰기 에디터용(뉴스)
+	@PostMapping(path = "/img", consumes = { "multipart/form-data" })
+	public String setImage(@RequestPart String board_category, @RequestPart(value="image") MultipartFile file) {
+		String url = postService.setImage(board_category, file);
+		return url;
+	}
+	
+	// 글쓰기 에디터용(뉴스)
+	@PostMapping("/post2")
+	public String setPost2(@RequestBody Post2ProcDto post2ProcDto) {
+		postService.setPost2(post2ProcDto);
+		return "setPost2";
 	}
 	
 	@DeleteMapping("/delete/{post_id}")

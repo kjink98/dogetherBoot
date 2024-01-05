@@ -15,9 +15,15 @@ import com.dogether.domain.Post;
 
 @Mapper
 public interface PostMapper {
+	
+	@Select("SELECT * FROM tblpost WHERE board_category=#{board_category} order by post_id desc LIMIT 5")
+	List<Post> selectMainData(String board_category);
 
 	@Select("SELECT * FROM tblpost WHERE board_category=#{board_category} order by post_id desc")
 	List<Post> selectAll(String board_category);
+	
+	@Select("SELECT * FROM tblfile")
+	List<ImageFile> selectFileList(String board_category);
 	
 	@Select("SELECT * FROM tblpost WHERE board_category=#{board_category} and post_id=#{post_id}")
 	Post selectOne(Post post);
@@ -25,12 +31,15 @@ public interface PostMapper {
 	@Select("SELECT * FROM tblfile WHERE post_id=#{post_id}")
 	List<ImageFile> selectFile(int post_id);
 	
+	@Update("UPDATE tblpost SET post_views = post_views + 1 WHERE post_id=#{post_id}")
+	void updateViews(int post_id);
+	
 	@SelectKey(before=true, keyProperty="post_id", resultType=int.class, statement= {"SELECT nextval(post_id_seq) FROM DUAL"})
 	@Insert("INSERT INTO tblpost(post_id, board_category, user_id, user_nickname, post_title, post_content, post_create_date) "
 			+ "VALUES(#{post_id}, #{board_category}, #{user_id}, #{user_nickname}, #{post_title}, #{post_content}, now())")
 	void insertOne(Post post);
 	
-	@Insert("INSERT INTO tblfile(file_id, post_id, file_oriname, file_link, file_create_date) VALUES(nextval(file_id_seq), lastval(post_id_seq), #{file_oriname}, #{file_link}, now())")
+	@Insert("INSERT INTO tblfile(file_id, post_id, board_category, file_oriname, file_link, file_create_date) VALUES(nextval(file_id_seq), lastval(post_id_seq), #{board_category}, #{file_oriname}, #{file_link}, now())")
 	void insertFile(ImageFile imageFile);
 	
 	@Delete("DELETE FROM tblpost WHERE post_id=#{post_id}")

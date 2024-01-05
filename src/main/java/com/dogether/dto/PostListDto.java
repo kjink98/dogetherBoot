@@ -27,6 +27,7 @@ public class PostListDto {
 	private int post_views;
 	private int file_id;
 	private String file_link;
+	private int post_comment;
 	
 	@Builder
 	public PostListDto(Post post) {

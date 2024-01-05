@@ -8,6 +8,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import axios from 'axios';
 import moment from 'moment';
 import Comment from '../../components/js/Comment';
+import Dompurify from 'dompurify';
 
 const PostDetail = () => {
   const [postDetail, setPostDetail] = useState({});
@@ -93,12 +94,10 @@ const PostDetail = () => {
                 <p className="title">{postDetail.post_title}</p>
                 <p className="subtitle">{postDetail.user_nickname} | {moment(postDetail.post_create_date).format('YYYY-MM-DD')} | 조회수 : {postDetail.post_views}</p>
               </ListGroup.Item>
-              <ListGroup.Item className="NewsDetailBody">{postDetail.post_content}<br /><br />
-                <div className="image">
-                  {postFiles && postFiles.map((file) =>
-                    <img src={`${process.env.PUBLIC_URL}/img/${file.file_link}`} style={{top:500, left:400}}/>
-                  )}
-                </div>
+              <ListGroup.Item className="NewsDetailBody">
+              {process.browser && 
+              	<div dangerouslySetInnerHTML={{__html: Dompurify.sanitize(postDetail.post_content)}}></div>
+              }
               </ListGroup.Item>
             </ListGroup>
 
