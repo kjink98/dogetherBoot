@@ -37,22 +37,21 @@ const Myinfo2 = () => {
     <>
       <MySideBar />
       <br />
-      <div className='withdrawal'>
-        <p className='p_1'>내 정보 수정</p>
+      <p className='p_1'>내 정보 수정</p>
+
+      <div className="myinfo2">
         <InputGroup className="mb-3">
           <InputGroup.Text id="inputGroup-sizing-default">
             <b>닉네임</b>
           </InputGroup.Text>
           <Form.Control
-            placeholder="닉네임"
+            defaultValue="닉네임"
             aria-label="Default"
             aria-describedby="inputGroup-sizing-default"
           />
           <Button variant="primary">변경</Button>{' '}
         </InputGroup>
-      </div>
-      <br />
-      <div className="myinfo2">
+        <br />
 
         <InputGroup className="mb-3">
           <InputGroup.Text id="basic-addon1">
@@ -66,17 +65,20 @@ const Myinfo2 = () => {
           />
         </InputGroup>
         <br />
+
         <InputGroup className="mb-3">
           <InputGroup.Text id="basic-addon1">
             <b>아이디</b>
           </InputGroup.Text>
           <Form.Control
-            placeholder="아이디"
+            defaultValue="아이디"
             aria-label="Username"
             aria-describedby="basic-addon1"
           />
+          <Button variant="primary">변경</Button>{' '}
         </InputGroup>
         <br />
+
         <InputGroup className="mb-3">
           <InputGroup.Text id="basic-addon1">
             <b>이름</b>
@@ -89,17 +91,20 @@ const Myinfo2 = () => {
           />
         </InputGroup>
         <br />
+
         <InputGroup className="mb-3">
           <InputGroup.Text id="basic-addon1">
             <b>생년월일</b>
           </InputGroup.Text>
           <Form.Control
+            disabled
             aria-label="Username"
             aria-describedby="basic-addon1"
             type='date'
           />
         </InputGroup>
         <br />
+
         <InputGroup className="mb-3">
           <InputGroup.Text id="basic-addon1">
             <b>성별</b>
@@ -112,21 +117,19 @@ const Myinfo2 = () => {
           />
         </InputGroup>
         <br />
-        <InputGroup className="mb-3">
+
+        <InputGroup className="mb-3 myinfo_usertype">
           <InputGroup.Text id="basic-addon1">
             <b>회원 종류</b>
           </InputGroup.Text>
-          <Form.Control
-            placeholder="일반회원"
-            aria-label="Username"
-            aria-describedby="basic-addon1"
-          />
+          <form>
+            <input type='radio' name='usertype' value='normal' checked="checked"/>일반 회원
+            <input type='radio' name='usertype' value='seller'/>판매자 회원
+          </form>
         </InputGroup>
-      </div>
-      <br />
+        <br />
 
-      <div className='withdrawal'>
-        <InputGroup className="mb-3">
+        <InputGroup className="mb-3 userdelete">
           <InputGroup>
             <InputGroup.Text id="inputGroup-sizing-default">
               <b>회원 탈퇴</b>
@@ -143,7 +146,13 @@ const Myinfo2 = () => {
             <Button onClick={handleWithdrawal} variant="danger">회원 탈퇴</Button>{' '}
           </InputGroup>
         </InputGroup>
+        <br />
+      
+        <Button variant="primary" type="submit">변경사항 저장</Button>
       </div>
+      <br />
+
+      
       {/* <MemberDelete /> */}
     </>
   )
