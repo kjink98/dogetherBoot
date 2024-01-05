@@ -1,21 +1,86 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import '../css/PlaceCheckBox.css';
+import axios from 'axios';
 
-function PlaceCheckBox() {
-  const [checkedValues, setValue] = useState([]);
+function PlaceCheckBox({ setPlaceList, place_category }) {
+  const [checkedValues, setCheckedValues] = useState({
+    place_parking: false,
+    place_inout: 0,
+    place_weekend: 0,
+    place_dogsize: 0
+  });
   function handleChange(event) {
     const { value, checked } = event.target
 
-    if (checked) {
-      setValue(pre => [...pre, value])
+    if (value === "주차장") {
+      if (checked) {
+        setCheckedValues({ ...checkedValues, place_parking: !checkedValues.place_parking.valueOf() });
+      } else {
+        setCheckedValues({ ...checkedValues, place_parking: !checkedValues.place_parking.valueOf() });
+      }
+    } else if (value === "실내") {
+      if (checked) {
+        setCheckedValues({ ...checkedValues, place_inout: checkedValues.place_inout.valueOf() + 2 });
+      } else {
+        setCheckedValues({ ...checkedValues, place_inout: checkedValues.place_inout.valueOf() - 2 });
+      }
+    } else if (value === "실외") {
+      if (checked) {
+        setCheckedValues({ ...checkedValues, place_inout: checkedValues.place_inout.valueOf() + 1 });
+      } else {
+        setCheckedValues({ ...checkedValues, place_inout: checkedValues.place_inout.valueOf() - 1 });
+      }
+    } else if (value === "토요일영업") {
+      if (checked) {
+        setCheckedValues({ ...checkedValues, place_weekend: checkedValues.place_weekend.valueOf() + 2 });
+      } else {
+        setCheckedValues({ ...checkedValues, place_weekend: checkedValues.place_weekend.valueOf() - 2 });
+      }
+    } else if (value === "일요일영업") {
+      if (checked) {
+        setCheckedValues({ ...checkedValues, place_weekend: checkedValues.place_weekend.valueOf() + 1 });
+      } else {
+        setCheckedValues({ ...checkedValues, place_weekend: checkedValues.place_weekend.valueOf() - 1 });
+      }
+    } else if (value === "소형견") {
+      if (checked) {
+        setCheckedValues({ ...checkedValues, place_dogsize: checkedValues.place_dogsize.valueOf() + 4 });
+      } else {
+        setCheckedValues({ ...checkedValues, place_dogsize: checkedValues.place_dogsize.valueOf() - 4 });
+      }
+    } else if (value === "중형견") {
+      if (checked) {
+        setCheckedValues({ ...checkedValues, place_dogsize: checkedValues.place_dogsize.valueOf() + 2 });
+      } else {
+        setCheckedValues({ ...checkedValues, place_dogsize: checkedValues.place_dogsize.valueOf() - 2 });
+      }
+    } else if (value === "대형견") {
+      if (checked) {
+        setCheckedValues({ ...checkedValues, place_dogsize: checkedValues.place_dogsize.valueOf() + 1 });
+      } else {
+        setCheckedValues({ ...checkedValues, place_dogsize: checkedValues.place_dogsize.valueOf() - 1 });
+      }
     }
 
-    else {
-      setValue(pre => {
-        return [...pre.filter(skill => skill !== value)]
-      })
-    }
+
+    // else {
+    //   setCheckedValues(pre => {
+    //     return [...pre.filter(skill => skill !== value)]
+    //   })
+    // }
   }
+
+  useEffect(() => {
+    const getPlaceList = async () => {
+      let params = {
+        ...checkedValues,
+        place_category: place_category
+      }
+      const resp = await axios.post(`/dog/place/list`, params)
+      setPlaceList(resp.data);
+    }
+    getPlaceList();
+  }, [checkedValues]);
 
   {/* let data = ['최신순', '별점높은순', '별점낮은순'];
 	let [btnActive, setBtnActive] = useState("");

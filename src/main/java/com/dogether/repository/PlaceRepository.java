@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.dogether.domain.FavoritePlace;
 import com.dogether.domain.Place;
+import com.dogether.dto.PlaceCount;
 import com.dogether.mapper.FavoritePlaceMapper;
 import com.dogether.mapper.PlaceMapper;
 
@@ -19,7 +20,12 @@ public class PlaceRepository {
     private final FavoritePlaceMapper favoritePlaceMapper;
 
     public List<Place> getDataAll(String place_category) {
-        List<Place> list = placeMapper.SelectAll(place_category);
+        List<Place> list = placeMapper.selectAll(place_category);
+        return list;
+    }
+
+    public List<Place> getDataChecked(Place place) {
+        List<Place> list = placeMapper.selectChecked(place);
         return list;
     }
     
@@ -35,4 +41,9 @@ public class PlaceRepository {
         favoritePlaceMapper.insertFavorite(favoritePlace);
         return 1;
     }
+
+    public List<PlaceCount> getCountAll() {
+        return placeMapper.countAll();
+    }
+
 }

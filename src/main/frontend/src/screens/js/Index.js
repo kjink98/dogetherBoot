@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import { React, useState, useEffect } from 'react';
 import '../css/Index.css'
 import IndexCarousel from '../../components/js/IndexCarousel.js';
 import Badge from 'react-bootstrap/Badge';
@@ -9,7 +9,7 @@ import axios from 'axios';
 import moment from 'moment';
 
 function Index() {
-   
+  const [placeCount, setPlaceCount] = useState([]);
   const [newsList, setNewsList] = useState([]);
   const [promotionList, setPromotionList] = useState([]);
   useEffect(() => {
@@ -19,6 +19,11 @@ function Index() {
 		  setPromotionList(resp.data.promotionList);
 	  }
 	  getPostList();
+    const getPlaceCount = async () => {
+      const resp = await axios.get(`/dog/place/count`);
+      setPlaceCount(prev => resp.data);
+    }
+    getPlaceCount();
   }, []);
 
   return (
@@ -37,15 +42,9 @@ function Index() {
           </Toast.Header>
           <Toast.Body>
             <p>
-              <a href="https://www.naver.com"><FontAwesomeIcon icon={faUtensils} />&nbsp;식당&nbsp;<Badge pill>35</Badge></a>
-              <a href="https://www.naver.com"><FontAwesomeIcon icon={faHospital} />&nbsp;병원&nbsp;<Badge pill>35</Badge></a>
-              <a href="https://www.naver.com"><FontAwesomeIcon icon={faMugSaucer} />&nbsp;카페&nbsp;<Badge pill>35</Badge></a>
-              <a href="https://www.naver.com"><FontAwesomeIcon icon={faBowlFood} />&nbsp;애견카페&nbsp;<Badge pill>35</Badge></a><br />
-              <a href="https://www.naver.com"><FontAwesomeIcon icon={faBed} />&nbsp;숙소&nbsp;<Badge pill>35</Badge></a>
-              <a href="https://www.naver.com"><FontAwesomeIcon icon={faSchoolFlag} />&nbsp;애견유치원&nbsp;<Badge pill>35</Badge></a>
-              <a href="https://www.naver.com"><FontAwesomeIcon icon={faBone} />&nbsp;훈련소&nbsp;<Badge pill>35</Badge></a><br />
-              <a href="https://www.naver.com"><FontAwesomeIcon icon={faBasketShopping} />&nbsp;애견용품점&nbsp;<Badge pill>35</Badge></a>
-              <a href="https://www.naver.com"><FontAwesomeIcon icon={faTree} />&nbsp;애견운동장 / 산책&nbsp;<Badge pill>35</Badge></a>
+              {placeCount.map(pc => (
+                <a key={pc.index} href={"/place/" + pc.place_category}><FontAwesomeIcon icon={faUtensils} />&nbsp;{pc.korean_category}&nbsp;<Badge pill>{pc.count}</Badge></a>
+              ))}
             </p>
           </Toast.Body>
         </Toast>

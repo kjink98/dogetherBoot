@@ -18,11 +18,11 @@ const NavBar = () => {
               <NavDropdown.Item href="/place/restaurant">식당</NavDropdown.Item>
               <NavDropdown.Item href="/place/hospital">병원</NavDropdown.Item>
               <NavDropdown.Item href="/place/cafe">카페</NavDropdown.Item>
-              <NavDropdown.Item href="/place/dogCafe">애견카페</NavDropdown.Item>
+              <NavDropdown.Item href="/place/dogcafe">애견카페</NavDropdown.Item>
               <NavDropdown.Item href="/place/hotel">숙소</NavDropdown.Item>
               <NavDropdown.Item href="/place/school">애견유치원</NavDropdown.Item>
               <NavDropdown.Item href="/place/training">훈련소</NavDropdown.Item>
-              <NavDropdown.Item href="/place/dogShop">애견용품점</NavDropdown.Item>
+              <NavDropdown.Item href="/place/dogshop">애견용품점</NavDropdown.Item>
               <NavDropdown.Item href="/place/playground">애견운동장/산책</NavDropdown.Item>
             </NavDropdown>
 
