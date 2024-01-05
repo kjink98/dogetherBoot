@@ -19,6 +19,7 @@ import com.dogether.domain.Comment;
 import com.dogether.domain.ImageFile;
 import com.dogether.domain.Post;
 import com.dogether.dto.CommentEditDto;
+import com.dogether.dto.Post2ProcDto;
 import com.dogether.dto.PostListDto;
 import com.dogether.service.PostService;
 
@@ -63,6 +64,20 @@ public class PostController {
 	public String setPost(@RequestPart Post post, @RequestPart(value = "files", required = false) MultipartFile[] files) {
 		postService.setPost(post, files);
 		return "post_post";
+	}
+	
+	// 글쓰기 에디터용(뉴스)
+	@PostMapping(path = "/img", consumes = { "multipart/form-data" })
+	public String setImage(@RequestPart String board_category, @RequestPart(value="image") MultipartFile file) {
+		String url = postService.setImage(board_category, file);
+		return url;
+	}
+	
+	// 글쓰기 에디터용(뉴스)
+	@PostMapping("/post2")
+	public String setPost2(@RequestBody Post2ProcDto post2ProcDto) {
+		postService.setPost2(post2ProcDto);
+		return "setPost2";
 	}
 	
 	@DeleteMapping("/delete/{post_id}")

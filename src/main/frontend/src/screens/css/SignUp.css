@@ -1,87 +1,99 @@
 .radio_1 {
-	padding: 6px;
-	padding-left: 30px;
+    padding: 6px;
+    padding-left: 30px;
 }
 
 .consent_1 {
-	/* overflow: hidden; */
-	margin: 10px 10px 10px 10px;
+    /* overflow: hidden; */
+    margin: 10px 10px 10px 10px;
 }
 
 div.left_1 {
-	float: left;
-	/* background-color: lightblue; */
+    float: left;
+    /* background-color: lightblue; */
 }
 
 .right_1 {
-	float: right;
-	/* background-color: lightcoral; */
+    float: right;
+    /* background-color: lightcoral; */
 }
 
 .redtext {
-	color: red;
+    color: red;
 }
 
 .consent_2 {
-	/* overflow: hidden; */
-	margin: 10px 10px 10px 10px;
+    /* overflow: hidden; */
+    margin: 10px 10px 10px 10px;
 }
 
 div.left_2 {
-	float: left;
-	/* background-color: lightblue; */
+    float: left;
+    /* background-color: lightblue; */
 }
 
 .right_2 {
-	float: right;
-	/* background-color: lightcoral; */
+    float: right;
+    /* background-color: lightcoral; */
 }
 
 .date_1 {
-	/* width: 461px; */
-	border-radius: 4px;
-	border: 1px solid gainsboro;
+    border-radius: 4px;
+    border: 1px solid gainsboro;
+    width: 426px;
+    padding-left: 150px;
 }
 
 .input_1 {
-	display: flex;
+    display: flex;
 }
 
 
 /* 인풋 input 가로 */
 .mb-3.input-group {
-	width: 550px;
-}
-
-.date_1 {
-	width: 460px;
-	padding-left: 100px;
-}
-
-.email_1 {
-	width: 550px;
-}
-
-.email_2 {
-	display: flex;
+    width: 550px;
 }
 
 .emailbtn {
-	white-space: nowrap;
-	height: 38px;
-	margin-left: 20px;
+    white-space: nowrap;
+    height: 38px;
+    margin-left: 20px;
 }
 
 .msgAlert {
-	width: 550px;
-}
-
-.ppppp {
-	font-size: 50px;
-	font-weight: 600;
+    width: 550px;
 }
 
 .memType {
-	height: 38px;
-	display: flex;
+    height: 38px;
+    display: flex;
+}
+
+.ppppp {
+    font-size: 50px;
+    font-weight: 600;
+}
+
+#basic-addon1 {
+    width: 125px;
+}
+
+/* 메시지 출력 너비를 조절합니다 */
+.mb-3 {
+    margin: 10px 0!important;
+}
+
+.text-success.hidden, .email-warning.text-danger, .success, .fail {
+    text-align: left;
+}
+
+/* 중복 */
+.container_1 {
+    white-space:pre-wrap;
+    /* width: 20%; */
+    /* background-color: orange; */
+    text-align: center;
+    margin: 5vw 35vw auto ;
+    position: relative;
+    text-align: center;
 }

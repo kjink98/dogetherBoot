@@ -11,6 +11,7 @@ import com.dogether.domain.Comment;
 import com.dogether.domain.ImageFile;
 import com.dogether.domain.Post;
 import com.dogether.dto.CommentEditDto;
+import com.dogether.dto.Post2ProcDto;
 import com.dogether.dto.PostListDto;
 import com.dogether.repository.PostRepository;
 import com.dogether.util.FileUtils;
@@ -55,7 +56,7 @@ public class PostService {
 		
 		for (int i = 0; i < postList.size(); i++) {
 			PostListDto listDto = new PostListDto(postList.get(i));
-			// 이미지 하나만 가져오기
+			// 이미지 하나만 담기
 			Optional<ImageFile> result = fileList.stream().filter(x -> x.getPost_id() == listDto.getPost_id()).findFirst();
 			if (result.isPresent()) {
 				listDto.setFile_id(result.get().getFile_id());
@@ -106,7 +107,7 @@ public class PostService {
 	}
 	
 	// 게시글 등록
-	public void setPost (Post post, MultipartFile[] files) {
+	public void setPost(Post post, MultipartFile[] files) {
 		post.setUser_id("yooram2"); // 임시 저장
 		post.setUser_nickname("푸들조아"); // 임시 저장
 		postRepository.setData(post);
@@ -115,6 +116,40 @@ public class PostService {
 		for (int i = 0; i < list.size(); i++) {
 			postRepository.insertFile(list.get(i));
 		}
+	}
+	
+	// 1개 이미지 url, file 생성 
+	public String setImage(String board_category, MultipartFile file) {
+		ImageFile imageFile = fileUtils.insertFileOne(board_category, file);
+		return imageFile.getFile_link();
+	}
+	
+	// 글쓰기 에디터용(뉴스) 게시글 등록
+	public void setPost2(Post2ProcDto post2ProcDto) {
+		Post post = new Post(post2ProcDto);
+		post.setUser_id("yooram2"); // 임시 저장
+		post.setUser_nickname("푸들조아"); // 임시 저장
+		postRepository.setData(post);
+		
+		// 최종 이미지 리스트 DB 저장
+		String[] lastUrlList = post2ProcDto.getLastUrlList();
+		for (int i = 0; i < lastUrlList.length; i++) {
+			ImageFile file = new ImageFile();
+			file.setBoard_category(post2ProcDto.getBoard_category());
+			file.setFile_link(lastUrlList[i]);
+			file.setFile_oriname("hi"); // 임시저장
+			postRepository.insertFile(file);
+		}
+		
+		// 최종이 아닌 이미지 file 삭제
+		String[] deleteUrlList = post2ProcDto.getDeleteUrlList();
+		List<ImageFile> list = new ArrayList<>();
+		for (int i = 0; i < deleteUrlList.length; i++) {
+			ImageFile file = new ImageFile();
+			file.setFile_link(deleteUrlList[i]);
+			list.add(file);
+		}
+		fileUtils.deleteFile(list);
 	}
 	
 	// 게시글 삭제
