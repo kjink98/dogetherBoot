@@ -2,13 +2,14 @@
     margin-left: 30vw;
 } */
 
-.myinfo {
-	white-space: pre-wrap;
-	/* width: 20%; */
-	/* background-color: orange; */
-	text-align: center;
-	margin: 5vw 35vw auto;
-	position: relative;
+.container_1 {
+    white-space:pre-wrap;
+    /* width: 20%; */
+    /* background-color: orange; */
+    text-align: center;
+    margin: 5vw 35vw auto ;
+    position: relative;
+    text-align: center;
 }
 
 .pwc_1 {

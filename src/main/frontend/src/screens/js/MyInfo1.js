@@ -43,42 +43,44 @@ const MyInfo = () => {
   return (
     <>
       <MySidebar />
-      <div className="myinfo">
-        <div className="info">
-          <p className="ppp">내 정보 수정</p>
-        </div>
+      <div className='container_1'>
+                <div className="info">
+                    <p className='ppppp'>내 정보 수정</p>
+                </div>
+                <br /><br />
+                <div><h5>비밀번호를 입력해 주세요.</h5></div>
+                <br />
 
-        <div><h5>비밀번호를 입력해 주세요.</h5></div>
-        <br />
+                <div className='pwc_1'>
+                    <InputGroup className="mb-3">
+                        <InputGroup.Text id="basic-addon1">
+                            비밀번호
+                        </InputGroup.Text>
+                        <Form.Control
+                            type={passwordVisible ? 'text' : 'password'}
+                            aria-label="Username"
+                            aria-describedby="basic-addon1"
+                            onChange={handlePasswordChange}
+                        />
+                    </InputGroup>
+                    <div className='eye_1'>
+                        <FontAwesomeIcon
+                            icon={faEye}
+                            size="xl"
+                            onClick={togglePasswordVisibility}
+                            className={Myinfomodule['eye-icon']}
+                        />
+                    </div>
 
-        <div className='pwc_1'>
-          <InputGroup className="mb-3 checkpass">
-            <InputGroup.Text id="basic-addon1">
-              <FontAwesomeIcon icon={faKey} />
-            </InputGroup.Text>
-            <Form.Control
-              type={passwordVisible ? 'text' : 'password'}
-              aria-label="Username"
-              aria-describedby="basic-addon1"
-              onChange={handlePasswordChange}
-            />
-          </InputGroup>
-          <FontAwesomeIcon
-            icon={faEye}
-            size="xl"
-            onClick={togglePasswordVisibility}
-            className={Myinfomodule['eye-icon']}
-          />
-        </div>
-
-        <Button
-          className={Myinfomodule['custom-button']}
-          as="input"
-          type="button"
-          value="확인"
-          onClick={handleConfirmClick} // 버튼 클릭 시 handleConfirmClick 함수 호출
-        />{' '}
-      </div>
+                </div>
+                <Button
+                    className={Myinfomodule['custom-button']}
+                    as="input"
+                    type="button"
+                    value="확인"
+                    onClick={handleConfirmClick} // 버튼 클릭 시 handleConfirmClick 함수 호출
+                />{' '}
+            </div>
     </>
   )
 };

@@ -26,10 +26,11 @@ const PwChange = () => {
     const newPassword = e.target.value;
     setPassword(newPassword);
 
-    // 비밀번호 규칙 검사
-    const isValid = newPassword.length >= 4 && /[0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(newPassword);
+    // 비밀번호 형식 검사 (영어, 숫자, 특수문자가 모두 포함된 8자리)
+    const isValid = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$/.test(newPassword);
     setPasswordValid(isValid);
   };
+
 
   const handleConfirmPasswordChange = (e) => {
     const newConfirmPassword = e.target.value;
@@ -42,30 +43,34 @@ const PwChange = () => {
   return (
     <>
       <MySideBar />
-      <div className="PwChange">
-        <p className='pppp'>비밀번호 변경</p>
+      <div className="container_1">
+        <p className='ppppp'>비밀번호 변경</p>
         <br></br>
-        <h4 className='pwc_3'>현제 비밀번호를 입력해 주세요</h4>
+        <h4 className='pwc_3'>현재 비밀번호를 입력해 주세요</h4>
 
         <div className='Login_1'>
           <div className='input_1'>
             <InputGroup className="mb-3">
-              <InputGroup.Text id="basic-addon1">
+              <InputGroup.Text id="basic-addon2">
                 <FontAwesomeIcon icon={faKey} />
               </InputGroup.Text>
+
               <Form.Control
                 type={passwordVisible ? 'text' : 'password'}
-                placeholder="현제 비밀번호"
+                placeholder="현재 비밀번호"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
               />
             </InputGroup>
-            <FontAwesomeIcon
-              icon={faEye}
-              size="xl"
-              onClick={togglePasswordVisibility}
-              className={Myinfomodule['eye-icon']}
-            />
+            <div className='eye_3'>
+              <FontAwesomeIcon
+                icon={faEye}
+                size="xl"
+                onClick={togglePasswordVisibility}
+                className={Myinfomodule['eye-icon']}
+              />
+            </div>
+
           </div>
         </div>
         <br />
@@ -74,7 +79,7 @@ const PwChange = () => {
         <div className='Login_1'>
           <div className='input_1'>
             <InputGroup className="mb-3">
-              <InputGroup.Text id="basic-addon1">
+              <InputGroup.Text id="basic-addon2">
                 <FontAwesomeIcon icon={faKey} />
               </InputGroup.Text>
               <Form.Control
@@ -87,16 +92,19 @@ const PwChange = () => {
             </InputGroup>
           </div>
         </div>
-
+        {!passwordValid && (
+          <div className='password-warning text-danger' style={{ fontWeight: 'bold' }}>
+            최소 8자 이상이어야 하며, 숫자, 영어,특수 문자를 모두 포함해야 합니다.
+          </div>
+        )}
         <br />
-
 
         <h4 className='pwc_3'>변경하려는 비밀번호를 다시 한 번 입력해 주세요</h4>
 
         <div className='pwc_2'>
           <div className='pwc_3'>
             <InputGroup className="mb-3">
-              <InputGroup.Text id="basic-addon1">
+              <InputGroup.Text id="basic-addon2">
                 <FontAwesomeIcon icon={faKey} />
               </InputGroup.Text>
               <Form.Control
@@ -110,21 +118,14 @@ const PwChange = () => {
           </div>
         </div>
 
-        {!passwordValid && (
-          <div className='password-warning'>
-            비밀번호는 최소 4자 이상이어야 하며, 숫자 또는 특수 문자 중 최소 1종류를 포함해야 합니다.
-          </div>
-        )}
         {passwordMismatch && (
-          <div className='password-warning'>
+          <div className='password-warning text-danger' style={{ fontWeight: 'bold' }}>
             비밀번호 확인이 일치하지 않습니다.
           </div>
         )}
-
+        <br />
+        <Button className={Myinfomodule['custom-button']} as="input" type="button" value="확인" />{' '}
       </div>
-
-      <Button className={Myinfomodule['custom-button']} as="input" type="button" value="확인" />{' '}
-
     </>
 
   )

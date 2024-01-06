@@ -1,38 +1,37 @@
-.Find_1 {
-	display: flex;
+.container_2 {
+    text-align: center;
 }
 
 .left_3 {
-	/* background-color: chocolate; */
-	float: left;
-	width: 50%;
-	padding: 100px;
+    float: left;
+    width: 50%;
+    padding: 100px;
 }
 
 .right_3 {
-	/* background-color: bisque; */
-	float: right;
-	width: 50%;
-	padding: 100px
+    float: right;
+    width: 50%;
+    padding: 100px;
+    padding-left: 200px;
 }
 
 .date_2 {
-	border-radius: 4px;
-	border: 1px solid gainsboro;
+    border-radius: 4px;
+    border: 1px solid gainsboro;
 }
 
 .custom-button {
-	margin-top: 50px;
-}
-
-.leftInput {
-	margin-left: 180px;
-}
-
-.rightInput {
-	margin-left: 180px;
+    margin-top: 50px;
 }
 
 .find_2 {
-	width: 400px !important;
+    width: 400px !important;
+}
+
+.leftInput {
+    margin-left: 180px;
+}
+
+.rightInput {
+    margin-left: 100px;
 }

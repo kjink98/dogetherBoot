@@ -9,6 +9,13 @@ import MySideBar from '../../components/js/MySideBar.js';
 const Myinfo2 = () => {
   const [passwordInput, setPasswordInput] = useState('');
 
+  const [info, setInfo] = useState({
+    name: "",
+    birth: "",
+    gender: "",
+    role: ""
+  });
+
   const handlePasswordChange = (event) => {
     setPasswordInput(event.target.value);
   };
@@ -33,25 +40,30 @@ const Myinfo2 = () => {
     }
   };
 
+  const handleInfoChange = (e) => {
+    const { name, value } = e.target;
+    setInfo({ ...info, [name]: value })
+  }
+
   return (
     <>
       <MySideBar />
-      <br />
-      <p className='p_1'>내 정보 수정</p>
-
       <div className="myinfo2">
-        <InputGroup className="mb-3">
-          <InputGroup.Text id="inputGroup-sizing-default">
-            <b>닉네임</b>
-          </InputGroup.Text>
-          <Form.Control
-            defaultValue="닉네임"
-            aria-label="Default"
-            aria-describedby="inputGroup-sizing-default"
-          />
-          <Button variant="primary">변경</Button>{' '}
-        </InputGroup>
-        <br />
+
+        <div className='withdrawal'>
+          <p className='ppppp'>내 정보 수정</p>
+          <InputGroup className="mb-3">
+            <InputGroup.Text id="inputGroup-sizing-default">
+              <b>닉네임</b>
+            </InputGroup.Text>
+            <Form.Control
+              placeholder="닉네임"
+              aria-label="Default"
+              aria-describedby="inputGroup-sizing-default"
+            />
+            <Button variant="primary">변경</Button>{' '}
+          </InputGroup>
+        </div>
 
         <InputGroup className="mb-3">
           <InputGroup.Text id="basic-addon1">
@@ -64,21 +76,16 @@ const Myinfo2 = () => {
             aria-describedby="basic-addon1"
           />
         </InputGroup>
-        <br />
-
         <InputGroup className="mb-3">
           <InputGroup.Text id="basic-addon1">
             <b>아이디</b>
           </InputGroup.Text>
           <Form.Control
-            defaultValue="아이디"
+            placeholder="아이디"
             aria-label="Username"
             aria-describedby="basic-addon1"
           />
-          <Button variant="primary">변경</Button>{' '}
         </InputGroup>
-        <br />
-
         <InputGroup className="mb-3">
           <InputGroup.Text id="basic-addon1">
             <b>이름</b>
@@ -90,21 +97,16 @@ const Myinfo2 = () => {
             aria-describedby="basic-addon1"
           />
         </InputGroup>
-        <br />
-
         <InputGroup className="mb-3">
           <InputGroup.Text id="basic-addon1">
             <b>생년월일</b>
           </InputGroup.Text>
           <Form.Control
-            disabled
             aria-label="Username"
             aria-describedby="basic-addon1"
             type='date'
           />
         </InputGroup>
-        <br />
-
         <InputGroup className="mb-3">
           <InputGroup.Text id="basic-addon1">
             <b>성별</b>
@@ -116,20 +118,23 @@ const Myinfo2 = () => {
             aria-describedby="basic-addon1"
           />
         </InputGroup>
-        <br />
 
-        <InputGroup className="mb-3 myinfo_usertype">
-          <InputGroup.Text id="basic-addon1">
-            <b>회원 종류</b>
-          </InputGroup.Text>
-          <form>
-            <input type='radio' name='usertype' value='normal' checked="checked"/>일반 회원
-            <input type='radio' name='usertype' value='seller'/>판매자 회원
-          </form>
-        </InputGroup>
-        <br />
+        <InputGroup className="mb-3">
+                    <div className='memType'>
+                        <InputGroup.Text id="basic-addon1"><b>회원 종류</b></InputGroup.Text>
+                        <div className='radio_1'>
+                            {['radio'].map((type) => (
+                                <div key={`inline-${type}`} className="radio_2">
+                                    <Form.Check inline vlaue="USER" label="일반회원" name="role" type={type} id={`inline-${type}-1`} onChange={handleInfoChange} />
+                                    <Form.Check inline vlaue="SELLER" label="판매자회원" name="role" type={type} id={`inline-${type}-2`} onChange={handleInfoChange} />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <Button variant="primary">변경</Button>{' '}
+                </InputGroup>
 
-        <InputGroup className="mb-3 userdelete">
+        <InputGroup className="mb-3">
           <InputGroup>
             <InputGroup.Text id="inputGroup-sizing-default">
               <b>회원 탈퇴</b>
@@ -146,14 +151,8 @@ const Myinfo2 = () => {
             <Button onClick={handleWithdrawal} variant="danger">회원 탈퇴</Button>{' '}
           </InputGroup>
         </InputGroup>
-        <br />
-      
-        <Button variant="primary" type="submit">변경사항 저장</Button>
       </div>
-      <br />
 
-      
-      {/* <MemberDelete /> */}
     </>
   )
 }

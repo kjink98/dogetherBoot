@@ -28,61 +28,67 @@ const Login = () => {
 
   return (
     <>
-      <div className='myinfo'>
-        <div className="info">
-          <p>로그인</p>
-        </div>
-        <br></br>
-        {/* <FontAwesomeIcon icon="fa-solid fa-user" /> */}
-        <InputGroup className="mb-3">
-          <InputGroup.Text id="basic-addon1">
-            <FontAwesomeIcon icon={faUser} />
-          </InputGroup.Text>
-          <Form.Control
-            placeholder="User Name"
-            aria-label="Username"
-            aria-describedby="basic-addon1"
-          />
-        </InputGroup>
+      <div className='container_1'>
+                <div className="info">
+                    <p className='ppppp'>로그인</p>
+                </div>
+                <br></br>
+                {/* <FontAwesomeIcon icon="fa-solid fa-user" /> */}
+                <InputGroup className="mb-3">
+                    <InputGroup.Text id="basic-addon2">
+                        <FontAwesomeIcon icon={faUser} />
+                    </InputGroup.Text>
+                    <Form.Control
+                        placeholder="User Name"
+                        aria-label="Username"
+                        aria-describedby="basic-addon1"
+                    />
+                </InputGroup>
 
-        <div className='input_1'>
-          <div>
-            <InputGroup className="mb-3">
-              <InputGroup.Text id="basic-addon1">
-                <FontAwesomeIcon icon={faKey} />
-              </InputGroup.Text>
-              <Form.Control
-                type={passwordVisible ? 'text' : 'password'}
-                placeholder="비밀번호"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-              />
-            </InputGroup>
-          </div>
+                <div className='input_1'>
+                    <div>
+                        <InputGroup className="mb-3">
+                            <InputGroup.Text id="basic-addon2">
+                                <FontAwesomeIcon icon={faKey} />
+                            </InputGroup.Text>
+                            <Form.Control
+                                type={passwordVisible ? 'text' : 'password'}
+                                placeholder="비밀번호"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                            />
+                        </InputGroup>
+                    </div>
 
-          <FontAwesomeIcon
-            icon={faEye}
-            size="xl"
-            onClick={togglePasswordVisibility}
-            className={Myinfomodule['eye-icon']}
-          />
-        </div>
+                    <div className='eye_1'>
+                        <FontAwesomeIcon
+                            icon={faEye}
+                            size="xl"
+                            onClick={togglePasswordVisibility}
+                            className={Myinfomodule['eye-icon']}
+                        />
+                    </div>
 
-        <div onClick={handleDivClick} style={{ cursor: 'pointer' }}>
-          <input type="checkbox" checked={isChecked} onChange={() => { }} /> {/* 숨겨진 체크박스 */}
-          로그인 유지하기
-        </div>
-        {/* input checked 속성은 type가 radio, checkbox일때 사용가능하며 기본값이 false */}
+                </div>
 
-      </div>
-      <div className='social'>
-        <FontAwesomeIcon icon={faGoogle} size='2xl' />
-        <FontAwesomeIcon icon={faGoogle} size='2xl' />
-        <FontAwesomeIcon icon={faComment} size='2xl' />
-      </div>
+                <div onClick={handleDivClick} style={{ cursor: 'pointer' }}>
+                    <input type="checkbox" checked={isChecked} onChange={() => { }} /> {/* 숨겨진 체크박스 */}
+                    로그인 유지하기
+                </div>
+                {/* input checked 속성은 type가 radio, checkbox일때 사용가능하며 기본값이 false */}
+
+                <br />
+                <div className='social'>
+                    <FontAwesomeIcon icon={faGoogle} size='2xl' />
+                    <FontAwesomeIcon icon={faGoogle} size='2xl' />
+                    <FontAwesomeIcon icon={faComment} size='2xl' />
+                </div>
+
+                <br />
+
+                <Button className={Myinfomodule['custom-button']} as="input" type="button" value="로그인" />{' '}
+            </div>
       <br />
-
-      <Button className={Myinfomodule['custom-button']} as="input" type="button" value="로그인" />{' '}
     </>
   )
 };
