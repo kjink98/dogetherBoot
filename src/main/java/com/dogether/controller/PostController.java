@@ -65,8 +65,9 @@ public class PostController {
     @PostMapping(path = "/post", consumes = { "multipart/form-data" })
     public ResponseEntity<String> setPost(@RequestPart Post post,
             @RequestPart(value = "files", required = false) MultipartFile[] files, Authentication authentication) {
-        postService.setPost(post, files);
-        return ResponseEntity.ok().body("리뷰 등록이 완료되었습니다.");
+        System.out.println(1234);
+        // postService.setPost(post, files);
+        return ResponseEntity.ok().body(authentication.getName() + "님의 리뷰 등록이 완료되었습니다.");
     }
 
     // 글쓰기 에디터용(뉴스)
@@ -79,7 +80,7 @@ public class PostController {
     // 글쓰기 에디터용(뉴스)
     @PostMapping("/post2")
     public String setPost2(@RequestBody Post2ProcDto post2ProcDto) {
-        postService.setPost2(post2ProcDto);
+        // postService.setPost2(post2ProcDto);
         return "setPost2";
     }
 

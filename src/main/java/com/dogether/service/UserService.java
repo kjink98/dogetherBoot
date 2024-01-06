@@ -194,6 +194,7 @@ public class UserService {
 	
 	public String login(String userName, String password) {
 		// 인증 과정 생략
+		System.out.println(secretKey);
 		return JwtUtil.createJwt(userName, secretKey, expiredMs);
 	}
 }

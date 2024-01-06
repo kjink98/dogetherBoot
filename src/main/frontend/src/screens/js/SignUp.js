@@ -275,8 +275,8 @@ const SignUp = () => {
 					  <div className='radio_1'>
 						  {['radio'].map((type) => (
 							  <div key={`inline-${type}`} className="mb-3">
-								  <Form.Check inline vlaue="USER" label="일반회원" name="role" type={type} id={`inline-${type}-1`} onChange={handleInfoChange} />
-								  <Form.Check inline vlaue="SELLER" label="판매자회원" name="role" type={type} id={`inline-${type}-2`} onChange={handleInfoChange} />
+								  <Form.Check inline value="USER" label="일반회원" name="role" type={type} id={`inline-${type}-1`} onChange={handleInfoChange} />
+								  <Form.Check inline value="SELLER" label="판매자회원" name="role" type={type} id={`inline-${type}-2`} onChange={handleInfoChange} />
 							  </div>
 						  ))}
 					  </div>
