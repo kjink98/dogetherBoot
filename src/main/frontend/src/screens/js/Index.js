@@ -4,7 +4,7 @@ import IndexCarousel from '../../components/js/IndexCarousel.js';
 import Badge from 'react-bootstrap/Badge';
 import Toast from 'react-bootstrap/Toast';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCompass, faUtensils, faHospital, faMugSaucer, faBowlFood, faBed, faSchoolFlag, faBone, faBasketShopping, faTree, faPaw, faQuoteLeft, faQuoteRight } from "@fortawesome/free-solid-svg-icons";
+import { faCompass, faPaw, faLocationDot, faQuoteLeft, faQuoteRight } from "@fortawesome/free-solid-svg-icons";
 import axios from 'axios';
 import moment from 'moment';
 
@@ -43,7 +43,7 @@ function Index() {
           <Toast.Body>
             <p>
               {placeCount.map(pc => (
-                <a key={pc.index} href={"/place/" + pc.place_category}><FontAwesomeIcon icon={faUtensils} />&nbsp;{pc.korean_category}&nbsp;<Badge pill>{pc.count}</Badge></a>
+                <a key={pc.index} href={"/place/" + pc.place_category}><FontAwesomeIcon icon={faLocationDot} />&nbsp;{pc.korean_category}&nbsp;<Badge pill>{pc.count}</Badge></a>
               ))}
             </p>
           </Toast.Body>

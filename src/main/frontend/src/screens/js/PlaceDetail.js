@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../css/PlaceDetail.css';
 import { Button, ProgressBar } from 'react-bootstrap';
+import RangeSlider from 'react-bootstrap-range-slider';
+
 import PlaceSideBar from '../../components/js/PlaceSideBar.js';
 import PlaceCarousel from '../../components/js/PlaceCarousel.js';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -83,6 +85,9 @@ const PlaceDetail = () => {
     })
   }
 
+  const [ value, setValue ] = React.useState(0);
+  const [ finalValue, setFinalValue ] = React.useState(0);
+
   const data = [
     {
       id: 0,
@@ -96,44 +101,51 @@ const PlaceDetail = () => {
           <p><FontAwesomeIcon icon={faTags} />미구현</p>
         </div>
     },
+
     {
       id: 1,
       title: "리뷰 " + "(" + ReviewCounts + ")",
       description:
         <div className="PlaceDetailReview">
+
           <div className="PlaceDetailWriteReview">
-            <p>현재 이 가게의 평점은 {PlaceScore}점 입니다. <br /> 로그인 시 리뷰 작성이 가능합니다.</p>
-            <Button variant="secondary">리뷰 작성하기</Button>
+            <div class="cm_write">
+              <fieldset>
+                <label class="skipinfo">리뷰 작성하기</label>
+                <div class="cm_input">
+                  <RangeSlider value={value} 
+                    onChange={e => setValue(e.target.value)} 
+                    onAfterChange={e => setFinalValue(e.target.value)} 
+                    step={1} 
+                    max={5}
+                    tooltipPlacement='top'
+                    tooltip='auto'
+                    variant='info'/>
+                  <p class="cm_score"><p class="cm_value">{finalValue}</p>점</p>
+                  <textarea id="content" name="content" onKeyUp={(e) => countingLength(e)} cols="90" rows="4" placeholder="리뷰를 입력해 주세요."></textarea>
+                  <span className="cm_submit"><Button type="button" class="btns" onClick={saveComment}>등록</Button><i id="counter">0/300자</i></span>
+                </div>
+              </fieldset>
+            </div>
           </div>
 
-          <div className="PlaceDetailProgressbar"><b>5점</b><ProgressBar now={Number(ReviewScoreFive / ReviewCounts * 100)} /><b>{ReviewScoreFive}명</b></div>
-          <div className="PlaceDetailProgressbar"><b>4점</b><ProgressBar now={Number(ReviewScoreFour / ReviewCounts * 100)} /><b>{ReviewScoreFour}명</b></div>
-          <div className="PlaceDetailProgressbar"><b>3점</b><ProgressBar now={Number(ReviewScoreFive / ReviewCounts * 100)} /><b>{ReviewScoreFive}명</b></div>
-          <div className="PlaceDetailProgressbar"><b>2점</b><ProgressBar now={Number(ReviewScoreFive / ReviewCounts * 100)} /><b>{ReviewScoreFive}명</b></div>
-          <div className="PlaceDetailProgressbar"><b>1점</b><ProgressBar now={Number(ReviewScoreFive / ReviewCounts * 100)} /><b>{ReviewScoreFive}명</b></div>
+          <div className="ProgressBars">
+            <div className="PlaceDetailProgressbar"><b>5점</b><ProgressBar now={Number(ReviewScoreFive / ReviewCounts * 100)} /><b>{ReviewScoreFive}명</b></div>
+            <div className="PlaceDetailProgressbar"><b>4점</b><ProgressBar now={Number(ReviewScoreFour / ReviewCounts * 100)} /><b>{ReviewScoreFour}명</b></div>
+            <div className="PlaceDetailProgressbar"><b>3점</b><ProgressBar now={Number(ReviewScoreFive / ReviewCounts * 100)} /><b>{ReviewScoreFive}명</b></div>
+            <div className="PlaceDetailProgressbar"><b>2점</b><ProgressBar now={Number(ReviewScoreFive / ReviewCounts * 100)} /><b>{ReviewScoreFive}명</b></div>
+            <div className="PlaceDetailProgressbar"><b>1점</b><ProgressBar now={Number(ReviewScoreFive / ReviewCounts * 100)} /><b>{ReviewScoreFive}명</b></div>
+          </div>
 
           <div className="PlaceDetailReviewList">
-            <div className="PlaceDetailReviews">
-              <FontAwesomeIcon icon={faCircleUser} />
-              <div className="PlaceReviewName">아아아아아</div>
-              <div className="PlaceReviewSub">5점 | 2023.12.27</div>
-              <div className="PlaceReviewContents">카페있는 강아지 친구들이 착해요. 시설도 깔끔해요. 흑임자랑 잘 놀다가요~ 직원분께서 친절해요! ㅎ 매트와 푹신한 방석이 있어서 아이들이 쉬기 좋은 카페같아요. 다만 이용시간 2시간이라 아쉬워요. 시간 칼같이 5분전에 다 됬다고 말해주시더라구요 ㅠㅠ카페있는 강아지 친구들이 착해요. 시설도 깔끔해요. 흑임자랑 잘 놀다가요~ 직원분께서 친절해요! ㅎ 매트와 푹신한 방석이 있어서 아이들이 쉬기 좋은 카페같아요. 다만 이용시간 2시간이라 아쉬워요. 시간 칼같이 5분전에 다 됬다고 말해주시더라구요 ㅠㅠ카페있는 강아지 친구들이 착해요. 시설도 깔끔해요. 흑임자랑 잘 놀다가요~ 직원분께서 친절해요! ㅎ 매트와 푹신한 방석이 있어서 아이들이 쉬기 좋은 카페같아요. 다만 이용시간 2시간이라 아쉬워요. 시간 칼같이 5분전에 다 됬다고 말해주시더라구요 ㅠㅠ
-                <div classsName="PlaceReviewImages">
-                  <img src={require('../../Img/Dog1.jpg')} /><img src={require('../../Img/Dog1.jpg')} /><img src={require('../../Img/Dog1.jpg')} />
-                </div>
+            {review.map(rev => (
+              <div className="PlaceDetailReviews">
+                <FontAwesomeIcon icon={faCircleUser} />
+                <div className="PlaceReviewName">{rev.review_title}</div>
+                <div className="PlaceReviewSub">{finalValue}점</div>
+                <div className="PlaceReviewContents">{rev.review_content}</div>
               </div>
-            </div>
-
-            <div className="PlaceDetailReviews">
-              <FontAwesomeIcon icon={faCircleUser} />
-              <div className="PlaceReviewName">아아아아아</div>
-              <div className="PlaceReviewSub">5점 | 2023.12.27</div>
-              <div className="PlaceReviewContents">카페있는 강아지 친구들이 착해요. 시설도 깔끔해요. 흑임자랑 잘 놀다가요~ 직원분께서 친절해요! ㅎ 매트와 푹신한 방석이 있어서 아이들이 쉬기 좋은 카페같아요. 다만 이용시간 2시간이라 아쉬워요. 시간 칼같이 5분전에 다 됬다고 말해주시더라구요 ㅠㅠ
-                <div classsName="PlaceReviewImages">
-                  <img src={require('../../Img/Dog1.jpg')} /><img src={require('../../Img/Dog1.jpg')} /><img src={require('../../Img/Dog1.jpg')} />
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
     }
@@ -167,21 +179,7 @@ const PlaceDetail = () => {
             <div>{item.description}</div>
           ))}
         </section>
-        <div class="cm_write">
-          <fieldset>
-            <legend class="skipinfo">리뷰 작성</legend>
-            <div class="cm_input">
-              <p><textarea id="content" name="content" onKeyUp={(e) => countingLength(e)} cols="90" rows="4" placeholder="리뷰를 입력해 주세요."></textarea></p>
-              <span><button type="button" class="btns" onClick={saveComment}>등 록</button> <i id="counter">0/300자</i></span>
-            </div>
-          </fieldset>
-        </div>
-        {review.map(rev => (
-          <div>
-            <h3>{rev.review_title}</h3>
-            <h3>{rev.review_content}</h3>
-          </div>
-        ))}
+
         {address && pname && <KakaoMap address={address} pname={pname}></KakaoMap>}
         <div id="clickLatlng"></div>
       </div>

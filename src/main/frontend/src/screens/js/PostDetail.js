@@ -8,6 +8,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import axios from 'axios';
 import moment from 'moment';
 import Comment from '../../components/js/Comment';
+import PostCarousel from '../../components/js/PostCarousel.js'
 
 const PostDetail = () => {
   const [postDetail, setPostDetail] = useState({});
@@ -95,9 +96,7 @@ const PostDetail = () => {
               </ListGroup.Item>
               <ListGroup.Item className="NewsDetailBody">{postDetail.post_content}<br /><br />
                 <div className="image">
-                  {postFiles && postFiles.map((file) =>
-                    <img src={`${process.env.PUBLIC_URL}/img/${file.file_link}`} style={{top:500, left:400}}/>
-                  )}
+                  <PostCarousel />
                 </div>
               </ListGroup.Item>
             </ListGroup>

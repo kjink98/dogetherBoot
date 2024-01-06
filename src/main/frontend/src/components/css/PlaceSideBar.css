@@ -6,7 +6,7 @@
 	float: left;
 	left: 0;
 	height: 100vh;
-	min-height: 650px;
+	min-height: 950px;
 	width: 250px;
 	transition: all 0.5s;
 	border-right: 1px solid black;
@@ -37,6 +37,7 @@
 	background: #F9D367;
 	color: white;
 	transition: all 0.5s;
+	text-decoration: none;
 }
 
 .PlaceSidebarMenu span.badge {

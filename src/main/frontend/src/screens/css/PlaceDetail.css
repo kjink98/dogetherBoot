@@ -35,12 +35,6 @@
 	border: 2px solid black;
 }
 
-.PlaceDetail Button:hover {
-	background-color: black;
-	color: white;
-	border: 2px solid white;
-}
-
 .PlaceDetail .fa-heart {
 	color: red;
 }
@@ -49,6 +43,7 @@
 	background-color: black;
 	color: white;
 	border: 2px solid white;
+	border-radius: 5px;
 }
 
 .PlaceDetail .active {
@@ -90,13 +85,17 @@
 }
 
 .PlaceDetail .PlaceDetailReview {
-	float: left;
+	display: inline-block;
+}
+
+.PlaceDetail .PlaceDetailReview .ProgressBars {
+	display: inline-block;
+	width: 550px;
 }
 
 .PlaceDetail .PlaceDetailReview .PlaceDetailProgressbar {
 	float: left;
-	width: 650px;
-	margin-left: 200px;
+	width: 550px;
 	margin-top: 10px;
 }
 
@@ -109,7 +108,7 @@
 .PlaceDetail .PlaceDetailReview .progress {
 	margin-left: 20px;
 	margin-right: 20px;
-	width: 500px;
+	width: 300px;
 	height: 25px;
 	float: left;
 }
@@ -120,24 +119,67 @@
 
 .PlaceDetail .PlaceDetailReview .PlaceDetailWriteReview {
 	float: left;
-	text-align: center;
-	width: 600px;
+	width: 900px;
 	height: 200px;
-	padding-left: 150px;
+	padding-left: 50px;
 }
 
-.PlaceDetail .PlaceDetailReview .PlaceDetailWriteReview button {
+.PlaceDetail .PlaceDetailReview .PlaceDetailWriteReview .cm_write{
+	width: 900px;
+}
+
+.PlaceDetail .PlaceDetailReview .PlaceDetailWriteReview .cm_write .range-slider__wrap{
+	float: left;
+	width: 400px;
+	margin-right: 50px;
+}
+
+.PlaceDetail .PlaceDetailReview .PlaceDetailWriteReview .cm_write .skipinfo{
+	float: left;
 	font-weight: 600;
+	font-size: 25px;
+	margin-right: 20px;
 }
 
-.PlaceDetail .PlaceDetailReview .PlaceDetailWriteReview p {
-	margin-top: 15px;
+.PlaceDetail .PlaceDetailReview .PlaceDetailWriteReview .cm_write .cm_score{
+	float: left;
 	font-size: 25px;
 	font-weight: 600;
 }
 
+.PlaceDetail .PlaceDetailReview .PlaceDetailWriteReview .cm_write .cm_value{
+	float: left;
+	color: #17a2b8;
+	font-weight: 700;
+	margin-right: 2px;
+}
+
+.PlaceDetail .PlaceDetailReview .PlaceDetailWriteReview .cm_input textarea{
+	float: left;
+	width: 600px;
+	resize: none;
+}
+
+.PlaceDetail .PlaceDetailReview .PlaceDetailWriteReview .cm_input .cm_submit{
+	float: left;
+	margin-top: 70px;
+}
+
+.PlaceDetail .PlaceDetailReview .PlaceDetailWriteReview .cm_input Button{
+	background-color: white;
+	color: black;
+	border: 2px solid black;
+	margin-right: 10px;
+}
+
+.PlaceDetail .PlaceDetailReview .PlaceDetailWriteReview .cm_input Button:hover {
+	background-color: black;
+	color: white;
+	border: 2px solid white;
+	border-radius: 5px;
+}
+
 .PlaceDetail .PlaceDetailReviewList {
-	margin-top: 200px;
 	margin-left: 35px;
 	margin-right: 40px;
 }

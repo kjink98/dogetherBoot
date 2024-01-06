@@ -5,6 +5,7 @@
 }
 
 .place_carousel .place_carousel_item img {
-	float: right;
+	object-fit: cover;
+	width: 100%;
 	height: 300px;
 }

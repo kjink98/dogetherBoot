@@ -5,7 +5,7 @@ import '../css/PostCarousel.css';
 const PostCarousel = () => {
   return (
     <>
-      <Carousel interval={null} className="post_carousel">
+      <Carousel slide={false} interval={null} className="post_carousel">
         <Carousel.Item className="post_carousel_item">
           <img className="d-block" src={require('../../Img/Promotion1.jpg')} alt="First slide" />
         </Carousel.Item>

@@ -11,7 +11,7 @@ import Cafe5 from '../../Img/Cafe5.jpg';
 const PlaceCarousel = () => {
   return (
     <>
-      <Carousel className="place_carousel">
+      <Carousel fade className="place_carousel">
         <Carousel.Item className="place_carousel_item">
           <img className="d-block" src={Cafe1} alt="First slide" />
           <Carousel.Caption>

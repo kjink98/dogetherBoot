@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import '../css/FavoritePlace.css';
 import MySideBar from '../../components/js/MySideBar.js';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faAngleLeft, faAngleRight, faAnglesLeft, faAnglesRight } from "@fortawesome/free-solid-svg-icons";
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const FavoritePlace = () => {
+  const navigate = useNavigate();
   const [favoritePlaceList, setFavoritePlaceList] = useState([]);
   const [favoritePlaceCount, setFavoritePlaceCount] = useState(0);
   let { user_id } = useParams();
@@ -19,34 +20,90 @@ const FavoritePlace = () => {
     getFavoritePlaceList();
   }, []);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const recordsPerPage = 9;
+  const lastIndex = currentPage * recordsPerPage;
+  const firstIndex = lastIndex - recordsPerPage;
+  const records = favoritePlaceList.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(favoritePlaceList.length / recordsPerPage);
+  let numbers = 0;
+
+  if (currentPage % 10 != 0) {
+    numbers = [...Array(npage + 1).keys()].slice(Math.floor(currentPage / 10) * 10 + 1, Math.floor(currentPage / 10) * 10 + 11);
+  }
+
+  else if (currentPage % 10 == 0) {
+    numbers = [...Array(npage + 1).keys()].slice(Math.floor((currentPage - 1) / 10) * 10 + 1, Math.floor((currentPage - 1) / 10) * 10 + 11);
+  }
+
   return (
-    <div>
+    <div className="FavoritePlace">
       <MySideBar></MySideBar>
       <div className="FavoritePlaceTitle">
         <p>관심 장소 모아보기</p>
       </div>
 
-      <div className="placecards">
-
+      <div className="FavoritePlaceCards">
         <div className="placecount">
           <p>내가 지금까지 관심 표시한 장소 총 <b>{favoritePlaceCount}개</b></p>
         </div>
 
-        {favoritePlaceList.map(favoritePlace => (
-          <a class="card FavoritePlaceCard" href={"/place/detail/" + favoritePlace.place_id}>
-            <img class="FavoritePlaceCard-img-top" src={require('../../Img/DogCafe1.jpg')} />
-            <div class="FavoritePlaceCard-body">
-              <p class="FavoritePlaceCard-title">{favoritePlace.place_name}&nbsp;&nbsp;</p>
-              <p class="FavoritePlaceCard-id">{favoritePlace.place_category}&nbsp;&nbsp;</p>
-              <p class="FavoritePlaceCard-star">{favoritePlace.place_score}&nbsp;</p>
-              <button><FontAwesomeIcon icon={faHeart} /></button>
+        {records && records.map((favoritePlace, i) => (
+          <div key={i} onClick={() => navigate('/place/detail/' + favoritePlace.place_id)}>
+            <div className="card FavoritePlaceCard">
+              <img className="FavoritePlaceCard-img-top" src={`${process.env.PUBLIC_URL}/img/${favoritePlace.file_link}`}></img>
+              <div class="FavoritePlaceCard-body">
+                <p class="FavoritePlaceCard-title">{favoritePlace.place_name}&nbsp;&nbsp;</p>
+                <p class="FavoritePlaceCard-id">{favoritePlace.place_category}&nbsp;&nbsp;</p>
+                <p class="FavoritePlaceCard-star">{favoritePlace.place_score}&nbsp;</p>
+                <button><FontAwesomeIcon icon={faHeart} /></button>
+              </div>
             </div>
-          </a>
+          </div>
         ))}
-
       </div>
+
+      <nav>
+        <ul className='pagination'>
+          <li className='page-item'><div className='page-link' onClick={FirstPage}><FontAwesomeIcon icon={faAnglesLeft} /></div></li>
+          <li className='page-item'><div className='page-link' onClick={prePage}><FontAwesomeIcon icon={faAngleLeft} /></div></li>
+          {
+            numbers.map((n, i) => (
+              <li className={`page-item ${currentPage === n ? 'active' : ''}`} key={i}>
+                <div className='page-link' onClick={() => changeCPage(n)}>{n}</div>
+              </li>
+            ))
+          }
+          <li className='page-item'><div className='page-link' onClick={nextPage}><FontAwesomeIcon icon={faAngleRight} /></div></li>
+          <li className='page-item'><div className='page-link' onClick={LastPage}><FontAwesomeIcon icon={faAnglesRight} /></div></li>
+        </ul>
+      </nav>
     </div>
   )
+
+  function FirstPage() {
+    setCurrentPage(1)
+  }
+
+  function prePage() {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1)
+    }
+  }
+
+  function changeCPage(id) {
+    setCurrentPage(id)
+  }
+
+  function nextPage() {
+    if (currentPage !== npage) {
+      setCurrentPage(currentPage + 1)
+    }
+  }
+
+  function LastPage() {
+    setCurrentPage(npage)
+  }
 }
 
 export default FavoritePlace;
