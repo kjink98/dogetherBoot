@@ -14,7 +14,7 @@ import com.dogether.dto.CommentEditDto;
 import com.dogether.dto.Post2ProcDto;
 import com.dogether.dto.PostListDto;
 import com.dogether.repository.PostRepository;
-import com.dogether.util.FileUtils;
+import com.dogether.utils.FileUtils;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;

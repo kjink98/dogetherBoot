@@ -18,14 +18,15 @@ function LoginForm() {
     try {
       const response = await axios({
         method: 'post',
-        url: 'http://localhost:8080/login-process',
+        url: '/dog/user/login',
         data: qs.stringify({ user_id: userId, user_pw: userPw }),
         headers: {
-          'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+          'content-type': 'application/json'
         },
         maxRedirects: 0
       });
-      if (response.status === 302) {
+      localStorage.setItem("jwt", response.data);
+      if (response.status === 302 || response.status === 200) {
         alert('로그인 성공');
         navigate('/');
       } else {
