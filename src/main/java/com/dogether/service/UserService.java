@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.mybatis.spring.MyBatisSystemException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +20,7 @@ import com.dogether.domain.User;
 import com.dogether.dto.ChangeInfoRequestDto;
 import com.dogether.dto.ChangePasswordRequestDto;
 import com.dogether.repository.UserRepository;
+import com.dogether.utils.JwtUtil;
 
 @Service
 /**
@@ -183,5 +185,15 @@ public class UserService {
 	    User user = userRepository.findById(user_id).orElse(null);
 
 	    return userRepository.resignUser(user_id);
+	}
+
+	@Value("${jwt.secret}")
+	private String secretKey;
+	
+	private Long expiredMs = 1000 * 60 * 60l;
+	
+	public String login(String userName, String password) {
+		// 인증 과정 생략
+		return JwtUtil.createJwt(userName, secretKey, expiredMs);
 	}
 }
