@@ -1,11 +1,5 @@
 .radio_1 {
-    padding: 6px;
     padding-left: 30px;
-}
-
-.consent_1 {
-    /* overflow: hidden; */
-    margin: 10px 10px 10px 10px;
 }
 
 div.left_1 {
@@ -20,11 +14,6 @@ div.left_1 {
 
 .redtext {
     color: red;
-}
-
-.consent_2 {
-    /* overflow: hidden; */
-    margin: 10px 10px 10px 10px;
 }
 
 div.left_2 {
@@ -67,6 +56,9 @@ div.left_2 {
 .memType {
     height: 38px;
     display: flex;
+    /* 회원종류 라디오 너비 */
+    width: 493px;
+    /* border: 1px solid gainsboro; */
 }
 
 .ppppp {
@@ -85,6 +77,7 @@ div.left_2 {
 
 .text-success.hidden, .email-warning.text-danger, .success, .fail {
     text-align: left;
+    margin-left: 30px;
 }
 
 /* 중복 */
@@ -96,4 +89,8 @@ div.left_2 {
     margin: 5vw 35vw auto ;
     position: relative;
     text-align: center;
+}
+
+.radio_2 {
+    margin-top: 6px;
 }
