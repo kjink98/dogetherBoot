@@ -125,9 +125,6 @@ const SignUp = () => {
         return profanityList.some(word => nickname.toLowerCase().includes(word.toLowerCase()));
     }
 
-
-
-
     // 닉네임 중복확인
     const checkNickname = async () => {
         // await axios.get(`/dog/user/nicknameCheck/${nickname}`).then((res)=>{

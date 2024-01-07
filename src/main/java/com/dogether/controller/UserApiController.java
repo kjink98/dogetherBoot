@@ -5,12 +5,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dogether.dto.ChangeInfoRequestDto;
 import com.dogether.dto.ChangePasswordRequestDto;
+import com.dogether.dto.LoginRequest;
 import com.dogether.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,7 +23,7 @@ import lombok.RequiredArgsConstructor;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("/dog/user")
 public class UserApiController {
 	private final UserService userService;
 
@@ -91,5 +93,10 @@ public class UserApiController {
 		    }
 		request.getSession().invalidate();
 	    return ResponseEntity.ok("탈퇴 완료");
+	}
+
+	@PostMapping("/login")
+	public ResponseEntity<String> login(@RequestBody LoginRequest dto){
+		return ResponseEntity.ok().body(userService.login(dto.getUserName(), ""));
 	}
 }
