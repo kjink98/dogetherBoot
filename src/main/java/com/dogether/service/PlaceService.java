@@ -1,13 +1,16 @@
 package com.dogether.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.dogether.domain.FavoritePlace;
 import com.dogether.domain.Place;
+import com.dogether.domain.User;
 import com.dogether.dto.PlaceCount;
 import com.dogether.repository.PlaceRepository;
+import com.dogether.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class PlaceService {
 
     private final PlaceRepository placeRepository;
+    private final UserRepository userRepository;
 
     public List<Place> list(String place_category) {
         List<Place> places = placeRepository.getDataAll(place_category);
@@ -36,12 +40,15 @@ public class PlaceService {
         return placeRepository.selectFavorite(user_id);
     }
 
-    public boolean setFavoritePlace(FavoritePlace favoritePlace) {
-        try {
-            int result = placeRepository.insertFavorite(favoritePlace);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+    public boolean setFavoritePlace(FavoritePlace favoritePlace, String user_id) {
+        if (userRepository.findById(user_id).get() != null && favoritePlace.getPlace_id() != 0) {
+            try {
+                favoritePlace.setUser_id(user_id);
+                int result = placeRepository.insertFavorite(favoritePlace);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
         }
         return true;
     }
