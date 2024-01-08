@@ -1,15 +1,16 @@
-import { React, useEffect, useState } from 'react';
+import { React, useCallback, useEffect, useState } from 'react';
 import "../css/NavBar.css";
 import { Container, Nav, Navbar, NavDropdown, Form, Button, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
-const NavBar = () => {
+const NavBar = ({isLogin, setIsLogin}) => {
   // const [token, setToken] = useState(localStorage.getItem("jwt"));
-  const logout = () => {
+  const logout = useCallback(() => {
     localStorage.removeItem("jwt");
+    setIsLogin(false);
     // setToken(localStorage.getItem("jwt"));
-  }
+  })
   // useEffect(() => {
   //   setToken(localStorage.getItem("jwt"));
   // })
@@ -50,7 +51,7 @@ const NavBar = () => {
             </NavDropdown>
 
             <NavDropdown title={<FontAwesomeIcon icon={faCircleUser} />} id="collasible-nav-dropdown" className="User">
-              {localStorage.getItem("jwt") == null ? <NavDropdown.Item href="/user/login">로그인</NavDropdown.Item>
+              {isLogin == false ? <NavDropdown.Item href="/user/login">로그인</NavDropdown.Item>
                 : <NavDropdown.Item onClick={logout}>로그아웃</NavDropdown.Item>}
               <NavDropdown.Item href="/login">소셜 로그인</NavDropdown.Item>
               <NavDropdown.Item href="/sign-up">회원가입</NavDropdown.Item>

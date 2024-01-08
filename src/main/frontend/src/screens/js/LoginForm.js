@@ -3,7 +3,7 @@ import axios from 'axios';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 
-function LoginForm() {
+function LoginForm({ setIsLogin }) {
   const navigate = useNavigate();
   const [userId, setUserId] = useState('');
   const [userPw, setUserPw] = useState('');
@@ -28,6 +28,7 @@ function LoginForm() {
       localStorage.setItem("jwt", response.data);
       if (response.status === 302 || response.status === 200) {
         alert('로그인 성공');
+        setIsLogin(true);
         axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("jwt")}`;
         navigate('/');
       } else {

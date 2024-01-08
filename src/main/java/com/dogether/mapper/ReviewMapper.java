@@ -33,4 +33,6 @@ public interface ReviewMapper {
     @Delete("delete from tblreview where review_id=#{review_id}")
     void deleteReview(int review_id);
 
+    @Select("select review_starrating from tblreview where place_id=#{place_id}")
+    List<Integer> getRatings(int place_id);
 }

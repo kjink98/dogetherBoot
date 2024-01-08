@@ -1,5 +1,7 @@
 package com.dogether.service;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -36,6 +38,18 @@ public class ReviewService {
     public void delete(int review_id) {
         reviewRepository.deleteReview(review_id);
         return;
+    }
+
+    public List<Integer> getRatings(int place_id) {
+        List<Integer> ratingList = reviewRepository.getRatings(place_id);
+        List<Integer> rating = Arrays.asList(0, 0, 0, 0, 0);
+        for (int i = 0; i < 5; i++) {
+            rating.set(i, Collections.frequency(ratingList, 5 - i));
+        }
+        for (int i : rating) {
+            System.out.println(i);
+        }
+        return rating;
     }
 
 }

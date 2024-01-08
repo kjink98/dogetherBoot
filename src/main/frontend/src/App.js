@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css'
 // 네비게이션 바
@@ -31,10 +32,11 @@ import Find from './screens/js/Find';
 import Footer from './components/js/Footer';
 
 function App() {
+  const [isLogin, setIsLogin] = useState(false);
   return (
     <Router>
       {/* 네비게이션 바 */}
-      <NavBar></NavBar>
+      <NavBar isLogin={isLogin} setIsLogin={setIsLogin}></NavBar>
 
       <Routes>
         {/* 메인 */}
@@ -62,7 +64,7 @@ function App() {
         <Route path="/my-history/:user_id" element={<MyHistory />}></Route>
 
         {/* 유저 */}
-        <Route path="/user/login" element={<LoginForm />}></Route>
+        <Route path="/user/login" element={<LoginForm setIsLogin={setIsLogin} />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/sign-up" element={<SignUp />}></Route>
         <Route path="/find" element={<Find />}></Route>

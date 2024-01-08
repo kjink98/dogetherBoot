@@ -50,7 +50,7 @@ const KakaoMap = ({ address, pname }) => {
 
   return (
     <div>
-      <div id="map" style={{ width: "500px", height: "400px" }}></div>
+      <div id="map" style={{ width: "640px", height: "360px" }}></div>
     </div>
   )
 }
