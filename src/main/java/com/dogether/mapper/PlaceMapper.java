@@ -3,7 +3,9 @@ package com.dogether.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.dogether.domain.Place;
 import com.dogether.dto.PlaceCount;
@@ -25,4 +27,7 @@ public interface PlaceMapper {
 
     @Select("select a.po_category as place_category, count(b.place_id) as count from placeorder a inner join tblplace b on a.po_category = b.place_category group by a.po_category order by a.po_id;")
     List<PlaceCount> countAll();
+
+    @Update("update tblplace set place_score=#{place_score} where place_id=#{place_id}")
+    int updateOne(@Param("place_id") int place_id, @Param("place_score") float place_score);
 }

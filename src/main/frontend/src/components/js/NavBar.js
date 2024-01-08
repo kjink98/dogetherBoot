@@ -43,7 +43,7 @@ const NavBar = ({isLogin, setIsLogin}) => {
             </NavDropdown>
 
             <NavDropdown title="마이페이지" id="collasible-nav-dropdown" className="DropdownMenu">
-              <NavDropdown.Item href="/my-info1">내정보 수정</NavDropdown.Item>
+              <NavDropdown.Item href="/my-info1">내 정보</NavDropdown.Item>
               <NavDropdown.Item href="/pw-change">비밀번호 변경</NavDropdown.Item>
               <NavDropdown.Item href="/favorite-place/123">관심장소 모아보기</NavDropdown.Item>
               <NavDropdown.Item href="/favorite-post/123">관심글 모아보기</NavDropdown.Item>

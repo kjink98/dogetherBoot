@@ -32,6 +32,8 @@ const KakaoMap = ({ address, pname }) => {
           infowindow.open(map, marker);
 
           map.setCenter(coords);
+
+          setTimeout(function(){ map.relayout();map.setCenter(coords); }, 1000);
         }
       })
     })
