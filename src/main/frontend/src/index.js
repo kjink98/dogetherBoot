@@ -2,16 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.css'; // 리뷰 점수
 import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css'; // 리뷰 점수
+import axios from 'axios';
 
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+axios.defaults.withCredentials = true;
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <App />
 );
 
 // If you want to start measuring performance in your app, pass a function
