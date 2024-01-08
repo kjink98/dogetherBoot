@@ -96,7 +96,12 @@ public class UserApiController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestBody LoginRequest dto){
-		return ResponseEntity.ok().body(userService.login(dto.getUserName(), ""));
+	public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest){
+		String result = userService.login(loginRequest);
+		if (result == null) {
+			System.out.println("badrequest");
+			return ResponseEntity.badRequest().body("");
+		}
+		return ResponseEntity.ok().body(result);
 	}
 }

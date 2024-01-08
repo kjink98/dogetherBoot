@@ -48,7 +48,7 @@ const PlaceDetail = () => {
     document.getElementById('counter').innerText = e.target.value.length + '/300자';
   }
 
-  const saveComment = () => {
+  const saveReview = () => {
     const content = document.getElementById('content');
     const params = {
       place_id: place_id,
@@ -71,13 +71,15 @@ const PlaceDetail = () => {
   };
 
   const [favoritePlace, setFavoritePlace] = useState({
-    user_id: '123',
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`
+    },
     place_id: place_id
   });
 
   const onClickHeart = async () => {
-    const resp = await axios.post(`/dog/place/favorite`, favoritePlace).then((res) => {
-      if (res === "success") {
+    const resp = await axios.post(`/dog/place/favorite`, {place_id: place_id}, {headers: {Authorization: `Bearer ${localStorage.getItem("jwt")}`}}).then((res) => {
+      if (res.data === "success") {
         alert('관심장소에 추가되었습니다.');
       } else {
         alert('이미 관심장소로 등록된 장소입니다.')
@@ -123,7 +125,7 @@ const PlaceDetail = () => {
                     variant='info'/>
                   <p class="cm_score"><p class="cm_value">{finalValue}</p>점</p>
                   <textarea id="content" name="content" onKeyUp={(e) => countingLength(e)} cols="90" rows="4" placeholder="리뷰를 입력해 주세요."></textarea>
-                  <span className="cm_submit"><Button type="button" class="btns" onClick={saveComment}>등록</Button><i id="counter">0/300자</i></span>
+                  <span className="cm_submit"><Button type="button" class="btns" onClick={saveReview}>등록</Button><i id="counter">0/300자</i></span>
                 </div>
               </fieldset>
             </div>

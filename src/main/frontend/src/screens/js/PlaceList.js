@@ -18,6 +18,7 @@ const PlaceList = () => {
       setPlaceList(resp.data);
     }
     getPlaceList();
+    console.log(localStorage.getItem("jwt"));
   }, []);
 
   return (
@@ -35,10 +36,8 @@ const PlaceList = () => {
               <p class="PlaceListCard-title">{place.place_name}</p>
               <p class="PlaceListCard-score">{place.place_score}</p><br />
               <p class="PlaceListCard-location">현재 위치에서 2.5km이내에 위치</p>
-              <p class="PlaceListCard-info">{place.place_category} | {place.place_address} <br />
-                #주차장 #실내 #실외 #토요일영업 #일요일영업 #대형견 <br />
+              <p class="PlaceListCard-info">{place.place_category} | {place.place_address} <br /><br />
                 {place.place_call}<br />
-                {place.place_parking}
               </p>
             </div>
           </a>

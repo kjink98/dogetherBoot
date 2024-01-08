@@ -59,13 +59,13 @@ const SignUp = () => {
 
     // ID 중복확인
     const checkId = async () => {
-        await axios.get(`/dog/user/idCheck/${id}`).then((res)=>{
-        	console.log(res.data)
-          if (!res.data){
-        	setIdValid({code: "success", msg: "사용할 수 있는 아이디입니다"});
-          } else {
-        	setIdValid({code: "fail", mag: "중복된 아이디입니다"}); // 이거 왜안됨
-          }
+        await axios.get(`/dog/user/idCheck/${id}`).then((res) => {
+            console.log(res.data)
+            if (!res.data) {
+                setIdValid({ code: "success", msg: "사용할 수 있는 아이디입니다" });
+            } else {
+                setIdValid({ code: "fail", mag: "중복된 아이디입니다" }); // 이거 왜안됨
+            }
         })
     }
 
@@ -127,13 +127,13 @@ const SignUp = () => {
 
     // 닉네임 중복확인
     const checkNickname = async () => {
-        // await axios.get(`/dog/user/nicknameCheck/${nickname}`).then((res)=>{
-        //   if (res.data === 1) {
-        // 	setNicknameValid({code: "success", msg: "사용할 수 있는 아이디입니다"});
-        //   } else if (res.data === 0) {
-        // 	setNicknameValid({code: "fail", mag: "중복된 아이디입니다"}); // 이거 왜안됨
-        //   }
-        // })
+        await axios.get(`/dog/user/nicknameCheck/${nickname}`).then((res) => {
+            if (res.data === 1) {
+                setNicknameValid({ code: "success", msg: "사용할 수 있는 아이디입니다" });
+            } else if (res.data === 0) {
+                setNicknameValid({ code: "fail", mag: "중복된 아이디입니다" }); // 이거 왜안됨
+            }
+        })
     }
 
     const handleInfoChange = (e) => {
@@ -160,13 +160,13 @@ const SignUp = () => {
         };
         console.log(user)
 
-        //   await axios.post("/dog/user/signup", user).then((res)=>{
-        // 	  if(res.data === 1) {
-        // 		  alert('가입되었습니다');
-        // 		  navigate("/");
-        // 	  }
+        await axios.post("/dog/user/signup", user).then((res) => {
+            if (res.data === 1) {
+                alert('가입되었습니다');
+                navigate("/");
+            }
 
-        //   })
+        })
 
     }
 
@@ -279,14 +279,14 @@ const SignUp = () => {
                         <div className='radio_1'>
                             {['radio'].map((type) => (
                                 <div key={`inline-${type}`} className="radio_2">
-                                    <Form.Check inline vlaue="USER" label="일반회원" name="role" type={type} id={`inline-${type}-1`} onChange={handleInfoChange} />
-                                    <Form.Check inline vlaue="SELLER" label="판매자회원" name="role" type={type} id={`inline-${type}-2`} onChange={handleInfoChange} />
+                                    <Form.Check inline value="USER" label="일반회원" name="role" type={type} id={`inline-${type}-1`} onChange={handleInfoChange} />
+                                    <Form.Check inline value="SELLER" label="판매자회원" name="role" type={type} id={`inline-${type}-2`} onChange={handleInfoChange} />
                                 </div>
                             ))}
                         </div>
                     </div>
                 </InputGroup>
-                
+
                 <Button className={Myinfomodule['custom-button']} as="input" type="button" value="회원가입" onClick={onSignUp} />{' '}
                 <br /><br /><br />
             </div>
