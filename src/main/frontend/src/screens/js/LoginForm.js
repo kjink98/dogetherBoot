@@ -3,7 +3,7 @@ import axios from 'axios';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 
-function LoginForm() {
+function LoginForm({ setIsLogin }) {
   const navigate = useNavigate();
   const [userId, setUserId] = useState('');
   const [userPw, setUserPw] = useState('');
@@ -19,7 +19,7 @@ function LoginForm() {
       const response = await axios({
         method: 'post',
         url: '/dog/user/login',
-        data: qs.stringify({ user_id: userId, user_pw: userPw }),
+        data: { user_id: userId, user_pw: userPw },
         headers: {
           'content-type': 'application/json'
         },
@@ -28,6 +28,8 @@ function LoginForm() {
       localStorage.setItem("jwt", response.data);
       if (response.status === 302 || response.status === 200) {
         alert('로그인 성공');
+        setIsLogin(true);
+        axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("jwt")}`;
         navigate('/');
       } else {
         alert('로그인 실패');

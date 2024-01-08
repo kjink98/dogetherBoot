@@ -24,7 +24,6 @@ public class AuthorizationController {
 
     @PostMapping("/signup")
     public int signup(@RequestBody User user) {
-        System.out.println(1234);
         try {
             registerUserService.signup(
                 user.getUser_id(),

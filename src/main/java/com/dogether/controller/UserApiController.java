@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dogether.domain.User;
 import com.dogether.dto.ChangeInfoRequestDto;
 import com.dogether.dto.ChangePasswordRequestDto;
 import com.dogether.dto.LoginRequest;
@@ -17,6 +18,9 @@ import com.dogether.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 /*
  * 사용자와 관련된 API를 제공하는 컨트롤러
@@ -96,7 +100,19 @@ public class UserApiController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestBody LoginRequest dto){
-		return ResponseEntity.ok().body(userService.login(dto.getUserName(), ""));
+	public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest){
+		String result = userService.login(loginRequest);
+		if (result == null) {
+			System.out.println("badrequest");
+			return ResponseEntity.badRequest().body("");
+		}
+		return ResponseEntity.ok().body(result);
 	}
+
+	@GetMapping("/info")
+	public User getUser(Authentication authentication) {
+		User user = userService.findOne(authentication.getName()).get();
+		return user;
+	}
+	
 }

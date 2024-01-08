@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../css/PostDetail.css';
+import '../css/PostDetail2.css';
 import { Form, Button, Card, ListGroup } from 'react-bootstrap';
 import { useNavigate, useParams } from "react-router-dom";
 import CommunitySideBar from '../../components/js/CommunitySideBar.js';
@@ -75,7 +75,7 @@ const PostDetail = () => {
   const onClickHeart = () => {
     alert('관심글 목록에 추가되었습니다.');
   }
-
+console.log(postDetail.post_title)
 
   return (
     <div className="PostNews">
@@ -94,14 +94,13 @@ const PostDetail = () => {
                 <p className="title">{postDetail.post_title}</p>
                 <p className="subtitle">{postDetail.user_nickname} | {moment(postDetail.post_create_date).format('YYYY-MM-DD')} | 조회수 : {postDetail.post_views}</p>
               </ListGroup.Item>
-              <ListGroup.Item className="NewsDetailBody">
-              {process.browser && 
+               <ListGroup.Item className="NewsDetailBody">
               	<div dangerouslySetInnerHTML={{__html: Dompurify.sanitize(postDetail.post_content)}}></div>
-              }
-              </ListGroup.Item>
+              	</ListGroup.Item>
             </ListGroup>
 
           </Card>
+          </div>
 
           {/* 수정/삭제 */}
           <div className="NewsDetailButtons">
@@ -115,7 +114,6 @@ const PostDetail = () => {
           <Comment board_category={board_category} post_id={post_id} />
         </div>
       </div>
-    </div>
   )
 }
 

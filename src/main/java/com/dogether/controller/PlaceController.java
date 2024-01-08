@@ -2,6 +2,7 @@ package com.dogether.controller;
 
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,8 +50,10 @@ public class PlaceController {
     }
     
     @PostMapping("/favorite")
-    public String postFavoritePlace(@RequestBody FavoritePlace favoritePlace) {
-        boolean success = placeService.setFavoritePlace(favoritePlace);
+    public String postFavoritePlace(@RequestBody FavoritePlace favoritePlace, Authentication authentication) {
+        System.out.println(favoritePlace.getPlace_id());
+        String user_id = authentication.getName();
+        boolean success = placeService.setFavoritePlace(favoritePlace, user_id);
         if (success) {
             return "success";
         } else {

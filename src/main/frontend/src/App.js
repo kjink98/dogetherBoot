@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css'
 // 네비게이션 바
@@ -11,6 +12,7 @@ import PlaceDetail from './screens/js/PlaceDetail';
 import PostNotice from './screens/js/PostNotice';
 import PostList from './screens/js/PostList';
 import PostDetail from './screens/js/PostDetail';
+import PostDetail2 from './screens/js/PostDetail2';
 import PostPost from './screens/js/PostPost';
 import PostPost2 from './screens/js/PostPost2';
 import PostUpdate from './screens/js/PostUpdate';
@@ -30,10 +32,11 @@ import Find from './screens/js/Find';
 import Footer from './components/js/Footer';
 
 function App() {
+  const [isLogin, setIsLogin] = useState(false);
   return (
     <Router>
       {/* 네비게이션 바 */}
-      <NavBar></NavBar>
+      <NavBar isLogin={isLogin} setIsLogin={setIsLogin}></NavBar>
 
       <Routes>
         {/* 메인 */}
@@ -47,6 +50,7 @@ function App() {
         <Route path="/post/list/notice" element={<PostNotice />}></Route>
         <Route path="/post/list/:board_category" element={<PostList />}></Route>
         <Route path="/post/detail/:board_category/:post_id" element={<PostDetail />}></Route>
+        <Route path="/post/detail2/:board_category/:post_id" element={<PostDetail2 />}></Route>
         <Route path="/post/post/:board_category" element={<PostPost />}></Route>
         <Route path="/post/post2/:board_category" element={<PostPost2 />}></Route>
         <Route path="/post/update/:board_category/:post_id" element={<PostUpdate />}></Route>
@@ -60,7 +64,7 @@ function App() {
         <Route path="/my-history/:user_id" element={<MyHistory />}></Route>
 
         {/* 유저 */}
-        <Route path="/user/login" element={<LoginForm />}></Route>
+        <Route path="/user/login" element={<LoginForm setIsLogin={setIsLogin} />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/sign-up" element={<SignUp />}></Route>
         <Route path="/find" element={<Find />}></Route>
