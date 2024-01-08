@@ -1,6 +1,5 @@
 .compass {
-	width: 1200px;
-	height: 350px;
+	width: 1000px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 100px;
@@ -12,25 +11,17 @@
 	margin-bottom: 50px;
 }
 
-.compass .fa-compass {
-	float: left;
-	font-size: 200px;
-	margin-right: 12%;
-	margin-top: 30px;
-}
-
-.compass .fa-compass:hover {
-	color: #249D8C;
-	cursor: pointer;
-}
-
 .compass .toast {
-	float: left;
-	min-width: 750px;
+	margin-left: 100px;
+	min-width: 850px !important;
 }
 
 .compass .toast .toast-header .btn-close {
 	display: none;
+}
+
+.compass .toast .toast-header {
+	margin: 20px;
 }
 
 .compass .toast a {
@@ -44,14 +35,8 @@
 	font-weight: 600;
 }
 
-.compass .toast .findgps {
+.compass .toast .toast_title {
 	font-size: 18px;
-}
-
-.compass .toast .gps {
-	font-size: 15px;
-	margin-top: 20px;
-	margin-right: 5px;
 }
 
 .compass .toast .rounded-pill {
@@ -59,11 +44,16 @@
 }
 
 .compass .toast .toast-body {
-	font-size: 18px;
+	font-size: 20px;
+	width: 780px;
+	margin-left: 15px;
+	text-align: center;
+	align-items: center;
 }
 
-.compass .toast .toast-body .svg-inline--fa {
-	margin-left: 50px;
+.compass .toast .toast-body a {
+	margin-left: 25px;
+	margin-right: 25px;
 	color: #36454F;
 }
 

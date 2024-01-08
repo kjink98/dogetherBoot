@@ -71,17 +71,18 @@ function LoginForm() {
       <div>
         <button className="btn btn-google btn-user btn-block"
           onClick={() => window.location.href = "/oauth2/authorization/google"}>
-          <i className="fab fa-google fa-fw"></i> 구글 로그인
+          <img src={require('../../Img/Google.png')}></img> 구글 로그인
         </button>
         <button className="btn btn-google btn-user btn-block"
           onClick={() => window.location.href = "/oauth2/authorization/naver"}>
-          <i className="fab fa-google fa-fw"></i> 네이버 로그인
+          <img className="fab fa-google fa-fw" src={require('../../Img/Cafe2.jpg')}></img> 네이버 로그인
         </button>
         <button className="btn btn-google btn-user btn-block"
           onClick={() => window.location.href = "/oauth2/authorization/kakao"}>
-          <i className="fab fa-google fa-fw"></i> 카카오 로그인
+          <img className="fab fa-google fa-fw" src={require('../../Img/Cafe2.jpg')}></img> 카카오 로그인
         </button>
       </div>
+      <img src={require('../../Img/Google.png')}></img>
     </div>
   );
 }

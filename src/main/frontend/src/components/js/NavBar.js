@@ -48,11 +48,6 @@ const NavBar = () => {
               <NavDropdown.Item href="/find">ID/PW 찾기</NavDropdown.Item>
             </NavDropdown>
 
-            <Form inline className="user">
-              <Form.Control type="text" placeholder="Search" className="mr-sm-2 UserSearch" />
-              <Button type="submit" className="UserGlass">{<FontAwesomeIcon icon={faMagnifyingGlass} />}</Button>
-            </Form>
-
           </Nav>
         </Navbar.Collapse>
       </Container>

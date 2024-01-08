@@ -105,8 +105,8 @@ const PostList = () => {
                 <img src={`${process.env.PUBLIC_URL}/img/${post.file_link}`}></img>
                 <div class="PostNewsCard-body">
                   <p class="PostNewsCard-title">{post.post_title}</p>
-                  <p class="PostNewsCard-comment">(35)</p><br />
-                  <p class="PostNewsCard-id">{post.user_nickname} | 작성일자 : {moment(post.post_create_date).format('YYYY-MM-DD')} | 조회수 : {post.post_views}</p><br />
+                  <p class="PostNewsCard-comment">(35)</p><br /><br />
+                  <p class="PostNewsCard-id">{post.user_nickname} | 작성일자 : {moment(post.post_create_date).format('YYYY-MM-DD')} | 조회수 : {post.post_views}</p>
                   <p class="PostNewsCard-detail">{post.post_content}</p>
                 </div>
               </div>

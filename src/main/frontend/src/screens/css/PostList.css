@@ -92,10 +92,10 @@ form.News .NewsGlass:focus {
 	float: left;
 	font-size: 22px;
 	font-weight: 600;
+	width: 78px;
 }
 
 .PostNewsCard .PostNewsCard-id {
-	float: left;
 	font-size: 15px;
 	margin-top: 5px;
 }
