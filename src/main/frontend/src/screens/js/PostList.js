@@ -104,7 +104,7 @@ const PostList = () => {
             const path = post.board_category === "news" ? "/post/detail2/" : "/post/detail/"
             navigate(path + post.board_category + "/" + post.post_id)
           }}>
-				<div className="card PostNewsCard">
+				    <div className="card PostNewsCard">
                   <img src={`${process.env.PUBLIC_URL}/img/${post.file_link}`}>
                   </img>
                   <div class="PostNewsCard-body">

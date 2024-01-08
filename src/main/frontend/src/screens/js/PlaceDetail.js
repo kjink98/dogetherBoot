@@ -123,8 +123,13 @@ const PlaceDetail = () => {
           <p><FontAwesomeIcon icon={faPhone} />{place.place_call}</p>
           <p><FontAwesomeIcon icon={faMap} />{place.place_address}</p>
           <p><FontAwesomeIcon icon={faHouse} /><a href={place.place_homepage}>{place.place_homepage}</a></p>
+
           <p><FontAwesomeIcon icon={faTags} />태그</p>
-          <div>{address && pname && <KakaoMap address={address} pname={pname}></KakaoMap>}</div>
+
+          <div className="kakaomap">
+            <div>{address && pname && <KakaoMap address={address} pname={pname}></KakaoMap>}</div>
+            <div id="clickLatlng"></div>
+          </div>
         </div>
     },
 
@@ -139,17 +144,18 @@ const PlaceDetail = () => {
               <fieldset>
                 <label class="skipinfo">리뷰 작성하기</label>
                 <div class="cm_input">
-                  <RangeSlider value={value}
-                    onChange={e => setValue(e.target.value)}
-                    onAfterChange={e => setFinalValue(e.target.value)}
+                  <RangeSlider value={value} 
+                    onChange={e => setValue(e.target.value)} 
+                    onAfterChange={e => setFinalValue(e.target.value)} 
                     step={1}
+                    min={1}
                     max={5}
                     tooltipPlacement='top'
                     tooltip='auto'
                     variant='info' />
                   <p class="cm_score"><p class="cm_value">{finalValue}</p>점</p>
                   <textarea id="content" name="content" onKeyUp={(e) => countingLength(e)} cols="90" rows="4" placeholder="리뷰를 입력해 주세요."></textarea>
-                  <span className="cm_submit"><Button type="button" class="btns" onClick={saveReview}>등록</Button><i id="counter">0/300자</i></span>
+                  <span className="cm_submit"><Button type="button" className="submitbtns" onClick={saveComment}>등록</Button><i id="counter">0/300자</i></span>
                 </div>
               </fieldset>
             </div>
@@ -168,6 +174,8 @@ const PlaceDetail = () => {
                 <div className="PlaceReviewName">{rev.user_nickname}</div>
                 <div className="PlaceReviewSub">{rev.review_starRating}점</div>
                 <div className="PlaceReviewContents">{rev.review_content}</div>
+                <Button variant="danger" className="comment_button">삭제</Button>
+                <Button variant="primary" className="comment_button">수정</Button>
               </div>
             ))}
           </div>
@@ -187,7 +195,7 @@ const PlaceDetail = () => {
           <p className="PlaceCategory">{place.place_category}</p>
           <p className="PlaceName">{place.place_name}</p>
           <p className="Score">{place.place_score}</p>
-          <Button variant="secondary" onClick={onClickHeart}><FontAwesomeIcon icon={faHeart} />&nbsp;관심 등록하기</Button>
+          <Button className="likebtns" onClick={onClickHeart}><FontAwesomeIcon icon={faHeart} />&nbsp;관심 등록하기</Button>
         </div>
 
         <section className="PlaceDetailBar">
@@ -203,7 +211,6 @@ const PlaceDetail = () => {
             <div>{item.description}</div>
           ))}
         </section>
-        <div id="clickLatlng"></div>
       </div>
     </div>
   )
