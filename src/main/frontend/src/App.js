@@ -11,6 +11,7 @@ import PlaceDetail from './screens/js/PlaceDetail';
 import PostNotice from './screens/js/PostNotice';
 import PostList from './screens/js/PostList';
 import PostDetail from './screens/js/PostDetail';
+import PostDetail2 from './screens/js/PostDetail2';
 import PostPost from './screens/js/PostPost';
 import PostPost2 from './screens/js/PostPost2';
 import PostUpdate from './screens/js/PostUpdate';
@@ -47,6 +48,7 @@ function App() {
         <Route path="/post/list/notice" element={<PostNotice />}></Route>
         <Route path="/post/list/:board_category" element={<PostList />}></Route>
         <Route path="/post/detail/:board_category/:post_id" element={<PostDetail />}></Route>
+        <Route path="/post/detail2/:board_category/:post_id" element={<PostDetail2 />}></Route>
         <Route path="/post/post/:board_category" element={<PostPost />}></Route>
         <Route path="/post/post2/:board_category" element={<PostPost2 />}></Route>
         <Route path="/post/update/:board_category/:post_id" element={<PostUpdate />}></Route>

@@ -3,6 +3,8 @@ package com.dogether.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -49,20 +51,36 @@ public class PostService {
 	
 	// 전체 게시글 목록 가져오기
 	public List<PostListDto> getPostList(String board_category) {
+		
 		List<PostListDto> list = new ArrayList<>();
 
 		List<Post> postList = postRepository.getDataAll(board_category);	
-		List<ImageFile> fileList = getFileList(board_category);
-		
-		for (int i = 0; i < postList.size(); i++) {
-			PostListDto listDto = new PostListDto(postList.get(i));
-			// 이미지 하나만 담기
-			Optional<ImageFile> result = fileList.stream().filter(x -> x.getPost_id() == listDto.getPost_id()).findFirst();
-			if (result.isPresent()) {
-				listDto.setFile_id(result.get().getFile_id());
-				listDto.setFile_link(result.get().getFile_link());
+		if(board_category.equals("news")) {
+			System.out.println(board_category);
+			for (int i = 0; i < postList.size(); i++) {
+				PostListDto listDto = new PostListDto(postList.get(i));
+				String content = listDto.getPost_content();
+				
+				Pattern pattern = Pattern.compile("<img\\s+src\\s*=\"/img/(.*?)\"\\s*>");
+				Matcher matcher = pattern.matcher(content);
+				if(matcher.find()) {
+					listDto.setFile_link(matcher.group(1));
+				}
+				list.add(listDto);
 			}
-			list.add(listDto);
+		} else {
+			List<ImageFile> fileList = getFileList(board_category);
+			
+			for (int i = 0; i < postList.size(); i++) {
+				PostListDto listDto = new PostListDto(postList.get(i));
+				// 이미지 하나만 담기
+				Optional<ImageFile> result = fileList.stream().filter(x -> x.getPost_id() == listDto.getPost_id()).findFirst();
+				if (result.isPresent()) {
+					listDto.setFile_id(result.get().getFile_id());
+					listDto.setFile_link(result.get().getFile_link());
+				}
+				list.add(listDto);
+			}
 		}
 		return list;
 	}

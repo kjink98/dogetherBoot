@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../css/PostDetail.css';
+import '../css/PostDetail2.css';
 import { Form, Button, Card, ListGroup } from 'react-bootstrap';
 import { useNavigate, useParams } from "react-router-dom";
 import CommunitySideBar from '../../components/js/CommunitySideBar.js';
@@ -95,9 +95,11 @@ const PostDetail = () => {
                 <p className="subtitle">{postDetail.user_nickname} | {moment(postDetail.post_create_date).format('YYYY-MM-DD')} | 조회수 : {postDetail.post_views}</p>
               </ListGroup.Item>
               <ListGroup.Item className="NewsDetailBody">{postDetail.post_content}<br /><br />
+              {postFiles &&
                 <div className="image">
-                  <PostCarousel />
+                  <PostCarousel postFiles={postFiles}/>
                 </div>
+              }
               </ListGroup.Item>
             </ListGroup>
 
