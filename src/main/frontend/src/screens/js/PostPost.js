@@ -61,9 +61,8 @@ const PostPost = () => {
 
     await axios.post('/dog/post/post', formData).then((res) => {
       alert('등록되었습니다');
-      navigate("/post/list/" + board_category); // 이게 작동이 안됨..
+      navigate('/post/list/' + board_category); // 이게 작동이 안됨..
     });
-
   }
 
   return (

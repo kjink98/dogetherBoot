@@ -1,3 +1,7 @@
+.Place_Sidebar{
+	width: 250px;
+}
+
 .PlaceCheckBox {
 	width: 1750px;
 	margin-left: 300px;
@@ -6,10 +10,10 @@
 }
 
 .RestaurantList {
+	clear:both;
 	width: 1900px;
 	margin-bottom: 100px;
-	margin-left: auto;
-	margin-right: auto;
+	left: 0;
 }
 
 .PlaceListCards {
@@ -29,8 +33,8 @@
 }
 
 .RestaurantList .PlaceListCard img {
-	width: 200px;
-	height: 200px;
+	min-width: 200px !important;
+	height: 200px !important;
 	object-fit: cover;
 	border-radius: 4px;
 }

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import '../css/FavoritePost.css';
 import MySideBar from '../../components/js/MySideBar.js';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleLeft, faAngleRight, faAnglesLeft, faAnglesRight } from "@fortawesome/free-solid-svg-icons";
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const FavoritePost = () => {
+  const navigate = useNavigate();
   const [favoritePostList, setFavoritePostList] = useState([]);
   const [favoritePostCount, setFavoritePostCount] = useState(0);
   let { user_id } = useParams();
@@ -17,34 +20,90 @@ const FavoritePost = () => {
     getFavoritePostList();
   }, []);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const recordsPerPage = 9;
+  const lastIndex = currentPage * recordsPerPage;
+  const firstIndex = lastIndex - recordsPerPage;
+  const records = favoritePostList.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(favoritePostList.length / recordsPerPage);
+  let numbers = 0;
+
+  if (currentPage % 10 != 0) {
+    numbers = [...Array(npage + 1).keys()].slice(Math.floor(currentPage / 10) * 10 + 1, Math.floor(currentPage / 10) * 10 + 11);
+  }
+
+  else if (currentPage % 10 == 0) {
+    numbers = [...Array(npage + 1).keys()].slice(Math.floor((currentPage - 1) / 10) * 10 + 1, Math.floor((currentPage - 1) / 10) * 10 + 11);
+  }
+
   return (
-    <div>
+    <div className="FavoritePost">
       <MySideBar></MySideBar>
       <div className="FavoritePostTitle">
         <p>관심 글 모아보기</p>
       </div>
 
-      <div className="postcards">
-
+      <div className="FavoritePostCards">
         <div className="postcount">
           <p>내가 지금까지 관심 표시한 게시글 총 <b>{favoritePostCount}개</b></p>
         </div>
 
-        {favoritePostList.map(favoritePost => (
-          <a class="card flex-row FavoritePostCard" href={'/post/detail/' + favoritePost.board_category + '/' + favoritePost.post_id}>
-            <img class="FavoritePostCard-img-left" src={require('../../Img/Dog1.jpg')} />
-            <div class="FavoritePostCard-body">
-              <p class="FavoritePostCard-title"><b>{favoritePost.post_title}</b></p>
-              <p class="FavoritePostCard-comment"><b>(35)</b></p><br />
-              <p class="FavoritePostCard-text">{favoritePost.user_nickname}</p>
-              <p class="FavoritePostCard-date">{favoritePost.post_create_date} &nbsp;|&nbsp; {favoritePost.post_views}</p>
+        {records && records.map((favoritePost, i) => (
+          <div key={i} onClick={() => navigate('/post/detail/' + favoritePost.board_category + '/' + favoritePost.post_id)}>
+            <div className="card flex-row FavoritePostCard">
+              <img className="FavoritePostCard-img-left" src={`${process.env.PUBLIC_URL}/img/${favoritePost.file_link}`}></img>
+              <div class="FavoritePostCard-body">
+                <p class="FavoritePostCard-title"><b>{favoritePost.post_title}</b></p>
+                <p class="FavoritePostCard-comment"><b>(35)</b></p><br />
+                <p class="FavoritePostCard-text">{favoritePost.user_nickname}</p>
+                <p class="FavoritePostCard-date">{favoritePost.post_create_date} &nbsp;|&nbsp; {favoritePost.post_views}</p>
+              </div>
             </div>
-          </a>
+          </div>
         ))}
-
       </div>
+
+      <nav>
+        <ul className='pagination'>
+          <li className='page-item'><div className='page-link' onClick={FirstPage}><FontAwesomeIcon icon={faAnglesLeft} /></div></li>
+          <li className='page-item'><div className='page-link' onClick={prePage}><FontAwesomeIcon icon={faAngleLeft} /></div></li>
+          {
+            numbers.map((n, i) => (
+              <li className={`page-item ${currentPage === n ? 'active' : ''}`} key={i}>
+                <div className='page-link' onClick={() => changeCPage(n)}>{n}</div>
+              </li>
+            ))
+          }
+          <li className='page-item'><div className='page-link' onClick={nextPage}><FontAwesomeIcon icon={faAngleRight} /></div></li>
+          <li className='page-item'><div className='page-link' onClick={LastPage}><FontAwesomeIcon icon={faAnglesRight} /></div></li>
+        </ul>
+      </nav>
     </div>
   )
+
+  function FirstPage() {
+    setCurrentPage(1)
+  }
+
+  function prePage() {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1)
+    }
+  }
+
+  function changeCPage(id) {
+    setCurrentPage(id)
+  }
+
+  function nextPage() {
+    if (currentPage !== npage) {
+      setCurrentPage(currentPage + 1)
+    }
+  }
+
+  function LastPage() {
+    setCurrentPage(npage)
+  }
 }
 
 export default FavoritePost;

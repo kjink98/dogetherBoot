@@ -6,7 +6,7 @@ import '../css/IndexCarousel.css';
 const IndexCarousel = () => {
   return (
     <>
-      <Carousel className="index_carousel">
+      <Carousel fade className="index_carousel">
         <Carousel.Item className="index_carousel_item">
           <img className="d-block" src={require('../../Img/Cafe1.jpg')} alt="First slide" />
           <Carousel.Caption>

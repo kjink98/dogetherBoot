@@ -22,7 +22,9 @@ const PlaceList = () => {
 
   return (
     <div className="RestaurantList">
-      <PlaceSideBar></PlaceSideBar>
+      <div className="Place_Sidebar">
+        <PlaceSideBar></PlaceSideBar>
+      </div>
       <PlaceCheckBox setPlaceList={setPlaceList} place_category={place_category}></PlaceCheckBox>
 
       <div className="PlaceListCards">

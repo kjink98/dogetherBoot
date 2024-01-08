@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import 'bootstrap/dist/css/bootstrap.css'; // 리뷰 점수
+import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css'; // 리뷰 점수
 
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
