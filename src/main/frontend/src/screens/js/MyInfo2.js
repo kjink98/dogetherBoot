@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../css/MyInfo2.css'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import MySideBar from '../../components/js/MySideBar.js';
+import axios from 'axios';
+import moment from 'moment';
 
 const Myinfo2 = () => {
-  const [passwordInput, setPasswordInput] = useState('');
-
+  const [user_pw, setUser_pw] = useState('');
+  const [user, setUser] = useState({});
   const [info, setInfo] = useState({
     name: "",
     birth: "",
@@ -15,27 +17,44 @@ const Myinfo2 = () => {
     role: ""
   });
 
+  useEffect(() => {
+    const getUser = async () => {
+      await axios.get(`/dog/user/info`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`
+        }
+      })
+        .then(res => {
+          setUser(res.data);
+        })
+    }
+    getUser();
+    setInfo({ name: user.user_name, birth: user.user_birthday, gender: user.user_gender, role: user.user_role });
+  }, [])
+
   const handlePasswordChange = (event) => {
-    setPasswordInput(event.target.value);
+    setUser_pw(event.target.value);
+    console.log(user_pw);
   };
 
-  const handleWithdrawal = () => {
-    const correctPassword = '4321';
-
-    if (passwordInput === correctPassword) {
-      // 비밀번호가 맞으면 프롬프트 창을 표시
-      const confirmed = window.confirm('정말로 탈퇴하시겠습니까?');
-      if (confirmed) {
-        // 탈퇴 또는 다른 작업 수행
-        // 여기에서 회원 탈퇴 로직 또는 API를 호출할 수 있습니다.
-        console.log('탈퇴가 확인되었습니다');
-
-        // 추가적인 메시지 표시
-        alert('탈퇴가 완료되었습니다.');
+  const handleWithdrawal = async () => {
+    const confirmed = window.confirm('정말로 탈퇴하시겠습니까?');
+    if (confirmed) {
+      try {
+        await axios.post(`/dog/user/ressss`, { user_pw: user_pw }, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`
+          }
+        })
+          .then(res => {
+            if (res.status === 200) {
+              alert(res.data);
+            }
+          })
+      } catch (error) {
+        alert();
       }
     } else {
-      // 비밀번호가 틀리면 ALERT 창을 표시
-      alert('비밀번호가 올바르지 않습니다. 다시 시도해주세요.');
     }
   };
 
@@ -57,7 +76,7 @@ const Myinfo2 = () => {
             </InputGroup.Text>
             <Form.Control
               disabled
-              placeholder="닉네임"
+              defaultValue={user.user_nickname}
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
             />
@@ -70,7 +89,7 @@ const Myinfo2 = () => {
           </InputGroup.Text>
           <Form.Control
             disabled
-            defaultValue="aaaaa@naver.com"
+            defaultValue={user.user_email}
             aria-label="Username"
             aria-describedby="basic-addon1"
           />
@@ -81,7 +100,7 @@ const Myinfo2 = () => {
           </InputGroup.Text>
           <Form.Control
             disabled
-            placeholder="아이디"
+            defaultValue={user.user_id}
             aria-label="Username"
             aria-describedby="basic-addon1"
           />
@@ -92,7 +111,7 @@ const Myinfo2 = () => {
           </InputGroup.Text>
           <Form.Control
             disabled
-            placeholder="홍길동"
+            defaultValue={user.user_name}
             aria-label="Username"
             aria-describedby="basic-addon1"
           />
@@ -103,6 +122,7 @@ const Myinfo2 = () => {
           </InputGroup.Text>
           <Form.Control
             disabled
+            defaultValue={moment(user.user_birthday).format('YYYY-MM-DD')}
             aria-label="Username"
             aria-describedby="basic-addon1"
             type='date'
@@ -114,7 +134,7 @@ const Myinfo2 = () => {
           </InputGroup.Text>
           <Form.Control
             disabled
-            placeholder="성별"
+            defaultValue={user.user_gender == "male" ? "남자" : "여자"}
             aria-label="Username"
             aria-describedby="basic-addon1"
           />
@@ -132,7 +152,6 @@ const Myinfo2 = () => {
               ))}
             </div>
           </div>
-          <Button variant="primary">변경</Button>{' '}
         </InputGroup>
 
         <InputGroup className="mb-3">
@@ -146,10 +165,10 @@ const Myinfo2 = () => {
               placeholder="비밀번호를 입력해 주세요."
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
-              value={passwordInput}
+              value={user_pw}
               onChange={handlePasswordChange}
             />
-            <Button onClick={handleWithdrawal} variant="danger">회원 탈퇴</Button>{' '}
+            <Button onClick={handleWithdrawal} variant="danger">회원 탈퇴</Button>
           </InputGroup>
         </InputGroup>
       </div>

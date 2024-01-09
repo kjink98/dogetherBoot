@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -121,7 +123,6 @@ public class UserApiController {
             map.put("nickname", user.getUser_nickname());
 			return ResponseEntity.ok().body(map);
 		}
-		
 	}
 
     @GetMapping("/info")
@@ -130,4 +131,13 @@ public class UserApiController {
         return user;
     }
 
+    @PostMapping("/ressss")
+    public ResponseEntity<String> deleteUser2(@RequestParam String user_pw, Authentication authentication) {
+        int check = userService.resignUser(authentication.getName(), user_pw);
+        if (check == 1) {
+            return ResponseEntity.ok("회원 탈퇴가 완료되었습니다.");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("회원 탈퇴 중 오류가 발생했습니다.");
+        }
+    }
 }

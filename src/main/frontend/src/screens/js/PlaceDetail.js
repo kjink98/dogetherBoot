@@ -1,4 +1,3 @@
-/* global kakao */
 import React, { useState, useEffect } from 'react';
 import '../css/PlaceDetail.css';
 import { Button, ProgressBar } from 'react-bootstrap';
@@ -23,40 +22,73 @@ const PlaceDetail = () => {
   const [ratings, setRatings] = useState([]);
   let { place_id } = useParams();
   const [user, setUser] = useState();
-  const [address, setAddress] = useState('');
-  const [pname, setPname] = useState('');
+  const [address, setAddress] = useState("");
+  const [pname, setPname] = useState("");
 
-  const initMap = () => {
-    kakao.maps.load(() => {
-      var container = document.getElementById('map');
-      var geocoder = new kakao.maps.services.Geocoder();
-      geocoder.addressSearch(address, function (result, status) {
-        if (status === kakao.maps.services.Status.OK) {
-          var options = {
-            center: new kakao.maps.LatLng(33.450701, 126.570667),
-            level: 3
-          };
-          var map = new kakao.maps.Map(container, options);
-          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-          var message = 'latlng : new kakao.maps.LatLng(' + result[0].y + ', ';
-          message += result[0].x + ')'
 
-          var resultDiv = document.getElementById('clickLatlng');
-          resultDiv.innerHTML = message;
+  window.initKakaoMap = () => {
+    var infowindow = new window.kakao.maps.InfoWindow({ zIndex: 1 });
+    var container = document.getElementById('map');
+    var options = {
+      center: new window.kakao.maps.LatLng(33.450701, 126.570667),
+      level: 3
+    };
+    var map = new window.kakao.maps.Map(container, options);
+    var ps = new window.kakao.maps.services.Places();
+    ps.keywordSearch(place.place_address, placeSearchCB);
 
-          var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords
-          });
-          var infowindow = new kakao.maps.InfoWindow({
-            content: `<div style="width:150px;text-align:center;padding:6px 0;">${pname}</div>`
-          });
-          infowindow.open(map, marker);
-
-          map.setCenter(coords);
+    function placeSearchCB(datas, status) {
+      if (status === window.kakao.maps.services.Status.OK) {
+        var bounds = new window.kakao.maps.LatLngBounds();
+        if (datas.length > 0) {
+          displayMarker(datas[0]);
+          bounds.extend(new window.kakao.maps.LatLng(datas[0].y, datas[0].x));
         }
-      })
-    })
+        map.setBounds(bounds);
+      }
+    }
+
+    function displayMarker(place) {
+      var marker = new window.kakao.maps.Marker({
+        map: map,
+        position: new window.kakao.maps.LatLng(place.y, place.x)
+      });
+      infowindow.setContent(`<div style="width:150px;text-align:center;padding:6px 0;">${pname}</div>`);
+      infowindow.open(map, marker);
+    }
+
+    if (window.Kakao) {
+      if (!window.Kakao.isInitialized()) {
+        window.Kakao.init('b9db355519fa67ef41f4ffe1d442d564')
+      }
+    }
+    // kakao.maps.load(() => {
+
+    //   var geocoder = new kakao.maps.services.Geocoder();
+    //   geocoder.addressSearch(address, function (result, status) {
+    //     if (status === kakao.maps.services.Status.OK) {
+
+
+    //       var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+    //       var message = 'latlng : new kakao.maps.LatLng(' + result[0].y + ', ';
+    //       message += result[0].x + ')'
+
+    //       var resultDiv = document.getElementById('clickLatlng');
+    //       resultDiv.innerHTML = message;
+
+    //       var marker = new kakao.maps.Marker({
+    //         map: map,
+    //         position: coords
+    //       });
+    //       var infowindow = new kakao.maps.InfoWindow({
+    //         content: `<div style="width:150px;text-align:center;padding:6px 0;">${pname}</div>`
+    //       });
+    //       infowindow.open(map, marker);
+
+    //       map.setCenter(coords);
+    //     }
+    //   })
+    // })
   };
 
   useEffect(() => {
@@ -64,10 +96,8 @@ const PlaceDetail = () => {
       await axios.get(`/dog/place/detail?place_id=${place_id}`)
         .then(res => {
           setPlace(res.data);
-        })
-        .then(() => {
-          setAddress(place.place_address);
-          setPname(place.place_name);
+          setAddress(res.data.place_address);
+          setPname(res.data.place_name);
         })
     }
     getPlace();
@@ -100,9 +130,17 @@ const PlaceDetail = () => {
         })
     }
     getRatings();
-
-    initMap();
   }, []);
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = "https://dapi.kakao.com/v2/maps/sdk.js?appkey=48d6885c2edfcc1a6acffd1002e99298&libraries=services&autoload=false";
+    document.head.appendChild(script);
+
+    script.onload = () => {
+      window.initKakaoMap();
+    }
+  }, [address])
 
   const countingLength = (e) => {
     if (e.target.value.length > 300) {

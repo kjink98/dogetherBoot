@@ -84,7 +84,7 @@ public interface UserMapper {
     /**
      * 사용자 아이디와 비밀번호를 통해 사용자 정보를 삭제하는 메소드
      */
-    @Delete("Delete from tbluser where user_id = #{user_id}")
+    @Update("update tbluser set user_del=true where user_id = #{user_id}")
     int resignUser(@Param("user_id") String user_id);
 
     @Select("SELECT * FROM tbluser")

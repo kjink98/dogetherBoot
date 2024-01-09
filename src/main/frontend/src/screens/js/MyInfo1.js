@@ -46,6 +46,12 @@ const MyInfo = () => {
     }
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleConfirmClick();
+    }
+  };
+
   return (
     <>
       <MySidebar />
@@ -67,6 +73,7 @@ const MyInfo = () => {
               aria-label="Username"
               aria-describedby="basic-addon1"
               onChange={handlePasswordChange}
+              onKeyDown={handleKeyPress}
             />
           </InputGroup>
           <div className='eye_1'>

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.h2.api.ErrorCode;
 import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -182,10 +181,10 @@ public class UserService {
      */
     public int resignUser(String user_id, String exPassword) {
         User user = userRepository.findById(user_id).orElse(null);
-        if (user == null || !passwordEncoder.matches(exPassword, user.getUser_pw())) {
+        System.out.println("user : " + user);
+        if (user.isUser_del() || !passwordEncoder.matches(exPassword, user.getUser_pw())) {
             return 0;
         }
-
         return userRepository.resignUser(user_id);
     }
 
