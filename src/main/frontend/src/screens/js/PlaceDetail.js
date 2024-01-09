@@ -13,13 +13,15 @@ import KakaoMap from '../../components/js/KakaoMap.js';
 
 const PlaceDetail = () => {
   const PlaceScore = '4.5';
-  const ReviewCounts = '50';
   const ReviewScoreFive = '10';
   const ReviewScoreFour = '25';
 
+  const [reviewCounts, setReviewCounts] = useState();
   const [place, setPlace] = useState([]);
   const [review, setReview] = useState([]);
+  const [ratings, setRatings] = useState([]);
   let { place_id } = useParams();
+  const [user, setUser] = useState();
   const [address, setAddress] = useState('');
   const [pname, setPname] = useState('');
 
@@ -33,10 +35,27 @@ const PlaceDetail = () => {
     getPlace();
 
     const getReview = async () => {
-      const resp = await axios.get(`/dog/place/${place_id}/review`)
+      const resp = await axios.get(`/dog/review/${place_id}/review`)
       setReview(resp.data);
+      setReviewCounts(resp.data.length);
     }
     getReview();
+
+    const getUser = async () => {
+      const resp = await axios.get(`/dog/user/info`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`
+        }
+      });
+      setUser(resp.data);
+    }
+    getUser();
+
+    const getRatings = async () => {
+      const resp = await axios.get(`/dog/review/rating/${place_id}`)
+      setRatings(resp.data);
+    }
+    getRatings();
   }, []);
 
   const countingLength = (e) => {
@@ -53,20 +72,23 @@ const PlaceDetail = () => {
     const params = {
       place_id: place_id,
       review_content: content.value,
-      review_id: 100,
-      user_id: "id111",
-      user_nickname: "nickname111",
-      review_title: "title111",
-      review_starRating: 4.1
+      user_id: user.user_id,
+      user_nickname: user.user_nickname,
+      review_starRating: value
     }
-    axios.post(`/dog/place/${place_id}/review`, params)
+    axios.post(`/dog/review/${place_id}/review`, params)
       .then(() => {
         const getReview = async () => {
-          const resp = await axios.get(`/dog/place/${place_id}/review`)
+          const resp = await axios.get(`/dog/review/${place_id}/review`)
           setReview(resp.data);
         }
         getReview();
         document.getElementById('content').value = '';
+        const getRatings = async () => {
+          const resp = await axios.get(`/dog/review/rating/${place_id}`)
+          setRatings(resp.data);
+        }
+        getRatings();
       })
   };
 
@@ -78,17 +100,18 @@ const PlaceDetail = () => {
   });
 
   const onClickHeart = async () => {
-    const resp = await axios.post(`/dog/place/favorite`, {place_id: place_id}, {headers: {Authorization: `Bearer ${localStorage.getItem("jwt")}`}}).then((res) => {
-      if (res.data === "success") {
-        alert('관심장소에 추가되었습니다.');
-      } else {
-        alert('이미 관심장소로 등록된 장소입니다.')
-      }
-    })
+    const resp = await axios.post(`/dog/place/favorite`, { place_id: place_id },
+      { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }).then((res) => {
+        if (res.data === "success") {
+          alert('관심장소에 추가되었습니다.');
+        } else {
+          alert('이미 관심장소로 등록된 장소입니다.')
+        }
+      })
   }
 
-  const [ value, setValue ] = React.useState(0);
-  const [ finalValue, setFinalValue ] = React.useState(0);
+  const [value, setValue] = React.useState(0);
+  const [finalValue, setFinalValue] = React.useState(0);
 
   const data = [
     {
@@ -100,13 +123,19 @@ const PlaceDetail = () => {
           <p><FontAwesomeIcon icon={faPhone} />{place.place_call}</p>
           <p><FontAwesomeIcon icon={faMap} />{place.place_address}</p>
           <p><FontAwesomeIcon icon={faHouse} /><a href={place.place_homepage}>{place.place_homepage}</a></p>
-          <p><FontAwesomeIcon icon={faTags} />미구현</p>
+
+          <p><FontAwesomeIcon icon={faTags} />태그</p>
+
+          <div className="kakaomap">
+            <div>{address && pname && <KakaoMap address={address} pname={pname}></KakaoMap>}</div>
+            <div id="clickLatlng"></div>
+          </div>
         </div>
     },
 
     {
       id: 1,
-      title: "리뷰 " + "(" + ReviewCounts + ")",
+      title: "리뷰 " + "(" + reviewCounts + ")",
       description:
         <div className="PlaceDetailReview">
 
@@ -118,34 +147,35 @@ const PlaceDetail = () => {
                   <RangeSlider value={value} 
                     onChange={e => setValue(e.target.value)} 
                     onAfterChange={e => setFinalValue(e.target.value)} 
-                    step={1} 
+                    step={1}
+                    min={1}
                     max={5}
                     tooltipPlacement='top'
                     tooltip='auto'
-                    variant='info'/>
+                    variant='info' />
                   <p class="cm_score"><p class="cm_value">{finalValue}</p>점</p>
                   <textarea id="content" name="content" onKeyUp={(e) => countingLength(e)} cols="90" rows="4" placeholder="리뷰를 입력해 주세요."></textarea>
-                  <span className="cm_submit"><Button type="button" class="btns" onClick={saveReview}>등록</Button><i id="counter">0/300자</i></span>
+                  <span className="cm_submit"><Button type="button" className="submitbtns" onClick={saveComment}>등록</Button><i id="counter">0/300자</i></span>
                 </div>
               </fieldset>
             </div>
           </div>
 
           <div className="ProgressBars">
-            <div className="PlaceDetailProgressbar"><b>5점</b><ProgressBar now={Number(ReviewScoreFive / ReviewCounts * 100)} /><b>{ReviewScoreFive}명</b></div>
-            <div className="PlaceDetailProgressbar"><b>4점</b><ProgressBar now={Number(ReviewScoreFour / ReviewCounts * 100)} /><b>{ReviewScoreFour}명</b></div>
-            <div className="PlaceDetailProgressbar"><b>3점</b><ProgressBar now={Number(ReviewScoreFive / ReviewCounts * 100)} /><b>{ReviewScoreFive}명</b></div>
-            <div className="PlaceDetailProgressbar"><b>2점</b><ProgressBar now={Number(ReviewScoreFive / ReviewCounts * 100)} /><b>{ReviewScoreFive}명</b></div>
-            <div className="PlaceDetailProgressbar"><b>1점</b><ProgressBar now={Number(ReviewScoreFive / ReviewCounts * 100)} /><b>{ReviewScoreFive}명</b></div>
+            {ratings.map((rating, index) => (
+              <div key={index} className="PlaceDetailProgressbar"><b>{5 - index}점</b><ProgressBar now={Number(rating / ratings.length * 100)} /><b>{rating}명</b></div>
+            ))}
           </div>
 
           <div className="PlaceDetailReviewList">
             {review.map(rev => (
               <div className="PlaceDetailReviews">
                 <FontAwesomeIcon icon={faCircleUser} />
-                <div className="PlaceReviewName">{rev.review_title}</div>
-                <div className="PlaceReviewSub">{finalValue}점</div>
+                <div className="PlaceReviewName">{rev.user_nickname}</div>
+                <div className="PlaceReviewSub">{rev.review_starRating}점</div>
                 <div className="PlaceReviewContents">{rev.review_content}</div>
+                <Button variant="danger" className="comment_button">삭제</Button>
+                <Button variant="primary" className="comment_button">수정</Button>
               </div>
             ))}
           </div>
@@ -165,7 +195,7 @@ const PlaceDetail = () => {
           <p className="PlaceCategory">{place.place_category}</p>
           <p className="PlaceName">{place.place_name}</p>
           <p className="Score">{place.place_score}</p>
-          <Button variant="secondary" onClick={onClickHeart}><FontAwesomeIcon icon={faHeart} />&nbsp;관심 등록하기</Button>
+          <Button className="likebtns" onClick={onClickHeart}><FontAwesomeIcon icon={faHeart} />&nbsp;관심 등록하기</Button>
         </div>
 
         <section className="PlaceDetailBar">
@@ -181,9 +211,6 @@ const PlaceDetail = () => {
             <div>{item.description}</div>
           ))}
         </section>
-
-        {address && pname && <KakaoMap address={address} pname={pname}></KakaoMap>}
-        <div id="clickLatlng"></div>
       </div>
     </div>
   )

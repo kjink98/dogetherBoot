@@ -42,5 +42,9 @@ public class ReviewRepository {
         reviewMapper.deleteReview(review_id);
         return;
     }
+    
+    public List<Integer> getRatings(int place_id) {
+        return reviewMapper.getRatings(place_id);
+    }
 
 }
