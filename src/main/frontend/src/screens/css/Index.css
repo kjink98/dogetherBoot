@@ -13,7 +13,7 @@
 
 .compass .toast {
 	margin-left: 100px;
-	min-width: 850px !important;
+	max-width: 850px;
 }
 
 .compass .toast .toast-header .btn-close {
@@ -22,17 +22,6 @@
 
 .compass .toast .toast-header {
 	margin: 20px;
-}
-
-.compass .toast a {
-	text-decoration: none;
-	color: black;
-	line-height: 35px;
-}
-
-.compass .toast a:hover {
-	color: #249D8C;
-	font-weight: 600;
 }
 
 .compass .toast .toast_title {
@@ -54,7 +43,14 @@
 .compass .toast .toast-body a {
 	margin-left: 25px;
 	margin-right: 25px;
+	text-decoration: none;
+	line-height: 35px;
 	color: #36454F;
+}
+
+.compass .toast .toast-body a:hover {
+	color: #249D8C;
+	font-weight: 600;
 }
 
 .calumn {
@@ -69,12 +65,10 @@
    .calumn {
       width: 700px;
    }
-}
 
-@media (max-width:1400px){
-	.calumn {
-		 width: 700px;
-	}
+	 .compass .toast{
+			width: 700px;
+	 }
 }
 
 .news {

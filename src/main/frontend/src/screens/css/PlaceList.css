@@ -83,7 +83,7 @@
 
 .RestaurantList .pagination {
 	margin-left: auto;
-	padding-left: 800px;
+	padding-left: 900px;
 	margin-right: auto;
 	align-items: center;
 }
@@ -93,6 +93,7 @@
 	background-color: white !important;
 	font-weight: 600;
 	font-size: 17px;
+	cursor: pointer;
 }
 
 .RestaurantList .pagination .active .page-link {

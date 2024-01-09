@@ -28,8 +28,6 @@ function LoginForm({ setIsLogin }) {
       localStorage.setItem("jwt", response.data);
       if (response.status === 302 || response.status === 200) {
         alert('로그인 성공');
-        setIsLogin(true);
-        axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("jwt")}`;
         navigate('/');
       } else {
         alert('로그인 실패');
@@ -73,18 +71,17 @@ function LoginForm({ setIsLogin }) {
       <div>
         <button className="btn btn-google btn-user btn-block"
           onClick={() => window.location.href = "/oauth2/authorization/google"}>
-          <img src={require('../../Img/Google.png')}></img> 구글 로그인
+          <i className="fab fa-google fa-fw"></i> 구글 로그인
         </button>
         <button className="btn btn-google btn-user btn-block"
           onClick={() => window.location.href = "/oauth2/authorization/naver"}>
-          <img className="fab fa-google fa-fw" src={require('../../Img/Cafe2.jpg')}></img> 네이버 로그인
+          <i className="fab fa-google fa-fw"></i> 네이버 로그인
         </button>
         <button className="btn btn-google btn-user btn-block"
           onClick={() => window.location.href = "/oauth2/authorization/kakao"}>
-          <img className="fab fa-google fa-fw" src={require('../../Img/Cafe2.jpg')}></img> 카카오 로그인
+          <i className="fab fa-google fa-fw"></i> 카카오 로그인
         </button>
       </div>
-      <img src={require('../../Img/Google.png')}></img>
     </div>
   );
 }

@@ -61,7 +61,7 @@
 .FavoritePlaceCard .FavoritePlaceCard-title {
 	float: left;
 	font-size: 22px;
-	max-width: 120px;
+	max-width: 125px;
 	font-weight: 600;
 	overflow: hidden;
   text-overflow: ellipsis;

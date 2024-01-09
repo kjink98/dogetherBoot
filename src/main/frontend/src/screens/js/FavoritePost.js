@@ -4,6 +4,7 @@ import MySideBar from '../../components/js/MySideBar.js';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight, faAnglesLeft, faAnglesRight } from "@fortawesome/free-solid-svg-icons";
 import axios from 'axios';
+import moment from 'moment';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const FavoritePost = () => {
@@ -56,7 +57,7 @@ const FavoritePost = () => {
                 <p class="FavoritePostCard-title"><b>{favoritePost.post_title}</b></p>
                 <p class="FavoritePostCard-comment"><b>(35)</b></p><br />
                 <p class="FavoritePostCard-text">{favoritePost.user_nickname}</p>
-                <p class="FavoritePostCard-date">{favoritePost.post_create_date} &nbsp;|&nbsp; {favoritePost.post_views}</p>
+                <p class="FavoritePostCard-date">{moment(favoritePost.post_create_date).format('YYYY-MM-DD')} &nbsp;|&nbsp; {favoritePost.post_views}</p>
               </div>
             </div>
           </div>

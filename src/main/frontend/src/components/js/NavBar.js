@@ -51,8 +51,7 @@ const NavBar = ({isLogin, setIsLogin}) => {
             </NavDropdown>
 
             <NavDropdown title={<FontAwesomeIcon icon={faCircleUser} />} id="collasible-nav-dropdown" className="User">
-              {isLogin == false ? <NavDropdown.Item href="/user/login">로그인</NavDropdown.Item>
-                : <NavDropdown.Item onClick={logout}>로그아웃</NavDropdown.Item>}
+              <NavDropdown.Item href="/user/login">로그인</NavDropdown.Item>
               <NavDropdown.Item href="/login">소셜 로그인</NavDropdown.Item>
               <NavDropdown.Item href="/sign-up">회원가입</NavDropdown.Item>
               <NavDropdown.Item href="/find">ID/PW 찾기</NavDropdown.Item>
