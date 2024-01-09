@@ -24,10 +24,10 @@ const PostDetail = () => {
   // 게시글 내용 불러오기
   useEffect(() => {
     const getPostDetail = async () => {
-      const resp = await axios.get(`/dog/post/detail/${board_category}/${post_id}`, {headers: {Authorization: `Bearer ${localStorage.getItem("jwt")}`}})
+      const resp = await axios.get(`/dog/post/detail/${board_category}/${post_id}`, { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } })
       setPostDetail(resp.data.detail);
-	  setUserCheck(resp.data.userCheck);
-	  setUser_nickname(resp.data.user_nickname);
+      setUserCheck(resp.data.userCheck);
+      setUser_nickname(resp.data.user_nickname);
       const fileData = resp.data.files;
       let pushFileData = [];
       for (let i in fileData) {
@@ -44,10 +44,10 @@ const PostDetail = () => {
 
   // 게시글 삭제
   const onClickDelete = async () => {
-      await axios.delete(`/dog/post/delete/${post_id}`, {headers: {Authorization: `Bearer ${localStorage.getItem("jwt")}`}}).then((res) => {
-        alert('삭제가 완료되었습니다.');
-        navigate(`/post/list/${board_category}`);
-      })
+    await axios.delete(`/dog/post/delete/${post_id}`, { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }).then((res) => {
+      alert('삭제가 완료되었습니다.');
+      navigate(`/post/list/${board_category}`);
+    })
   }
 
   // 게시글 수정
@@ -65,8 +65,15 @@ const PostDetail = () => {
     }
   }
 
-  const onClickHeart = () => {
-    alert('관심글 목록에 추가되었습니다.');
+  const onClickHeart = async () => {
+    const resp = await axios.post(`/dog/post/favorite`, { post_id: post_id, board_category: board_category },
+      { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }).then((res) => {
+        if (res.data) {
+          alert('관심글에 추가되었습니다.');
+        } else {
+          alert('이미 관심글로 등록된 글입니다.')
+        }
+      })
   }
 
 
@@ -88,11 +95,11 @@ const PostDetail = () => {
                 <p className="subtitle">{postDetail.user_nickname} | {moment(postDetail.post_create_date).format('YYYY-MM-DD')} | 조회수 : {postDetail.post_views}</p>
               </ListGroup.Item>
               <ListGroup.Item className="NewsDetailBody">{postDetail.post_content}<br /><br />
-              {postFiles &&
-                <div className="image">
-                  <PostCarousel postFiles={postFiles}/>
-                </div>
-              }
+                {postFiles &&
+                  <div className="image">
+                    <PostCarousel postFiles={postFiles} />
+                  </div>
+                }
               </ListGroup.Item>
             </ListGroup>
 
@@ -100,19 +107,19 @@ const PostDetail = () => {
 
           {/* 수정/삭제 */}
           <div className="NewsDetailButtons">
-          	{ userCheck === "yes" ? 
-          	<div>
-            	<Button variant="primary" onClick={onClickModify}>수정하기</Button>
-            	<Button variant="danger" onClick={onClickDelete}>삭제하기</Button>
-            </div>
-            : <div></div>
+            {userCheck === "yes" ?
+              <div>
+                <Button variant="primary" onClick={onClickModify}>수정하기</Button>
+                <Button variant="danger" onClick={onClickDelete}>삭제하기</Button>
+              </div>
+              : <div></div>
             }
-            <Button variant="secondary" onClick={onClickHeart}><FontAwesomeIcon icon={faHeart} />&nbsp;게시글 좋아요하기</Button>
+            <Button variant="secondary" onClick={onClickHeart}><FontAwesomeIcon icon={faHeart} />&nbsp;관심 등록</Button>
             <Button variant="secondary" onClick={() => navigate(`/post/list/${board_category}`)}>목록</Button>
           </div>
 
           {/* 댓글 */}
-          <Comment board_category={board_category} post_id={post_id} user_nickname={user_nickname}/>
+          <Comment board_category={board_category} post_id={post_id} user_nickname={user_nickname} />
         </div>
       </div>
     </div>

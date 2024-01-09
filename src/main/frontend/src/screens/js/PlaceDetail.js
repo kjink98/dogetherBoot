@@ -12,10 +12,6 @@ import { useParams } from 'react-router-dom';
 import KakaoMap from '../../components/js/KakaoMap.js';
 
 const PlaceDetail = () => {
-  const PlaceScore = '4.5';
-  const ReviewScoreFive = '10';
-  const ReviewScoreFour = '25';
-
   const [reviewCounts, setReviewCounts] = useState();
   const [place, setPlace] = useState([]);
   const [review, setReview] = useState([]);
@@ -178,7 +174,7 @@ const PlaceDetail = () => {
   const onClickHeart = async () => {
     const resp = await axios.post(`/dog/place/favorite`, { place_id: place_id },
       { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }).then((res) => {
-        if (res.data === "success") {
+        if (res.data) {
           alert('관심장소에 추가되었습니다.');
         } else {
           alert('이미 관심장소로 등록된 장소입니다.')
@@ -253,8 +249,8 @@ const PlaceDetail = () => {
                 <div className="PlaceReviewName">{rev.user_nickname}</div>
                 <div className="PlaceReviewSub">{rev.review_starRating}점</div>
                 <div className="PlaceReviewContents">{rev.review_content}</div>
-                <Button variant="danger" className="comment_button">삭제</Button>
-                <Button variant="primary" className="comment_button">수정</Button>
+                <Button variant="primary" className="comment_button" >수정</Button>
+                <Button variant="danger" className="comment_button" >삭제</Button>
               </div>
             ))}
           </div>
@@ -276,7 +272,7 @@ const PlaceDetail = () => {
           <p className="PlaceCategory">{place.place_category}</p>
           <p className="PlaceName">{place.place_name}</p>
           <p className="Score">{place.place_score}</p>
-          <Button className="likebtns" onClick={onClickHeart}><FontAwesomeIcon icon={faHeart} />&nbsp;관심 등록하기</Button>
+          <Button className="likebtns" onClick={onClickHeart}><FontAwesomeIcon icon={faHeart} />&nbsp;관심 등록</Button>
         </div>
 
         <section className="PlaceDetailBar">

@@ -1,0 +1,16 @@
+package com.dogether.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class FindIdDto {
+  private String user_email;
+  private String user_name;
+  private String user_birthday;
+}

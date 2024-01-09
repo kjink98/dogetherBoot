@@ -6,16 +6,12 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import MySideBar from '../../components/js/MySideBar.js';
 import axios from 'axios';
 import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 
-const Myinfo2 = () => {
+const Myinfo2 = ({ setIsLogin }) => {
   const [user_pw, setUser_pw] = useState('');
   const [user, setUser] = useState({});
-  const [info, setInfo] = useState({
-    name: "",
-    birth: "",
-    gender: "",
-    role: ""
-  });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getUser = async () => {
@@ -29,19 +25,18 @@ const Myinfo2 = () => {
         })
     }
     getUser();
-    setInfo({ name: user.user_name, birth: user.user_birthday, gender: user.user_gender, role: user.user_role });
-  }, [])
+  }, []);
 
   const handlePasswordChange = (event) => {
-    setUser_pw(event.target.value);
-    console.log(user_pw);
+    const password = event.target.value;
+    setUser_pw(password);
   };
 
   const handleWithdrawal = async () => {
     const confirmed = window.confirm('정말로 탈퇴하시겠습니까?');
     if (confirmed) {
       try {
-        await axios.post(`/dog/user/ressss`, { user_pw: user_pw }, {
+        await axios.post(`/dog/user/ressss`, { exPassword: user_pw }, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`
           }
@@ -49,20 +44,18 @@ const Myinfo2 = () => {
           .then(res => {
             if (res.status === 200) {
               alert(res.data);
+              localStorage.removeItem("jwt");
+              setIsLogin(false);
+              navigate('/');
             }
           })
       } catch (error) {
-        alert();
+        alert("회원 탈퇴 중 오류가 발생했습니다.");
       }
     } else {
     }
   };
-
-  const handleInfoChange = (e) => {
-    const { name, value } = e.target;
-    setInfo({ ...info, [name]: value })
-  }
-
+  
   return (
     <>
       <MySideBar />
@@ -122,7 +115,7 @@ const Myinfo2 = () => {
           </InputGroup.Text>
           <Form.Control
             disabled
-            defaultValue={moment(user.user_birthday).format('YYYY-MM-DD')}
+            value={moment(user.user_birthday).format('YYYY-MM-DD')}
             aria-label="Username"
             aria-describedby="basic-addon1"
             type='date'
@@ -134,7 +127,7 @@ const Myinfo2 = () => {
           </InputGroup.Text>
           <Form.Control
             disabled
-            defaultValue={user.user_gender == "male" ? "남자" : "여자"}
+            value={user.user_gender == "M" ? "남자" : "여자"}
             aria-label="Username"
             aria-describedby="basic-addon1"
           />
@@ -146,8 +139,8 @@ const Myinfo2 = () => {
             <div className='radio_1'>
               {['radio'].map((type) => (
                 <div key={`inline-${type}`} className="radio_2">
-                  <Form.Check disabled checked inline vlaue="USER" label="일반회원" name="role" type={type} id={`inline-${type}-1`} onChange={handleInfoChange} />
-                  <Form.Check disabled inline vlaue="SELLER" label="판매자회원" name="role" type={type} id={`inline-${type}-2`} onChange={handleInfoChange} />
+                  <Form.Check disabled checked inline value="USER" label="일반회원" name="role" type={type} id={`inline-${type}-1`} />
+                  <Form.Check disabled inline value="SELLER" label="판매자회원" name="role" type={type} id={`inline-${type}-2`} />
                 </div>
               ))}
             </div>

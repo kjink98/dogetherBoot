@@ -6,18 +6,24 @@ import { faAngleLeft, faAngleRight, faAnglesLeft, faAnglesRight } from "@fortawe
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const FavoritePost = () => {
+const FavoritePost = ({ isLogin }) => {
   const navigate = useNavigate();
   const [favoritePostList, setFavoritePostList] = useState([]);
   const [favoritePostCount, setFavoritePostCount] = useState(0);
-  let { user_id } = useParams();
+
   useEffect(() => {
-    const getFavoritePostList = async () => {
-      const resp = await axios.get(`/dog/post/favorite/${user_id}`);
-      setFavoritePostList(resp.data);
-      setFavoritePostCount(resp.data.length);
+    if (isLogin == false) {
+      alert("로그인이 필요합니다.");
+      navigate('/');
+    } else {
+      const getFavoritePostList = async () => {
+        const resp = await axios.get(`/dog/post/favorite`,
+          { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } });
+        setFavoritePostList(resp.data);
+        setFavoritePostCount(resp.data.length);
+      }
+      getFavoritePostList();
     }
-    getFavoritePostList();
   }, []);
 
   const [currentPage, setCurrentPage] = useState(1);

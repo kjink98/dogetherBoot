@@ -43,27 +43,18 @@ public class PlaceController {
         return place;
     }
 
-    @GetMapping("/favorite/{user_id}")
-    public List<Place> getFavoritePlaceList(@PathVariable String user_id) {
-        List<Place> favoritePlaces = placeService.favoriteList(user_id);
-        return favoritePlaces;
+    @GetMapping("/favorite")
+    public List<Place> getFavoritePlaceList(Authentication authentication) {
+        return placeService.favoriteList(authentication.getName());
     }
     
     @PostMapping("/favorite")
-    public String postFavoritePlace(@RequestBody FavoritePlace favoritePlace, Authentication authentication) {
-        System.out.println(favoritePlace.getPlace_id());
-        String user_id = authentication.getName();
-        boolean success = placeService.setFavoritePlace(favoritePlace, user_id);
-        if (success) {
-            return "success";
-        } else {
-            return "fail";
-        }
+    public boolean postFavoritePlace(@RequestBody FavoritePlace favoritePlace, Authentication authentication) {
+        return placeService.setFavoritePlace(favoritePlace, authentication.getName());
     }
     
     @GetMapping("/count")
     public List<PlaceCount> getPlaceCount() {
-        System.out.println(placeService.placeCount().get(0).getCount());
         return placeService.placeCount();
     }
     

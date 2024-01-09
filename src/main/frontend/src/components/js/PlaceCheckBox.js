@@ -61,13 +61,6 @@ function PlaceCheckBox({ setPlaceList, place_category }) {
         setCheckedValues({ ...checkedValues, place_dogsize: checkedValues.place_dogsize.valueOf() - 1 });
       }
     }
-
-
-    // else {
-    //   setCheckedValues(pre => {
-    //     return [...pre.filter(skill => skill !== value)]
-    //   })
-    // }
   }
 
   useEffect(() => {
