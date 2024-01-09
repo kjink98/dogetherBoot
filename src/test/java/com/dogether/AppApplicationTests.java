@@ -24,7 +24,7 @@ class AppApplicationTests {
 			post.setUser_id("TestUserID");
 			post.setUser_nickname("TestUserNickname");
 
-			this.postService.setPost(post, null);
+			this.postService.setPost(post, null, "TestUserID");
 		}
 	}
 

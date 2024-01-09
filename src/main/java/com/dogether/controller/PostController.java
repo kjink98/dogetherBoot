@@ -52,21 +52,17 @@ public class PostController {
     }
 
     @GetMapping("/detail/{board_category}/{post_id}")
-    public Map<String, Object> getPostDetail(Post post, HttpServletRequest request, HttpServletResponse response) {
-        Post detail = postService.getPostDetail(post);
-        List<ImageFile> fileList = postService.getFile(post.getPost_id());
-        postService.setViews(post.getPost_id(), request, response);
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("detail", detail);
-        map.put("files", fileList);
+    public Map<String, Object> getPostDetail(Post post, HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+        String user_id = authentication.getName();
+        Map<String, Object> map = postService.getPostDetail(post, user_id);
         return map;
     }
 
     @PostMapping(path = "/post", consumes = { "multipart/form-data" })
     public ResponseEntity<String> setPost(@RequestPart Post post,
             @RequestPart(value = "files", required = false) MultipartFile[] files, Authentication authentication) {
-        System.out.println(1234);
-        // postService.setPost(post, files);
+    	String user_id = authentication.getName();
+        postService.setPost(post, files, user_id);
         return ResponseEntity.ok().body(authentication.getName() + "님의 리뷰 등록이 완료되었습니다.");
     }
 
@@ -79,8 +75,9 @@ public class PostController {
 
     // 글쓰기 에디터용(뉴스)
     @PostMapping("/post2")
-    public String setPost2(@RequestBody Post2ProcDto post2ProcDto) {
-        // postService.setPost2(post2ProcDto);
+    public String setPost2(@RequestBody Post2ProcDto post, Authentication authentication) {
+    	String user_id = authentication.getName();
+        postService.setPost2(post, user_id);
         return "setPost2";
     }
 
@@ -97,12 +94,15 @@ public class PostController {
         return "update";
     }
 
+    // 댓글 등록
     @PostMapping("/comment")
-    public String setComment(@RequestBody Comment comment) {
-        postService.setComment(comment);
+    public String setComment(@RequestBody Comment comment, Authentication authentication) {
+    	String user_id = authentication.getName();
+        postService.setComment(comment, user_id);
         return "comment";
     }
 
+    // 댓글 리스트 가져오기
     @GetMapping("/commentList/{post_id}")
     public List<Comment> getComment(@PathVariable int post_id) {
         return postService.getComment(post_id);

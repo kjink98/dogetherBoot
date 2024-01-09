@@ -12,9 +12,8 @@ import Dompurify from 'dompurify';
 
 const PostDetail = () => {
   const [postDetail, setPostDetail] = useState({});
-  const [postFiles, setPostFiles] = useState([]);
-  const postpost = ["notice", "review", "promotion", "news"];
-  const postType = ["공지사항", "후기게시판", "홍보게시판", "뉴스/칼럼"];
+  const [userCheck, setUserCheck] = useState("");
+  const [user_nickname, setUser_nickname] = useState("");
   let { board_category } = useParams();
   let { post_id } = useParams();
   const navigate = useNavigate();
@@ -22,39 +21,21 @@ const PostDetail = () => {
   // 게시글 내용 불러오기
   useEffect(() => {
     const getPostDetail = async () => {
-      const resp = await axios.get(`/dog/post/detail/${board_category}/${post_id}`)
+      const resp = await axios.get(`/dog/post/detail/${board_category}/${post_id}`, {headers: {Authorization: `Bearer ${localStorage.getItem("jwt")}`}})
       setPostDetail(resp.data.detail);
-
-      const fileData = resp.data.files;
-      let pushFileData = [];
-      for (let i in fileData) {
-        if (fileData[i].file_link !== '') {
-          pushFileData.push({
-            "file_link": fileData[i].file_link
-          })
-        }
-      }
-      setPostFiles(pushFileData);
+	  setUserCheck(resp.data.userCheck);
+	  setUser_nickname(resp.data.user_nickname);
+      
     }
     getPostDetail();
   }, []);
 
   // 게시글 삭제
   const onClickDelete = async () => {
-    let pw = '12345';
-    var password = prompt('정말로 삭제하시겠습니까?\n삭제를 원하시면 비밀번호를 입력해주세요.');
-    console.log(password);
-
-    if (pw == password) {
-      await axios.delete(`/dog/post/delete/${post_id}`).then((res) => {
+      await axios.delete(`/dog/post/delete/${post_id}`, {headers: {Authorization: `Bearer ${localStorage.getItem("jwt")}`}}).then((res) => {
         alert('삭제가 완료되었습니다.');
         navigate(`/post/list/${board_category}`);
       })
-    }
-
-    else {
-      alert('비밀번호가 일치하지 않습니다.');
-    }
   }
 
   // 게시글 수정
@@ -83,7 +64,7 @@ console.log(postDetail.post_title)
 
       <div className="PostNewsDetail">
         <div className="PostNewsTitle">
-          <p>{postType[postpost.indexOf(board_category)]}</p>
+          <p>뉴스/칼럼</p>
         </div>
 
         {/* Post Detail */}
@@ -104,14 +85,19 @@ console.log(postDetail.post_title)
 
           {/* 수정/삭제 */}
           <div className="NewsDetailButtons">
-            <Button variant="primary" onClick={onClickModify}>수정하기</Button>
-            <Button variant="danger" onClick={onClickDelete}>삭제하기</Button>
+          	{ userCheck === "yes" ? 
+          	<div>
+            	<Button variant="primary" onClick={onClickModify}>수정하기</Button>
+            	<Button variant="danger" onClick={onClickDelete}>삭제하기</Button>
+            </div>
+            : <div></div>
+            }
             <Button variant="secondary" onClick={onClickHeart}><FontAwesomeIcon icon={faHeart} />&nbsp;게시글 좋아요하기</Button>
             <Button variant="secondary" onClick={() => navigate(`/post/list/${board_category}`)}>목록</Button>
           </div>
 
           {/* 댓글 */}
-          <Comment board_category={board_category} post_id={post_id} />
+          <Comment board_category={board_category} post_id={post_id} user_nickname={user_nickname}/>
         </div>
       </div>
   )

@@ -64,6 +64,9 @@ public interface PostMapper {
 	@Delete("DELETE FROM tblcomment WHERE comment_id=#{comment_id}")
 	void deleteComment(int comment_id);
 	
+	@Delete("DELETE FROM tblcomment WHERE post_id=#{post_id}")
+	void deleteCommentAll(int post_id);
+	
 	@Update("UPDATE tblcomment SET comment_content=#{comment_content} WHERE comment_id=#{comment_id}")
 	void editComment(Comment comment);
 	

@@ -87,9 +87,14 @@ public class PostRepository {
 		return postMapper.selectComment(post_id);
 	}
 	
-	// 댓글 삭제
+	// 댓글 1개 삭제
 	public void deleteComment(int comment_id) {
 		postMapper.deleteComment(comment_id);
+	}
+	
+	// 댓글 전체 삭제
+	public void deleteCommentAll(int post_id) {
+		postMapper.deleteCommentAll(post_id);
 	}
 	
 	// 댓글 수정

@@ -23,13 +23,13 @@ const Comment = (props) => {
       setCommentList(resp.data);
     }
     getCommentList();
+    
   }
 
   // 댓글 등록
   const [comment, setComment] = useState({
     board_category: props.board_category,
     post_id: props.post_id,
-    user_nickname: '',
     comment_content: ''
   })
 
@@ -39,11 +39,13 @@ const Comment = (props) => {
   }
 
   const setCommentProc = async () => {
-    await axios.post('/dog/post/comment', comment).then((res) => {
+    await axios.post('/dog/post/comment', comment, {headers: {Authorization: `Bearer ${localStorage.getItem("jwt")}`}}).then((res) => {
       alert('등록되었습니다.')
+      setComment({...comment, comment_content: ""});
       redirect();
     });
   }
+  
 
   return (
     <div className="postcomment">
@@ -53,11 +55,11 @@ const Comment = (props) => {
       <br />
 
       <div className="comment_box">
-        <input type="text" name="user_nickname" onChange={onChange} /><br />
-        <textarea name="comment_content" className="comment_content" onChange={onChange} placeholder="댓글을 남겨보세요"/>
+        <div>{props.user_nickname}</div><br />
+        <textarea name="comment_content" className="comment_content" value={comment.comment_content} onChange={onChange} placeholder="댓글을 남겨보세요"/>
         <Button variant="dark" className="comment_button" onClick={setCommentProc}>댓글 달기</Button><br />
         {commentList && commentList.map((comment) => (
-          <CommentEdit comment={comment} redirect={redirect} />
+          <CommentEdit comment={comment} redirect={redirect} user_nickname={props.user_nickname}/>
         ))}
       </div>
     </div>
