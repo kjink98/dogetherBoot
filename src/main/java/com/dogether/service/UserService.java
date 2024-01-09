@@ -150,6 +150,10 @@ public class UserService {
         userRepository.updateUserPassword(user.getUser_id(), passwordEncoder.encode(requestDto.getNewPassword()));
     }
 
+    public boolean confirmPassword(ChangePasswordRequestDto requestDto, User user) {
+        return passwordEncoder.matches(requestDto.getExPassword(), user.getUser_pw());
+    }
+
     /**
      * 마이페이지에서 내 정보를 수정하는 메서드입니다.
      */

@@ -1,19 +1,15 @@
-import { React, useCallback, useEffect, useState } from 'react';
+import { React, useCallback } from 'react';
 import "../css/NavBar.css";
 import { Container, Nav, Navbar, NavDropdown, Form, Button, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
-const NavBar = ({isLogin, setIsLogin}) => {
-  // const [token, setToken] = useState(localStorage.getItem("jwt"));
+const NavBar = ({ isLogin, setIsLogin }) => {
   const logout = useCallback(() => {
     localStorage.removeItem("jwt");
     setIsLogin(false);
-    // setToken(localStorage.getItem("jwt"));
-  })
-  // useEffect(() => {
-  //   setToken(localStorage.getItem("jwt"));
-  // })
+  });
+
   return (
     <Navbar sticky="top" collapseOnSelect expand="xxl" className="bg-body-tertiary">
       <Container className="Menu">
@@ -57,7 +53,6 @@ const NavBar = ({isLogin, setIsLogin}) => {
               <NavDropdown.Item href="/sign-up">회원가입</NavDropdown.Item>
               <NavDropdown.Item href="/find">ID/PW 찾기</NavDropdown.Item>
             </NavDropdown>
-
           </Nav>
         </Navbar.Collapse>
       </Container>

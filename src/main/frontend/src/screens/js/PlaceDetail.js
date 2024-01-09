@@ -61,7 +61,7 @@ const PlaceDetail = () => {
 
   useEffect(() => {
     const getPlace = async () => {
-      const resp = await axios.get(`/dog/place/detail?place_id=${place_id}`)
+      await axios.get(`/dog/place/detail?place_id=${place_id}`)
         .then(res => {
           setPlace(res.data);
         })
@@ -73,7 +73,7 @@ const PlaceDetail = () => {
     getPlace();
 
     const getReview = async () => {
-      const resp = await axios.get(`/dog/review/${place_id}/review`)
+      await axios.get(`/dog/review/${place_id}/review`)
         .then(res => {
           setReview(res.data);
           setReviewCounts(res.data.length);
@@ -82,7 +82,7 @@ const PlaceDetail = () => {
     getReview();
 
     const getUser = async () => {
-      const resp = await axios.get(`/dog/user/info`, {
+      await axios.get(`/dog/user/info`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwt")}`
         }
@@ -94,7 +94,7 @@ const PlaceDetail = () => {
     getUser();
 
     const getRatings = async () => {
-      const resp = await axios.get(`/dog/review/rating/${place_id}`)
+      await axios.get(`/dog/review/rating/${place_id}`)
         .then(res => {
           setRatings(res.data);
         })
@@ -149,7 +149,7 @@ const PlaceDetail = () => {
   }
 
   const [value, setValue] = React.useState(1);
-  const [finalValue, setFinalValue] = React.useState(0);
+  const [finalValue, setFinalValue] = React.useState(1);
 
 
 
@@ -215,7 +215,6 @@ const PlaceDetail = () => {
                 <div className="PlaceReviewName">{rev.user_nickname}</div>
                 <div className="PlaceReviewSub">{rev.review_starRating}점</div>
                 <div className="PlaceReviewContents">{rev.review_content}</div>
-                {localStorage}
                 <Button variant="danger" className="comment_button">삭제</Button>
                 <Button variant="primary" className="comment_button">수정</Button>
               </div>

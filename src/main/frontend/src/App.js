@@ -32,7 +32,7 @@ import Find from './screens/js/Find';
 import Footer from './components/js/Footer';
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(localStorage.getItem("jwt") == null ? false : true);
   return (
     <Router>
       {/* 네비게이션 바 */}

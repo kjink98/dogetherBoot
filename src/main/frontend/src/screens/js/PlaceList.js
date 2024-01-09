@@ -18,7 +18,6 @@ const PlaceList = () => {
       setPlaceList(resp.data);
     }
     getPlaceList();
-    console.log(localStorage.getItem("jwt"));
   }, []);
 
   return (
@@ -35,8 +34,8 @@ const PlaceList = () => {
             <div class="PlaceListCard-body">
               <p class="PlaceListCard-title">{place.place_name}</p>
               <p class="PlaceListCard-score">{place.place_score}</p><br />
-              <p class="PlaceListCard-location">현재 위치에서 2.5km이내에 위치</p>
               <p class="PlaceListCard-info">{place.place_category} | {place.place_address} <br /><br />
+              <p class="PlaceListCard-location">{place.place_homepage}</p>
                 {place.place_call}<br />
               </p>
             </div>
