@@ -1,7 +1,9 @@
 package com.dogether.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,10 +14,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.dogether.domain.Comment;
 import com.dogether.domain.ImageFile;
 import com.dogether.domain.Post;
+import com.dogether.domain.User;
 import com.dogether.dto.CommentEditDto;
 import com.dogether.dto.Post2ProcDto;
 import com.dogether.dto.PostListDto;
 import com.dogether.repository.PostRepository;
+import com.dogether.repository.UserRepository;
 import com.dogether.utils.FileUtils;
 
 import jakarta.servlet.http.Cookie;
@@ -28,17 +32,29 @@ import lombok.RequiredArgsConstructor;
 public class PostService {
 
 	private final PostRepository postRepository;
-
+	private final UserRepository userRepository;
 	private final FileUtils fileUtils;
 	
 	// 메인페이지 게시글 목록 가져오기
 	public List<PostListDto> getMainList(String board_category) {
 	  List<PostListDto> list = new ArrayList<>();
 	  List<Post> postList = postRepository.getMainData(board_category);
-	  
+	  if(board_category.equals("news")) {
+		  for (int i = 0; i < postList.size(); i++) {
+				PostListDto listDto = new PostListDto(postList.get(i));
+				String content = listDto.getPost_content();
+				
+				Pattern pattern = Pattern.compile("<img\\s+src\\s*=\"/img/(.*?)\"\\s*>");
+				Matcher matcher = pattern.matcher(content);
+				if(matcher.find()) {
+					listDto.setFile_link(matcher.group(1));
+				}
+				list.add(listDto);
+		  }
+	  } else {
 		for (int i = 0; i < postList.size(); i++) {
 		  PostListDto listDto = new PostListDto(postList.get(i));
-		  List<ImageFile> fileList = getFile(listDto.getPost_id());
+		  List<ImageFile> fileList = postRepository.getFile(listDto.getPost_id());
 		  
 		  if(fileList.size() != 0) {
 		    listDto.setFile_id(fileList.get(0).getFile_id());
@@ -46,6 +62,7 @@ public class PostService {
 		  }
 		  list.add(listDto);
 		}
+	  }
 		return list;
 	}
 	
@@ -56,7 +73,6 @@ public class PostService {
 
 		List<Post> postList = postRepository.getDataAll(board_category);	
 		if(board_category.equals("news")) {
-			System.out.println(board_category);
 			for (int i = 0; i < postList.size(); i++) {
 				PostListDto listDto = new PostListDto(postList.get(i));
 				String content = listDto.getPost_content();
@@ -90,14 +106,27 @@ public class PostService {
 		return postRepository.getFileList(board_category);
 	}
 	
-	// 1개 게시글 내용 가져오기
-	public Post getPostDetail(Post post) {
-		return postRepository.getDataOne(post);
-	}
-	
-	// 1개 게시글 이미지 목록 가져오기
-	public List<ImageFile> getFile(int post_id) {
-		return postRepository.getFile(post_id);
+	// 1개 게시글 내용, 이미지 목록 가져오기
+	public Map<String, Object> getPostDetail(Post post, String user_id) {
+		Post detail = postRepository.getDataOne(post);
+		User user = userRepository.findById(user_id).get();
+		Map<String, Object> map = new HashMap<>();
+		map.put("detail", detail);
+		map.put("user_nickname", user.getUser_nickname());
+		if (post.getBoard_category().equals("news")) {
+			
+		} else {
+			List<ImageFile> fileList = postRepository.getFile(post.getPost_id());
+			map.put("files", fileList);
+		}
+		// 글쓴이 여부
+		if(detail.getUser_id().equals(user_id)) {
+			map.put("userCheck", "yes");
+		} else {
+			map.put("userCheck", "no");
+			
+		}
+		return map;
 	}
 	
 	// 조회수 업데이트
@@ -125,9 +154,10 @@ public class PostService {
 	}
 	
 	// 게시글 등록
-	public void setPost(Post post, MultipartFile[] files) {
-		post.setUser_id("yooram2"); // 임시 저장
-		post.setUser_nickname("푸들조아"); // 임시 저장
+	public void setPost(Post post, MultipartFile[] files, String user_id) {
+		User user = userRepository.findById(user_id).get();
+		post.setUser_id(user_id);
+		post.setUser_nickname(user.getUser_nickname());
 		postRepository.setData(post);
 
 		List<ImageFile> list = fileUtils.insertFileInfo(post.getBoard_category(), files);
@@ -143,10 +173,11 @@ public class PostService {
 	}
 	
 	// 글쓰기 에디터용(뉴스) 게시글 등록
-	public void setPost2(Post2ProcDto post2ProcDto) {
+	public void setPost2(Post2ProcDto post2ProcDto, String user_id) {
+		User user = userRepository.findById(user_id).get();
 		Post post = new Post(post2ProcDto);
-		post.setUser_id("yooram2"); // 임시 저장
-		post.setUser_nickname("푸들조아"); // 임시 저장
+		post.setUser_id(user_id);
+		post.setUser_nickname(user.getUser_nickname());
 		postRepository.setData(post);
 		
 		// 최종 이미지 리스트 DB 저장
@@ -177,7 +208,9 @@ public class PostService {
 		// 이미지 DB 삭제
 		postRepository.deleteFile(post_id);
 		// 이미지 실제 파일 삭제
-		fileUtils.deleteFile(getFile(post_id));
+		fileUtils.deleteFile(postRepository.getFile(post_id));
+		// 댓글 삭제
+		postRepository.deleteCommentAll(post_id);
 	}
 	
 	// 게시글 수정
@@ -186,7 +219,7 @@ public class PostService {
 		postRepository.updatePost(post);
 		// 기존 이미지 DB, 실제 파일 삭제
 		postRepository.deleteFile(post.getPost_id());
-		fileUtils.deleteFile(getFile(post.getPost_id()));
+		fileUtils.deleteFile(postRepository.getFile(post.getPost_id()));
 		// 새 이미지 등록
 		List<ImageFile> list = fileUtils.insertFileInfo(post.getBoard_category(), files);
 		for (int i = 0; i < list.size(); i++) {
@@ -197,8 +230,10 @@ public class PostService {
 	}
 	
 	// 댓글 등록
-	public void setComment(Comment comment) {
-		comment.setUser_id("yooram2"); // 임시 저장
+	public void setComment(Comment comment, String user_id) {
+		User user = userRepository.findById(user_id).get();
+		comment.setUser_id(user_id);
+		comment.setUser_nickname(user.getUser_nickname());
 		postRepository.setComment(comment);
 	}
 	

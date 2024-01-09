@@ -51,8 +51,13 @@ const PostPost = () => {
   }
   
   const setPostProc = async() => {
-	  const lastUrlList = Array.from(content.match(/(?<=<img[^>]+src=")(.*?)(?=")/ig));
-	  const deleteUrlList = urlList.filter(x => !lastUrlList.includes(x));
+	  const imgTag = content.match(/(?<=<img[^>]+src=")(.*?)(?=")/ig);
+	  let lastUrlList;
+	  let deleteUrlList;
+	  if (imgTag !== null) {
+		lastUrlList= Array.from(imgTag);
+	  	deleteUrlList = urlList.filter(x => !lastUrlList.includes(x));
+	  }
 	  
 	  const post = {
 		  board_category: board_category,
@@ -61,8 +66,9 @@ const PostPost = () => {
 		  lastUrlList: lastUrlList,
 		  deleteUrlList: deleteUrlList
 	  }
-	  await axios.post('/dog/post/post2', post).then((res)=>{
+	  await axios.post('/dog/post/post2', post, {headers: {Authorization: `Bearer ${localStorage.getItem("jwt")}`}}).then((res)=>{
 		alert("등록되었습니다")
+		navigate(`/post/list/${board_category}`);
 	  })
   }
   
@@ -88,7 +94,15 @@ const PostPost = () => {
 	}
   }, []);
   
-  
+  const onClickCancel = () => {
+    if (window.confirm("등록을 취소하시겠습니까?") == true) {
+      alert('게시글 등록이 취소되었습니다.');
+      navigate(`/post/list/${board_category}`);
+    }
+    else {
+      return;
+    }
+  }
 
 
   return (
@@ -108,13 +122,9 @@ const PostPost = () => {
 			
 			<ReactQuill modules={modules} ref={quillRef} style={{width:"800px", height:"500px"}} onChange={setContent}/>
 			<br/><br/>
-            <Form.Group className="NewsPostPassword" controlId="ControlNewsInput">
-              <Form.Label>게시글 등록을 원하시면 비밀번호를 입력해주세요.</Form.Label>
-              <Form.Control type="text" placeholder="비밀번호를 입력해주세요." value={message} onChange={(e) => { setMessage(e.target.value) }} />
-            </Form.Group>
-
+			
             <div className="NewsPostButtons">
-              {/*<Button variant="secondary" type="submit" onClick={onClickCancel}>작성취소</Button>*/}
+              <Button variant="secondary" type="submit" onClick={onClickCancel}>작성취소</Button>
               <Button variant="primary" type="submit" onClick={setPostProc}>등록하기</Button>
             </div>
           </Form>

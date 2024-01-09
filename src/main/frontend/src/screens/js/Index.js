@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCompass, faPaw, faLocationDot, faQuoteLeft, faQuoteRight } from "@fortawesome/free-solid-svg-icons";
 import axios from 'axios';
 import moment from 'moment';
+import logo from '../../Img/logo.jpeg'
 
 function Index() {
   const [placeCount, setPlaceCount] = useState([]);
@@ -25,6 +26,11 @@ function Index() {
     }
     getPlaceCount();
   }, []);
+  
+  // 이미지 없을 시 기본이미지
+  const setLogo = (e) => {
+	  e.target.src = logo;
+  }
 
   return (
     <div>
@@ -57,10 +63,10 @@ function Index() {
           <a className="NewsDetail" href="/post/list/news">자세히 보기</a>
 		  {newsList && newsList.map((news) => (
           <a class="card flex-row MainCalumnCard" href={'/post/detail/news/' + news.post_id}>
-            <img class="MainCalumnCard-img-left" src={`${process.env.PUBLIC_URL}/img/${news.file_link}`} />
+            <img class="MainCalumnCard-img-left" src={`${process.env.PUBLIC_URL}/img/${news.file_link}`} onError={setLogo}/>
             <div class="MainCalumnCard-body">
               <p class="MainCalumnCard-title">{news.post_title}</p>
-              <p class="MainCalumnCard-text">{news.post_content}</p>
+              <p class="MainCalumnCard-text"></p>
               <p class="MainCalumnCard-date">{moment(news.post_create_date).format('YYYY-MM-DD')}</p>
             </div>
           </a>
@@ -74,7 +80,7 @@ function Index() {
           <a className="ProDetail" href="/post/list/promotion">자세히 보기</a>
 		  {promotionList && promotionList.map((promotion) => (
           <a class="card flex-row MainCalumnCard" href={'/post/detail/promotion/' + promotion.post_id}>
-            <img class="MainCalumnCard-img-left" src={`${process.env.PUBLIC_URL}/img/${promotion.file_link}`}/>
+            <img class="MainCalumnCard-img-left" src={`${process.env.PUBLIC_URL}/img/${promotion.file_link}`} onError={setLogo}/>
             <div class="MainCalumnCard-body">
               <p class="MainCalumnCard-title">{promotion.post_title}</p>
               <p class="MainCalumnCard-text">{promotion.post_content}</p>

@@ -49,9 +49,9 @@ const SignUp = () => {
         const containsSpecialCharacter = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(newId);
 
         setIdValid({
-            code: idRegex.test(newId) && !containsSpecialCharacter ? "success" : "fail",
+            code: idRegex.test(newId) && !containsSpecialCharacter ? "" : "fail",
             msg: idRegex.test(newId) && !containsSpecialCharacter
-                ? <span className="text-success">사용할 수 있는 아이디입니다.</span>
+                ? <span className="text-success"></span>
                 : <span style={{ color: 'red' }}>최소 6글자이며, 영어, 숫자를 포함하며 특수문자는 사용할 수 없습니다.</span>
         });
 
@@ -60,12 +60,7 @@ const SignUp = () => {
     // ID 중복확인
     const checkId = async () => {
         await axios.get(`/dog/user/idCheck/${id}`).then((res) => {
-            console.log(res.data)
-            if (!res.data) {
-                setIdValid({ code: "success", msg: "사용할 수 있는 아이디입니다" });
-            } else {
-                setIdValid({ code: "fail", mag: "중복된 아이디입니다" }); // 이거 왜안됨
-            }
+            {res.data ? setIdValid({ code: "fail", msg: <span style={{ color: 'red' }}>사용할 수 없는 아이디입니다.</span> }) : setIdValid({code: "success", msg: <span className="text-success">사용할 수 있는 아이디입니다.</span>})}
         })
     }
 
@@ -110,9 +105,9 @@ const SignUp = () => {
         const isProfanity = checkForProfanity(newNickname); // 비속어 체크 함수 (구현 필요)
 
         setNicknameValid({
-            code: nicknameRegex.test(newNickname) && !containsSpecialCharacter && !isProfanity ? "success" : "fail",
+            code: nicknameRegex.test(newNickname) && !containsSpecialCharacter && !isProfanity ? "" : "fail",
             msg: nicknameRegex.test(newNickname) && !containsSpecialCharacter && !isProfanity
-                ? <span style={{ color: 'green', fontWeight: 'bold' }}>사용할 수 있는 닉네임입니다.</span>
+                ? <span style={{ color: 'green', fontWeight: 'bold' }}></span>
                 : <span style={{ color: 'red', fontWeight: 'bold' }}>닉네임은 최소 4글자이며, 비속어와 특수문자는 사용할 수 없습니다.</span>
         });
     }
@@ -128,11 +123,7 @@ const SignUp = () => {
     // 닉네임 중복확인
     const checkNickname = async () => {
         await axios.get(`/dog/user/nicknameCheck/${nickname}`).then((res) => {
-            if (res.data === 1) {
-                setNicknameValid({ code: "success", msg: "사용할 수 있는 아이디입니다" });
-            } else if (res.data === 0) {
-                setNicknameValid({ code: "fail", mag: "중복된 아이디입니다" }); // 이거 왜안됨
-            }
+			 {res.data === 1 ? setNicknameValid({ code: "success", msg: <span className="text-success">사용할 수 있는 아이디입니다.</span> }) : setNicknameValid({code: "fail", msg: <span style={{ color: 'red' }}>사용할 수 없는 아이디입니다.</span>})}
         })
     }
 

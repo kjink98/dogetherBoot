@@ -28,7 +28,6 @@ const PostPost = () => {
     setFiles(files);
   }
 
-  /*
   const onClickCancel = () => {
     if (window.confirm("등록을 취소하시겠습니까?") == true) {
       alert('게시글 등록이 취소되었습니다.');
@@ -38,15 +37,7 @@ const PostPost = () => {
       return;
     }
   }
-  */
-
-  /*
-  const onClickRegister = () => {
-    var password = prompt('등록을 원하시면 비밀번호를 입력해주세요.');
-    console.log(password);
-  }
-  */
-
+  
   const onChange = (event) => {
     const { name, value } = event.target;
     setPost({ ...post, [name]: value });
@@ -59,7 +50,7 @@ const PostPost = () => {
     }
     formData.append("post", new Blob([JSON.stringify(post)], { type: "application/json" }));
 
-    await axios.post('/dog/post/post', formData).then((res) => {
+    await axios.post('/dog/post/post', formData, {headers: {Authorization: `Bearer ${localStorage.getItem("jwt")}`}}).then((res) => {
       alert('등록되었습니다');
       navigate('/post/list/' + board_category); // 이게 작동이 안됨..
     });
@@ -84,13 +75,8 @@ const PostPost = () => {
               <Form.Control className="NewsPostContents" as="textarea" name="post_content" placeholder="내용을 입력해주세요." onChange={onChange} />
             </Form.Group>
 
-            <Form.Group className="NewsPostPassword" controlId="ControlNewsInput">
-              <Form.Label>게시글 등록을 원하시면 비밀번호를 입력해주세요.</Form.Label>
-              <Form.Control type="text" placeholder="비밀번호를 입력해주세요." value={message} onChange={(e) => { setMessage(e.target.value) }} />
-            </Form.Group>
-
             <div className="NewsPostButtons">
-              {/*<Button variant="secondary" type="submit" onClick={onClickCancel}>작성취소</Button>*/}
+              <Button variant="secondary" type="submit" onClick={onClickCancel}>작성취소</Button>
               <Button variant="primary" type="submit" onClick={setPostProc}>등록하기</Button>
             </div>
           </Form>
