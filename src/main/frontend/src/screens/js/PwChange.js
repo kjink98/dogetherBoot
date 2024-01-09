@@ -11,12 +11,13 @@ import Myinfomodule from '../css/Myinfo.module.css';
 
 const PwChange = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
+
   const [password, setPassword] = useState('');
+  const [currentPassword, setCurrentPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
   const [passwordValid, setPasswordValid] = useState(true);
   const [passwordMismatch, setPasswordMismatch] = useState(false);
-  const [email, setEmail] = useState('');
-  const [emailValid, setEmailValid] = useState(true);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -31,6 +32,9 @@ const PwChange = () => {
     setPasswordValid(isValid);
   };
 
+  const handleCurrentPasswordChange = (e) => {
+    setCurrentPassword(e.target.value);
+  };
 
   const handleConfirmPasswordChange = (e) => {
     const newConfirmPassword = e.target.value;
@@ -38,6 +42,19 @@ const PwChange = () => {
 
     // 비밀번호 확인 일치 여부 검사
     setPasswordMismatch(newConfirmPassword !== password);
+  };
+
+  const handleConfirmButtonClick = () => {
+    // 모든 필드가 입력되었고, 비밀번호 형식 및 확인이 일치하는지 검사
+    if (currentPassword && password && confirmPassword && passwordValid && !passwordMismatch) {
+      // 추가적인 로직이 필요하다면 여기에 작성
+
+      // 입력된 내용이 모두 확인되면 alert 창 띄우기
+      alert('입력된 내용이 확인되었습니다.');
+    } else {
+      // 입력된 내용이 부족하거나 비밀번호 형식 불일치 등의 경우에 alert 창 띄우기
+      alert('입력된 내용을 다시 확인해주세요.');
+    }
   };
 
   return (
@@ -60,9 +77,11 @@ const PwChange = () => {
                 placeholder="현재 비밀번호"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
+                onChange={handleCurrentPasswordChange}
               />
             </InputGroup>
-            <div className='eye_3'>
+          </div>
+          <div className='eye_3'>
               <FontAwesomeIcon
                 icon={faEye}
                 size="xl"
@@ -70,8 +89,6 @@ const PwChange = () => {
                 className={Myinfomodule['eye-icon']}
               />
             </div>
-
-          </div>
         </div>
         <br />
 
@@ -93,7 +110,7 @@ const PwChange = () => {
           </div>
         </div>
         {!passwordValid && (
-          <div className='password-warning text-danger' style={{ fontWeight: 'bold' }}>
+          <div className='password-warning text-danger' style={{ fontWeight: 'bold', color: 'red' }}>
             최소 8자 이상이어야 하며, 숫자, 영어,특수 문자를 모두 포함해야 합니다.
           </div>
         )}
@@ -119,12 +136,12 @@ const PwChange = () => {
         </div>
 
         {passwordMismatch && (
-          <div className='password-warning text-danger' style={{ fontWeight: 'bold' }}>
+          <div className='password-warning text-danger' style={{ fontWeight: 'bold', color: 'red' }}>
             비밀번호 확인이 일치하지 않습니다.
           </div>
         )}
         <br />
-        <Button className={Myinfomodule['custom-button']} as="input" type="button" value="확인" />{' '}
+        <Button onClick={handleConfirmButtonClick} className={Myinfomodule['custom-button']} as="input" type="button" value="확인" />{' '}
       </div>
     </>
 

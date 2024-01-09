@@ -120,8 +120,8 @@ const PostPost = () => {
               <Form.Control type="text" placeholder="제목을 입력해주세요." onChange={(e)=>setPostTitle(e.target.value)} />
             </Form.Group>
 			
-			<ReactQuill modules={modules} ref={quillRef} style={{width:"800px", height:"500px"}} onChange={setContent}/>
-			<br/><br/>
+			<ReactQuill modules={modules} ref={quillRef} style={{width:"1500px", height:"400px"}} onChange={setContent}/>
+			<br/><br/><br/><br/>
 			
             <div className="NewsPostButtons">
               <Button variant="secondary" type="submit" onClick={onClickCancel}>작성취소</Button>

@@ -16,7 +16,7 @@ function LoginForm({ setIsLogin }) {
     }
 
     try {
-      const response = await axios({
+      const resp = await axios({
         method: 'post',
         url: '/dog/user/login',
         data: { user_id: userId, user_pw: userPw },
@@ -25,16 +25,17 @@ function LoginForm({ setIsLogin }) {
         },
         maxRedirects: 0
       });
-      localStorage.setItem("jwt", response.data);
-      if (response.status === 302 || response.status === 200) {
-        alert('로그인 성공');
+      if (resp.status === 302 || resp.status === 200) {
+        localStorage.setItem("jwt", resp.data.jwt);
+        alert(`${resp.data.nickname}님 환영합니다!`);
+        setIsLogin(true);
+        axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("jwt")}`;
         navigate('/');
       } else {
         alert('로그인 실패');
       }
     } catch (error) {
       alert('로그인 요청 중 오류가 발생했습니다.');
-      console.error(error);
     }
   };
 
@@ -71,17 +72,18 @@ function LoginForm({ setIsLogin }) {
       <div>
         <button className="btn btn-google btn-user btn-block"
           onClick={() => window.location.href = "/oauth2/authorization/google"}>
-          <i className="fab fa-google fa-fw"></i> 구글 로그인
+          <img src={require('../../Img/Google.png')}></img> 구글 로그인
         </button>
         <button className="btn btn-google btn-user btn-block"
           onClick={() => window.location.href = "/oauth2/authorization/naver"}>
-          <i className="fab fa-google fa-fw"></i> 네이버 로그인
+          <img className="fab fa-google fa-fw" src={require('../../Img/Cafe2.jpg')}></img> 네이버 로그인
         </button>
         <button className="btn btn-google btn-user btn-block"
           onClick={() => window.location.href = "/oauth2/authorization/kakao"}>
-          <i className="fab fa-google fa-fw"></i> 카카오 로그인
+          <img className="fab fa-google fa-fw" src={require('../../Img/Cafe2.jpg')}></img> 카카오 로그인
         </button>
       </div>
+      <img src={require('../../Img/Google.png')}></img>
     </div>
   );
 }

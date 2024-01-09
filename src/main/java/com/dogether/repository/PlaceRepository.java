@@ -46,4 +46,8 @@ public class PlaceRepository {
         return placeMapper.countAll();
     }
 
+    public int updateOne(int place_id, float place_score) {
+        return placeMapper.updateOne(place_id, place_score);
+    }
+
 }

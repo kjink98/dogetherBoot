@@ -1,8 +1,3 @@
-img {
-	width: 50%;
-	height: 50%;
-}
-
 .PostNewsDetail {
    width: 1740px;
    margin-left: auto;
@@ -37,7 +32,7 @@ img {
 .NewsDetailGroup .NewsDetailTitle {
    background-color: #F5C7BD;
    border-top: 1px solid black;
-   border-bottom: 3px solid #ABABAB;
+   border-bottom: 2px solid #fce0e0;
 }
 
 .NewsDetailGroup .NewsDetailTitle .title {
@@ -52,21 +47,18 @@ img {
    margin-top: -15px;
 }
 
-.NewsDetailGroup .NewsDetailBody {
+.NewsDetailGroup .NewsDetailBody2 {
    min-height: 500px;
    border-bottom: 1px solid black;
    padding: 20px;
    white-space: pre-line;
 }
 
-.NewsDetailBody .image {
-   position: absolute;
-   /*bottom: 0;
-   margin-bottom: 50px;*/
-}
-
-.NewsDetailGroup .NewsDetailBody img {
+.NewsDetailGroup .NewsDetailBody2 img {
    float: left;
+   width: 400px;
+   height: 300px;
+   padding: 30px;
 }
 
 .NewsDetails .NewsDetailButtons {

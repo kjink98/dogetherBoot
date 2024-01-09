@@ -75,13 +75,11 @@ console.log(postDetail.post_title)
                 <p className="title">{postDetail.post_title}</p>
                 <p className="subtitle">{postDetail.user_nickname} | {moment(postDetail.post_create_date).format('YYYY-MM-DD')} | 조회수 : {postDetail.post_views}</p>
               </ListGroup.Item>
-               <ListGroup.Item className="NewsDetailBody">
+              <ListGroup.Item className="NewsDetailBody2">
               	<div dangerouslySetInnerHTML={{__html: Dompurify.sanitize(postDetail.post_content)}}></div>
-              	</ListGroup.Item>
+              </ListGroup.Item>
             </ListGroup>
-
           </Card>
-          </div>
 
           {/* 수정/삭제 */}
           <div className="NewsDetailButtons">
@@ -100,6 +98,7 @@ console.log(postDetail.post_title)
           <Comment board_category={board_category} post_id={post_id} user_nickname={user_nickname}/>
         </div>
       </div>
+    </div>
   )
 }
 

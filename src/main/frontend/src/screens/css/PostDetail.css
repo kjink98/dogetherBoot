@@ -32,7 +32,7 @@
 .NewsDetailGroup .NewsDetailTitle {
    background-color: #F5C7BD;
    border-top: 1px solid black;
-   border-bottom: 3px solid #ABABAB;
+   border-bottom: 2px solid #fce0e0;
 }
 
 .NewsDetailGroup .NewsDetailTitle .title {
@@ -52,16 +52,21 @@
    border-bottom: 1px solid black;
    padding: 20px;
    white-space: pre-line;
+   position: relative;
 }
 
-.NewsDetailBody .image {
-   position: absolute;
-   /*bottom: 0;
-   margin-bottom: 50px;*/
-}
-
-.NewsDetailGroup .NewsDetailBody img {
+.NewsDetailGroup .NewsDetailBody .NewsDetailText{
+   width: 600px;
+   margin-right: 20px;
    float: left;
+}
+
+.NewsDetailGroup .NewsDetailBody .NewsDetailImage {
+   width: 550px;
+   margin-left: 300px;
+   float: right;
+   position: absolute;left: 50%;top: 50%;
+   transform: translate(-50%,-50%);
 }
 
 .NewsDetails .NewsDetailButtons {
