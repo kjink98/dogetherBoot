@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faAngleLeft, faAngleRight, faAnglesLeft, faAnglesRight } from "@fortawesome/free-solid-svg-icons";
 import moment from 'moment';
 import axios from 'axios';
+import logo from '../../Img/logo.jpeg'
 
 const PostList = () => {
   const navigate = useNavigate();
@@ -75,6 +76,11 @@ const PostList = () => {
         })
     }
   }
+  
+  // 이미지 없을 시 기본이미지
+  const setLogo = (e) => {
+	  e.target.src = logo;
+  }
 
   return (
     <div>
@@ -104,8 +110,8 @@ const PostList = () => {
             const path = post.board_category === "news" ? "/post/detail2/" : "/post/detail/"
             navigate(path + post.board_category + "/" + post.post_id)
           }}>
-				    <div className="card PostNewsCard">
-                  <img src={`${process.env.PUBLIC_URL}/img/${post.file_link}`}>
+				<div className="card PostNewsCard">
+                  <img src={`${process.env.PUBLIC_URL}/img/${post.file_link}`} onError={setLogo}>
                   </img>
                   <div class="PostNewsCard-body">
                     <p class="PostNewsCard-title">{post.post_title}</p>
