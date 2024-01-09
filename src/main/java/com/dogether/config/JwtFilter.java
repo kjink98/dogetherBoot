@@ -32,12 +32,9 @@ public class JwtFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         final String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
-        log.info("authorization : {}", authorization);
 
         // token이 없거나 잘못 보내면 Block
         if (authorization == null || !authorization.startsWith("Bearer ")) {
-
-            log.error("Authorization을 잘못 보냈습니다.");
             filterChain.doFilter(request, response);
             return;
         }
@@ -55,7 +52,7 @@ public class JwtFilter extends OncePerRequestFilter {
         // UserName Token에서 꺼내기
         String userName = JwtUtil.getUserName(token, secretKey);
         log.info("userName : {}", userName);
-        
+
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userName,
                 null, List.of(new SimpleGrantedAuthority("USER")));
 

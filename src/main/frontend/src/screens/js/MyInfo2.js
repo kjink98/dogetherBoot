@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import MySideBar from '../../components/js/MySideBar.js';
-// import MemberDelete from '../../components/js/MemberDelete.js';
 
 const Myinfo2 = () => {
   const [passwordInput, setPasswordInput] = useState('');
@@ -51,17 +50,17 @@ const Myinfo2 = () => {
       <div className="myinfo2">
 
         <div className='withdrawal'>
-          <p className='ppppp'>내 정보 수정</p>
+          <p className='ppppp'>내 정보</p>
           <InputGroup className="mb-3">
             <InputGroup.Text id="inputGroup-sizing-default">
               <b>닉네임</b>
             </InputGroup.Text>
             <Form.Control
+              disabled
               placeholder="닉네임"
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
             />
-            <Button variant="primary">변경</Button>{' '}
           </InputGroup>
         </div>
 
@@ -81,6 +80,7 @@ const Myinfo2 = () => {
             <b>아이디</b>
           </InputGroup.Text>
           <Form.Control
+            disabled
             placeholder="아이디"
             aria-label="Username"
             aria-describedby="basic-addon1"
@@ -102,6 +102,7 @@ const Myinfo2 = () => {
             <b>생년월일</b>
           </InputGroup.Text>
           <Form.Control
+            disabled
             aria-label="Username"
             aria-describedby="basic-addon1"
             type='date'
@@ -120,19 +121,19 @@ const Myinfo2 = () => {
         </InputGroup>
 
         <InputGroup className="mb-3">
-                    <div className='memType'>
-                        <InputGroup.Text id="basic-addon1"><b>회원 종류</b></InputGroup.Text>
-                        <div className='radio_1'>
-                            {['radio'].map((type) => (
-                                <div key={`inline-${type}`} className="radio_2">
-                                    <Form.Check inline vlaue="USER" label="일반회원" name="role" type={type} id={`inline-${type}-1`} onChange={handleInfoChange} />
-                                    <Form.Check inline vlaue="SELLER" label="판매자회원" name="role" type={type} id={`inline-${type}-2`} onChange={handleInfoChange} />
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                    <Button variant="primary">변경</Button>{' '}
-                </InputGroup>
+          <div className='memType'>
+            <InputGroup.Text id="basic-addon1"><b>회원 종류</b></InputGroup.Text>
+            <div className='radio_1'>
+              {['radio'].map((type) => (
+                <div key={`inline-${type}`} className="radio_2">
+                  <Form.Check disabled checked inline vlaue="USER" label="일반회원" name="role" type={type} id={`inline-${type}-1`} onChange={handleInfoChange} />
+                  <Form.Check disabled inline vlaue="SELLER" label="판매자회원" name="role" type={type} id={`inline-${type}-2`} onChange={handleInfoChange} />
+                </div>
+              ))}
+            </div>
+          </div>
+          <Button variant="primary">변경</Button>{' '}
+        </InputGroup>
 
         <InputGroup className="mb-3">
           <InputGroup>

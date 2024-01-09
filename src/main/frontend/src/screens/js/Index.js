@@ -13,13 +13,14 @@ function Index() {
   const [placeCount, setPlaceCount] = useState([]);
   const [newsList, setNewsList] = useState([]);
   const [promotionList, setPromotionList] = useState([]);
+
   useEffect(() => {
-	  const getPostList = async() => {
-		  const resp = await axios.get("/dog/post/mainList/news/promotion")
-		  setNewsList(resp.data.newsList);
-		  setPromotionList(resp.data.promotionList);
-	  }
-	  getPostList();
+    const getPostList = async () => {
+      const resp = await axios.get("/dog/post/mainList/news/promotion")
+      setNewsList(resp.data.newsList);
+      setPromotionList(resp.data.promotionList);
+    }
+    getPostList();
     const getPlaceCount = async () => {
       const resp = await axios.get(`/dog/place/count`);
       setPlaceCount(prev => resp.data);
@@ -37,11 +38,11 @@ function Index() {
       <IndexCarousel></IndexCarousel>
 
       <div className="compass">
-        {/* <h2><FontAwesomeIcon icon={faQuoteLeft} />&nbsp;<b>Dogether에 등록된 애견 동반 장소들</b>&nbsp;<FontAwesomeIcon icon={faQuoteRight} /></h2> */}
+        {/* <h2>&nbsp;<b>Dogether에 등록된 애견 동반 장소들</b>&nbsp;</h2> */}
 
         <Toast>
           <Toast.Header>
-            <strong className="me-auto toast_title"><FontAwesomeIcon icon={faPaw} />&nbsp;바로 가기</strong>
+            <strong className="me-auto toast_title">&nbsp;&nbsp;&nbsp;<FontAwesomeIcon icon={faPaw} />&nbsp;&nbsp;장소 추천 바로 가기</strong>
           </Toast.Header>
           <Toast.Body>
             <p>

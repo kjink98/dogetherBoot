@@ -16,7 +16,7 @@ function LoginForm({ setIsLogin }) {
     }
 
     try {
-      const response = await axios({
+      const resp = await axios({
         method: 'post',
         url: '/dog/user/login',
         data: { user_id: userId, user_pw: userPw },
@@ -25,9 +25,9 @@ function LoginForm({ setIsLogin }) {
         },
         maxRedirects: 0
       });
-      localStorage.setItem("jwt", response.data);
-      if (response.status === 302 || response.status === 200) {
-        alert('로그인 성공');
+      if (resp.status === 302 || resp.status === 200) {
+        localStorage.setItem("jwt", resp.data.jwt);
+        alert(`${resp.data.nickname}님 환영합니다!`);
         setIsLogin(true);
         axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("jwt")}`;
         navigate('/');
@@ -36,7 +36,6 @@ function LoginForm({ setIsLogin }) {
       }
     } catch (error) {
       alert('로그인 요청 중 오류가 발생했습니다.');
-      console.error(error);
     }
   };
 

@@ -1,19 +1,15 @@
-import { React, useCallback, useEffect, useState } from 'react';
+import { React, useCallback } from 'react';
 import "../css/NavBar.css";
 import { Container, Nav, Navbar, NavDropdown, Form, Button, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
-const NavBar = ({isLogin, setIsLogin}) => {
-  // const [token, setToken] = useState(localStorage.getItem("jwt"));
+const NavBar = ({ isLogin, setIsLogin }) => {
   const logout = useCallback(() => {
     localStorage.removeItem("jwt");
     setIsLogin(false);
-    // setToken(localStorage.getItem("jwt"));
-  })
-  // useEffect(() => {
-  //   setToken(localStorage.getItem("jwt"));
-  // })
+  });
+
   return (
     <Navbar sticky="top" collapseOnSelect expand="xxl" className="bg-body-tertiary">
       <Container className="Menu">
@@ -43,7 +39,7 @@ const NavBar = ({isLogin, setIsLogin}) => {
             </NavDropdown>
 
             <NavDropdown title="마이페이지" id="collasible-nav-dropdown" className="DropdownMenu">
-              <NavDropdown.Item href="/my-info1">내정보 수정</NavDropdown.Item>
+              <NavDropdown.Item href="/my-info1">내 정보</NavDropdown.Item>
               <NavDropdown.Item href="/pw-change">비밀번호 변경</NavDropdown.Item>
               <NavDropdown.Item href="/favorite-place/123">관심장소 모아보기</NavDropdown.Item>
               <NavDropdown.Item href="/favorite-post/123">관심글 모아보기</NavDropdown.Item>
@@ -57,7 +53,6 @@ const NavBar = ({isLogin, setIsLogin}) => {
               <NavDropdown.Item href="/sign-up">회원가입</NavDropdown.Item>
               <NavDropdown.Item href="/find">ID/PW 찾기</NavDropdown.Item>
             </NavDropdown>
-
           </Nav>
         </Navbar.Collapse>
       </Container>

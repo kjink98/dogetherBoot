@@ -1,3 +1,4 @@
+/* global kakao */
 import React, { useState, useEffect } from 'react';
 import '../css/PlaceDetail.css';
 import { Button, ProgressBar } from 'react-bootstrap';
@@ -25,37 +26,82 @@ const PlaceDetail = () => {
   const [address, setAddress] = useState('');
   const [pname, setPname] = useState('');
 
+  const initMap = () => {
+    kakao.maps.load(() => {
+      var container = document.getElementById('map');
+      var geocoder = new kakao.maps.services.Geocoder();
+      geocoder.addressSearch(address, function (result, status) {
+        if (status === kakao.maps.services.Status.OK) {
+          var options = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667),
+            level: 3
+          };
+          var map = new kakao.maps.Map(container, options);
+          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+          var message = 'latlng : new kakao.maps.LatLng(' + result[0].y + ', ';
+          message += result[0].x + ')'
+
+          var resultDiv = document.getElementById('clickLatlng');
+          resultDiv.innerHTML = message;
+
+          var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+          });
+          var infowindow = new kakao.maps.InfoWindow({
+            content: `<div style="width:150px;text-align:center;padding:6px 0;">${pname}</div>`
+          });
+          infowindow.open(map, marker);
+
+          map.setCenter(coords);
+        }
+      })
+    })
+  };
+
   useEffect(() => {
     const getPlace = async () => {
-      const resp = await axios.get(`/dog/place/detail?place_id=${place_id}`)
-      setPlace(resp.data);
-      setAddress(place.place_address);
-      setPname(place.place_name);
+      await axios.get(`/dog/place/detail?place_id=${place_id}`)
+        .then(res => {
+          setPlace(res.data);
+        })
+        .then(() => {
+          setAddress(place.place_address);
+          setPname(place.place_name);
+        })
     }
     getPlace();
 
     const getReview = async () => {
-      const resp = await axios.get(`/dog/review/${place_id}/review`)
-      setReview(resp.data);
-      setReviewCounts(resp.data.length);
+      await axios.get(`/dog/review/${place_id}/review`)
+        .then(res => {
+          setReview(res.data);
+          setReviewCounts(res.data.length);
+        })
     }
     getReview();
 
     const getUser = async () => {
-      const resp = await axios.get(`/dog/user/info`, {
+      await axios.get(`/dog/user/info`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwt")}`
         }
-      });
-      setUser(resp.data);
+      })
+        .then(res => {
+          setUser(res.data);
+        })
     }
     getUser();
 
     const getRatings = async () => {
-      const resp = await axios.get(`/dog/review/rating/${place_id}`)
-      setRatings(resp.data);
+      await axios.get(`/dog/review/rating/${place_id}`)
+        .then(res => {
+          setRatings(res.data);
+        })
     }
     getRatings();
+
+    initMap();
   }, []);
 
   const countingLength = (e) => {
@@ -72,7 +118,6 @@ const PlaceDetail = () => {
     const params = {
       place_id: place_id,
       review_content: content.value,
-      user_id: user.user_id,
       user_nickname: user.user_nickname,
       review_starRating: value
     }
@@ -92,13 +137,6 @@ const PlaceDetail = () => {
       })
   };
 
-  const [favoritePlace, setFavoritePlace] = useState({
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("jwt")}`
-    },
-    place_id: place_id
-  });
-
   const onClickHeart = async () => {
     const resp = await axios.post(`/dog/place/favorite`, { place_id: place_id },
       { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }).then((res) => {
@@ -110,8 +148,11 @@ const PlaceDetail = () => {
       })
   }
 
-  const [value, setValue] = React.useState(0);
-  const [finalValue, setFinalValue] = React.useState(0);
+  const [value, setValue] = React.useState(1);
+  const [finalValue, setFinalValue] = React.useState(1);
+
+
+
 
   const data = [
     {
@@ -127,7 +168,7 @@ const PlaceDetail = () => {
           <p><FontAwesomeIcon icon={faTags} />태그</p>
 
           <div className="kakaomap">
-            <div>{address && pname && <KakaoMap address={address} pname={pname}></KakaoMap>}</div>
+            <div id='map' style={{ width: "640px", height: "360px" }}></div>
             <div id="clickLatlng"></div>
           </div>
         </div>
@@ -144,18 +185,18 @@ const PlaceDetail = () => {
               <fieldset>
                 <label class="skipinfo">리뷰 작성하기</label>
                 <div class="cm_input">
-                  <RangeSlider value={value} 
-                    onChange={e => setValue(e.target.value)} 
-                    onAfterChange={e => setFinalValue(e.target.value)} 
+                  <RangeSlider value={value || 1}
+                    onChange={e => setValue(e.target.value)}
+                    onAfterChange={e => setFinalValue(e.target.value)}
                     step={1}
                     min={1}
                     max={5}
                     tooltipPlacement='top'
                     tooltip='auto'
                     variant='info' />
-                  <p class="cm_score"><p class="cm_value">{finalValue}</p>점</p>
+                  <p class="cm_score"><p class="cm_value">{finalValue || 1}</p>점</p>
                   <textarea id="content" name="content" onKeyUp={(e) => countingLength(e)} cols="90" rows="4" placeholder="리뷰를 입력해 주세요."></textarea>
-                  <span className="cm_submit"><Button type="button" className="submitbtns" onClick={saveComment}>등록</Button><i id="counter">0/300자</i></span>
+                  <span className="cm_submit"><Button type="button" className="submitbtns" onClick={saveReview}>등록</Button><i id="counter">0/300자</i></span>
                 </div>
               </fieldset>
             </div>
@@ -184,6 +225,8 @@ const PlaceDetail = () => {
   ];
 
   const [index, setIndex] = useState(0);
+
+
 
   return (
     <div>
