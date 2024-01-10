@@ -1,5 +1,6 @@
 package com.dogether.service;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -227,7 +228,8 @@ public class UserService {
 
     public String findId(FindIdDto requestDto) {
         User user = userRepository.findByEmail(requestDto.getUser_email()).orElse(null);
-        if (user == null) {
+        SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd");
+        if (user == null || !requestDto.getUser_name().equals(user.getUser_name()) || !sdf.format(requestDto.getUser_birthday()).equals(sdf.format(user.getUser_birthday()))) {
             return "";
         }
         return user.getUser_id();

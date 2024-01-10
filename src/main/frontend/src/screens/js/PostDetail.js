@@ -66,14 +66,18 @@ const PostDetail = () => {
   }
 
   const onClickHeart = async () => {
-    const resp = await axios.post(`/dog/post/favorite`, { post_id: post_id, board_category: board_category },
-      { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }).then((res) => {
-        if (res.data) {
-          alert('관심글에 추가되었습니다.');
-        } else {
-          alert('이미 관심글로 등록된 글입니다.')
-        }
-      })
+    if (localStorage.getItem("jwt") != null) {
+      const resp = await axios.post(`/dog/post/favorite`, { post_id: post_id, board_category: board_category },
+        { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }).then((res) => {
+          if (res.data) {
+            alert('관심글에 추가되었습니다.');
+          } else {
+            alert('이미 관심글로 등록된 글입니다.')
+          }
+        })
+    } else {
+      alert("로그인이 필요합니다.")
+    }
   }
 
 

@@ -20,7 +20,7 @@ const PlaceDetail = () => {
   const [user, setUser] = useState();
   const [address, setAddress] = useState("");
   const [pname, setPname] = useState("");
-
+  let maxx = Math.max(...ratings);
 
   window.initKakaoMap = () => {
     var infowindow = new window.kakao.maps.InfoWindow({ zIndex: 1 });
@@ -99,7 +99,7 @@ const PlaceDetail = () => {
     getPlace();
 
     const getReview = async () => {
-      await axios.get(`/dog/review/${place_id}/review`)
+      await axios.get(`/dog/review/${place_id}`)
         .then(res => {
           setReview(res.data);
           setReviewCounts(res.data.length);
@@ -107,17 +107,19 @@ const PlaceDetail = () => {
     }
     getReview();
 
-    const getUser = async () => {
-      await axios.get(`/dog/user/info`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`
-        }
-      })
-        .then(res => {
-          setUser(res.data);
+    if (localStorage.getItem("jwt") != null) {
+      const getUser = async () => {
+        await axios.get(`/dog/user/info`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`
+          }
         })
+          .then(res => {
+            setUser(res.data);
+          })
+      }
+      getUser();
     }
-    getUser();
 
     const getRatings = async () => {
       await axios.get(`/dog/review/rating/${place_id}`)
@@ -148,38 +150,57 @@ const PlaceDetail = () => {
   }
 
   const saveReview = () => {
-    const content = document.getElementById('content');
-    const params = {
-      place_id: place_id,
-      review_content: content.value,
-      user_nickname: user.user_nickname,
-      review_starRating: value
+    if (localStorage.getItem("jwt") != null) {
+      const content = document.getElementById('content');
+      const params = {
+        place_id: place_id,
+        review_content: content.value,
+        review_starRating: value
+      }
+      try {
+        axios.post(`/dog/review`, params, { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } })
+          .then(() => {
+            const getReview = async () => {
+              const resp = await axios.get(`/dog/review/${place_id}`)
+              setReview(resp.data);
+            }
+            getReview();
+            document.getElementById('content').value = '';
+            const getRatings = async () => {
+              const resp = await axios.get(`/dog/review/rating/${place_id}`)
+              setRatings(resp.data);
+            }
+            getRatings();
+          })
+      } catch (error) {
+
+      }
+    } else {
+      alert("로그인이 필요합니다.")
     }
-    axios.post(`/dog/review/${place_id}/review`, params)
-      .then(() => {
-        const getReview = async () => {
-          const resp = await axios.get(`/dog/review/${place_id}/review`)
-          setReview(resp.data);
-        }
-        getReview();
-        document.getElementById('content').value = '';
-        const getRatings = async () => {
-          const resp = await axios.get(`/dog/review/rating/${place_id}`)
-          setRatings(resp.data);
-        }
-        getRatings();
-      })
   };
 
   const onClickHeart = async () => {
-    const resp = await axios.post(`/dog/place/favorite`, { place_id: place_id },
-      { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }).then((res) => {
-        if (res.data) {
-          alert('관심장소에 추가되었습니다.');
-        } else {
-          alert('이미 관심장소로 등록된 장소입니다.')
-        }
-      })
+    if (localStorage.getItem("jwt") != null) {
+      const resp = await axios.post(`/dog/place/favorite`, { place_id: place_id },
+        { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }).then((res) => {
+          if (res.data) {
+            alert('관심장소에 추가되었습니다.');
+          } else {
+            alert('이미 관심장소로 등록된 장소입니다.')
+          }
+        })
+    } else {
+      alert("로그인이 필요합니다.")
+    }
+  }
+
+  const onClickUpdate = async () => {
+
+  }
+
+  const onClickDelete = async () => {
+
   }
 
   const [value, setValue] = React.useState(1);
@@ -238,7 +259,7 @@ const PlaceDetail = () => {
 
           <div className="ProgressBars">
             {ratings.map((rating, index) => (
-              <div key={index} className="PlaceDetailProgressbar"><b>{5 - index}점</b><ProgressBar now={Number(rating / ratings.length * 100)} /><b>{rating}명</b></div>
+              <div key={index} className="PlaceDetailProgressbar"><b>{5 - index}점</b><ProgressBar now={Number(rating / maxx * 100)} /><b>{rating}명</b></div>
             ))}
           </div>
 
@@ -249,8 +270,8 @@ const PlaceDetail = () => {
                 <div className="PlaceReviewName">{rev.user_nickname}</div>
                 <div className="PlaceReviewSub">{rev.review_starRating}점</div>
                 <div className="PlaceReviewContents">{rev.review_content}</div>
-                <Button variant="primary" className="comment_button" >수정</Button>
-                <Button variant="danger" className="comment_button" >삭제</Button>
+                <Button variant="primary" className="comment_button" onClick={onClickUpdate}>수정</Button>
+                <Button variant="danger" className="comment_button" onClick={onClickDelete}>삭제</Button>
               </div>
             ))}
           </div>

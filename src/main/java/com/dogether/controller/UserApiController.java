@@ -47,7 +47,8 @@ public class UserApiController {
     }
 
     @PostMapping("/confirm-pw")
-    public ResponseEntity<String> confirmPassword(@RequestBody ChangePasswordRequestDto requestDto, Authentication authentication) {
+    public ResponseEntity<String> confirmPassword(@RequestBody ChangePasswordRequestDto requestDto,
+            Authentication authentication) {
         User user = userService.findOne(authentication.getName()).get();
         try {
             userService.confirmPassword(requestDto, user);
@@ -110,31 +111,38 @@ public class UserApiController {
     }
 
     @PostMapping("/login")
-	public ResponseEntity<Map> login(@RequestBody LoginRequest loginRequest){
-		String result = userService.login(loginRequest);
+    public ResponseEntity<Map> login(@RequestBody LoginRequest loginRequest) {
+        String result = userService.login(loginRequest);
         Map<String, Object> map = new HashMap<>();
-		if (result == null) {
-			return ResponseEntity.badRequest().body(map);
-		} else {
+        if (result == null) {
+            return ResponseEntity.badRequest().body(map);
+        } else {
             User user = userService.findOne(loginRequest.getUser_id()).get();
             map.put("jwt", result);
             map.put("nickname", user.getUser_nickname());
-			return ResponseEntity.ok().body(map);
-		}
-	}
+            return ResponseEntity.ok().body(map);
+        }
+    }
 
     @GetMapping("/info")
     public User getUser(Authentication authentication) {
-        String user_id = authentication.getName();
-		if (user_id == "") {
-			return null;
+        String user_id = "";
+        try {
+            user_id = authentication.getName();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (user_id == "") {
+            System.out.println("-----------------------");
+            return null;
         }
         User user = userService.findOne(user_id).get();
         return user;
     }
 
     @PostMapping("/ressss")
-    public ResponseEntity<String> deleteUser2(@RequestBody ChangePasswordRequestDto requestDto, Authentication authentication) {
+    public ResponseEntity<String> deleteUser2(@RequestBody ChangePasswordRequestDto requestDto,
+            Authentication authentication) {
         int check = userService.resignUser(authentication.getName(), requestDto.getExPassword());
         if (check == 1) {
             return ResponseEntity.ok("회원 탈퇴가 완료되었습니다.");
