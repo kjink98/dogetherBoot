@@ -66,6 +66,10 @@
    margin-right: 12%;
 }
 
+.NewsDetails .NewsDetailButtons .NewsUserButtons{
+   float: left;
+}
+
 .NewsDetails .NewsDetailButtons Button {
    margin-right: 13px;
    font-weight: 600;
