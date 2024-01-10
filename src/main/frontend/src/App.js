@@ -56,12 +56,12 @@ function App() {
         <Route path="/post/update/:board_category/:post_id" element={<PostUpdate />}></Route>
 
         {/* 마이페이지 */}
-        <Route path="/my-info1" element={<MyInfo1 />}></Route>
-        <Route path="/my-info2" element={<MyInfo2 />}></Route>
-        <Route path="/pw-change" element={<PwChange />}></Route>
-        <Route path="/favorite-place/:user_id" element={<FavoritePlace />}></Route>
-        <Route path="/favorite-post/:user_id" element={<FavoritePost />}></Route>
-        <Route path="/my-history/:user_id" element={<MyHistory />}></Route>
+        <Route path="/my-info1" element={<MyInfo1 isLogin={isLogin} />}></Route>
+        <Route path="/my-info2" element={<MyInfo2 setIsLogin={setIsLogin} />}></Route>
+        <Route path="/pw-change" element={<PwChange isLogin={isLogin} />}></Route>
+        <Route path="/favorite-place" element={<FavoritePlace isLogin={isLogin} />}></Route>
+        <Route path="/favorite-post" element={<FavoritePost isLogin={isLogin} />}></Route>
+        <Route path="/my-history" element={<MyHistory isLogin={isLogin} />}></Route>
 
         {/* 유저 */}
         <Route path="/user/login" element={<LoginForm setIsLogin={setIsLogin} />}></Route>

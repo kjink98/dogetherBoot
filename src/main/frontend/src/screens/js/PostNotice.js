@@ -110,7 +110,13 @@ const PostNotice = () => {
           </table>
         </div>
 
-        <Button className="PostNoticeButton" onClick={() => navigate('/post/post/' + board_category)}>게시글 작성하기</Button>
+        <Button className="PostNoticeButton" onClick={() => {
+          if (localStorage.getItem("jwt") != null) {
+            navigate('/post/post/' + board_category)
+          } else {
+            alert("로그인이 필요합니다.")
+          }
+        }}>게시글 작성하기</Button>
 
         <nav>
           <ul className='pagination'>

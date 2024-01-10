@@ -23,7 +23,7 @@ const Comment = (props) => {
       setCommentList(resp.data);
     }
     getCommentList();
-    
+
   }
 
   // 댓글 등록
@@ -39,13 +39,17 @@ const Comment = (props) => {
   }
 
   const setCommentProc = async () => {
-    await axios.post('/dog/post/comment', comment, {headers: {Authorization: `Bearer ${localStorage.getItem("jwt")}`}}).then((res) => {
-      alert('등록되었습니다.')
-      setComment({...comment, comment_content: ""});
-      redirect();
-    });
+    if (localStorage.getItem("jwt") != null) {
+      await axios.post('/dog/post/comment', comment, { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }).then((res) => {
+        alert('등록되었습니다.')
+        setComment({ ...comment, comment_content: "" });
+        redirect();
+      });
+    } else {
+      alert("로그인이 필요합니다.")
+    }
   }
-  
+
 
   return (
     <div className="postcomment">
@@ -56,10 +60,10 @@ const Comment = (props) => {
 
       <div className="comment_box">
         <div>{props.user_nickname}</div><br />
-        <textarea name="comment_content" className="comment_content" value={comment.comment_content} onChange={onChange} placeholder="댓글을 남겨보세요"/>
+        <textarea name="comment_content" className="comment_content" value={comment.comment_content} onChange={onChange} placeholder="댓글을 남겨보세요" />
         <Button variant="dark" className="comment_button" onClick={setCommentProc}>댓글 달기</Button><br />
         {commentList && commentList.map((comment) => (
-          <CommentEdit comment={comment} redirect={redirect} user_nickname={props.user_nickname}/>
+          <CommentEdit comment={comment} redirect={redirect} user_nickname={props.user_nickname} />
         ))}
       </div>
     </div>

@@ -17,9 +17,9 @@ public interface ReviewMapper {
     List<Review> selectAll(int place_id);
 
     @Insert("insert into tblreview (review_id, user_id, user_nickname,"
-            + "place_id, review_title, review_content, review_starRating) "
+            + "place_id, review_content, review_starRating, review_regdate) "
             + "values(nextval(review_id_seq), #{user_id}, #{user_nickname},"
-            + "#{place_id}, #{review_title}, #{review_content}, #{review_starRating})")
+            + "#{place_id}, #{review_content}, #{review_starRating}, now())")
     int insertReview(Review review);
 
     @Select("select user_nickname, review_title, review_content, user_id,"

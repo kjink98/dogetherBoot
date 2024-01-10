@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MySideBar from '../../components/js/MySideBar.js';
 import '../css/PwChange.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,8 +8,10 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 import Myinfomodule from '../css/Myinfo.module.css';
+import { useNavigate } from 'react-router-dom';
 
-const PwChange = () => {
+const PwChange = ({ isLogin }) => {
+  const navigate = useNavigate();
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const [password, setPassword] = useState('');
@@ -18,6 +20,13 @@ const PwChange = () => {
 
   const [passwordValid, setPasswordValid] = useState(true);
   const [passwordMismatch, setPasswordMismatch] = useState(false);
+
+  useEffect(() => {
+    if (isLogin == false) {
+      alert("로그인이 필요합니다.");
+      navigate('/');
+    }
+  }, [])
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -82,13 +91,13 @@ const PwChange = () => {
             </InputGroup>
           </div>
           <div className='eye_3'>
-              <FontAwesomeIcon
-                icon={faEye}
-                size="xl"
-                onClick={togglePasswordVisibility}
-                className={Myinfomodule['eye-icon']}
-              />
-            </div>
+            <FontAwesomeIcon
+              icon={faEye}
+              size="xl"
+              onClick={togglePasswordVisibility}
+              className={Myinfomodule['eye-icon']}
+            />
+          </div>
         </div>
         <br />
 

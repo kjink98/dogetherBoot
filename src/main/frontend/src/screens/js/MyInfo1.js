@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // useHistory 대신 useNavigate 사용
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -10,12 +10,20 @@ import MySidebar from '../../components/js/MySideBar.js';
 import Myinfomodule from '../css/Myinfo.module.css';
 import axios from 'axios';
 
-const MyInfo = () => {
+const MyInfo = ({ isLogin }) => {
   const navigate = useNavigate(); // 리다이렉션을 위한 useNavigate 훅 초기화
 
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState('');
   const [passwordValid, setPasswordValid] = useState(true);
+
+  useEffect(() => {
+    if (isLogin == false) {
+      alert("로그인이 필요합니다.");
+      navigate('/');
+    }
+  }, [])
+
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -46,6 +54,12 @@ const MyInfo = () => {
     }
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleConfirmClick();
+    }
+  };
+
   return (
     <>
       <MySidebar />
@@ -67,6 +81,7 @@ const MyInfo = () => {
               aria-label="Username"
               aria-describedby="basic-addon1"
               onChange={handlePasswordChange}
+              onKeyDown={handleKeyPress}
             />
           </InputGroup>
           <div className='eye_1'>
