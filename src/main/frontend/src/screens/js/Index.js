@@ -32,7 +32,7 @@ function Index() {
   const setLogo = (e) => {
 	  e.target.src = logo;
   }
-
+console.log(localStorage.getItem("jwt"))
   return (
     <div>
       <IndexCarousel></IndexCarousel>
@@ -60,7 +60,7 @@ function Index() {
           <p className="NewsTitle">뉴스 / 칼럼</p>
           <a className="NewsDetail" href="/post/list/news">자세히 보기</a>
 		  {newsList && newsList.map((news) => (
-          <a class="card flex-row MainCalumnCard" href={'/post/detail/news/' + news.post_id}>
+          <a class="card flex-row MainCalumnCard" href={'/post/detail2/news/' + news.post_id}>
             <img class="MainCalumnCard-img-left" src={`${process.env.PUBLIC_URL}/img/${news.file_link}`} onError={setLogo}/>
             <div class="MainCalumnCard-body">
               <p class="MainCalumnCard-title">{news.post_title}</p>

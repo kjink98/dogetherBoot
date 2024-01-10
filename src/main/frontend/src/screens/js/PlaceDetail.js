@@ -204,7 +204,7 @@ const PlaceDetail = () => {
 
           <div className="ProgressBars">
             {ratings.map((rating, index) => (
-              <div key={index} className="PlaceDetailProgressbar"><b>{5 - index}점</b><ProgressBar now={Number(rating / ratings.length * 100)} /><b>{rating}명</b></div>
+              <div key={index} className="PlaceDetailProgressbar"><b>{5 - index}점</b><ProgressBar now={Number(rating / reviewCounts * 100)} /><b>{rating}명</b></div>
             ))}
           </div>
 

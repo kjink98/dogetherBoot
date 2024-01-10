@@ -162,6 +162,7 @@
 .PlaceDetail .PlaceDetailReview .PlaceDetailWriteReview .cm_input textarea{
 	float: left;
 	width: 600px;
+	padding: 10px;
 	resize: none;
 }
 
