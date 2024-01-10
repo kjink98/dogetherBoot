@@ -6,18 +6,24 @@ import { faHeart, faAngleLeft, faAngleRight, faAnglesLeft, faAnglesRight } from 
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const FavoritePlace = () => {
+const FavoritePlace = ({ isLogin }) => {
   const navigate = useNavigate();
   const [favoritePlaceList, setFavoritePlaceList] = useState([]);
   const [favoritePlaceCount, setFavoritePlaceCount] = useState(0);
-  let { user_id } = useParams();
+
   useEffect(() => {
-    const getFavoritePlaceList = async () => {
-      const resp = await axios.get(`/dog/place/favorite/${user_id}`);
-      setFavoritePlaceList(resp.data);
-      setFavoritePlaceCount(resp.data.length);
+    if (isLogin == false) {
+      alert("로그인이 필요합니다.");
+      navigate('/');
+    } else {
+      const getFavoritePlaceList = async () => {
+        const resp = await axios.get(`/dog/place/favorite`,
+          { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } });
+        setFavoritePlaceList(resp.data);
+        setFavoritePlaceCount(resp.data.length);
+      }
+      getFavoritePlaceList();
     }
-    getFavoritePlaceList();
   }, []);
 
   const [currentPage, setCurrentPage] = useState(1);

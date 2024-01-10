@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dogether.domain.Comment;
-import com.dogether.domain.ImageFile;
+import com.dogether.domain.FavoritePost;
 import com.dogether.domain.Post;
 import com.dogether.dto.CommentEditDto;
 import com.dogether.dto.Post2ProcDto;
@@ -52,7 +52,8 @@ public class PostController {
     }
 
     @GetMapping("/detail/{board_category}/{post_id}")
-    public Map<String, Object> getPostDetail(Post post, HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+    public Map<String, Object> getPostDetail(Post post, HttpServletRequest request, HttpServletResponse response,
+            Authentication authentication) {
         String user_id = authentication.getName();
         Map<String, Object> map = postService.getPostDetail(post, user_id);
         return map;
@@ -61,7 +62,7 @@ public class PostController {
     @PostMapping(path = "/post", consumes = { "multipart/form-data" })
     public ResponseEntity<String> setPost(@RequestPart Post post,
             @RequestPart(value = "files", required = false) MultipartFile[] files, Authentication authentication) {
-    	String user_id = authentication.getName();
+        String user_id = authentication.getName();
         postService.setPost(post, files, user_id);
         return ResponseEntity.ok().body(authentication.getName() + "님의 리뷰 등록이 완료되었습니다.");
     }
@@ -76,7 +77,7 @@ public class PostController {
     // 글쓰기 에디터용(뉴스)
     @PostMapping("/post2")
     public String setPost2(@RequestBody Post2ProcDto post, Authentication authentication) {
-    	String user_id = authentication.getName();
+        String user_id = authentication.getName();
         postService.setPost2(post, user_id);
         return "setPost2";
     }
@@ -97,7 +98,7 @@ public class PostController {
     // 댓글 등록
     @PostMapping("/comment")
     public String setComment(@RequestBody Comment comment, Authentication authentication) {
-    	String user_id = authentication.getName();
+        String user_id = authentication.getName();
         postService.setComment(comment, user_id);
         return "comment";
     }
@@ -120,30 +121,19 @@ public class PostController {
         return "edit";
     }
 
-    @GetMapping("/favorite/{user_id}")
-    public List<Post> getFavoritePostList(@PathVariable String user_id) {
-        List<Post> favoritePosts = postService.favoriteList(user_id);
-        /*
-         * Test
-         * System.out.println(user_id);
-         * for (Post post : favoritePosts) {
-         * System.out.println("post_id : " + post.getPost_id());
-         * }
-         */
-        return favoritePosts;
+    @GetMapping("/favorite")
+    public List<Post> getFavoritePostList(Authentication authentication) {
+        return postService.favoriteList(authentication.getName());
     }
 
-    @GetMapping("/myhistory/{user_id}")
-    public List<Post> getMyPostList(@PathVariable String user_id) {
-        List<Post> myPosts = postService.myList(user_id);
-        /*
-         * Test
-         * System.out.println(user_id);
-         * for (Post post : favoritePosts) {
-         * System.out.println("post_id : " + post.getPost_id());
-         * }
-         */
-        return myPosts;
+    @PostMapping("/favorite")
+    public boolean postFavoritePost(@RequestBody FavoritePost favoritePost, Authentication authentication) {
+        return postService.setFavoritePost(favoritePost, authentication.getName());
+    }
+
+    @GetMapping("/myhistory")
+    public List<Post> getMyPostList(Authentication authentication) {
+        return postService.myList(authentication.getName());
     }
 
 }

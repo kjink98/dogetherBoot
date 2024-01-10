@@ -33,6 +33,7 @@ public class User {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date user_birthday; // 사용자의 생일
     private Role role; // 사용자의 권한
+    private boolean user_del;
 
     /**
      * 사용자 정보를 생성하는 정적 팩토리 메소드

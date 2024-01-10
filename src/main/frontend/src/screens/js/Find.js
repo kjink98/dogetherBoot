@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -6,8 +7,41 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import '../css/Find.css'
 import { faKey, faUser, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from 'axios';
 
 const Find = () => {
+  const [email, setEmail] = useState();
+  const [name, setName] = useState();
+  const [birthday, setBirthday] = useState();
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  }
+
+  const handleBirthdayChange = (e) => {
+    setBirthday(e.target.value);
+  }
+
+  const onFindId = async () => {
+    const info = {
+      user_email: email,
+      user_name: name,
+      user_birthday: birthday
+    }
+
+    await axios.post("/dog/user/findid", info)
+      .then(res => {
+        if (res.data != "") {
+          alert("ID는 " + res.data + " 입니다")
+        } else {
+          alert("ID를 찾을 수 없습니다.")
+        }
+      })
+  }
 
   return (
     <>
@@ -29,6 +63,7 @@ const Find = () => {
                 placeholder="E-mail"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
+                onChange={handleEmailChange}
               />
             </InputGroup>
             <InputGroup className="mb-3 find_2">
@@ -39,6 +74,7 @@ const Find = () => {
                 placeholder="이름을 입력하세요"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
+                onChange={handleNameChange}
               />
             </InputGroup>
             <InputGroup className="mb-3 find_2">
@@ -50,11 +86,12 @@ const Find = () => {
                 placeholder="생년월일"
                 aria-label="Birthdate"
                 aria-describedby="basic-addon1"
+                onChange={handleBirthdayChange}
               />
             </InputGroup>
           </div>
 
-          <Button className="custom-button" as="input" type="button" value="확인" />{' '}
+          <Button className="custom-button" as="input" type="button" value="확인" onClick={onFindId} />{' '}
         </div>
         <div className='right_3'>
           <div className="info">

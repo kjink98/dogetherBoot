@@ -76,10 +76,10 @@ const PostList = () => {
         })
     }
   }
-  
+
   // 이미지 없을 시 기본이미지
   const setLogo = (e) => {
-	  e.target.src = logo;
+    e.target.src = logo;
   }
 
   return (
@@ -120,13 +120,26 @@ const PostList = () => {
                     {post.board_category === "news" ? "" : <p class="PostNewsCard-detail">{post.post_content}</p>}
                   </div>
                 </div>
-				</div>)}
+              </div>
+            </div>)}
         </div>
-        
-		{board_category === "news" ?
-			<Button className="PostNewsButton" onClick={() => navigate('/post/post2/' + board_category)}>게시글 작성하기</Button> :
-			<Button className="PostNewsButton" onClick={() => navigate('/post/post/' + board_category)}>게시글 작성하기</Button>
-		}
+
+        {board_category === "news" ?
+          <Button className="PostNewsButton" onClick={() => {
+            if (localStorage.getItem("jwt") != null) {
+              navigate('/post/post2/' + board_category)
+            } else {
+              alert("로그인이 필요합니다.")
+            }
+          }}>게시글 작성하기</Button> :
+          <Button className="PostNewsButton" onClick={() => {
+            if (localStorage.getItem("jwt") != null) {
+              navigate('/post/post/' + board_category)
+            } else {
+              alert("로그인이 필요합니다.")
+            }
+          }}>게시글 작성하기</Button>
+        }
 
         <nav>
           <ul className='pagination'>

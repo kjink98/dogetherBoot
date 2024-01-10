@@ -29,7 +29,6 @@ function LoginForm({ setIsLogin }) {
         localStorage.setItem("jwt", resp.data.jwt);
         alert(`${resp.data.nickname}님 환영합니다!`);
         setIsLogin(true);
-        axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("jwt")}`;
         navigate('/');
       } else {
         alert('로그인 실패');

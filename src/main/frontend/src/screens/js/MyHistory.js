@@ -6,18 +6,24 @@ import { faAngleLeft, faAngleRight, faAnglesLeft, faAnglesRight } from "@fortawe
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const MyHistory = () => {
+const MyHistory = ({ isLogin }) => {
   const navigate = useNavigate();
   const [myPostList, setMyPostList] = useState([]);
   const [myPostCount, setMyPostCount] = useState(0);
-  let { user_id } = useParams();
+
   useEffect(() => {
-    const getMyPostList = async () => {
-      const resp = await axios.get(`/dog/post/myhistory/${user_id}`);
-      setMyPostList(resp.data);
-      setMyPostCount(resp.data.length);
+    if (isLogin == false) {
+      alert("로그인이 필요합니다.");
+      navigate('/');
+    } else {
+      const getMyPostList = async () => {
+        const resp = await axios.get(`/dog/post/myhistory`,
+          { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } });
+        setMyPostList(resp.data);
+        setMyPostCount(resp.data.length);
+      }
+      getMyPostList();
     }
-    getMyPostList();
   }, []);
 
   const [currentPage, setCurrentPage] = useState(1);

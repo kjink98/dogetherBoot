@@ -1,10 +1,10 @@
 package com.dogether.service;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.h2.api.ErrorCode;
 import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -20,6 +20,7 @@ import org.springframework.util.StringUtils;
 import com.dogether.domain.User;
 import com.dogether.dto.ChangeInfoRequestDto;
 import com.dogether.dto.ChangePasswordRequestDto;
+import com.dogether.dto.FindIdDto;
 import com.dogether.dto.LoginRequest;
 import com.dogether.repository.UserRepository;
 import com.dogether.utils.JwtUtil;
@@ -182,15 +183,14 @@ public class UserService {
      */
     public int resignUser(String user_id, String exPassword) {
         User user = userRepository.findById(user_id).orElse(null);
-        if (user == null || !passwordEncoder.matches(exPassword, user.getUser_pw())) {
+        System.out.println("user : " + exPassword);
+        if (user.isUser_del() || !passwordEncoder.matches(exPassword, user.getUser_pw())) {
             return 0;
         }
-
         return userRepository.resignUser(user_id);
     }
 
     public int resignUser(String user_id) {
-        User user = userRepository.findById(user_id).orElse(null);
 
         return userRepository.resignUser(user_id);
     }
@@ -207,21 +207,31 @@ public class UserService {
         String reqUser_id = loginRequest.getUser_id();
         Optional<User> optionalUser = userRepository.findById(loginRequest.getUser_id());
 
-        if (optionalUser.isEmpty()) {
+        if (optionalUser.isEmpty() || optionalUser.get().isUser_del() == true) {
             return null;
         }
 
         User user = optionalUser.get();
 
-        if(!passwordEncoder.matches(loginRequest.getUser_pw(), user.getUser_pw())) {
+        if (!passwordEncoder.matches(loginRequest.getUser_pw(), user.getUser_pw())) {
             System.out.println("password problem");
             return null;
         }
 
-        if (reqUser_id == optionalUser.toString() || passwordEncoder.matches(loginRequest.getUser_pw(), user.getUser_pw())) {
+        if (reqUser_id == optionalUser.toString()
+                || passwordEncoder.matches(loginRequest.getUser_pw(), user.getUser_pw())) {
             return JwtUtil.createJwt(reqUser_id, secretKey, expiredMs);
         } else {
             return null;
-        } 
+        }
+    }
+
+    public String findId(FindIdDto requestDto) {
+        User user = userRepository.findByEmail(requestDto.getUser_email()).orElse(null);
+        SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd");
+        if (user == null || !requestDto.getUser_name().equals(user.getUser_name()) || !sdf.format(requestDto.getUser_birthday()).equals(sdf.format(user.getUser_birthday()))) {
+            return "";
+        }
+        return user.getUser_id();
     }
 }

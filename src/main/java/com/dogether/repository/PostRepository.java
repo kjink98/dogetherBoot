@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.dogether.domain.Comment;
+import com.dogether.domain.FavoritePost;
 import com.dogether.domain.ImageFile;
 import com.dogether.domain.Post;
 import com.dogether.mapper.PostMapper;
@@ -104,6 +105,14 @@ public class PostRepository {
 
     public List<Post> selectFavorite(String user_id) {
         return postMapper.selectFavorite(user_id);
+    }
+
+    public void insertFavorite(FavoritePost favoritePost) {
+        postMapper.insertFavorite(favoritePost);
+    }
+
+    public int selectFavoriteOne(int post_id, String user_id) {
+        return postMapper.selectFavoriteOne(post_id, user_id);
     }
     
     public List<Post> selectMyHistory(String user_id) {
