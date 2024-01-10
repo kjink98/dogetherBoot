@@ -47,7 +47,7 @@ function Login () {
         },
         maxRedirects: 0
       });
-      localStorage.setItem("jwt", response.data);
+      localStorage.setItem("jwt", response.data.jwt);
       if (response.status === 302 || response.status === 200) {
         alert('로그인 성공');
         navigate('/');

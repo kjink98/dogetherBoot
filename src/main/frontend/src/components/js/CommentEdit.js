@@ -48,8 +48,6 @@ const CommentEdit = (props) => {
     <div className="comment_edit_box">
       <p>{props.comment.user_nickname}</p>
       
-      
-      
       {props.user_nickname !== props.comment.user_nickname ?
           <span>
           	<p>{props.comment.comment_content}</p>
@@ -58,7 +56,7 @@ const CommentEdit = (props) => {
         ( isEditing ?
         <span>
           <input type="text" defaultValue={props.comment.comment_content} name="comment_content" onChange={(event) => onChangeEdit(event, props.comment.comment_id)} />
-          <button onClick={setComment} className="editbutton">수정</button>
+          <button onClick={setComment} className="editbutton">수정완료</button>
           <button onClick={() => deleteComment(props.comment.comment_id)} className="deletebutton">삭제</button>
         </span>
         :

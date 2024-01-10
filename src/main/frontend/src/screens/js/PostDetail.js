@@ -41,7 +41,7 @@ const PostDetail = () => {
     }
     getPostDetail();
   }, []);
-
+console.log(localStorage.getItem("jwt"))
   // 게시글 삭제
   const onClickDelete = async () => {
       await axios.delete(`/dog/post/delete/${post_id}`, {headers: {Authorization: `Bearer ${localStorage.getItem("jwt")}`}}).then((res) => {
