@@ -58,7 +58,7 @@ const FavoritePost = ({ isLogin }) => {
         {records && records.map((favoritePost, i) => (
           <div key={i} onClick={() => navigate('/post/detail/' + favoritePost.board_category + '/' + favoritePost.post_id)}>
             <div className="card flex-row FavoritePostCard">
-              <img className="FavoritePostCard-img-left" src={`${process.env.PUBLIC_URL}/img/${favoritePost.file_link}`}></img>
+              <img className="FavoritePostCard-img-left" src={require('../../Img/Cafe' + (favoritePost.post_id % 10 + 1) + '.jpg')}></img>
               <div class="FavoritePostCard-body">
                 <p class="FavoritePostCard-title"><b>{favoritePost.post_title}</b></p>
                 <p class="FavoritePostCard-comment"><b>(35)</b></p><br />

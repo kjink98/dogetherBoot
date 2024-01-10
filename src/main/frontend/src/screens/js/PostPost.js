@@ -31,7 +31,7 @@ const PostPost = () => {
   const onClickCancel = () => {
     if (window.confirm("등록을 취소하시겠습니까?") == true) {
       alert('게시글 등록이 취소되었습니다.');
-      navigate(`/post/list/${board_category}`);
+      navigate(-1);
     }
     else {
       return;
@@ -52,7 +52,7 @@ const PostPost = () => {
 
     await axios.post('/dog/post/post', formData, {headers: {Authorization: `Bearer ${localStorage.getItem("jwt")}`}}).then((res) => {
       alert('등록되었습니다');
-      navigate('/post/list/' + board_category); // 이게 작동이 안됨..
+      navigate(-1);
     });
   }
 

@@ -9,6 +9,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 import Myinfomodule from '../css/Myinfo.module.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const PwChange = ({ isLogin }) => {
   const navigate = useNavigate();
@@ -32,6 +33,10 @@ const PwChange = ({ isLogin }) => {
     setPasswordVisible(!passwordVisible);
   };
 
+  const handleCurrentPasswordChange = (e) => {
+    setCurrentPassword(e.target.value);
+  };
+
   const handlePasswordChange = (e) => {
     const newPassword = e.target.value;
     setPassword(newPassword);
@@ -39,10 +44,6 @@ const PwChange = ({ isLogin }) => {
     // 비밀번호 형식 검사 (영어, 숫자, 특수문자가 모두 포함된 8자리)
     const isValid = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$/.test(newPassword);
     setPasswordValid(isValid);
-  };
-
-  const handleCurrentPasswordChange = (e) => {
-    setCurrentPassword(e.target.value);
   };
 
   const handleConfirmPasswordChange = (e) => {
@@ -53,13 +54,21 @@ const PwChange = ({ isLogin }) => {
     setPasswordMismatch(newConfirmPassword !== password);
   };
 
-  const handleConfirmButtonClick = () => {
+  const handleConfirmButtonClick = async () => {
     // 모든 필드가 입력되었고, 비밀번호 형식 및 확인이 일치하는지 검사
+    const param = {
+      exPassword: currentPassword,
+      newPassword: password,
+      newPasswordChk: confirmPassword
+    }
     if (currentPassword && password && confirmPassword && passwordValid && !passwordMismatch) {
       // 추가적인 로직이 필요하다면 여기에 작성
-
-      // 입력된 내용이 모두 확인되면 alert 창 띄우기
-      alert('입력된 내용이 확인되었습니다.');
+      const resp = await axios.post(`/dog/user/changepw`, param,
+      { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } });
+      if (resp.status === 200) {
+        alert(resp.data)
+        navigate('/');
+      }
     } else {
       // 입력된 내용이 부족하거나 비밀번호 형식 불일치 등의 경우에 alert 창 띄우기
       alert('입력된 내용을 다시 확인해주세요.');

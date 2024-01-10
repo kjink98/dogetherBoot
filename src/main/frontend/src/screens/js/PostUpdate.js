@@ -23,7 +23,7 @@ const PostUpdate = () => {
   const [postFiles, setPostFiles] = useState([]);
   useEffect(() => {
     const getPostDetail = async () => {
-      const resp = await axios.get(`/dog/post/detail/${board_category}/${post_id}`)
+      const resp = await axios.get(`/dog/post/detail/${board_category}/${post_id}`, { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } })
       setPostDetail(resp.data.detail);
 
       const fileData = resp.data.files;
@@ -57,26 +57,19 @@ const PostUpdate = () => {
   }
   console.log(files)
   const onClickUpdate = async () => {
-    if (message == '12345') {
-      const formData = new FormData();
 
-      for (let i = 0; i < files.length; i++) {
-        formData.append("files", files[i]);
-      }
-      formData.append("post", new Blob([JSON.stringify(post)], { type: "application/json" }));
+    const formData = new FormData();
 
-      await axios.put(`/dog/post/update`, formData).then((res) => {
-        alert('수정이 완료되었습니다.');
-        navigate('/post_news_list');
-      })
+    for (let i = 0; i < files.length; i++) {
+      formData.append("files", files[i]);
     }
-    else if (message == '') {
-      alert('비밀번호를 입력해주세요.');
-    }
-    else
-      alert('비밀번호가 일치하지 않습니다.');
+    formData.append("post", new Blob([JSON.stringify(post)], { type: "application/json" }));
+
+    await axios.put(`/dog/post/update`, formData, { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }).then((res) => {
+      alert('수정이 완료되었습니다.');
+      navigate(-1);
+    })
   }
-
 
   return (
     <div className="UpdateNews">
@@ -95,11 +88,6 @@ const PostUpdate = () => {
 
             <Form.Group className="NewsUpdateBody" controlId="ControlNewsTextarea">
               <Form.Control className="NewsUpdateContents" as="textarea" defaultValue={postDetail.post_content} name="post_content" onChange={onChange} />
-            </Form.Group>
-
-            <Form.Group className="NewsUpdatePassword" controlId="ControlNewsInput">
-              <Form.Label>수정을 완료하시려면 비밀번호를 입력해주세요.</Form.Label>
-              <Form.Control type="text" placeholder="비밀번호를 입력해주세요." value={message} onChange={(e) => { setMessage(e.target.value) }} />
             </Form.Group>
 
             <div className="NewsUpdateButton">

@@ -21,21 +21,21 @@ const PostDetail = () => {
   // 게시글 내용 불러오기
   useEffect(() => {
     const getPostDetail = async () => {
-      const resp = await axios.get(`/dog/post/detail/${board_category}/${post_id}`, {headers: {Authorization: `Bearer ${localStorage.getItem("jwt")}`}})
+      const resp = await axios.get(`/dog/post/detail/${board_category}/${post_id}`, { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } })
       setPostDetail(resp.data.detail);
-	  setUserCheck(resp.data.userCheck);
-	  setUser_nickname(resp.data.user_nickname);
-      
+      setUserCheck(resp.data.userCheck);
+      setUser_nickname(resp.data.user_nickname);
+
     }
     getPostDetail();
   }, []);
 
   // 게시글 삭제
   const onClickDelete = async () => {
-      await axios.delete(`/dog/post/delete/${post_id}`, {headers: {Authorization: `Bearer ${localStorage.getItem("jwt")}`}}).then((res) => {
-        alert('삭제가 완료되었습니다.');
-        navigate(`/post/list/${board_category}`);
-      })
+    await axios.delete(`/dog/post/delete/${post_id}`, { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }).then((res) => {
+      alert('삭제가 완료되었습니다.');
+      navigate(`/post/list/${board_category}`);
+    })
   }
 
   // 게시글 수정
@@ -56,7 +56,7 @@ const PostDetail = () => {
   const onClickHeart = () => {
     alert('관심글 목록에 추가되었습니다.');
   }
-console.log(postDetail.post_title)
+  console.log(postDetail.post_title)
 
   return (
     <div className="PostNews">
@@ -76,7 +76,7 @@ console.log(postDetail.post_title)
                 <p className="subtitle">{postDetail.user_nickname} | {moment(postDetail.post_create_date).format('YYYY-MM-DD')} | 조회수 : {postDetail.post_views}</p>
               </ListGroup.Item>
               <ListGroup.Item className="NewsDetailBody2">
-              	<div dangerouslySetInnerHTML={{__html: Dompurify.sanitize(postDetail.post_content)}}></div>
+                <div dangerouslySetInnerHTML={{ __html: Dompurify.sanitize(postDetail.post_content) }}></div>
               </ListGroup.Item>
             </ListGroup>
           </Card>
@@ -95,7 +95,7 @@ console.log(postDetail.post_title)
           </div>
 
           {/* 댓글 */}
-          <Comment board_category={board_category} post_id={post_id} user_nickname={user_nickname}/>
+          <Comment board_category={board_category} post_id={post_id} user_nickname={user_nickname} />
         </div>
       </div>
     </div>

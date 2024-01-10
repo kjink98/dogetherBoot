@@ -57,7 +57,7 @@ const FavoritePlace = ({ isLogin }) => {
         {records && records.map((favoritePlace, i) => (
           <div key={i} onClick={() => navigate('/place/detail/' + favoritePlace.place_id)}>
             <div className="card FavoritePlaceCard">
-              <img className="FavoritePlaceCard-img-top" src={`${process.env.PUBLIC_URL}/img/${favoritePlace.file_link}`}></img>
+              <img className="FavoritePlaceCard-img-top" src={require('../../Img/Cafe' + (favoritePlace.place_id % 10 + 1) + '.jpg')}></img>
               <div class="FavoritePlaceCard-body">
                 <p class="FavoritePlaceCard-title">{favoritePlace.place_name}&nbsp;&nbsp;</p>
                 <p class="FavoritePlaceCard-id">{favoritePlace.place_category}&nbsp;&nbsp;</p>

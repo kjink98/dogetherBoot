@@ -128,25 +128,30 @@ public class UserService {
      * 마이페이지에서 비밀번호를 수정하는 메서드입니다.
      */
     @Transactional
-    public void changePassword(ChangePasswordRequestDto requestDto) {
-        // 로그인중인지 확인
-        User user = getCurrentLoggedInMember();
-
+    public void changePassword(ChangePasswordRequestDto requestDto, String user_id) {
+        User user = userRepository.findById(user_id).get();
+        System.out.println("a : " + user_id);
+        System.out.println(requestDto.getExPassword());
+        System.out.println(requestDto.getNewPassword());
+        System.out.println(requestDto.getNewPasswordChk());
         if (user == null || !passwordEncoder.matches(requestDto.getExPassword(), user.getUser_pw())) {
+            System.out.println(1111);
             throw new IllegalArgumentException("현재 비밀번호가 일치하지 않습니다.");
         }
 
         // 비밀번호 null 이거나 빈 문자열 여부 확인
         if (!StringUtils.hasText(requestDto.getExPassword()) || !StringUtils.hasText(requestDto.getNewPassword())
                 || !StringUtils.hasText(requestDto.getNewPasswordChk())) {
+                    System.out.println(2222);
             throw new IllegalArgumentException("비밀번호는 null이거나 빈 문자열일 수 없습니다.");
         }
 
         // 새 비밀번호와 확인 비밀번호 일치 여부 확인
         if (!requestDto.getNewPassword().equals(requestDto.getNewPasswordChk())) {
+            System.out.println(3333);
             throw new IllegalArgumentException("새 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
         }
-
+        System.out.println(4444);
         // 새 비밀번호로 업데이트
         userRepository.updateUserPassword(user.getUser_id(), passwordEncoder.encode(requestDto.getNewPassword()));
     }
