@@ -33,7 +33,7 @@
 }
 
 .RestaurantList .PlaceListCard img {
-	min-width: 200px !important;
+	width: 200px !important;
 	height: 200px !important;
 	object-fit: cover;
 	border-radius: 4px;

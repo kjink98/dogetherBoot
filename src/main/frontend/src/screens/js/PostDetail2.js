@@ -83,12 +83,12 @@ const PostDetail = () => {
 
           {/* 수정/삭제 */}
           <div className="NewsDetailButtons">
-            {userCheck === "yes" ?
-              <div>
-                <Button variant="primary" onClick={onClickModify}>수정하기</Button>
-                <Button variant="danger" onClick={onClickDelete}>삭제하기</Button>
-              </div>
-              : <div></div>
+          	{ userCheck === "yes" ? 
+          	<div className="NewsUserButtons">
+            	<Button variant="primary" onClick={onClickModify}>수정하기</Button>
+            	<Button variant="danger" onClick={onClickDelete}>삭제하기</Button>
+            </div>
+            : <div></div>
             }
             <Button variant="secondary" onClick={onClickHeart}><FontAwesomeIcon icon={faHeart} />&nbsp;게시글 좋아요하기</Button>
             <Button variant="secondary" onClick={() => navigate(`/post/list/${board_category}`)}>목록</Button>
