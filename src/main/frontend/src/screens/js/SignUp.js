@@ -268,8 +268,8 @@ const SignUp = () => {
             <div className='radio_1'>
               {['radio'].map((type) => (
                 <div key={`inline-${type}`} className="radio_2">
-                  <Form.Check inline value="male" label="남성" name="gender" type={type} id={`inline-${type}-1`} onChange={handleInfoChange} />
-                  <Form.Check inline value="female" label="여성" name="gender" type={type} id={`inline-${type}-2`} onChange={handleInfoChange} />
+                  <Form.Check inline value="M" label="남성" name="gender" type={type} id={`inline-${type}-1`} onChange={handleInfoChange} />
+                  <Form.Check inline value="F" label="여성" name="gender" type={type} id={`inline-${type}-2`} onChange={handleInfoChange} />
                 </div>
               ))}
             </div>
@@ -282,8 +282,8 @@ const SignUp = () => {
             <div className='radio_1'>
               {['radio'].map((type) => (
                 <div key={`inline-${type}`} className="radio_2">
-                  <Form.Check inline vlaue="USER" label="일반회원" name="role" type={type} id={`inline-${type}-1`} onChange={handleInfoChange} />
-                  <Form.Check checked inline vlaue="SELLER" label="판매자회원" name="role" type={type} id={`inline-${type}-2`} onChange={handleInfoChange} />
+                  <Form.Check inline value="USER" label="일반회원" name="role" type={type} id={`inline-${type}-1`} onChange={handleInfoChange} />
+                  <Form.Check inline value="SELLER" label="판매자회원" name="role" type={type} id={`inline-${type}-2`} onChange={handleInfoChange} />
                 </div>
               ))}
             </div>
