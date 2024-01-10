@@ -32,7 +32,7 @@ function Index() {
   const setLogo = (e) => {
 	  e.target.src = logo;
   }
-
+console.log(localStorage.getItem("jwt"))
   return (
     <div>
       <IndexCarousel></IndexCarousel>

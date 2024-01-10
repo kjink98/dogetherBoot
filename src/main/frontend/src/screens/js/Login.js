@@ -9,7 +9,7 @@ import axios from 'axios';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+function Login () {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [email, setEmail] = useState('');
 
@@ -36,18 +36,18 @@ const Login = () => {
       alert('아이디와 비밀번호를 입력하세요.');
       return;
     }
-
+    
     try {
       const response = await axios({
         method: 'post',
         url: '/dog/user/login',
-        data: qs.stringify({ user_id: userId, user_pw: userPw }),
+        data: { user_id: userId, user_pw: userPw },
         headers: {
           'content-type': 'application/json'
         },
         maxRedirects: 0
       });
-      localStorage.setItem("jwt", response.data);
+      localStorage.setItem("jwt", response.data.jwt);
       if (response.status === 302 || response.status === 200) {
         alert('로그인 성공');
         navigate('/');
@@ -59,7 +59,7 @@ const Login = () => {
       console.error(error);
     }
   };
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === 'user_id') {
@@ -71,67 +71,71 @@ const Login = () => {
 
   return (
     <>
-        <form className='container_2' onSubmit={handleSubmit}>
-            <div className="info">
-                <p className='ppppp'>로그인</p>
-            </div>
-            <br></br>
-            {/* <FontAwesomeIcon icon="fa-solid fa-user" /> */}
-            <InputGroup className="mb-3">
+      <form className="LoginPage" onSubmit={handleSubmit}>
+        <div className="info">
+            <p className='ppppp'>로그인</p>
+        </div>
+        <br></br>
+        {/* <FontAwesomeIcon icon="fa-solid fa-user" /> */}
+        <div className="LoginForm">
+          <InputGroup className="mb-3">
+              <InputGroup.Text id="basic-addon2">
+                  <FontAwesomeIcon icon={faUser} />
+              </InputGroup.Text>
+              <Form.Control
+                  placeholder="ID"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                  onChange={handleChange}
+                  name="user_id"
+              />
+          </InputGroup>
+
+          <div className='input_1'>
+            <div>
+              <InputGroup className="mb-3">
                 <InputGroup.Text id="basic-addon2">
-                    <FontAwesomeIcon icon={faUser} />
+                    <FontAwesomeIcon icon={faKey} />
                 </InputGroup.Text>
                 <Form.Control
-                    placeholder="ID"
+                    type={passwordVisible ? 'text' : 'password'}
+                    placeholder="Password"
                     aria-label="Username"
                     aria-describedby="basic-addon1"
                     onChange={handleChange}
+                    name="user_pw"
                 />
-            </InputGroup>
-
-            <div className='input_1'>
-                <div>
-                    <InputGroup className="mb-3">
-                        <InputGroup.Text id="basic-addon2">
-                            <FontAwesomeIcon icon={faKey} />
-                        </InputGroup.Text>
-                        <Form.Control
-                            type={passwordVisible ? 'text' : 'password'}
-                            placeholder="비밀번호"
-                            aria-label="Username"
-                            aria-describedby="basic-addon1"
-                            onChange={handleChange}
-                        />
-                    </InputGroup>
-                </div>
-
-                <div className='eye_1'>
-                    <FontAwesomeIcon
-                        icon={faEye}
-                        size="xl"
-                        onClick={togglePasswordVisibility}
-                        className={Myinfomodule['eye-icon']}
-                    />
-                </div>
+              </InputGroup>
             </div>
 
-            <div onClick={handleDivClick} style={{ cursor: 'pointer' }}>
-                <input type="checkbox" checked={isChecked} onChange={() => { }} /> {/* 숨겨진 체크박스 */}
-                로그인 유지하기
+            <div className='eye_1'>
+                <FontAwesomeIcon
+                    icon={faEye}
+                    size="xl"
+                    onClick={togglePasswordVisibility}
+                    className={Myinfomodule['eye-icon']}
+                />
             </div>
-            {/* input checked 속성은 type가 radio, checkbox일때 사용가능하며 기본값이 false */}
+          </div>
 
-            <br />
-            <div className='social'>
-                <button onClick={() => window.location.href = "/oauth2/authorization/google"}><img className="socialimg_google" src={require('../../Img/Google.png')}></img></button>
-                <button onClick={() => window.location.href = "/oauth2/authorization/naver"}><img className="socialimg" src={require('../../Img/Naver.png')}></img></button>
-                <button onClick={() => window.location.href = "/oauth2/authorization/kakao"}><img className="socialimg" src={require('../../Img/Kakao.png')}></img></button>
-            </div>
-            
-            <br />
-            <Button className={Myinfomodule['custom-button']} as="input" type="submit" value="로그인" />{' '}
-        </form>
+          <div onClick={handleDivClick} style={{ cursor: 'pointer' }}>
+            <input type="checkbox" className="login_remain" checked={isChecked} onChange={() => { }} /> {/* 숨겨진 체크박스 */}
+            로그인 유지하기
+          </div>
+          {/* input checked 속성은 type가 radio, checkbox일때 사용가능하며 기본값이 false */}
+
+          <br />
+          <br />
+          <Button className={Myinfomodule['custom-button']} as="input" type="submit" value="로그인" />{' '}
+        </div>
         <br />
+      </form>
+
+      <div className='social'>
+        <button onClick={() => window.location.href = "/oauth2/authorization/google"}><img className="socialimg_google" src={require('../../Img/Google.png')}></img></button>
+        <button onClick={() => window.location.href = "/oauth2/authorization/naver"}><img className="socialimg" src={require('../../Img/Naver.png')}></img></button>
+        <button onClick={() => window.location.href = "/oauth2/authorization/kakao"}><img className="socialimg" src={require('../../Img/Kakao.png')}></img></button>
+      </div>
     </>
   )
 };

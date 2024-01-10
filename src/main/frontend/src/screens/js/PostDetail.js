@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../css/PostDetail2.css';
+import '../css/PostDetail.css';
 import { Form, Button, Card, ListGroup } from 'react-bootstrap';
 import { useNavigate, useParams } from "react-router-dom";
 import CommunitySideBar from '../../components/js/CommunitySideBar.js';
@@ -41,7 +41,7 @@ const PostDetail = () => {
     }
     getPostDetail();
   }, []);
-
+console.log(localStorage.getItem("jwt"))
   // 게시글 삭제
   const onClickDelete = async () => {
     await axios.delete(`/dog/post/delete/${post_id}`, { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }).then((res) => {
@@ -80,7 +80,6 @@ const PostDetail = () => {
     }
   }
 
-
   return (
     <div className="PostNews">
       <CommunitySideBar></CommunitySideBar>
@@ -98,10 +97,13 @@ const PostDetail = () => {
                 <p className="title">{postDetail.post_title}</p>
                 <p className="subtitle">{postDetail.user_nickname} | {moment(postDetail.post_create_date).format('YYYY-MM-DD')} | 조회수 : {postDetail.post_views}</p>
               </ListGroup.Item>
-              <ListGroup.Item className="NewsDetailBody">{postDetail.post_content}<br /><br />
+              <ListGroup.Item className="NewsDetailBody">
+                <div className="NewsDetailText">
+                  {postDetail.post_content}<br /><br />
+                </div>
                 {postFiles &&
-                  <div className="image">
-                    <PostCarousel postFiles={postFiles} />
+                  <div className="NewsDetailImage">
+                    <PostCarousel postFiles={postFiles}/>
                   </div>
                 }
               </ListGroup.Item>

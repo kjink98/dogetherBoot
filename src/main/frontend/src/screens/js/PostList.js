@@ -105,19 +105,20 @@ const PostList = () => {
 
         {/* Post List */}
         <div className="Newscards">
-          {records && records.map((post, i) =>
-            <div key={i} onClick={() => {
-              const path = post.board_category === "news" ? "/post/detail2/" : "/post/detail/"
-              navigate(path + post.board_category + "/" + post.post_id)
-            }}>
-              <div className="card PostNewsCard">
-                <img src={`${process.env.PUBLIC_URL}/img/${post.file_link}`} onError={setLogo}>
-                </img>
-                <div class="PostNewsCard-body">
-                  <p class="PostNewsCard-title">{post.post_title}</p>
-                  <p class="PostNewsCard-comment">(35)</p><br />
-                  <p class="PostNewsCard-id">{post.user_nickname} | 작성일자 : {moment(post.post_create_date).format('YYYY-MM-DD')} | 조회수 : {post.post_views}</p><br />
-                  {post.board_category === "news" ? "" : <p class="PostNewsCard-detail">{post.post_content}</p>}
+          {records && records.map((post, i) => 
+          <div key={i} onClick={() => {
+            const path = post.board_category === "news" ? "/post/detail2/" : "/post/detail/"
+            navigate(path + post.board_category + "/" + post.post_id)
+          }}>
+				<div className="card PostNewsCard">
+                  <img src={`${process.env.PUBLIC_URL}/img/${post.file_link}`} onError={setLogo}>
+                  </img>
+                  <div class="PostNewsCard-body">
+                    <p class="PostNewsCard-title">{post.post_title}</p>
+                    <p class="PostNewsCard-comment">(35)</p><br /><br />
+                    <p class="PostNewsCard-id">{post.user_nickname} | 작성일자 : {moment(post.post_create_date).format('YYYY-MM-DD')} | 조회수 : {post.post_views}</p>
+                    {post.board_category === "news" ? "" : <p class="PostNewsCard-detail">{post.post_content}</p>}
+                  </div>
                 </div>
               </div>
             </div>)}

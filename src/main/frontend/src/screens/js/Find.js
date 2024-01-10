@@ -96,7 +96,7 @@ const Find = () => {
         <div className='right_3'>
           <div className="info">
             <p className='ppppp'>PW 찾기</p> <br />
-            회원가입 할 때 등록한 이메일 주소, 이름, 생년월일을
+            회원가입 할 때 등록한 이메일 주소, ID, 이름을
             입력해주세요.
           </div>
           <br></br>
@@ -117,7 +117,7 @@ const Find = () => {
                 <FontAwesomeIcon icon={faUser} />
               </InputGroup.Text>
               <Form.Control
-                placeholder="user name"
+                placeholder="ID"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
               />
@@ -127,7 +127,7 @@ const Find = () => {
                 이름
               </InputGroup.Text>
               <Form.Control
-                placeholder="이름"
+                placeholder="이름을 입력하세요"
                 aria-label="Birthdate"
                 aria-describedby="basic-addon1"
               />
