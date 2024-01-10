@@ -103,7 +103,7 @@ console.log(localStorage.getItem("jwt"))
           {/* 수정/삭제 */}
           <div className="NewsDetailButtons">
           	{ userCheck === "yes" ? 
-          	<div>
+          	<div className="NewsUserButtons">
             	<Button variant="primary" onClick={onClickModify}>수정하기</Button>
             	<Button variant="danger" onClick={onClickDelete}>삭제하기</Button>
             </div>
