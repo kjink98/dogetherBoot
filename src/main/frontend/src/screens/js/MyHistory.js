@@ -57,7 +57,7 @@ const MyHistory = ({ isLogin }) => {
         {records && records.map((myPost, i) => (
           <div key={i} onClick={() => navigate('/post/detail/' + myPost.board_category + '/' + myPost.post_id)}>
             <div className="card flex-row MyHistoryCard">
-              <img className="MyHistoryCard-img-left" src={`${process.env.PUBLIC_URL}/img/${myPost.file_link}`}></img>
+              <img className="MyHistoryCard-img-left" src={require('../../Img/Cafe' + (myPost.post_id % 10 + 1) + '.jpg')}></img>
               <div class="MyHistoryCard-body">
                 <p class="MyHistoryCard-title"><b>{myPost.post_title}</b></p>
                 <p class="MyHistoryCard-comment"><b>(33)</b></p><br />

@@ -41,7 +41,7 @@ const PostDetail = () => {
     }
     getPostDetail();
   }, []);
-console.log(localStorage.getItem("jwt"))
+  console.log(localStorage.getItem("jwt"))
   // 게시글 삭제
   const onClickDelete = async () => {
     await axios.delete(`/dog/post/delete/${post_id}`, { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }).then((res) => {
@@ -52,17 +52,7 @@ console.log(localStorage.getItem("jwt"))
 
   // 게시글 수정
   const onClickModify = () => {
-    let pw = '12345';
-    var password = prompt('수정을 원하시면 비밀번호를 입력해주세요.');
-    console.log(password);
-
-    if (pw == password) {
-      navigate("/post/update/" + board_category + "/" + post_id)
-    }
-
-    else {
-      alert('비밀번호가 일치하지 않습니다.');
-    }
+    navigate("/post/update/" + board_category + "/" + post_id);
   }
 
   const onClickHeart = async () => {
@@ -103,7 +93,7 @@ console.log(localStorage.getItem("jwt"))
                 </div>
                 {postFiles &&
                   <div className="NewsDetailImage">
-                    <PostCarousel postFiles={postFiles}/>
+                    <PostCarousel postFiles={postFiles} />
                   </div>
                 }
               </ListGroup.Item>

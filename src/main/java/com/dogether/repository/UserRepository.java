@@ -52,6 +52,7 @@ public class UserRepository {
      * 새로운 비밀번호는 암호화된 상태로 저장
      */
     public void updateUserPassword(String user_id, String newPassword) {
+        System.out.println("a : " + user_id);
         userMapper.updateUserPassword(user_id, newPassword);
     }
     

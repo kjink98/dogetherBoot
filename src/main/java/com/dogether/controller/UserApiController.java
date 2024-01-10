@@ -36,10 +36,11 @@ public class UserApiController {
     /*
      * 비밀번호 변경 요청을 처리하는 API UserService의 changePassword 메서드를 호출하여 비밀번호 변경 로직을 수행
      */
-    @PostMapping("/changePw")
-    public ResponseEntity<String> changePassword(ChangePasswordRequestDto requestDto) {
+    @PostMapping("/changepw")
+    public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequestDto requestDto, Authentication authentication) {
+        String user_id = authentication.getName();
         try {
-            userService.changePassword(requestDto);
+            userService.changePassword(requestDto, user_id);
             return ResponseEntity.ok("비밀번호 변경이 완료되었습니다.");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -133,7 +134,6 @@ public class UserApiController {
             e.printStackTrace();
         }
         if (user_id == "") {
-            System.out.println("-----------------------");
             return null;
         }
         User user = userService.findOne(user_id).get();
