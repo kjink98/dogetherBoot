@@ -9,7 +9,7 @@ import axios from 'axios';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 
-function Login () {
+function Login({ setIsLogin }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [email, setEmail] = useState('');
 
@@ -36,9 +36,9 @@ function Login () {
       alert('아이디와 비밀번호를 입력하세요.');
       return;
     }
-    
+
     try {
-      const response = await axios({
+      const resp = await axios({
         method: 'post',
         url: '/dog/user/login',
         data: { user_id: userId, user_pw: userPw },
@@ -47,19 +47,19 @@ function Login () {
         },
         maxRedirects: 0
       });
-      localStorage.setItem("jwt", response.data.jwt);
-      if (response.status === 302 || response.status === 200) {
-        alert('로그인 성공');
+      if (resp.status === 302 || resp.status === 200) {
+        localStorage.setItem("jwt", resp.data.jwt);
+        alert(`${resp.data.nickname}님 환영합니다!`);
+        setIsLogin(true);
         navigate('/');
       } else {
         alert('로그인 실패');
       }
     } catch (error) {
       alert('로그인 요청 중 오류가 발생했습니다.');
-      console.error(error);
     }
   };
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === 'user_id') {
@@ -73,48 +73,48 @@ function Login () {
     <>
       <form className="LoginPage" onSubmit={handleSubmit}>
         <div className="info">
-            <p className='ppppp'>로그인</p>
+          <p className='ppppp'>로그인</p>
         </div>
         <br></br>
         {/* <FontAwesomeIcon icon="fa-solid fa-user" /> */}
         <div className="LoginForm">
           <InputGroup className="mb-3">
-              <InputGroup.Text id="basic-addon2">
-                  <FontAwesomeIcon icon={faUser} />
-              </InputGroup.Text>
-              <Form.Control
-                  placeholder="ID"
-                  aria-label="Username"
-                  aria-describedby="basic-addon1"
-                  onChange={handleChange}
-                  name="user_id"
-              />
+            <InputGroup.Text id="basic-addon2">
+              <FontAwesomeIcon icon={faUser} />
+            </InputGroup.Text>
+            <Form.Control
+              placeholder="ID"
+              aria-label="Username"
+              aria-describedby="basic-addon1"
+              onChange={handleChange}
+              name="user_id"
+            />
           </InputGroup>
 
           <div className='input_1'>
             <div>
               <InputGroup className="mb-3">
                 <InputGroup.Text id="basic-addon2">
-                    <FontAwesomeIcon icon={faKey} />
+                  <FontAwesomeIcon icon={faKey} />
                 </InputGroup.Text>
                 <Form.Control
-                    type={passwordVisible ? 'text' : 'password'}
-                    placeholder="Password"
-                    aria-label="Username"
-                    aria-describedby="basic-addon1"
-                    onChange={handleChange}
-                    name="user_pw"
+                  type={passwordVisible ? 'text' : 'password'}
+                  placeholder="Password"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                  onChange={handleChange}
+                  name="user_pw"
                 />
               </InputGroup>
             </div>
 
             <div className='eye_1'>
-                <FontAwesomeIcon
-                    icon={faEye}
-                    size="xl"
-                    onClick={togglePasswordVisibility}
-                    className={Myinfomodule['eye-icon']}
-                />
+              <FontAwesomeIcon
+                icon={faEye}
+                size="xl"
+                onClick={togglePasswordVisibility}
+                className={Myinfomodule['eye-icon']}
+              />
             </div>
           </div>
 

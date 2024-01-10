@@ -193,47 +193,42 @@ const SignUp = () => {
         <div className={`text-success ${idValid.code === "fail" ? "visible" : "hidden"}`} style={{ fontWeight: 'bold' }} >{idValid.msg}</div>
 
 
-        <div className='Login_1'>
-          <div className='input_1'>
+        <div className='input_1'>
+          <div>
             <InputGroup className="mb-3">
               <InputGroup.Text id="basic-addon1">현재 비밀번호</InputGroup.Text>
               <Form.Control type={passwordVisible ? 'text' : 'password'} placeholder="현재 비밀번호" aria-label="Username" aria-describedby="basic-addon1" onChange={handlePasswordChange} />
             </InputGroup>
-            <div className='eye_1'>
-              <FontAwesomeIcon
-                icon={faEye}
-                size="xl"
-                onClick={togglePasswordVisibility}
-                className={Myinfomodule['eye-icon']}
-              />
-            </div>
           </div>
-        </div>
-        <div className='msgAlert'>
-          {!passwordValid && (
-            <div className='password-warning text-danger' style={{ fontWeight: 'bold', color: 'red' }}>
-              최소 8자 이상이어야 하며, 숫자, 영어, 특수 문자를 포함해야 합니다.
-            </div>
-          )}
-        </div>
 
-
-        <div className='Login_1'>
-          <div className='input_1'>
-            <InputGroup className="mb-3">
-              <InputGroup.Text id="basic-addon1">비밀번호 확인</InputGroup.Text>
-              <Form.Control type={passwordVisible ? 'text' : 'password'} placeholder="비밀번호 확인" aria-label="Username" aria-describedby="basic-addon1" onChange={handleConfirmPasswordChange} />
-            </InputGroup>
+          <div className='eye_1'>
+            <FontAwesomeIcon
+              icon={faEye}
+              size="xl"
+              onClick={togglePasswordVisibility}
+              className={Myinfomodule['eye-icon']}
+            />
           </div>
-        </div>
-        <div className='msgAlert'>
 
-          {passwordMismatch && (
-            <div className='password-warning text-danger fail' style={{ fontWeight: 'bold', color: 'red' }}>
-              비밀번호 확인이 일치하지 않습니다.
-            </div>
-          )}
         </div>
+
+        {!passwordValid && (
+          <div className='password-warning' style={{ fontWeight: 'bold', color: 'red' }}>
+            최소 8자 이상이어야 하며, 숫자, 영어, 특수 문자를 포함해야 합니다.
+          </div>
+        )}
+
+
+        <InputGroup className="mb-3">
+          <InputGroup.Text id="basic-addon1">비밀번호 확인</InputGroup.Text>
+          <Form.Control type={passwordVisible ? 'text' : 'password'} placeholder="비밀번호 확인" aria-label="Username" aria-describedby="basic-addon1" onChange={handleConfirmPasswordChange} />
+        </InputGroup>
+
+        {passwordMismatch && (
+          <div className='password-warning fail' style={{ fontWeight: 'bold', color: 'red' }}>
+            비밀번호 확인이 일치하지 않습니다.
+          </div>
+        )}
 
         <InputGroup className="mb-3">
           <InputGroup.Text id="basic-addon1">이메일 등록</InputGroup.Text>
@@ -242,7 +237,7 @@ const SignUp = () => {
         </InputGroup>
 
         {!emailValid && (
-          <div className='email-warning text-danger' style={{ fontWeight: 'bold', color: 'red' }}>올바른 이메일 형식이 아닙니다.</div>
+          <div className='email-warning fail' style={{ fontWeight: 'bold', color: 'red' }}>올바른 이메일 형식이 아닙니다.</div>
         )}
 
         <InputGroup className="mb-3">
@@ -287,8 +282,8 @@ const SignUp = () => {
             <div className='radio_1'>
               {['radio'].map((type) => (
                 <div key={`inline-${type}`} className="radio_2">
-                  <Form.Check inline value="USER" label="일반회원" name="role" type={type} id={`inline-${type}-1`} onChange={handleInfoChange} />
-                  <Form.Check inline value="SELLER" label="판매자회원" name="role" type={type} id={`inline-${type}-2`} onChange={handleInfoChange} />
+                  <Form.Check inline vlaue="USER" label="일반회원" name="role" type={type} id={`inline-${type}-1`} onChange={handleInfoChange} />
+                  <Form.Check checked inline vlaue="SELLER" label="판매자회원" name="role" type={type} id={`inline-${type}-2`} onChange={handleInfoChange} />
                 </div>
               ))}
             </div>

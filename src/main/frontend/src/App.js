@@ -65,7 +65,7 @@ function App() {
 
         {/* 유저 */}
         <Route path="/user/login" element={<LoginForm setIsLogin={setIsLogin} />}></Route>
-        <Route path="/login" element={<Login />}></Route>
+        <Route path="/login" element={<Login setIsLogin={setIsLogin} />}></Route>
         <Route path="/sign-up" element={<SignUp />}></Route>
         <Route path="/find" element={<Find />}></Route>
 

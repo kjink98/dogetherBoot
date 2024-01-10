@@ -64,7 +64,7 @@ const PwChange = ({ isLogin }) => {
     if (currentPassword && password && confirmPassword && passwordValid && !passwordMismatch) {
       // 추가적인 로직이 필요하다면 여기에 작성
       const resp = await axios.post(`/dog/user/changepw`, param,
-      { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } });
+        { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } });
       if (resp.status === 200) {
         alert(resp.data)
         navigate('/');
@@ -74,6 +74,12 @@ const PwChange = ({ isLogin }) => {
       alert('입력된 내용을 다시 확인해주세요.');
     }
   };
+  
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleConfirmButtonClick();
+    }
+  };
 
   return (
     <>
@@ -81,25 +87,29 @@ const PwChange = ({ isLogin }) => {
       <div className="container_1">
         <p className='ppppp'>비밀번호 변경</p>
         <br></br>
-        <h4 className='pwc_3'>현재 비밀번호를 입력해 주세요</h4>
 
-        <div className='Login_1'>
-          <div className='input_1'>
+        <div className='input_1'>
+
+          <div>
             <InputGroup className="mb-3">
+
               <InputGroup.Text id="basic-addon2">
                 <FontAwesomeIcon icon={faKey} />
               </InputGroup.Text>
 
               <Form.Control
                 type={passwordVisible ? 'text' : 'password'}
-                placeholder="현재 비밀번호"
+                placeholder="현재 비밀번호를 입력해 주세요"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
                 onChange={handleCurrentPasswordChange}
+                onKeyDown={handleKeyPress}  // enter 키
               />
+
             </InputGroup>
           </div>
-          <div className='eye_3'>
+
+          <div className='eye_1'>
             <FontAwesomeIcon
               icon={faEye}
               size="xl"
@@ -107,58 +117,61 @@ const PwChange = ({ isLogin }) => {
               className={Myinfomodule['eye-icon']}
             />
           </div>
+
         </div>
+
         <br />
 
-        <h4 className='pwc_3'>변경할 비밀번호를 입력해 주세요</h4>
-        <div className='Login_1'>
-          <div className='input_1'>
-            <InputGroup className="mb-3">
-              <InputGroup.Text id="basic-addon2">
-                <FontAwesomeIcon icon={faKey} />
-              </InputGroup.Text>
-              <Form.Control
-                type={passwordVisible ? 'text' : 'password'}
-                placeholder="변경할 비밀번호"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-                onChange={handlePasswordChange}
-              />
-            </InputGroup>
-          </div>
-        </div>
+        <InputGroup className="mb-3">
+
+          <InputGroup.Text id="basic-addon2">
+            <FontAwesomeIcon icon={faKey} />
+          </InputGroup.Text>
+
+          <Form.Control
+            type={passwordVisible ? 'text' : 'password'}
+            placeholder="변경할 비밀번호를 입력해 주세요"
+            aria-label="Username"
+            aria-describedby="basic-addon1"
+            onChange={handlePasswordChange}
+            onKeyDown={handleKeyPress}
+          />
+
+        </InputGroup>
+
         {!passwordValid && (
-          <div className='password-warning text-danger' style={{ fontWeight: 'bold', color: 'red' }}>
+          <div className='password-warning' style={{ fontWeight: 'bold', color: 'red' }}>
             최소 8자 이상이어야 하며, 숫자, 영어,특수 문자를 모두 포함해야 합니다.
           </div>
         )}
+
         <br />
 
-        <h4 className='pwc_3'>변경하려는 비밀번호를 다시 한 번 입력해 주세요</h4>
+        <InputGroup className="mb-3">
 
-        <div className='pwc_2'>
-          <div className='pwc_3'>
-            <InputGroup className="mb-3">
-              <InputGroup.Text id="basic-addon2">
-                <FontAwesomeIcon icon={faKey} />
-              </InputGroup.Text>
-              <Form.Control
-                type={passwordVisible ? 'text' : 'password'}
-                placeholder="변경할 비밀번호 확인"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-                onChange={handleConfirmPasswordChange}
-              />
-            </InputGroup>
-          </div>
-        </div>
+          <InputGroup.Text id="basic-addon2">
+            <FontAwesomeIcon icon={faKey} />
+          </InputGroup.Text>
+
+          <Form.Control
+            type={passwordVisible ? 'text' : 'password'}
+            placeholder="변경할 비밀번호를 다시 한 번 입력해 주세요"
+            aria-label="Username"
+            aria-describedby="basic-addon1"
+            onChange={handleConfirmPasswordChange}
+            onKeyDown={handleKeyPress}
+          />
+
+        </InputGroup>
 
         {passwordMismatch && (
-          <div className='password-warning text-danger' style={{ fontWeight: 'bold', color: 'red' }}>
+          <div className='password-warning fail' style={{ fontWeight: 'bold', color: 'red' }}>
             비밀번호 확인이 일치하지 않습니다.
           </div>
         )}
+
         <br />
+
         <Button onClick={handleConfirmButtonClick} className={Myinfomodule['custom-button']} as="input" type="button" value="확인" />{' '}
       </div>
     </>

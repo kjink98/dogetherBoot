@@ -6,6 +6,7 @@ import { faCircleUser, faMagnifyingGlass } from "@fortawesome/free-solid-svg-ico
 
 const NavBar = ({ isLogin, setIsLogin }) => {
   const logout = useCallback(() => {
+    alert("로그아웃 되었습니다.")
     localStorage.removeItem("jwt");
     setIsLogin(false);
   });
@@ -47,11 +48,10 @@ const NavBar = ({ isLogin, setIsLogin }) => {
             </NavDropdown>
 
             <NavDropdown title={<FontAwesomeIcon icon={faCircleUser} />} id="collasible-nav-dropdown" className="User">
-              {isLogin == false ? <NavDropdown.Item href="/user/login">로그인</NavDropdown.Item>
+              {isLogin == false ? <NavDropdown.Item href="/login">로그인</NavDropdown.Item>
                 : <NavDropdown.Item onClick={logout}>로그아웃</NavDropdown.Item>}
               {isLogin == false ? <NavDropdown.Item href="/sign-up">회원가입</NavDropdown.Item> : ""}
               {isLogin == false ? <NavDropdown.Item href="/find">ID/PW 찾기</NavDropdown.Item> : ""}
-              <NavDropdown.Item href="/login">소셜 로그인</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

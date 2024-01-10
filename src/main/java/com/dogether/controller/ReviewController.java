@@ -29,7 +29,7 @@ public class ReviewController {
         return reviews;
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public boolean saveReview(@RequestBody Review review, Authentication authentication) {
         String user_id = authentication.getName();
         String user_nickname = userService.findOne(user_id).get().getUser_nickname();
