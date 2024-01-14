@@ -19,9 +19,7 @@
         <li><a href="#login">로그인</a></li>
         <li><a href="#myInfo">내 정보 확인</a></li>
         <li><a href="#place">장소 추천</a></li>
-        <li><a href="#place-detail2">장소 추천2</a></li>
-        <li><a href="#place-detail3">장소 추천3</a></li>
-        <li><a href="#notice">공지사항</a></li>
+        <li><a href="#community">공지사항</a></li>
       </ul>
     </li>
   </ol>
@@ -92,6 +90,8 @@
     - 장소 바로 가기
     - 뉴스 / 홍보 게시판 글 보여주기
 
+
+------------
 ## 회원가입, 로그인
 
  1. <h3 id="register">회원가입</h3>
@@ -176,7 +176,7 @@
 
 ------------
 
-2. <h3 id="place-detail2">장소 추천 상세 페이지</h3>
+2. <h3>장소 추천 상세 페이지</h3>
 
 
 ![image](https://github.com/kjink98/dogetherBoot/assets/113023365/ca956f35-2ff3-41e0-bc73-5a284baec333)
@@ -192,7 +192,7 @@
 
 ------------
 
-3. <h3 id="place-detail3">장소 추천 상세 페이지2</h3>
+3. <h3>장소 추천 상세 페이지2</h3>
 
 
 ![image](https://github.com/kjink98/dogetherBoot/assets/113023365/137bd44d-5ae5-4452-969d-0d02c3946833)
@@ -208,31 +208,70 @@
 ------------
 ## Community
 
-1. <h3 id="notice">공지사항</h3>
-여기부터
-![image](https://github.com/kjink98/DogetherJSP/assets/113023365/234436c9-98b7-40ea-94ed-26d9c29da0d1)
+1. <h3 id="community">공지사항</h3>
 
+![image](https://github.com/kjink98/dogetherBoot/assets/113023365/60203bae-b179-4aa9-bf8a-0e84d5fa937d)
 
-**회원가입**
+**공지사항**
 
  * 구현 기능 설명
-    - 회원 가입 페이지
-    - 아이디 중복 검사
-    - 비밀번호 체크
-    - 이메일 중복 검사
+    - 게시글 리스트
+    - 검색
+    - 페이징
+    - 게시글 작성 페이지 이동
 
 ------------
 
-2. <h3>로그인</h3>
-![image](https://github.com/kjink98/DogetherJSP/assets/113023365/872c29bd-0d44-4400-a68e-1aa7ea70dba8)
+2. <h3>공지사항</h3>
+![image](https://github.com/kjink98/dogetherBoot/assets/113023365/59f67dc6-989a-4178-ae87-e35a12a943c4)
 
 
-**로그인**
+**공지사항**
 
  * 구현 기능 설명
-    - 로그인
+    - 게시글 리스트
+    - 조회수
+    - 게시글 좋아요
+    - 댯굴 등록 / 수정 / 삭제
 
 
 ------------
-    
+
+3.  <h3>후기</h3>
+
+![image](https://github.com/kjink98/dogetherBoot/assets/113023365/69639023-269b-47c2-8a17-08a1fb129759)
+
+**후기**
+
+ * 구현 기능 설명
+    - 게시글 리스트
+    - 게시글 등록
+    - 이미지 등록
+
+------------
+
+4. <h3>후기</h3>
+![image](https://github.com/kjink98/dogetherBoot/assets/113023365/fdee6a54-1cec-4e85-93cd-aa127d30a934)
+
+
+**후기**
+
+ * 구현 기능 설명
+    - 게시글 이미지
+    - 게시글 수정 / 삭제
+
+------------
+
+ 5. <h3>뉴스 / 컬럼</h3>
+
+
+![image](https://github.com/kjink98/dogetherBoot/assets/113023365/facd8edd-1407-45a4-ba8a-275b3027afd1)
+
+
+  **뉴스 / 컬럼**
+   
+  * 구현 기능 설명
+    - 게시글 등록
+   
+  ------------ 
 <p align="center">
