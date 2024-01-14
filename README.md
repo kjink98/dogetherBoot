@@ -14,9 +14,14 @@
     </li>
     <li><a href="#구현-기능">구현 기능</a>
       <ul>
-        <li><a href="#community">커뮤니티 게시판</a></li>
-        <li><a href="#place">장소 추천 게시판</a></li>
+        <li><a href="#main">메인페이지</a></li>
+        <li><a href="#register">회원가입입</a></li>
         <li><a href="#login">로그인</a></li>
+        <li><a href="#myInfo">내 정보 확인</a></li>
+        <li><a href="#place">장소 추천</a></li>
+        <li><a href="#place-detail2">장소 추천2</a></li>
+        <li><a href="#place-detail3">장소 추천3</a></li>
+        <li><a href="#notice">공지사항</a></li>
       </ul>
     </li>
   </ol>
@@ -59,7 +64,7 @@
   - 커뮤니티 게시판 CRUD
   - 장소 추천 게시판 CRUD
 
-* 화면 구성도
+* 화면 구성도 <br>
 ![image](https://github.com/kjink98/dogetherBoot/assets/113023365/2ac5aab7-19ee-4aaa-a04f-4a46d4b14508)
 
 
@@ -71,60 +76,140 @@
 
 # 📝구현 기능
 
-## 커뮤니티 게시판
+## 메인 페이지
 
- 1. <h3 id="place">커뮤니티 조회</h3>
+ 1. <h3 id="main">메인페이지</h3>
 
-![커뮤니티 조회](https://github.com/kjink98/DogetherJSP/assets/113023365/771f5e8c-5ad3-4a56-9c77-cf0fd5477bdf)
-![image](https://github.com/kjink98/DogetherJSP/assets/113023365/4adf2fb4-1c88-43a6-9a0b-72e4bd72c6e0)
-
+![image](https://github.com/kjink98/dogetherBoot/assets/113023365/740a6556-d448-4984-9b84-6e6476d24fe0)
 
 
-  **사이트 내 커뮤니티 게시판 페이지**
+
+
+  **메인 페이지**
    
   * 구현 기능 설명
-    - 각 게시판 글 목록 조회
-    - 페이징을 통해 게시글 목록 넘기기
-    - 게시글 상세 조회 (제목, 내용, 날짜, 조회수)
-    - 목록으로 이동
-   
- 2. <h3 id="place">커뮤니티 작성</h3>
+    - 네비게이션바 : 페이지 이동
+    - 장소 바로 가기
+    - 뉴스 / 홍보 게시판 글 보여주기
 
-![image](https://github.com/kjink98/DogetherJSP/assets/113023365/fc228275-8cd7-4ef2-87cb-e7f68a2684fe)
+## 회원가입, 로그인
+
+ 1. <h3 id="register">회원가입</h3>
+
+![image](https://github.com/kjink98/dogetherBoot/assets/113023365/be6d7f91-78d8-4e82-8186-f907b4f79ab3)
 
 
 
-  **사이트 내 커뮤니티 게시판 페이지**
+
+  **회원 가입**
    
   * 구현 기능 설명
-    - 글쓰기 기능
-    - 사진 첨부 기능
+    - 중복 확인
+    - 유효성 검사
+    - 비밀번호 보이기
+   
+  ------------ 
+   
+  2. <h3 id="login">로그인</h3>
 
+![image](https://github.com/kjink98/dogetherBoot/assets/113023365/32cf6781-137a-4106-bc6e-1c99cdee7201)
+
+
+  **로그인**
+   
+  * 구현 기능 설명
+    - JWT 발급
+    - 비밀번호 보이기
+    - 소셜로그인 (OAuth2.0)
+
+
+
+------------ 
+
+
+ 3. <h3 id="myInfo">내 정보 확인</h3>
+
+![image](https://github.com/kjink98/dogetherBoot/assets/113023365/8f69377a-4e85-4249-8ed3-72ea2e1e6031)
+
+
+
+  **내 정보 확인**
+   
+  * 구현 기능 설명
+    - 내 정보 확인
+    - 회원 탈퇴
+   
+    
+------------
+
+
+
+ 4. <h3 id="myInfo">내 관심 장소 모아보기 / 내 활동 내역</h3>
+
+
+![image](https://github.com/kjink98/dogetherBoot/assets/113023365/cdebb9ee-29ea-490d-bbd0-eb3b5741e247)
+
+
+
+  **내 관심 장소 모아보기 / 내 활동 내역**
+   
+  * 구현 기능 설명
+    - 사이드 바 : 페이지 이동
+    - 내 관심장소 / 내 활동 내역 보여주기
+    - 페이징  
+    
 ------------
 ## 장소 추천 게시판
 
 
-1. <h3 id="place">장소 추천 게시판 조회</h3>
+1. <h3 id="place">장소 추천 목록</h3>
 
-![image](https://github.com/kjink98/DogetherJSP/assets/113023365/21af025e-9e27-4c91-9582-0fcd4fd84559)
+![image](https://github.com/kjink98/dogetherBoot/assets/113023365/9e52f0a5-2112-4cd6-87a7-e96b95f6b3ca)
 
 
-  **장소 추천 게시판 페이지**
+
+  **장소 추천 목록**
   
   * 구현 기능 설명
-    - 장소 추천 게시판 글 목록 조회
-    - 사진이 등록된 게시글은 첫번째 사진으로 썸네일 등록
-    - 썸네일이 없는 게시글은 기본 이미지로 대체
-    - 클릭 시, 게시글 상세조회 페이지로 넘어감
-    - 페이징 처리
-    - 이미지가 등록된 게시글은 이미지도 함께 조회됨.
-
-
+    - 장소 필터
+    - 평점
 
 ------------
-## Login
 
-1. <h3 id="login">회원가입</h3>
+2. <h3 id="place-detail2">장소 추천 상세 페이지</h3>
+
+
+![image](https://github.com/kjink98/dogetherBoot/assets/113023365/ca956f35-2ff3-41e0-bc73-5a284baec333)
+
+
+
+  **장소 추천 상세 페이지**
+  
+  * 구현 기능 설명
+    - 관심 장소 등록
+    - 가게 정보 / 리뷰
+    - 카카오 지도 API
+
+------------
+
+3. <h3 id="place-detail3">장소 추천 상세 페이지2</h3>
+
+
+![image](https://github.com/kjink98/dogetherBoot/assets/113023365/137bd44d-5ae5-4452-969d-0d02c3946833)
+
+
+
+  **장소 추천 상세 페이지 2**
+  
+  * 구현 기능 설명
+    - 리뷰 등록 / 수정 / 삭제
+    - 별점 부여
+
+------------
+## Community
+
+1. <h3 id="notice">공지사항</h3>
+여기부터
 ![image](https://github.com/kjink98/DogetherJSP/assets/113023365/234436c9-98b7-40ea-94ed-26d9c29da0d1)
 
 
